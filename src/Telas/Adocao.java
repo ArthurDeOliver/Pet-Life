@@ -2,14 +2,13 @@ package Telas;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Home {
+public class Adocao {
 
 	private JFrame frame;
 
@@ -20,7 +19,7 @@ public class Home {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home window = new Home();
+					Adocao window = new Adocao();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,7 +31,7 @@ public class Home {
 	/**
 	 * Create the application.
 	 */
-	public Home() {
+	public Adocao() {
 		initialize();
 	}
 
@@ -49,21 +48,7 @@ public class Home {
 		frame.getContentPane().setLayout(null);
 		
 		//botões navegação
-		
-		
 		JButton btnPets = new JButton("Pets");
-		
-		//mudanças ação botão
-		btnPets.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Pets telaPets = new Pets();
-				Home telaHome = new Home();
-				telaHome.frame.setVisible(false);
-				telaPets.setVisible(true);
-				
-			}
-		});
-		
 		btnPets.setBounds(307, 31, 99, 41);
 		frame.getContentPane().add(btnPets);
 		
@@ -81,17 +66,15 @@ public class Home {
 		label.setBounds(39, 21, 161, 61);
 		frame.getContentPane().add(label);
 		
-		JLabel lblNewLabel = new JLabel("PetLife");
-		lblNewLabel.setEnabled(false);
-		lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 50));
-		lblNewLabel.setBounds(329, 255, 210, 66);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel petsTxt = new JLabel("Adoção");
+		petsTxt.setFont(new Font("JetBrains Mono NL Medium", Font.PLAIN, 24));
+		petsTxt.setBounds(39, 114, 84, 33);
+		frame.getContentPane().add(petsTxt);
 		
-		JLabel lblNewLabel_1 = new JLabel("Cuidando das informações vitais dos pets");
-		lblNewLabel_1.setEnabled(false);
-		lblNewLabel_1.setFont(new Font("JetBrains Mono", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(332, 332, 360, 22);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel iconeCoracao = new JLabel("");
+		iconeCoracao.setIcon(new ImageIcon("C:\\Users\\Arthur.Angelo\\Downloads\\coracao.png"));
+		iconeCoracao.setBounds(136, 118, 24, 24);
+		frame.getContentPane().add(iconeCoracao);
 	}
 
 }
