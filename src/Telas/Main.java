@@ -52,6 +52,7 @@ public class Main {
 		//carregar imagem
         
         frame = new JFrame();
+        frame.getContentPane().setBackground(new Color(84, 97, 207));
         frame.setTitle("PetLife");       
         frame.setResizable(false);
         frame.setBounds(100, 100, 940, 600);

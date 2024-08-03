@@ -33,7 +33,7 @@ public class Home extends JPanel {
 		lblNewLabel_1.setBounds(359, 159, 230, 78);
 		add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Cuidando dos recursos dos pets");
+		JLabel lblNewLabel_2 = new JLabel("Gerenciando a vida dos pets");
 		lblNewLabel_2.setEnabled(false);
 		lblNewLabel_2.setFont(new Font("JetBrains Mono", Font.PLAIN, 14));
 		lblNewLabel_2.setBounds(365, 233, 248, 14);
