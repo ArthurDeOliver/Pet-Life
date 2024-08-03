@@ -1,97 +1,49 @@
 package Telas;
 
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import java.awt.Font;
+import java.net.URL;
 
-public class Home {
+public class Home extends JPanel {
 
-	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Home window = new Home();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Create the application.
+	 * Create the panel.
 	 */
 	public Home() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setTitle("PetLife");
-		frame.setResizable(false); //permite que a tela não seja aumentada
-		//tamanho padrão telas (940, 600)
-		frame.setBounds(100, 100, 940, 600); 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setLayout(null);
 		
-		//botões navegação
+		JLabel lblNewLabel = new JLabel("Home");
+		lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 20));
+		lblNewLabel.setBounds(10, 11, 48, 27);
+		add(lblNewLabel);
 		
+        URL imgURL = getClass().getResource("/Imagens/casa.png");
+        ImageIcon icon = new ImageIcon(imgURL);
+		JLabel casaIcon = new JLabel(icon);
+		casaIcon.setBounds(60, 6, 46, 37);
+		add(casaIcon);
 		
-		JButton btnPets = new JButton("Pets");
-		
-		//mudanças ação botão
-		btnPets.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Pets telaPets = new Pets();
-				Home telaHome = new Home();
-				telaHome.frame.setVisible(false);
-				telaPets.setVisible(true);
-				
-			}
-		});
-		
-		btnPets.setBounds(307, 31, 99, 41);
-		frame.getContentPane().add(btnPets);
-		
-		JButton btnAdocao = new JButton("Adoção");
-		btnAdocao.setBounds(507, 31, 99, 41);
-		frame.getContentPane().add(btnAdocao);
-		
-		JButton btnRecursos = new JButton("Recursos");
-		btnRecursos.setBounds(707, 31, 99, 41);
-		frame.getContentPane().add(btnRecursos);
-		
-		//labels textos
-		JLabel label = new JLabel("PetLife");
-		label.setFont(new Font("JetBrains Mono NL Medium", Font.PLAIN, 38));
-		label.setBounds(39, 21, 161, 61);
-		frame.getContentPane().add(label);
-		
-		JLabel lblNewLabel = new JLabel("PetLife");
-		lblNewLabel.setEnabled(false);
-		lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 50));
-		lblNewLabel.setBounds(329, 255, 210, 66);
-		frame.getContentPane().add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Cuidando das informações vitais dos pets");
+		JLabel lblNewLabel_1 = new JLabel("PetLife");
 		lblNewLabel_1.setEnabled(false);
-		lblNewLabel_1.setFont(new Font("JetBrains Mono", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(332, 332, 360, 22);
-		frame.getContentPane().add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("JetBrains Mono", Font.PLAIN, 54));
+		lblNewLabel_1.setBounds(359, 159, 230, 78);
+		add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Cuidando dos recursos dos pets");
+		lblNewLabel_2.setEnabled(false);
+		lblNewLabel_2.setFont(new Font("JetBrains Mono", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(365, 233, 248, 14);
+		add(lblNewLabel_2);
+		
+
+		
+
+        
+		
 	}
 
 }
