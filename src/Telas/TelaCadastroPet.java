@@ -37,6 +37,11 @@ public class TelaCadastroPet extends JFrame {
         lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 16));
         lblNewLabel.setIcon(new ImageIcon(TelaCadastroPet.class.getResource("/Imagens/procurado.png")));
         panel.add(lblNewLabel);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBounds(10, 68, 538, 337);
+        contentPane.add(panel_1);
+        panel_1.setLayout(null);
 
         // Adicione componentes ao contentPane, como campos de texto, rótulos, etc.
     }
