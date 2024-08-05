@@ -1,4 +1,4 @@
-package Telas;
+package br.edu.ifpe.discente.PetLife.ui;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

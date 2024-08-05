@@ -1,4 +1,4 @@
-package Telas;
+package br.edu.ifpe.discente.PetLife.ui;
 
 import java.awt.CardLayout;
 import java.awt.Color;
