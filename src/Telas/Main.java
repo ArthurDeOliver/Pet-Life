@@ -52,7 +52,7 @@ public class Main {
 		//carregar imagem
         
         frame = new JFrame();
-        frame.getContentPane().setBackground(new Color(84, 97, 207));
+        frame.getContentPane().setBackground(new Color(24, 107, 220));
         frame.setTitle("PetLife");       
         frame.setResizable(false);
         frame.setBounds(100, 100, 940, 600);
@@ -66,7 +66,7 @@ public class Main {
 				cardLayout.show(mainPanel, "pets");
 			}
 		});
-		btnPets.setFont(new Font("JetBrains Mono", Font.PLAIN, 14));
+		btnPets.setFont(new Font("JetBrains Mono", Font.BOLD, 14));
 		btnPets.setBounds(397, 30, 99, 41);
 		frame.getContentPane().add(btnPets);
 		
@@ -76,7 +76,7 @@ public class Main {
 				cardLayout.show(mainPanel, "adocao");
 			}
 		});
-		btnAdocao.setFont(new Font("JetBrains Mono", Font.PLAIN, 14));
+		btnAdocao.setFont(new Font("JetBrains Mono", Font.BOLD, 14));
 		btnAdocao.setBounds(597, 30, 99, 41);
 		frame.getContentPane().add(btnAdocao);
 		
@@ -86,7 +86,7 @@ public class Main {
 				cardLayout.show(mainPanel, "recursos");
 			}
 		});
-		btnRecursos.setFont(new Font("JetBrains Mono", Font.PLAIN, 14));
+		btnRecursos.setFont(new Font("JetBrains Mono", Font.BOLD, 14));
 		btnRecursos.setBounds(797, 30, 99, 41);
 		frame.getContentPane().add(btnRecursos);
 		
@@ -103,7 +103,7 @@ public class Main {
         mainPanel.add(new Adocao(), "adocao");
         mainPanel.add(new Recursos(), "recursos");
         
-        JButton titlePetLife = new JButton("PetLife");
+        JButton titlePetLife = new JButton("    PetLife");
         titlePetLife.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		cardLayout.show(mainPanel,"home");
@@ -118,7 +118,7 @@ public class Main {
         titlePetLife.setContentAreaFilled(false); 
         titlePetLife.setFocusPainted(false);
         titlePetLife.setFont(new Font("JetBrains Mono", Font.PLAIN, 30));
-        titlePetLife.setBounds(89, 30, 149, 41);
+        titlePetLife.setBounds(10, 11, 228, 78);
         frame.getContentPane().add(titlePetLife);
         
 

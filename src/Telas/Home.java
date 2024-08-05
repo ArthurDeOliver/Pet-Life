@@ -17,14 +17,14 @@ public class Home extends JPanel {
 		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Home");
-		lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 20));
-		lblNewLabel.setBounds(10, 11, 48, 27);
+		lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
+		lblNewLabel.setBounds(10, 11, 56, 27);
 		add(lblNewLabel);
 		
         URL imgURL = getClass().getResource("/Imagens/casa.png");
         ImageIcon icon = new ImageIcon(imgURL);
 		JLabel casaIcon = new JLabel(icon);
-		casaIcon.setBounds(60, 6, 46, 37);
+		casaIcon.setBounds(63, 6, 46, 37);
 		add(casaIcon);
 		
 		JLabel lblNewLabel_1 = new JLabel("PetLife");
