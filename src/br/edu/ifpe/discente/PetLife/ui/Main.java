@@ -124,7 +124,7 @@ public class Main {
 
         
         //carregar a imagem
-        URL imgURL = getClass().getResource("/imagens/veterinario.png");
+        URL imgURL = getClass().getResource("/Imagens/veterinario.png");
         ImageIcon icon = new ImageIcon(imgURL);
         JLabel imagemLabel = new JLabel(icon);
         imagemLabel.setBounds(10, 11, 85, 78);

@@ -20,7 +20,7 @@ public class Adocao extends JPanel {
 	public Adocao() {
 		setLayout(null);
 		
-        URL imgURL = getClass().getResource("/imagens/coracaom.png");
+        URL imgURL = getClass().getResource("/Imagens/coracaom.png");
         ImageIcon icon = new ImageIcon(imgURL);
 		JLabel adocaoIcon = new JLabel(icon);
 		adocaoIcon.setBounds(90, 6, 46, 37);
@@ -39,8 +39,8 @@ public class Adocao extends JPanel {
 				telaAdocao.setVisible(true);
 			}
 		});
-		URL imgURL1 = getClass().getResource("/imagens/mais.png");
-        URL imgURL2 = getClass().getResource("/imagens/pawprint2.png");
+		URL imgURL1 = getClass().getResource("/Imagens/mais.png");
+        URL imgURL2 = getClass().getResource("/Imagens/pawprint2.png");
         ImageIcon imgMais = new ImageIcon(imgURL1);
         ImageIcon imgPata = new ImageIcon(imgURL2);
 		

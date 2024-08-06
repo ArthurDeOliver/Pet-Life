@@ -30,7 +30,7 @@ public class Pets extends JPanel {
         setLayout(null);
         
         // Carregar imagem no JPanel
-        JLabel petsIcon = new JLabel(new ImageIcon(Pets.class.getResource("/imagens/bicho-de-estimacao.png")));
+        JLabel petsIcon = new JLabel(new ImageIcon(Pets.class.getResource("/Imagens/bicho-de-estimacao.png")));
         petsIcon.setBounds(63, 6, 46, 37);
         add(petsIcon);
         
@@ -46,8 +46,8 @@ public class Pets extends JPanel {
         btnCadastroPet.setBounds(812, 11, 82, 46);
 
         // Carregar imagem
-        URL imgURL1 = getClass().getResource("/imagens/mais.png");
-        URL imgURL2 = getClass().getResource("/imagens/cachorrop.png");
+        URL imgURL1 = getClass().getResource("/Imagens/mais.png");
+        URL imgURL2 = getClass().getResource("/Imagens/cachorrop.png");
         ImageIcon imgMais = new ImageIcon(imgURL1);
         ImageIcon imgPata = new ImageIcon(imgURL2);
         

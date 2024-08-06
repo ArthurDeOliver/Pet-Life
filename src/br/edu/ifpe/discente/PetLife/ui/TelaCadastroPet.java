@@ -48,7 +48,7 @@ public class TelaCadastroPet extends JFrame {
         
         JLabel lblNewLabel = new JLabel("Cadastro de Pet");
         lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
-        lblNewLabel.setIcon(new ImageIcon(TelaCadastroPet.class.getResource("/imagens/procurado.png")));
+        lblNewLabel.setIcon(new ImageIcon(TelaCadastroPet.class.getResource("/Imagens/procurado.png")));
         CadastroPetPainel.add(lblNewLabel);
         
         JPanel CadastroPetCorpoPainel = new JPanel();
