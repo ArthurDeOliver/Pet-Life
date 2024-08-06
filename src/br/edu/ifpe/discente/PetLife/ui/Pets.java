@@ -79,6 +79,10 @@ public class Pets extends JPanel {
         add(barraDeRolagemAnimal);
         
         JComboBox comboBoxFiltro = new JComboBox();
+        comboBoxFiltro.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         comboBoxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Cachorro ", "Gato"}));
         comboBoxFiltro.setBounds(229, 109, 115, 16);
         add(comboBoxFiltro);
