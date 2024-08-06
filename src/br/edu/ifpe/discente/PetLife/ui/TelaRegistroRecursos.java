@@ -60,7 +60,7 @@ public class TelaRegistroRecursos extends JFrame{
         
         JLabel lblNewLabel = new JLabel("Regristro de recursos");
         lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 16));
-        lblNewLabel.setIcon(new ImageIcon(TelaRegristroAdocao.class.getResource("/Imagens/racao-para-animais-de-estimacao.png")));
+        lblNewLabel.setIcon(new ImageIcon(TelaRegristroAdocao.class.getResource("/imagens/racao-para-animais-de-estimacao.png")));
         panel.add(lblNewLabel);
 
 	}

@@ -60,7 +60,7 @@ public class TelaRegristroAdocao extends JFrame{
         
         JLabel lblNewLabel = new JLabel("Regristro de adoção");
         lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 16));
-        lblNewLabel.setIcon(new ImageIcon(TelaRegristroAdocao.class.getResource("/Imagens/clinica-de-cuidado-de-animais-domesticos.png")));
+        lblNewLabel.setIcon(new ImageIcon(TelaRegristroAdocao.class.getResource("/imagens/clinica-de-cuidado-de-animais-domesticos.png")));
         panel.add(lblNewLabel);
 
 	}

@@ -20,7 +20,7 @@ public class Recursos extends JPanel {
 	public Recursos() {
 		setLayout(null);
 		
-		URL imgURL = getClass().getResource("/Imagens/estatisticas (2).png");
+		URL imgURL = getClass().getResource("/imagens/estatisticas2.png");
         ImageIcon icon = new ImageIcon(imgURL);
 		JLabel recursosIcon = new JLabel(icon);
 		recursosIcon.setBounds(121, 6, 46, 37);
@@ -38,8 +38,8 @@ public class Recursos extends JPanel {
 				telaRecurso.setVisible(true);
 			}
 		});
-		URL imgURL1 = getClass().getResource("/Imagens/mais.png");
-        URL imgURL2 = getClass().getResource("/Imagens/racao-para-animais-de-estimacao (1).png");
+		URL imgURL1 = getClass().getResource("/imagens/mais.png");
+        URL imgURL2 = getClass().getResource("/imagens/racao-para-animais-de-estimacao1.png");
         ImageIcon imgMais = new ImageIcon(imgURL1);
         ImageIcon imgRacao = new ImageIcon(imgURL2);
 		

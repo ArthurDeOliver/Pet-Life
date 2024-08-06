@@ -21,7 +21,7 @@ public class Home extends JPanel {
 		lblNewLabel.setBounds(10, 11, 56, 27);
 		add(lblNewLabel);
 		
-        URL imgURL = getClass().getResource("/Imagens/casa.png");
+        URL imgURL = getClass().getResource("/imagens/casa.png");
         ImageIcon icon = new ImageIcon(imgURL);
 		JLabel casaIcon = new JLabel(icon);
 		casaIcon.setBounds(63, 6, 46, 37);
