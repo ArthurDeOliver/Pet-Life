@@ -106,17 +106,22 @@ public class TelaCadastroPet extends JFrame {
         CadastroPetCorpoPainel.add(labelRaçaPet);
         
         JRadioButton RadioButtonSemRacaPet = new JRadioButton("Sem raça definida");
+        RadioButtonSemRacaPet.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if (RadioButtonSemRacaPet.isSelected()) {
+        			textFieldRacaPet.setEditable(false);
+        		}
+        	}
+        });
         RadioButtonSemRacaPet.setBounds(170, 247, 153, 23);
         CadastroPetCorpoPainel.add(RadioButtonSemRacaPet);
         
         JRadioButton RadioButtonRacaDefinidaPet = new JRadioButton("Raça definida:");
         RadioButtonRacaDefinidaPet.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if (textFieldRacaPet.isEditable()) {
-        			textFieldRacaPet.setEditable(false);
-        		} else {
-        			textFieldRacaPet.setEditable(true); 
-        		}
+        		if (RadioButtonRacaDefinidaPet.isSelected()) {
+        			textFieldRacaPet.setEditable(true);
+        		} 
         	}
         });
         RadioButtonRacaDefinidaPet.setBounds(170, 273, 95, 23);
