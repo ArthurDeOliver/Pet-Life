@@ -4,12 +4,20 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+
+import br.edu.ifpe.discente.PetLife.business.AnimaisService;
+import br.edu.ifpe.discente.PetLife.data.AnimaisRepository;
+import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import java.awt.Color;
@@ -23,9 +31,7 @@ public class Pets extends JPanel {
     private static final long serialVersionUID = 1L;
     private JTable table;
 
-    /**
-     * Create the panel.
-     */
+   
     public Pets() {
         setLayout(null);
         
@@ -69,31 +75,79 @@ public class Pets extends JPanel {
         petsLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
         petsLabel.setBounds(10, 11, 56, 27);
         add(petsLabel);
+       
+
         
-        TabelaAnimal tabelaAnimal = new TabelaAnimal();
-        JScrollPane barraDeRolagemAnimal = new JScrollPane(tabelaAnimal.getTabela());
+        // Iniciar tabela de animais
         
-        barraDeRolagemAnimal.setBounds(35, 135, 309, 280);
+        TabelaAnimal tabelaAnimal;
+        
+        try {
+        	AnimaisService servico = new AnimaisService();
+            List<Animais> listaDeAnimais = servico.retornarAnimal();
+            tabelaAnimal = new TabelaAnimal(listaDeAnimais); // adicionando a lista de animais na tabela
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            tabelaAnimal = new TabelaAnimal(List.of()); // Cria uma tabela vazia se houver erro -- coloquei pra nao ficar vazio
+        }
         
         
-        add(barraDeRolagemAnimal);
+        JScrollPane scrollPaneAnimal = new JScrollPane(tabelaAnimal.getTabela());
+        scrollPaneAnimal.setBounds(76, 131, 309, 280); 
+
+        add(scrollPaneAnimal); // adicionar a tabela
         
+       
+        
+    
+        //filtro de animais
         JComboBox comboBoxFiltro = new JComboBox();
         comboBoxFiltro.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		// vazio por enquanto
         	}
         });
+        
         comboBoxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Cachorro ", "Gato"}));
-        comboBoxFiltro.setBounds(229, 109, 115, 16);
+        comboBoxFiltro.setBounds(270, 105, 115, 16);
         add(comboBoxFiltro);
         
+        
+        //botão editar
         JButton botaoEditarPets = new JButton("Editar");
-        botaoEditarPets.setBounds(437, 394, 85, 21);
+        botaoEditarPets.setBounds(493, 391, 85, 21);
         add(botaoEditarPets);
         
+        
+        // botão excluir
         JButton botaoExcluirPets = new JButton("Excluir");
-        botaoExcluirPets.setBounds(605, 394, 85, 21);
+        botaoExcluirPets.setBounds(644, 391, 85, 21);
         add(botaoExcluirPets);
-    
+
+        
+        //recarregar tabela -- precisa aprimorar isso aqui pois foi uma mini gambiarra
+        JButton recarregarTabela = new JButton("🔄");
+        recarregarTabela.setBackground(new Color(244, 255, 254));
+        recarregarTabela.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		 TabelaAnimal tabelaAnimal;
+       
+        	        try {
+        	        	AnimaisService servico = new AnimaisService();
+        	            List<Animais> listaDeAnimais = servico.retornarAnimal();
+        	            tabelaAnimal = new TabelaAnimal(listaDeAnimais);
+        	        } catch (SQLException e1) {
+        	            e1.printStackTrace();
+        	            tabelaAnimal = new TabelaAnimal(List.of()); // mesma coisa lá de cima
+        	        }
+        	        
+        	        JScrollPane barraDeRolagemAnimal = new JScrollPane(tabelaAnimal.getTabela());
+        	        barraDeRolagemAnimal.setBounds(76, 131, 309, 280);
+        	        add(barraDeRolagemAnimal);
+        	}
+        });
+        recarregarTabela.setBounds(215, 105, 46, 16);
+        add(recarregarTabela); // recarrega a tabela
     }
 }

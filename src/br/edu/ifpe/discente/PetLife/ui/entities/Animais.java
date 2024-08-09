@@ -6,9 +6,20 @@ public class Animais {
 	private int idade;
 	private String tipo;
 	private String raca;
+	private int racao;
 	private String status;
 	private String vacina;
+	private String foto;
 	
+	
+	public Animais (String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
+		this.nome = nome;
+		this.idade = idade;
+		this.tipo = tipo;
+		this.raca = raca;
+		this.status = status;
+		this.vacina = vacina;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -46,6 +57,23 @@ public class Animais {
 	public void setVacina(String vacina) {
 		this.vacina = vacina;
 	}
+
+	public int getRacao() {
+		return racao;
+	}
+
+	public void setRacao(int racao) {
+		this.racao = racao;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+	
 	
 	
 	

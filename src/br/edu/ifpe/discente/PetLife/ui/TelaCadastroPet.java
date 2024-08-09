@@ -3,8 +3,13 @@ package br.edu.ifpe.discente.PetLife.ui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.edu.ifpe.discente.PetLife.business.AnimaisService;
+import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -17,6 +22,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 public class TelaCadastroPet extends JFrame {
 
@@ -91,19 +97,23 @@ public class TelaCadastroPet extends JFrame {
         		
         	}
         });
+       
         textFieldIdadePet.setBounds(170, 112, 208, 20);
         CadastroPetCorpoPainel.add(textFieldIdadePet);
         textFieldIdadePet.setColumns(10);
+        
         
         JComboBox comboBoxTipoPet = new JComboBox();
         comboBoxTipoPet.setModel(new DefaultComboBoxModel(new String[] {"Cachorro", "Gato"}));
         comboBoxTipoPet.setBounds(170, 177, 208, 22);
         CadastroPetCorpoPainel.add(comboBoxTipoPet);
         
+        
         JLabel labelRaçaPet = new JLabel("Raça");
         labelRaçaPet.setFont(new Font("Tahoma", Font.BOLD, 14));
         labelRaçaPet.setBounds(170, 214, 46, 31);
         CadastroPetCorpoPainel.add(labelRaçaPet);
+        
         
         JRadioButton RadioButtonSemRacaPet = new JRadioButton("Sem raça definida");
         RadioButtonSemRacaPet.addActionListener(new ActionListener() {
@@ -113,8 +123,6 @@ public class TelaCadastroPet extends JFrame {
         		}
         	}
         });
-        RadioButtonSemRacaPet.setBounds(170, 247, 153, 23);
-        CadastroPetCorpoPainel.add(RadioButtonSemRacaPet);
         
         JRadioButton RadioButtonRacaDefinidaPet = new JRadioButton("Raça definida:");
         RadioButtonRacaDefinidaPet.addActionListener(new ActionListener() {
@@ -124,8 +132,14 @@ public class TelaCadastroPet extends JFrame {
         		} 
         	}
         });
+        
+        
+        RadioButtonSemRacaPet.setBounds(170, 247, 153, 23);
+        CadastroPetCorpoPainel.add(RadioButtonSemRacaPet);
+        
         RadioButtonRacaDefinidaPet.setBounds(170, 273, 95, 23);
         CadastroPetCorpoPainel.add(RadioButtonRacaDefinidaPet);
+        
         
         ButtonGroup grupoRadioButtons = new ButtonGroup();
         grupoRadioButtons.add(RadioButtonRacaDefinidaPet);
@@ -137,32 +151,40 @@ public class TelaCadastroPet extends JFrame {
         CadastroPetCorpoPainel.add(textFieldRacaPet);
         textFieldRacaPet.setColumns(10);
         
-        JButton ButtonCadastroPet = new JButton("Enviar");
+        
+        //----------------------------------------------------------------------
+        
+        JButton ButtonCadastroPet = new JButton("Cadastrar");
         ButtonCadastroPet.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		String nomePet = textFieldNomePet.getText();
-        		int idadePet = Integer.parseInt(textFieldIdadePet.getText());
-        		boolean temRacaPet;
-        		if (RadioButtonSemRacaPet.isSelected()) {
-        			temRacaPet = false;
-        		} else if (RadioButtonRacaDefinidaPet.isSelected()) {
-        			temRacaPet = true;
-        		}
-        		
-        		//try {
-        		//	PetController controller = new PetController();
-        		//	controller.criarPet(nomePet, idadePet, temRacaPet);
-        		//} catch (BusinessException e) {
-        	//		e.printStackTrace();
-        	//	}
-        		
-        		
-        		
-        	}
-        });
+        	
+            public void actionPerformed(ActionEvent e) {
+            	 
+                     String nome = textFieldNomePet.getText();
+                     int idade = Integer.parseInt(textFieldIdadePet.getText());
+                     String tipo = (String) comboBoxTipoPet.getSelectedItem();
+                     String raca = textFieldRacaPet.getText();
+                     int racao = 0;
+                     String status = null;
+                     String vacina = null;
+                     String foto = null;
+                     
+                
+                     Animais animal = new Animais(nome, idade, tipo, raca, racao ,status, vacina, foto);
+                     AnimaisService service = new AnimaisService();
+                     
+                     try {
+     					service.criarAnimal(animal);
+     					 JOptionPane.showMessageDialog(null, "Animal criado com sucesso!");
+     					
+     				} catch (SQLException e1) {
+     					// TODO Auto-generated catch block 
+     					e1.printStackTrace();
+     				}
+
+                 }
+             });
+
         ButtonCadastroPet.setBounds(445, 303, 89, 23);
         CadastroPetCorpoPainel.add(ButtonCadastroPet);
-
-        // Adicione componentes ao contentPane, como campos de texto, rótulos, etc.
     }
 }

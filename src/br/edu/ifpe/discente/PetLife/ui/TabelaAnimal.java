@@ -2,26 +2,39 @@ package br.edu.ifpe.discente.PetLife.ui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
+import java.awt.BorderLayout;
+import java.util.List;
+import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 
 public class TabelaAnimal extends JPanel {
 
     private JTable tabela;
     private DefaultTableModel modelo;
 
-    public TabelaAnimal() {
+    public TabelaAnimal(List<Animais> listaDeAnimais) {
     	
-    
-        // configurando a tabela
-    	
-        String[] colunas = {"Nome", "Tipo", "Status"};
-        modelo = new DefaultTableModel(colunas, 1000);
-        tabela = new JTable(modelo);
+      
+        setLayout(new BorderLayout());
+
         
+        
+        String[] colunas = {"Nome", "Idade", "Tipo"};
+        modelo = new DefaultTableModel(colunas, 0);
+        tabela = new JTable(modelo);
 
-        // colocando uma rolagem na tabela
+        // Adicionar rolagem a tabela
         JScrollPane rolagem = new JScrollPane(tabela);
+        add(rolagem, BorderLayout.CENTER);
 
+        // Adicionar dados na tabela
+        for (Animais animal : listaDeAnimais) {
+            Object[] linha = {
+                animal.getNome(),
+                animal.getIdade(),
+                animal.getTipo(),
+            };
+            modelo.addRow(linha);
+        }
     }
 
     public JTable getTabela() {
