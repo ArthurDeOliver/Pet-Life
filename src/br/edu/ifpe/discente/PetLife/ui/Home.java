@@ -17,26 +17,26 @@ public class Home extends JPanel {
 		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Home");
-		lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
-		lblNewLabel.setBounds(10, 11, 56, 27);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNewLabel.setBounds(10, 11, 62, 27);
 		add(lblNewLabel);
 		
         URL imgURL = getClass().getResource("/Imagens/casa.png");
         ImageIcon icon = new ImageIcon(imgURL);
 		JLabel casaIcon = new JLabel(icon);
-		casaIcon.setBounds(63, 6, 46, 37);
+		casaIcon.setBounds(70, 6, 46, 37);
 		add(casaIcon);
 		
 		JLabel lblNewLabel_1 = new JLabel("PetLife");
 		lblNewLabel_1.setEnabled(false);
-		lblNewLabel_1.setFont(new Font("JetBrains Mono", Font.PLAIN, 54));
-		lblNewLabel_1.setBounds(359, 159, 230, 78);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 54));
+		lblNewLabel_1.setBounds(359, 156, 160, 78);
 		add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Gerenciando a vida dos pets");
+		JLabel lblNewLabel_2 = new JLabel(" Gerenciando a vida dos pets");
 		lblNewLabel_2.setEnabled(false);
-		lblNewLabel_2.setFont(new Font("JetBrains Mono", Font.PLAIN, 14));
-		lblNewLabel_2.setBounds(365, 233, 248, 14);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(359, 235, 248, 14);
 		add(lblNewLabel_2);
 		
 

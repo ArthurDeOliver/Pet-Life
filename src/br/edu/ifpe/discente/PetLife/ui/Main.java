@@ -17,6 +17,26 @@ import javax.swing.JLabel;
 
 public class Main {
 
+	/*
+	 * Instruções para nomes de variáveis
+	 * 
+	 * BOTÕES:
+	 *                    btnAbrirTelaAdoção
+	 * 
+	 * [sigla do componente]+   [ação]   +   [complemento da ação]
+	 * 
+	 *         btn          +    Abrir   +       TelaAdoção
+	 * 
+	 * OBSERVAÇÃO: NÃO USAR "de" OU QUALQUER OUTRA PALAVRA DE LIGAÇÃO
+	 * APENAS USAR PALAVRAS CHAVES.
+	 * 
+	 * Tentar ser o mais sucinto possível!
+	 * 
+	 * para demais variáveis, usar o nome do componente e o que ela está associada.
+	 * 
+	 * */
+	
+	
 	private JFrame frame;
 	private CardLayout cardLayout;
 	private JPanel mainPanel;
@@ -49,8 +69,6 @@ public class Main {
 	 */
 	private void initialize() {
 		
-		//carregar imagem
-        
         frame = new JFrame();
         frame.getContentPane().setBackground(new Color(24, 107, 220));
         frame.setTitle("PetLife");       
@@ -59,36 +77,50 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         
-		//botões header
-		JButton btnPets = new JButton("Pets");
-		btnPets.addActionListener(new ActionListener() {
+		//HEADER BOTÕES DE NAVEGAÇÃO
+        
+        //botão abrir tela de Pets
+		JButton btnAbrirTelaPets = new JButton("Pets");
+		btnAbrirTelaPets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "pets");
 			}
 		});
-		btnPets.setFont(new Font("JetBrains Mono", Font.BOLD, 14));
-		btnPets.setBounds(397, 30, 99, 41);
-		frame.getContentPane().add(btnPets);
+		btnAbrirTelaPets.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAbrirTelaPets.setBounds(382, 23, 113, 49);
+		frame.getContentPane().add(btnAbrirTelaPets);
 		
-		JButton btnAdocao = new JButton("Adoção");
-		btnAdocao.addActionListener(new ActionListener() {
+		//botão abrir tela de Adoção
+		JButton btnAbrirTelaAdocao = new JButton("Adoção");
+		btnAbrirTelaAdocao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "adocao");
 			}
 		});
-		btnAdocao.setFont(new Font("JetBrains Mono", Font.BOLD, 14));
-		btnAdocao.setBounds(597, 30, 99, 41);
-		frame.getContentPane().add(btnAdocao);
+		btnAbrirTelaAdocao.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAbrirTelaAdocao.setBounds(596, 23, 113, 49);
+		frame.getContentPane().add(btnAbrirTelaAdocao);
 		
-		JButton btnRecursos = new JButton("Recursos");
-		btnRecursos.addActionListener(new ActionListener() {
+		//botão abrir tela de Recursos
+		JButton btnAbrirTelaRecursos = new JButton("Recursos");
+		btnAbrirTelaRecursos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "recursos");
 			}
 		});
-		btnRecursos.setFont(new Font("JetBrains Mono", Font.BOLD, 14));
-		btnRecursos.setBounds(797, 30, 99, 41);
-		frame.getContentPane().add(btnRecursos);
+		btnAbrirTelaRecursos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAbrirTelaRecursos.setBounds(796, 23, 113, 49);
+		frame.getContentPane().add(btnAbrirTelaRecursos);
+		
+		//botão abrir tela Home
+        JButton btnAbrirTelaHome = new JButton("      PetLife");
+        btnAbrirTelaHome.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		cardLayout.show(mainPanel,"home");
+        	}
+        });
+		
+		//MAIN PAINEL
 		
 		//painel de mudança de layout
         cardLayout = new CardLayout();
@@ -103,26 +135,19 @@ public class Main {
         mainPanel.add(new Adocao(), "adocao");
         mainPanel.add(new Recursos(), "recursos");
         
-        JButton titlePetLife = new JButton("    PetLife");
-        titlePetLife.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		cardLayout.show(mainPanel,"home");
-        	}
-        });
-        
-        //botao título petLife
-        titlePetLife.setForeground(new Color(0, 0, 0));
-        titlePetLife.setBackground(new Color(255, 255, 255));
-        titlePetLife.setBorderPainted(false);
-        titlePetLife.setMargin(new Insets(0, 0, 0, 0));
-        titlePetLife.setContentAreaFilled(false); 
-        titlePetLife.setFocusPainted(false);
-        titlePetLife.setFont(new Font("JetBrains Mono", Font.PLAIN, 30));
-        titlePetLife.setBounds(10, 11, 228, 78);
-        frame.getContentPane().add(titlePetLife);
-        
 
         
+        //botao título petLife
+        btnAbrirTelaHome.setForeground(new Color(0, 0, 0));
+        btnAbrirTelaHome.setBackground(new Color(255, 255, 255));
+        btnAbrirTelaHome.setBorderPainted(false);
+        btnAbrirTelaHome.setMargin(new Insets(0, 0, 0, 0));
+        btnAbrirTelaHome.setContentAreaFilled(false); 
+        btnAbrirTelaHome.setFocusPainted(false);
+        btnAbrirTelaHome.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btnAbrirTelaHome.setBounds(10, 23, 228, 58);
+        frame.getContentPane().add(btnAbrirTelaHome);
+   
         //carregar a imagem
         URL imgURL = getClass().getResource("/Imagens/veterinario.png");
         ImageIcon icon = new ImageIcon(imgURL);

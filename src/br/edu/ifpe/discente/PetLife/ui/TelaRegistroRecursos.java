@@ -69,8 +69,8 @@ public class TelaRegistroRecursos extends JFrame{
         telaPrincipalRecursos.add(containerLabelRegistroRecursos);
         
         JLabel labelRegistroRecursos = new JLabel("Registro de recursos");
-        labelRegistroRecursos.setFont(new Font("JetBrains Mono", Font.PLAIN, 16));
-        labelRegistroRecursos.setIcon(new ImageIcon(TelaRegristroAdocao.class.getResource("/Imagens/racao-para-animais-de-estimacao.png")));
+        labelRegistroRecursos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        labelRegistroRecursos.setIcon(new ImageIcon(TelaRegistroAdocao.class.getResource("/Imagens/racao-para-animais-de-estimacao.png")));
         containerLabelRegistroRecursos.add(labelRegistroRecursos);
         
 
@@ -85,7 +85,7 @@ public class TelaRegistroRecursos extends JFrame{
         		cl_telaRegistrar.show(telaRegistrar, "telaEstoque");
         	}
         });
-        btnEstoque.setFont(new Font("JetBrains Mono", Font.PLAIN, 16));
+        btnEstoque.setFont(new Font("Tahoma", Font.PLAIN, 16));
         telaPrincipalRecursos.add(btnEstoque);
         
         JButton btnMedicamentos = new JButton("Medicamentos/Vacinas");
@@ -96,7 +96,7 @@ public class TelaRegistroRecursos extends JFrame{
         });
         btnMedicamentos.setBounds(297, 64, 257, 42);
         telaPrincipalRecursos.add(btnMedicamentos);
-        btnMedicamentos.setFont(new Font("JetBrains Mono", Font.PLAIN, 16));
+        btnMedicamentos.setFont(new Font("Tahoma", Font.PLAIN, 16));
         
         telaRegistrar.setBounds(10, 129, 544, 276);
         telaRegistrar.setBackground(new Color(6, 26, 53));

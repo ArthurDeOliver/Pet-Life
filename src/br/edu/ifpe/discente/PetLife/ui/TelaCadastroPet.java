@@ -53,7 +53,7 @@ public class TelaCadastroPet extends JFrame {
         contentPane.add(CadastroPetPainel);
         
         JLabel lblNewLabel = new JLabel("Cadastro de Pet");
-        lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
         lblNewLabel.setIcon(new ImageIcon(TelaCadastroPet.class.getResource("/Imagens/procurado.png")));
         CadastroPetPainel.add(lblNewLabel);
         
@@ -184,7 +184,7 @@ public class TelaCadastroPet extends JFrame {
                  }
              });
 
-        ButtonCadastroPet.setBounds(445, 303, 89, 23);
+        ButtonCadastroPet.setBounds(427, 287, 104, 34);
         CadastroPetCorpoPainel.add(ButtonCadastroPet);
     }
 }

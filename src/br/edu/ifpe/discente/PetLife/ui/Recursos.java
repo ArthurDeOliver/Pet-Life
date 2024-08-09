@@ -27,7 +27,7 @@ public class Recursos extends JPanel {
 		add(recursosIcon);
 		
 		JLabel lblNewLabel = new JLabel("Recursos");
-		lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		lblNewLabel.setBounds(10, 11, 112, 27);
 		add(lblNewLabel);
 		

@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 
-public class TelaRegristroAdocao extends JFrame{
+public class TelaRegistroAdocao extends JFrame{
 
 	/**
 	 * 
@@ -36,7 +36,7 @@ public class TelaRegristroAdocao extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaRegristroAdocao window = new TelaRegristroAdocao();
+					TelaRegistroAdocao window = new TelaRegistroAdocao();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +48,7 @@ public class TelaRegristroAdocao extends JFrame{
 	/**
 	 * Create the application.
 	 */
-	public TelaRegristroAdocao() {
+	public TelaRegistroAdocao() {
 		getContentPane().setLayout(null);
 		initialize();
 	}
@@ -67,44 +67,44 @@ public class TelaRegristroAdocao extends JFrame{
         contentPane.setLayout(null);
         
         JPanel panel = new JPanel();
-        panel.setBounds(10, 11, 538, 42);
+        panel.setBounds(10, 11, 544, 42);
         contentPane.add(panel);
         
         //Label de Registro de adoção
         JLabel lblRegistroAdocao = new JLabel("Registro de adoção");
-        lblRegistroAdocao.setFont(new Font("JetBrains Mono", Font.PLAIN, 16));
-        lblRegistroAdocao.setIcon(new ImageIcon(TelaRegristroAdocao.class.getResource("/Imagens/clinica-de-cuidado-de-animais-domesticos.png")));
+        lblRegistroAdocao.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lblRegistroAdocao.setIcon(new ImageIcon(TelaRegistroAdocao.class.getResource("/Imagens/clinica-de-cuidado-de-animais-domesticos.png")));
         panel.add(lblRegistroAdocao);
         
         
         JPanel RegistroAdocaoPainel = new JPanel();
-        RegistroAdocaoPainel.setBounds(10, 68, 538, 337);
+        RegistroAdocaoPainel.setBounds(10, 68, 544, 337);
         contentPane.add(RegistroAdocaoPainel);
         RegistroAdocaoPainel.setLayout(null);
         
         JLabel labelNomeTutor = new JLabel("Nome do tutor");
         labelNomeTutor.setFont(new Font("Tahoma", Font.BOLD, 14));
-        labelNomeTutor.setBounds(224, 27, 104, 14);
+        labelNomeTutor.setBounds(170, 11, 118, 31);
         RegistroAdocaoPainel.add(labelNomeTutor);
         
         JLabel labelCpfTutor = new JLabel("CPF do tutor");
         labelCpfTutor.setFont(new Font("Tahoma", Font.BOLD, 14));
-        labelCpfTutor.setBounds(233, 86, 95, 14);
+        labelCpfTutor.setBounds(170, 75, 95, 31);
         RegistroAdocaoPainel.add(labelCpfTutor);
         
         JLabel labelEnderecoTutor = new JLabel("Endereço do tutor");
         labelEnderecoTutor.setFont(new Font("Tahoma", Font.BOLD, 14));
-        labelEnderecoTutor.setBounds(214, 140, 148, 20);
+        labelEnderecoTutor.setBounds(170, 139, 148, 31);
         RegistroAdocaoPainel.add(labelEnderecoTutor);
 
         JLabel labelTelefoneTutor = new JLabel("Telefone do tutor");
         labelTelefoneTutor.setFont(new Font("Tahoma", Font.BOLD, 14));
-        labelTelefoneTutor.setBounds(214, 200, 125, 20);
+        labelTelefoneTutor.setBounds(170, 200, 125, 31);
         RegistroAdocaoPainel.add(labelTelefoneTutor);
         
         //Adicionando textField com nome do tutor
         textFieldNomeTutor = new JTextField();
-        textFieldNomeTutor.setBounds(112, 51, 325, 20);
+        textFieldNomeTutor.setBounds(170, 44, 208, 20);
         RegistroAdocaoPainel.add(textFieldNomeTutor);
         textFieldNomeTutor.setColumns(10);
         
@@ -123,13 +123,13 @@ public class TelaRegristroAdocao extends JFrame{
         		
         	}
         });
-        textFieldCpfTutor.setBounds(112, 230, 325, 20);
+        textFieldCpfTutor.setBounds(170, 233, 208, 20);
         RegistroAdocaoPainel.add(textFieldCpfTutor);
         textFieldCpfTutor.setColumns(10);
         
       //Adicionando textField com endereço do tutor
         textFieldEnderecoTutor = new JTextField();
-        textFieldEnderecoTutor.setBounds(112, 168, 325, 20);
+        textFieldEnderecoTutor.setBounds(170, 169, 208, 20);
         RegistroAdocaoPainel.add(textFieldEnderecoTutor);
         textFieldEnderecoTutor.setColumns(10);
         
@@ -148,7 +148,7 @@ public class TelaRegristroAdocao extends JFrame{
         		
         	}
         });
-        textFieldTelefoneTutor.setBounds(112, 110, 325, 20);
+        textFieldTelefoneTutor.setBounds(170, 108, 208, 20);
         RegistroAdocaoPainel.add(textFieldTelefoneTutor);
         textFieldTelefoneTutor.setColumns(10);
         
@@ -156,7 +156,7 @@ public class TelaRegristroAdocao extends JFrame{
         
         //Botão para registrar a adoção
         JButton btnAdotar = new JButton("Adotar");
-        btnAdotar.setBounds(243, 276, 85, 21);
+        btnAdotar.setBounds(424, 292, 104, 34);
         RegistroAdocaoPainel.add(btnAdotar);
         
 

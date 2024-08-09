@@ -32,14 +32,14 @@ public class Adocao extends JPanel {
 		
 		
 		JLabel lblNewLabel = new JLabel("Adoção");
-		lblNewLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
-		lblNewLabel.setBounds(10, 11, 84, 27);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNewLabel.setBounds(10, 14, 84, 20);
 		add(lblNewLabel);
 		
 		JButton btnRegistrarAdocao = new JButton("");
 		btnRegistrarAdocao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRegristroAdocao telaAdocao = new TelaRegristroAdocao();
+				TelaRegistroAdocao telaAdocao = new TelaRegistroAdocao();
 				telaAdocao.setVisible(true);
 			}
 		});
