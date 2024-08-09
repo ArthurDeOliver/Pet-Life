@@ -9,10 +9,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTable;
+import java.awt.ComponentOrientation;
+import javax.swing.JScrollPane;
 
 public class Adocao extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JTable table;
 
 	/**
 	 * Create the panel.
@@ -58,5 +62,26 @@ public class Adocao extends JPanel {
 		
 		btnRegistrarAdocao.setBounds(812, 11, 82, 46);;
 		add(btnRegistrarAdocao);
+		
+		//Label para tabela de Pets para adoção
+		JLabel lblPetsParaAdocao = new JLabel("Pets para adoção");
+		lblPetsParaAdocao.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPetsParaAdocao.setBounds(54, 48, 182, 70);
+		add(lblPetsParaAdocao);
+		
+		//Label para tabela de Pets adotados
+		JLabel lblPetsAdotados = new JLabel("Pets adotados");
+		lblPetsAdotados.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPetsAdotados.setBounds(444, 53, 234, 60);
+		add(lblPetsAdotados);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(54, 158, 156, 229);
+		add(scrollPane);
+		
+		table = new JTable();
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		scrollPane.setViewportView(table);
+		table.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 	}
 }

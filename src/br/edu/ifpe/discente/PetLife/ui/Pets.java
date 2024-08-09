@@ -25,6 +25,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ScrollPaneConstants;
 
 public class Pets extends JPanel {
 
@@ -94,6 +95,7 @@ public class Pets extends JPanel {
         
         
         JScrollPane scrollPaneAnimal = new JScrollPane(tabelaAnimal.getTabela());
+        scrollPaneAnimal.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPaneAnimal.setBounds(76, 131, 309, 280); 
 
         add(scrollPaneAnimal); // adicionar a tabela
