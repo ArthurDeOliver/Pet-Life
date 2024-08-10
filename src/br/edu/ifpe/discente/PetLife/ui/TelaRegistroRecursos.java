@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 
 public class TelaRegistroRecursos extends JFrame{
 
@@ -117,5 +118,18 @@ public class TelaRegistroRecursos extends JFrame{
         telaMedicamentos.setBackground(new Color(6, 26, 53));
         telaMedicamentos.setLayout(null);
         
+        
+        JLabel lblPetLifeNome = new JLabel("PetLife");
+        lblPetLifeNome.setEnabled(false);
+        lblPetLifeNome.setBackground(new Color(255, 255, 255));
+        lblPetLifeNome.setFont(new Font("Tahoma", Font.PLAIN, 54));
+        lblPetLifeNome.setBounds(192, 66, 160, 78);
+        homeTelaRegistrar.add(lblPetLifeNome);
+        
+        JLabel lblGerenciandoNome = new JLabel("Gerenciando a vida dos pets");
+        lblGerenciandoNome.setEnabled(false);
+        lblGerenciandoNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblGerenciandoNome.setBounds(186,130,248,14);
+        homeTelaRegistrar.add(lblGerenciandoNome);
 	}
 }

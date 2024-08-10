@@ -9,10 +9,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class Recursos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JTable table;
 
 	/**
 	 * Create the panel.
@@ -47,6 +53,7 @@ public class Recursos extends JPanel {
         JLabel iconMais = new JLabel(imgMais);
         JLabel iconRacao = new JLabel(imgRacao);
         
+        
         iconMais.setBounds(5, 5, 32, 32);
         iconRacao.setBounds(45, 5, 32, 32);
 
@@ -58,6 +65,24 @@ public class Recursos extends JPanel {
 		btnRegistrarAdocao.setBounds(812, 11, 82, 46);;
 		add(btnRegistrarAdocao);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(77, 111, 342, 288);
+		add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome", "Custos"
+			}
+		));
+		
+		JComboBox comboBoxFiltro = new JComboBox();
+		comboBoxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Cachorro", "Gato"}));
+		comboBoxFiltro.setBounds(304, 84, 115, 16);
+		add(comboBoxFiltro);
+		
 	}
-
 }
