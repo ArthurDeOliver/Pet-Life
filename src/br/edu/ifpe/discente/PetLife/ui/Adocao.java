@@ -23,8 +23,10 @@ import javax.swing.JScrollPane;
 public class Adocao extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTable table;
+	private JTable tableAdotaveis;
+	private JTable tableAdotados;
     private TabelaAnimal tabelaAnimaisAptos;
+    
 
 	/**
 	 * Create the panel.
@@ -89,13 +91,13 @@ public class Adocao extends JPanel {
 	        }
 		
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(32, 128, 342, 288);
-		add(scrollPane);
+		JScrollPane scrollPanePetsAdotaveis = new JScrollPane();
+		scrollPanePetsAdotaveis.setBounds(32, 128, 342, 288);
+		add(scrollPanePetsAdotaveis);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
+		tableAdotaveis = new JTable();
+		scrollPanePetsAdotaveis.setViewportView(tableAdotaveis);
+		tableAdotaveis.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -106,7 +108,21 @@ public class Adocao extends JPanel {
 		//Label para tabela de Pets adotados
 		JLabel lblPetsAdotados = new JLabel("Pets adotados");
 		lblPetsAdotados.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblPetsAdotados.setBounds(560, 53, 234, 60);
+		lblPetsAdotados.setBounds(516, 58, 234, 60);
 		add(lblPetsAdotados);
+		
+		JScrollPane scrollPanePetsAdotados = new JScrollPane();
+		scrollPanePetsAdotados.setBounds(516, 133, 342, 281);
+		add(scrollPanePetsAdotados);
+		
+		tableAdotados = new JTable();
+		scrollPanePetsAdotados.setViewportView(tableAdotados);
+		tableAdotados.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome", "Tipo", "Raça", "Idade", "Tutor"
+			}
+		));
 	}
 }
