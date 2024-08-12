@@ -2,6 +2,8 @@ package br.edu.ifpe.discente.PetLife.ui;
 
 import java.awt.Font;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -10,6 +12,11 @@ import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import br.edu.ifpe.discente.PetLife.business.AnimaisService;
+import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+
 import java.awt.ComponentOrientation;
 import javax.swing.JScrollPane;
 
@@ -17,6 +24,7 @@ public class Adocao extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTable table;
+    private TabelaAnimal tabelaAnimaisAptos;
 
 	/**
 	 * Create the panel.
@@ -66,22 +74,39 @@ public class Adocao extends JPanel {
 		//Label para tabela de Pets para adoção
 		JLabel lblPetsParaAdocao = new JLabel("Pets para adoção");
 		lblPetsParaAdocao.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblPetsParaAdocao.setBounds(54, 48, 182, 70);
+		lblPetsParaAdocao.setBounds(32, 53, 182, 70);
 		add(lblPetsParaAdocao);
+		
+		//Criação da tabela de animais aptos
+		 try {
+	        	AnimaisService servico = new AnimaisService();
+	            List<Animais> listaDeAnimaisAptos= servico.retornarAnimaisAptos();
+	            tabelaAnimaisAptos = new TabelaAnimal(listaDeAnimaisAptos); // adicionando a lista de animais aptos na tabela
+	            
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            tabelaAnimaisAptos = new TabelaAnimal(List.of()); // Cria uma tabela vazia se houver erro -- coloquei pra nao ficar vazio
+	        }
+		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(32, 128, 342, 288);
+		add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome", "Tipo", "Raça", "Idade"
+			}
+		));
 		
 		//Label para tabela de Pets adotados
 		JLabel lblPetsAdotados = new JLabel("Pets adotados");
 		lblPetsAdotados.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblPetsAdotados.setBounds(444, 53, 234, 60);
+		lblPetsAdotados.setBounds(560, 53, 234, 60);
 		add(lblPetsAdotados);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(54, 158, 156, 229);
-		add(scrollPane);
-		
-		table = new JTable();
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		scrollPane.setViewportView(table);
-		table.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 	}
 }

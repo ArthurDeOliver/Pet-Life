@@ -25,5 +25,10 @@ public class AnimaisService {
 		
 	}
 	
+	public List<Animais> retornarAnimaisAptos() throws SQLException{ //aprimorar
+		return dadosAnimais.listarAnimaisAptos();
+		
+	}
+	
 		// regras de negócio aqui
 }

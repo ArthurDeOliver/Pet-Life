@@ -76,6 +76,37 @@ public class AnimaisRepository {
             
         }
         
+        //retornar animais aptos a adoção
+        public List<Animais> listarAnimaisAptos() throws SQLException {
+        	
+            String sql = "SELECT * FROM animais WHERE status = 'apto'"; //script sql para selecionar todos os dados do bd onde status for "apto"
+            
+            List<Animais> listaDeAnimaisAptos = new ArrayList<>();
+
+            try (Connection connection = getConnection();
+            		
+                 PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
+                 ResultSet rs = statement.executeQuery()) { //executa as consultas
+            	
+                while (rs.next()) {
+                	
+                	Animais anima1 = new Animais(
+         
+                    rs.getString("nome"),
+                    rs.getInt("idade"),
+                    rs.getString("tipo"),
+                    rs.getString("raca"),
+                    rs.getInt("racao"),
+                    rs.getString("status"),
+                    rs.getString("vacina"),
+                    rs.getString("foto")
+                );
+                    listaDeAnimaisAptos.add(anima1);
+                }
+            } return listaDeAnimaisAptos;
+            
+        }
+        
     }
 
 
