@@ -28,7 +28,6 @@ public class TelaRegistroRecursos extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private CardLayout cl_telaRegistrar; 
-	private JTextField textFieldNomeMedicamento;
 
 	/**
 	 * Launch the application.
@@ -100,7 +99,7 @@ public class TelaRegistroRecursos extends JFrame{
         telaPrincipalRecursos.add(btnMedicamentos);
         btnMedicamentos.setFont(new Font("Tahoma", Font.PLAIN, 16));
         
-        telaRegistrar.setBounds(10, 117, 544, 288);
+        telaRegistrar.setBounds(10, 129, 544, 276);
         telaRegistrar.setBackground(new Color(6, 26, 53));
         telaPrincipalRecursos.add(telaRegistrar);
         
@@ -111,23 +110,13 @@ public class TelaRegistroRecursos extends JFrame{
         
         JPanel telaEstoque = new JPanel();
         telaRegistrar.add(telaEstoque, "telaEstoque");
-        telaEstoque.setBackground(new Color(240, 240, 240));
+        telaEstoque.setBackground(new Color(6, 26, 53));
         telaEstoque.setLayout(null);
         
         JPanel telaMedicamentos = new JPanel();
         telaRegistrar.add(telaMedicamentos, "telaMedicamentos");
-        telaMedicamentos.setBackground(new Color(240, 240, 240));
+        telaMedicamentos.setBackground(new Color(6, 26, 53));
         telaMedicamentos.setLayout(null);
-        
-        JLabel lblNomeMedicamento = new JLabel("Nome do medicamento");
-        lblNomeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNomeMedicamento.setBounds(194, 11, 160, 24);
-        telaMedicamentos.add(lblNomeMedicamento);
-        
-        textFieldNomeMedicamento = new JTextField();
-        textFieldNomeMedicamento.setBounds(170, 44, 208, 20);
-        telaMedicamentos.add(textFieldNomeMedicamento);
-        textFieldNomeMedicamento.setColumns(10);
         
         
         JLabel lblPetLifeNome = new JLabel("PetLife");

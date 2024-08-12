@@ -65,8 +65,6 @@ public class Recursos extends JPanel {
 		btnRegistrarAdocao.setBounds(812, 11, 82, 46);;
 		add(btnRegistrarAdocao);
 		
-		//Aqui vai ter as coisas da tabela
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(77, 111, 342, 288);
 		add(scrollPane);
@@ -81,18 +79,10 @@ public class Recursos extends JPanel {
 			}
 		));
 		
-		//Filtro de animais
-		
 		JComboBox comboBoxFiltro = new JComboBox();
 		comboBoxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Cachorro", "Gato"}));
 		comboBoxFiltro.setBounds(304, 84, 115, 16);
 		add(comboBoxFiltro);
-		
-		//Botão que vai extrair os relatórios
-		
-		JButton btnRelatorio = new JButton("Relatório");
-		btnRelatorio.setBounds(348, 410, 112, 23);
-		add(btnRelatorio);
 		
 	}
 }
