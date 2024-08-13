@@ -13,6 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import br.edu.ifpe.discente.PetLife.business.TutorService;
+import br.edu.ifpe.discente.PetLife.ui.entities.Tutor;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class TelaRegistroAdocao extends JFrame{
 
 	/**
@@ -151,6 +157,22 @@ public class TelaRegistroAdocao extends JFrame{
         
         //Botão para registrar a adoção
         JButton btnAdotar = new JButton("Adotar");
+        btnAdotar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		String nome = textFieldNomeTutor.getText();
+        		String cpf = textFieldCpfTutor.getText();
+        		String telefone = textFieldTelefoneTutor.getText();
+        		String endereco = textFieldEnderecoTutor.getText();
+        		
+        		Tutor tutor = new Tutor (nome, cpf, telefone, endereco);
+        		TutorService service = new TutorService();
+        		
+        		//Criar lógica de cadastrar tutor
+        		
+        		
+        	}
+        });
         btnAdotar.setBounds(424, 292, 104, 34);
         RegistroAdocaoPainel.add(btnAdotar);
         

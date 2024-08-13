@@ -123,7 +123,7 @@ public class AnimaisRepository {
             	
                 while (rs.next()) {
                 	
-                	Animais anima1 = new Animais(
+                	Animais animal = new Animais(
          
                     rs.getString("nome"),
                     rs.getInt("idade"),
@@ -134,7 +134,7 @@ public class AnimaisRepository {
                     rs.getString("vacina"),
                     rs.getString("foto")
                 );
-                    listaDeAnimaisAptos.add(anima1);
+                    listaDeAnimaisAptos.add(animal);
                 }
             } return listaDeAnimaisAptos;
             

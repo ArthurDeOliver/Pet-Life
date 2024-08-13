@@ -15,28 +15,28 @@ public class Tutor {
 		this.telefone= telefone;
 	}
 	
-	public String get_nome() {
+	public String getNome() {
 		return nome;
 	}
-	public void set_nome(String nome) {
+	public void setNome(String nome) {
 		this.nome=nome;
 	}
-	public String get_cpf() {
+	public String getCpf() {
 		return cpf;
 	}
-	public void set_cpf(String cpf) {
+	public void setCpf(String cpf) {
 		this.cpf=cpf;
 	}
-	public String get_endereco() {
+	public String getEndereco() {
 		return endereco;
 	}
-	public void set_endereco(String endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco=endereco;
 	}
-	public String get_telefone() {
+	public String getTelefone() {
 		return telefone;
 	}
-	public void set_telefone(String telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone=telefone;
 	}
 	
