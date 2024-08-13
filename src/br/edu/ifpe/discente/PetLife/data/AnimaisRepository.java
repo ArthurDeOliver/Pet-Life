@@ -25,7 +25,7 @@ public class AnimaisRepository {
     }
     
     // cria o bd if not exists
-    public void createDatabase() throws SQLException {
+    private void createDatabase() throws SQLException {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              Statement statement = connection.createStatement()) {
             String sql = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
@@ -33,14 +33,14 @@ public class AnimaisRepository {
         }
     }
     // cria a tabela if not exists
-    public void createTable() throws SQLException {
+    private void createTable() throws SQLException {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
             String sql = "CREATE TABLE IF NOT EXISTS animais (" +
-                         "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                         "nome VARCHAR(255) NOT NULL, " +
-                         "idade INT NOT NULL, " +
-                         "tipo VARCHAR(255) NOT NULL, " +
+                         "id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, " +
+                         "nome VARCHAR(255), " +
+                         "idade INT, " +
+                         "tipo VARCHAR(255), " +
                          "raca VARCHAR(255), " +
                          "racao INT, " +
                          "status VARCHAR(50), " +
