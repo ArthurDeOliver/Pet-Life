@@ -5,25 +5,58 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mysql.cj.xdevapi.Statement;
-
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+
 
 public class AnimaisRepository {
 	
-	private static final String URL = "jdbc:mysql://localhost:3306/petlife"; //editável
+	private static final String URL = "jdbc:mysql://localhost:3306/"; 
+	private static final String DB_NAME = "petlife"; 
     private static final String USER = "root";      //editável
     private static final String PASSWORD = "admin"; //editável
+    
 
     
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
     }
     
+    // cria o bd if not exists
+    public void createDatabase() throws SQLException {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             Statement statement = connection.createStatement()) {
+            String sql = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
+            statement.executeUpdate(sql);
+        }
+    }
+    // cria a tabela if not exists
+    public void createTable() throws SQLException {
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement()) {
+            String sql = "CREATE TABLE IF NOT EXISTS animais (" +
+                         "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                         "nome VARCHAR(255) NOT NULL, " +
+                         "idade INT NOT NULL, " +
+                         "tipo VARCHAR(255) NOT NULL, " +
+                         "raca VARCHAR(255), " +
+                         "racao INT, " +
+                         "status VARCHAR(50), " +
+                         "vacina VARCHAR(255), " +
+                         "foto VARCHAR(255))";
+            statement.executeUpdate(sql);
+        }
+    }
     
+    // inicia a tabela e o bd
+    public void iniciarBd() throws SQLException {
+        createDatabase();
+        createTable();
+    }
+
+
     // criar animais
     public void criarAnimal(Animais animal) throws SQLException {
         String sql = "INSERT INTO animais (nome, idade, tipo, raca, racao, status, vacina, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; //editável

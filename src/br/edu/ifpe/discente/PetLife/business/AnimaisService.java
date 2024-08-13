@@ -8,25 +8,25 @@ import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 
 public class AnimaisService {
 	
-	private AnimaisRepository dadosAnimais;
+	private AnimaisRepository repositoryA;
 	
 	public AnimaisService() {
 		
-		this.dadosAnimais = new AnimaisRepository();
+		this.repositoryA = new AnimaisRepository();
 	}
 	
 	public void criarAnimal (Animais animal) throws SQLException { //aprimorar
-		dadosAnimais.criarAnimal(animal);
+		repositoryA.criarAnimal(animal);
 		
 	}
 	
 	public List<Animais> retornarAnimal() throws SQLException{ //aprimorar
-		return dadosAnimais.listarTodosAnimais();
+		return repositoryA.listarTodosAnimais();
 		
 	}
 	
 	public List<Animais> retornarAnimaisAptos() throws SQLException{ //aprimorar
-		return dadosAnimais.listarAnimaisAptos();
+		return repositoryA.listarAnimaisAptos();
 		
 	}
 	

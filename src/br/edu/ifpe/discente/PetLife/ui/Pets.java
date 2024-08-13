@@ -6,19 +6,14 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
-import br.edu.ifpe.discente.PetLife.data.AnimaisRepository;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
-
-import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -26,10 +21,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.BevelBorder;
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
-import java.awt.SystemColor;
+
 
 public class Pets extends JPanel {
 

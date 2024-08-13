@@ -8,11 +8,12 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import br.edu.ifpe.discente.PetLife.business.BDService;
 import javax.swing.JLabel;
 
 public class Main {
@@ -45,6 +46,14 @@ public class Main {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		BDService bdservice = new BDService();
+        try {
+            bdservice.iniciarBD(); //inicializando bd e tabela
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
