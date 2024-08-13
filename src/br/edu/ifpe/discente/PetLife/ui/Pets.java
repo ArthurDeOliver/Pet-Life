@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,6 +23,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 
 public class Pets extends JPanel {
@@ -36,6 +38,8 @@ public class Pets extends JPanel {
     private List<Animais> listaDeAnimais;
     private JLabel labelFotoPet;
     private TabelaAnimal tabelaAnimal;
+    
+
 
    
     public Pets() {
@@ -84,57 +88,53 @@ public class Pets extends JPanel {
        
 
         
-        // Iniciar tabela de animais
-        
-        
-        
+        // Iniciar tabela de animais      
+  
         try {
-        	AnimaisService servico = new AnimaisService();
+            AnimaisService servico = new AnimaisService();
             List<Animais> listaDeAnimais = servico.retornarAnimal();
-            tabelaAnimal = new TabelaAnimal(listaDeAnimais); // adicionando a lista de animais na tabela
-            
+            tabelaAnimal = new TabelaAnimal(listaDeAnimais);
+
+            JTable tabela = tabelaAnimal.getTabela();
+            tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            tabela.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    int linhaSelecionada = tabela.getSelectedRow();
+
+                        String nomeAnimal = tabela.getValueAt(linhaSelecionada, 0).toString().trim();
+
+                        Animais animalSelecionado = null;
+                        for (Animais animal : listaDeAnimais) {
+                            if (animal.getNome().equals(nomeAnimal)) {
+                                animalSelecionado = animal;
+                                break;
+                            }
+                        }
+
+                        if (animalSelecionado != null) {
+                            textFieldNomePet.setText(animalSelecionado.getNome());
+                            textFieldTipoPet.setText(animalSelecionado.getTipo());
+                            textFieldRacaPet.setText(animalSelecionado.getRaca());
+                            textFieldIdadePet.setText(String.valueOf(animalSelecionado.getIdade()));
+                            textFieldStatusPet.setText(animalSelecionado.getStatus());
+
+                            ImageIcon foto = new ImageIcon(animalSelecionado.getFoto());
+                            labelFotoPet.setIcon(foto);
+                        }                    
+                }
+            });
+
+            JScrollPane scrollPaneAnimal = new JScrollPane(tabela);
+            scrollPaneAnimal.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+            scrollPaneAnimal.setBounds(76, 131, 309, 280);
+            add(scrollPaneAnimal);
+
         } catch (SQLException e) {
             e.printStackTrace();
-            tabelaAnimal = new TabelaAnimal(List.of()); // Cria uma tabela vazia se houver erro -- coloquei pra nao ficar vazio
+            tabelaAnimal = new TabelaAnimal(List.of());
         }
-        
-        
-        JScrollPane scrollPaneAnimal = new JScrollPane(tabelaAnimal.getTabela());
-        scrollPaneAnimal.addMouseListener(new MouseAdapter() {
-        	
-        	public void mouseClicked(MouseEvent e) {
-        		int linhaSelecionada = tabelaAnimal.getTabela().getSelectedRow();
-        		if (linhaSelecionada >= 0) {
-        			String nomeAnimal = (String) tabelaAnimal.getTabela().getValueAt(linhaSelecionada, 1);
-        			
-        			Animais animalSelecionado = null;
-        			for (Animais animal : listaDeAnimais) {
-        			    if (animal.getNome().equals(nomeAnimal)) {
-        			        animalSelecionado = animal;
-        			        break;
-        			    }
-        			}
-        			
-        			if (animalSelecionado != null) {
-        				textFieldNomePet.setText("Nome: " + animalSelecionado.getNome());
-        				textFieldTipoPet.setText("Tipo: " + animalSelecionado.getTipo());
-        				textFieldRacaPet.setText("Raça: " + animalSelecionado.getRaca());
-                        textFieldIdadePet.setText("Idade: " + animalSelecionado.getIdade());
-                        textFieldStatusPet.setText("Status: " + animalSelecionado.getStatus());
-                        
-                        ImageIcon foto = new ImageIcon(animalSelecionado.getFoto());
-                        labelFotoPet.setIcon(foto);
-                        
-                    }
-        		}
-        		
-        	}
-        });
-        scrollPaneAnimal.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPaneAnimal.setBounds(76, 131, 309, 280); 
 
-        add(scrollPaneAnimal); // adicionar a tabela
-        
              
     
         //filtro de animais
@@ -252,4 +252,5 @@ public class Pets extends JPanel {
         
 
     }
+
 }
