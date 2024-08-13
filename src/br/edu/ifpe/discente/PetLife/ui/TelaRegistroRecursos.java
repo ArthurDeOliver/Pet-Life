@@ -114,20 +114,20 @@ public class TelaRegistroRecursos extends JFrame{
         telaEstoque.setBackground(new Color(240, 240, 240));
         telaEstoque.setLayout(null);
         
+        JLabel lblNomeMedicamento = new JLabel("Nome do medicamento");
+        lblNomeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblNomeMedicamento.setBounds(194, 11, 160, 24);
+        telaEstoque.add(lblNomeMedicamento);
+        
+        textFieldNomeMedicamento = new JTextField();
+        textFieldNomeMedicamento.setColumns(10);
+        textFieldNomeMedicamento.setBounds(170, 44, 208, 20);
+        telaEstoque.add(textFieldNomeMedicamento);
+        
         JPanel telaMedicamentos = new JPanel();
         telaRegistrar.add(telaMedicamentos, "telaMedicamentos");
         telaMedicamentos.setBackground(new Color(240, 240, 240));
         telaMedicamentos.setLayout(null);
-        
-        JLabel lblNomeMedicamento = new JLabel("Nome do medicamento");
-        lblNomeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNomeMedicamento.setBounds(194, 11, 160, 24);
-        telaMedicamentos.add(lblNomeMedicamento);
-        
-        textFieldNomeMedicamento = new JTextField();
-        textFieldNomeMedicamento.setBounds(170, 44, 208, 20);
-        telaMedicamentos.add(textFieldNomeMedicamento);
-        textFieldNomeMedicamento.setColumns(10);
         
         
         JLabel lblPetLifeNome = new JLabel("PetLife");

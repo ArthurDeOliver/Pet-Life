@@ -91,7 +91,7 @@ public class Recursos extends JPanel {
 		//Botão que vai extrair os relatórios
 		
 		JButton btnRelatorio = new JButton("Relatório");
-		btnRelatorio.setBounds(348, 410, 112, 23);
+		btnRelatorio.setBounds(352, 405, 112, 23);
 		add(btnRelatorio);
 		
 	}
