@@ -3,12 +3,8 @@ package br.edu.ifpe.discente.PetLife.ui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.net.URL;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextArea;
+
+import br.edu.ifpe.discente.PetLife.business.TutorService;
+import br.edu.ifpe.discente.PetLife.ui.entities.Tutor;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaRegistroAdocao extends JFrame{
 
@@ -156,6 +157,22 @@ public class TelaRegistroAdocao extends JFrame{
         
         //Botão para registrar a adoção
         JButton btnAdotar = new JButton("Adotar");
+        btnAdotar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		String nome = textFieldNomeTutor.getText();
+        		String cpf = textFieldCpfTutor.getText();
+        		String telefone = textFieldTelefoneTutor.getText();
+        		String endereco = textFieldEnderecoTutor.getText();
+        		
+        		Tutor tutor = new Tutor (nome, cpf, telefone, endereco);
+        		TutorService service = new TutorService();
+        		
+        		//Criar lógica de cadastrar tutor
+        		
+        		
+        	}
+        });
         btnAdotar.setBounds(424, 292, 104, 34);
         RegistroAdocaoPainel.add(btnAdotar);
         

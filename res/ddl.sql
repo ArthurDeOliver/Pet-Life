@@ -1,0 +1,15 @@
+CREATE DATABASE IF NOT EXISTS petlife;
+
+USE petlife;
+
+CREATE TABLE IF NOT EXISTS animais(
+id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+nome VARCHAR(45),
+idade INT,
+tipo VARCHAR(45),
+raca Varchar(45),
+racao INT,
+status VARCHAR(45),
+vacina VARCHAR(45),
+foto VARCHAR(45)
+);

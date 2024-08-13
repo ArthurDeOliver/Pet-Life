@@ -4,28 +4,35 @@ import java.awt.Font;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
-
-import java.awt.ComponentOrientation;
 import javax.swing.JScrollPane;
+import br.edu.ifpe.discente.PetLife.ui.TabelaAdotaveis;
 
 public class Adocao extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTable tableAdotaveis;
 	private JTable tableAdotados;
-    private TabelaAnimal tabelaAnimaisAptos;
+    private TabelaAdotaveis tabelaAnimaisAptos;
+    private List<Animais> listaPetsAdotaveis;
+    private JTextField textFieldNomePet;
+    private JTextField textFieldTipoPet;
+    private JTextField textFieldIdadePet;
+    private JTextField textFieldRacaPet;
+    private JTextField textFieldStatusPet;
+    private JLabel labelFotoPet;
     
 
 	/**
@@ -83,27 +90,49 @@ public class Adocao extends JPanel {
 		 try {
 	        	AnimaisService servico = new AnimaisService();
 	            List<Animais> listaDeAnimaisAptos= servico.retornarAnimaisAptos();
-	            tabelaAnimaisAptos = new TabelaAnimal(listaDeAnimaisAptos); // adicionando a lista de animais aptos na tabela
+	            tabelaAnimaisAptos = new TabelaAdotaveis(listaDeAnimaisAptos); // adicionando a lista de animais aptos na tabela
 	            
 	        } catch (SQLException e) {
 	            e.printStackTrace();
-	            tabelaAnimaisAptos = new TabelaAnimal(List.of()); // Cria uma tabela vazia se houver erro -- coloquei pra nao ficar vazio
+	            tabelaAnimaisAptos = new TabelaAdotaveis(List.of()); // Cria uma tabela vazia se houver erro -- coloquei pra nao ficar vazio
 	        }
 		
 		
-		JScrollPane scrollPanePetsAdotaveis = new JScrollPane();
+		JScrollPane scrollPanePetsAdotaveis = new JScrollPane(tabelaAnimaisAptos.getTabelaAdotaveis());
+        scrollPanePetsAdotaveis.addMouseListener(new MouseAdapter() {
+        	
+        	public void mouseClicked(MouseEvent e) {
+        		int linhaSelecionada = tabelaAnimaisAptos.getTabelaAdotaveis().getSelectedRow();
+        		if (linhaSelecionada >= 0) {
+        			String nomeAnimal = (String) tabelaAnimaisAptos.getTabelaAdotaveis().getValueAt(linhaSelecionada, 1);
+        			
+        			Animais animalSelecionado = null;
+        			for (Animais animal : listaPetsAdotaveis) {
+        			    if (animal.getNome().equals(nomeAnimal)) {
+        			        animalSelecionado = animal;
+        			        break;
+        			    }
+        			}
+        			
+        			if (animalSelecionado != null) {
+        				textFieldNomePet.setText("Nome: " + animalSelecionado.getNome());
+        				textFieldTipoPet.setText("Tipo: " + animalSelecionado.getTipo());
+        				textFieldRacaPet.setText("Raça: " + animalSelecionado.getRaca());
+                        textFieldIdadePet.setText("Idade: " + animalSelecionado.getIdade());
+                        textFieldStatusPet.setText("Status: " + animalSelecionado.getStatus());
+                        
+                        ImageIcon foto = new ImageIcon(animalSelecionado.getFoto());
+                        labelFotoPet.setIcon(foto);
+                        
+                    }
+        		}
+        		
+        	}
+        });
 		scrollPanePetsAdotaveis.setBounds(32, 128, 342, 288);
 		add(scrollPanePetsAdotaveis);
 		
-		tableAdotaveis = new JTable();
-		scrollPanePetsAdotaveis.setViewportView(tableAdotaveis);
-		tableAdotaveis.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nome", "Tipo", "Raça", "Idade"
-			}
-		));
+
 		
 		//Label para tabela de Pets adotados
 		JLabel lblPetsAdotados = new JLabel("Pets adotados");
