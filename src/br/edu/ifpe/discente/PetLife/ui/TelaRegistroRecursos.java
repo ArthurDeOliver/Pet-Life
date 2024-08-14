@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.DefaultComboBoxModel;
 
 public class TelaRegistroRecursos extends JFrame{
 
@@ -29,7 +30,9 @@ public class TelaRegistroRecursos extends JFrame{
 	private JFrame frame;
 	private CardLayout cl_telaRegistrar; 
 	private JTextField textFieldNomeMedicamento;
-
+	private JTextField textFieldQuantidade;
+	private JTextField textFieldValor;
+    private CardLayout cl_panelMudar;
 	/**
 	 * Launch the application.
 	 */
@@ -109,20 +112,88 @@ public class TelaRegistroRecursos extends JFrame{
         homeTelaRegistrar.setBackground(new Color(6, 26, 53));
         homeTelaRegistrar.setLayout(null);
         
+        
+        
         JPanel telaEstoque = new JPanel();
         telaRegistrar.add(telaEstoque, "telaEstoque");
         telaEstoque.setBackground(new Color(240, 240, 240));
         telaEstoque.setLayout(null);
         
-        JLabel lblNomeMedicamento = new JLabel("Nome do medicamento");
+        JComboBox comboBox = new JComboBox();
+        comboBox.setFont(new Font("Tahoma", Font.BOLD, 14));
+        comboBox.setModel(new DefaultComboBoxModel(new String[] {"Medicamentos", "Ração", "Vacinas"}));
+        comboBox.setBounds(196, 27, 128, 22);
+        telaEstoque.add(comboBox);
+    
+        
+        cl_panelMudar = new CardLayout();
+        
+        
+        JPanel panelMudar = new JPanel(cl_panelMudar);
+        panelMudar.setLocation(0, 59);
+        panelMudar.setSize(544, 229);
+        telaEstoque.add(panelMudar);
+        panelMudar.setLayout(cl_panelMudar);
+        
+        
+        JPanel panelMedicamentos = new JPanel();
+        panelMedicamentos.setBounds(0, 0, 544, 229);
+        panelMudar.add(panelMedicamentos, "Medicamentos");
+        panelMedicamentos.setLayout(null);
+        
+        JLabel lblNomeMedicamento = new JLabel("Nome Medicamento");
         lblNomeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNomeMedicamento.setBounds(194, 11, 160, 24);
-        telaEstoque.add(lblNomeMedicamento);
+        lblNomeMedicamento.setBounds(48, 25, 138, 21);
+        panelMedicamentos.add(lblNomeMedicamento);
         
         textFieldNomeMedicamento = new JTextField();
+        textFieldNomeMedicamento.setBounds(33, 50, 173, 20);
+        panelMedicamentos.add(textFieldNomeMedicamento);
         textFieldNomeMedicamento.setColumns(10);
-        textFieldNomeMedicamento.setBounds(170, 44, 208, 20);
-        telaEstoque.add(textFieldNomeMedicamento);
+        
+        JLabel lblQuantidade = new JLabel("Quantidade");
+        lblQuantidade.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblQuantidade.setBounds(353, 27, 86, 17);
+        panelMedicamentos.add(lblQuantidade);
+        
+        textFieldQuantidade = new JTextField();
+        textFieldQuantidade.setBounds(308, 50, 173, 20);
+        panelMedicamentos.add(textFieldQuantidade);
+        textFieldQuantidade.setColumns(10);
+        
+        JLabel lblValor = new JLabel("Valor");
+        lblValor.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblValor.setBounds(238, 98, 46, 14);
+        panelMedicamentos.add(lblValor);
+        
+        textFieldValor = new JTextField();
+        textFieldValor.setBounds(168, 117, 173, 20);
+        panelMedicamentos.add(textFieldValor);
+        textFieldValor.setColumns(10);
+        
+        JButton btnRegistrar = new JButton("Registrar");
+        btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnRegistrar.setBounds(417, 179, 105, 30);
+        panelMedicamentos.add(btnRegistrar);
+        
+        JPanel panelRacao = new JPanel();
+        panelRacao.setBounds(0, 0, 544, 229);
+        panelMudar.add(panelRacao, "Ração");
+        panelRacao.setLayout(null);
+        
+        JPanel panelVacinas = new JPanel();
+        panelVacinas.setBounds(0, 0, 544, 229);
+        panelMudar.add(panelVacinas, "Vacinas");
+        panelVacinas.setLayout(null);
+        
+        comboBox.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String selecionado = (String) comboBox.getSelectedItem();
+        		cl_panelMudar.show(panelMudar, selecionado);
+        		
+        	}
+        });
+        
         
         JPanel telaMedicamentos = new JPanel();
         telaRegistrar.add(telaMedicamentos, "telaMedicamentos");
@@ -136,6 +207,7 @@ public class TelaRegistroRecursos extends JFrame{
         lblPetLifeNome.setFont(new Font("Tahoma", Font.PLAIN, 54));
         lblPetLifeNome.setBounds(192, 66, 160, 78);
         homeTelaRegistrar.add(lblPetLifeNome);
+        
         
         JLabel lblGerenciandoNome = new JLabel("Gerenciando a vida dos pets");
         lblGerenciandoNome.setEnabled(false);
