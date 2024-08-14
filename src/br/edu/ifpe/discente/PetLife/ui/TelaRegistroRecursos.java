@@ -30,8 +30,11 @@ public class TelaRegistroRecursos extends JFrame{
 	private JFrame frame;
 	private CardLayout cl_telaRegistrar; 
 	private JTextField textFieldNomeMedicamento;
+	private JTextField textFieldMarcaRacao;
 	private JTextField textFieldQuantidade;
+	private JTextField textFieldQuantidadeRacao;
 	private JTextField textFieldValor;
+	private JTextField textFieldValorRacao;
     private CardLayout cl_panelMudar;
 	/**
 	 * Launch the application.
@@ -151,20 +154,20 @@ public class TelaRegistroRecursos extends JFrame{
         panelMedicamentos.add(textFieldNomeMedicamento);
         textFieldNomeMedicamento.setColumns(10);
         
-        JLabel lblQuantidade = new JLabel("Quantidade");
-        lblQuantidade.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblQuantidade.setBounds(353, 27, 86, 17);
-        panelMedicamentos.add(lblQuantidade);
+        JLabel lblQuantidadeMedicamento = new JLabel("Quantidade");
+        lblQuantidadeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblQuantidadeMedicamento.setBounds(353, 27, 86, 17);
+        panelMedicamentos.add(lblQuantidadeMedicamento);
         
         textFieldQuantidade = new JTextField();
         textFieldQuantidade.setBounds(308, 50, 173, 20);
         panelMedicamentos.add(textFieldQuantidade);
         textFieldQuantidade.setColumns(10);
         
-        JLabel lblValor = new JLabel("Valor");
-        lblValor.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblValor.setBounds(238, 98, 46, 14);
-        panelMedicamentos.add(lblValor);
+        JLabel lblValorMedicamento = new JLabel("Valor");
+        lblValorMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblValorMedicamento.setBounds(238, 98, 46, 14);
+        panelMedicamentos.add(lblValorMedicamento);
         
         textFieldValor = new JTextField();
         textFieldValor.setBounds(168, 117, 173, 20);
@@ -180,6 +183,42 @@ public class TelaRegistroRecursos extends JFrame{
         panelRacao.setBounds(0, 0, 544, 229);
         panelMudar.add(panelRacao, "Ração");
         panelRacao.setLayout(null);
+        
+        JLabel lblMarcaRacao = new JLabel("Marca da Ração");
+        lblMarcaRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblMarcaRacao.setBounds(60, 25, 108, 21);
+        panelRacao.add(lblMarcaRacao);
+        
+        textFieldMarcaRacao = new JTextField();
+        textFieldMarcaRacao.setBounds(33, 50, 173, 20);
+        panelRacao.add(textFieldMarcaRacao);
+        textFieldMarcaRacao.setColumns(10);
+        
+        JLabel lblQuantidadeRacao = new JLabel("Quantidade (KG)");
+        lblQuantidadeRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblQuantidadeRacao.setBounds(339, 27, 116, 17);
+        panelRacao.add(lblQuantidadeRacao);
+        
+        textFieldQuantidadeRacao = new JTextField();
+        textFieldQuantidadeRacao.setBounds(308, 50, 173, 20);
+        panelRacao.add(textFieldQuantidadeRacao);
+        textFieldQuantidadeRacao.setColumns(10);
+        
+        JLabel lblValorRacao = new JLabel("Valor");
+        lblValorRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblValorRacao.setBounds(238, 98, 41, 14);
+        panelRacao.add(lblValorRacao);
+        
+        textFieldValorRacao = new JTextField();
+        textFieldValorRacao.setBounds(168, 117, 173, 20);
+        panelRacao.add(textFieldValorRacao);
+        textFieldValorRacao.setColumns(10);
+        
+        JButton btnRegistrarRacao = new JButton("Registrar");
+        btnRegistrarRacao.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnRegistrarRacao.setBounds(417, 179, 105, 30);
+        panelRacao.add(btnRegistrarRacao);
+        
         
         JPanel panelVacinas = new JPanel();
         panelVacinas.setBounds(0, 0, 544, 229);
