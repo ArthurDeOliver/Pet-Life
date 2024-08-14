@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 import javax.swing.JTable;
@@ -88,8 +90,7 @@ public class Pets extends JPanel {
        
 
         
-        // Iniciar tabela de animais      
-  
+     // Iniciar tabela de animais      
         try {
             AnimaisService servico = new AnimaisService();
             List<Animais> listaDeAnimais = servico.retornarAnimal();
@@ -102,6 +103,7 @@ public class Pets extends JPanel {
                 public void mouseClicked(MouseEvent e) {
                     int linhaSelecionada = tabela.getSelectedRow();
 
+                    if (linhaSelecionada >= 0) {  // Verifica se alguma linha foi selecionada
                         String nomeAnimal = tabela.getValueAt(linhaSelecionada, 0).toString().trim();
 
                         Animais animalSelecionado = null;
@@ -121,7 +123,8 @@ public class Pets extends JPanel {
 
                             ImageIcon foto = new ImageIcon(animalSelecionado.getFoto());
                             labelFotoPet.setIcon(foto);
-                        }                    
+                        }
+                    }
                 }
             });
 
@@ -130,24 +133,49 @@ public class Pets extends JPanel {
             scrollPaneAnimal.setBounds(76, 131, 309, 280);
             add(scrollPaneAnimal);
 
+            // Filtro de animais
+            JComboBox<String> comboBoxFiltro = new JComboBox<>();
+            comboBoxFiltro.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                	List<Animais> listaFiltrada = new ArrayList<>();
+                    String tipoSelecionado = (String) comboBoxFiltro.getSelectedItem();
+                    DefaultTableModel modelo = tabelaAnimal.getModelo();
+                    modelo.setRowCount(0); 
+
+                    for (Animais animalLista : listaDeAnimais) {
+                        if (tipoSelecionado.equals("Todos")) {
+                        	listaFiltrada.addAll(listaDeAnimais);
+                		    break;
+                		} else if (animalLista.getTipo().equals(tipoSelecionado)) {
+            	        	listaFiltrada.add(animalLista);
+            	        }            	        		
+                    }
+                    		
+                   	for (Animais animalFiltrado : listaFiltrada) {
+                   	    modelo.addRow(new Object[]{ //colocndo anmais filtrados
+                   	            animalFiltrado.getNome(),
+                   	            animalFiltrado.getIdade(),
+                   	            animalFiltrado.getTipo(),
+                   	            animalFiltrado.getRaca(),
+                   	            animalFiltrado.getRacao(),
+                   	            animalFiltrado.getStatus(),
+                   	            animalFiltrado.getVacina(),
+                   	            animalFiltrado.getFoto()
+                   	      });
+                        }
+                    
+                }
+            });
+
+            comboBoxFiltro.setModel(new DefaultComboBoxModel<>(new String[]{"Todos", "Cachorro", "Gato"}));
+            comboBoxFiltro.setBounds(270, 105, 115, 16);
+            add(comboBoxFiltro);
+
         } catch (SQLException e) {
             e.printStackTrace();
             tabelaAnimal = new TabelaAnimal(List.of());
         }
 
-             
-    
-        //filtro de animais
-        JComboBox comboBoxFiltro = new JComboBox();
-        comboBoxFiltro.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		// vazio por enquanto
-        	}
-        });
-        
-        comboBoxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Cachorro ", "Gato"}));
-        comboBoxFiltro.setBounds(270, 105, 115, 16);
-        add(comboBoxFiltro);
         
         
         //botão editar

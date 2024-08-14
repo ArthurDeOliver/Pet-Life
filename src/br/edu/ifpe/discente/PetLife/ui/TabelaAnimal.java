@@ -40,4 +40,9 @@ public class TabelaAnimal extends JPanel {
     public JTable getTabela() {
         return tabela;
     }
+    
+    public DefaultTableModel getModelo() {
+    	return modelo;
+    }
+    
 }
