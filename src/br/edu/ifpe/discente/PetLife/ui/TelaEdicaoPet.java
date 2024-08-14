@@ -56,6 +56,148 @@ public class TelaEdicaoPet extends JFrame{
         contentPane.add(edicaoPetCorpoPainel);
         edicaoPetCorpoPainel.setLayout(null);
         
+        JLabel labelNomePet = new JLabel("Nome");
+        labelNomePet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelNomePet.setBounds(62, 25, 67, 31);
+        edicaoPetCorpoPainel.add(labelNomePet);
+        
+        JLabel labelIdadePet = new JLabel("Idade");
+        labelIdadePet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelIdadePet.setBounds(61, 103, 46, 23);
+        edicaoPetCorpoPainel.add(labelIdadePet);
+        
+        JLabel labelTipoPet = new JLabel("Tipo");
+        labelTipoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelTipoPet.setBounds(59, 170, 46, 31);
+        edicaoPetCorpoPainel.add(labelTipoPet);
+        
+        textFieldNomePet = new JTextField();
+        textFieldNomePet.setBounds(60, 57, 176, 20);
+        edicaoPetCorpoPainel.add(textFieldNomePet);
+        textFieldNomePet.setColumns(10);
+        
+        textFieldIdadePet = new JTextField();
+        textFieldIdadePet.addKeyListener(new KeyAdapter() {
+        	
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldIdadePet.getText().length() > 1) {
+        			e.consume();
+        		}
+        		
+        	}
+        });
+       
+        textFieldIdadePet.setBounds(59, 129, 177, 20);
+        edicaoPetCorpoPainel.add(textFieldIdadePet);
+        textFieldIdadePet.setColumns(10);
+        
+        
+        JComboBox comboBoxTipoPet = new JComboBox();
+        comboBoxTipoPet.setModel(new DefaultComboBoxModel(new String[] {"Cachorro", "Gato"}));
+        comboBoxTipoPet.setBounds(58, 200, 178, 22);
+        edicaoPetCorpoPainel.add(comboBoxTipoPet);
+        
+        
+        JLabel labelRaçaPet = new JLabel("Raça");
+        labelRaçaPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelRaçaPet.setBounds(58, 238, 46, 31);
+        edicaoPetCorpoPainel.add(labelRaçaPet);
+        
+        
+        JRadioButton RadioButtonSemRacaPet = new JRadioButton("Sem raça definida");
+        RadioButtonSemRacaPet.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if (RadioButtonSemRacaPet.isSelected()) {
+        			textFieldRacaPet.setEditable(false);
+        		}
+        	}
+        });
+        
+        JRadioButton RadioButtonRacaDefinidaPet = new JRadioButton("Raça definida:");
+        RadioButtonRacaDefinidaPet.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if (RadioButtonRacaDefinidaPet.isSelected()) {
+        			textFieldRacaPet.setEditable(true);
+        		} 
+        	}
+        });
+        
+        
+        RadioButtonSemRacaPet.setBounds(55, 265, 153, 23);
+        edicaoPetCorpoPainel.add(RadioButtonSemRacaPet);
+        
+        RadioButtonRacaDefinidaPet.setBounds(55, 285, 95, 23);
+        edicaoPetCorpoPainel.add(RadioButtonRacaDefinidaPet);
+        
+        
+        ButtonGroup grupoRadioButtons = new ButtonGroup();
+        grupoRadioButtons.add(RadioButtonRacaDefinidaPet);
+        grupoRadioButtons.add(RadioButtonSemRacaPet);
+        
+        textFieldRacaPet = new JTextField();
+        textFieldRacaPet.setEditable(false);
+        textFieldRacaPet.setBounds(151, 292, 86, 15);
+        edicaoPetCorpoPainel.add(textFieldRacaPet);
+        textFieldRacaPet.setColumns(10);
+        
+        JLabel labelRacaoPet = new JLabel("Ração");
+        labelRacaoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelRacaoPet.setBounds(305, 32, 45, 23);
+        edicaoPetCorpoPainel.add(labelRacaoPet);
+        
+        TextFieldRacao = new JTextField();
+        TextFieldRacao.setBounds(305, 58, 176, 19);
+        edicaoPetCorpoPainel.add(TextFieldRacao);
+        TextFieldRacao.setColumns(10);
+        
+        JLabel labelStatusPet = new JLabel("Status");
+        labelStatusPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelStatusPet.setBounds(305, 100, 46, 31);
+        edicaoPetCorpoPainel.add(labelStatusPet);
+        
+        JComboBox comboBoxStatusPet = new JComboBox();
+        comboBoxStatusPet.setModel(new DefaultComboBoxModel(new String[] {"Adotado", "Apto", "Não apto"}));
+        comboBoxStatusPet.setBounds(305, 128, 177, 22);
+        edicaoPetCorpoPainel.add(comboBoxStatusPet);
+        
+        JLabel labelVacinaPet = new JLabel("Vacinas");
+        labelVacinaPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelVacinaPet.setBounds(305, 180, 67, 13);
+        edicaoPetCorpoPainel.add(labelVacinaPet);
+        
+        textFieldVacinasPet = new JTextField();
+        textFieldVacinasPet.setBounds(305, 203, 176, 19);
+        edicaoPetCorpoPainel.add(textFieldVacinasPet);
+        textFieldVacinasPet.setColumns(10);
+        
+        JLabel labelFotoPet = new JLabel("Foto");
+        labelFotoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelFotoPet.setBounds(309, 244, 45, 13);
+        edicaoPetCorpoPainel.add(labelFotoPet);
+        
+        JButton btnFotoPet = new JButton("");
+        btnFotoPet.setIcon(new ImageIcon(TelaEdicaoPet.class.getResource("/Imagens/camera.png")));
+        btnFotoPet.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnFotoPet.setBounds(305, 266, 67, 42);
+        edicaoPetCorpoPainel.add(btnFotoPet);
+        
+        JButton btnEdicaoPet = new JButton("OK");
+        btnEdicaoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        btnEdicaoPet.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnEdicaoPet.setBounds(459, 292, 75, 31);
+        edicaoPetCorpoPainel.add(btnEdicaoPet);
+        
       
    
 	}
