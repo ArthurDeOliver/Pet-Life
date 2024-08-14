@@ -132,16 +132,16 @@ public class TelaCadastroPet extends JFrame {
         });
         
         
+        ButtonGroup grupoRadioButtons = new ButtonGroup();
+        grupoRadioButtons.add(RadioButtonRacaDefinidaPet);
+        grupoRadioButtons.add(RadioButtonSemRacaPet);
+        
         RadioButtonSemRacaPet.setBounds(170, 247, 153, 23);
         CadastroPetCorpoPainel.add(RadioButtonSemRacaPet);
         
         RadioButtonRacaDefinidaPet.setBounds(170, 273, 95, 23);
         CadastroPetCorpoPainel.add(RadioButtonRacaDefinidaPet);
         
-        
-        ButtonGroup grupoRadioButtons = new ButtonGroup();
-        grupoRadioButtons.add(RadioButtonRacaDefinidaPet);
-        grupoRadioButtons.add(RadioButtonSemRacaPet);
         
         textFieldRacaPet = new JTextField();
         textFieldRacaPet.setEditable(false);

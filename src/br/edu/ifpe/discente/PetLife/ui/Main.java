@@ -47,8 +47,11 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-		BDService bdservice = new BDService();
+		
+		
         try {
+
+    		BDService bdservice = new BDService();
             bdservice.iniciarBD(); //inicializando bd e tabela
         } catch (SQLException e) {
             e.printStackTrace();

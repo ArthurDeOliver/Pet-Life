@@ -40,6 +40,9 @@ public class Pets extends JPanel {
     private List<Animais> listaDeAnimais;
     private JLabel labelFotoPet;
     private TabelaAnimal tabelaAnimal;
+    private JButton btnEditarPets;
+    private JButton btnExcluirPets;
+
     
 
 
@@ -95,12 +98,13 @@ public class Pets extends JPanel {
             AnimaisService servico = new AnimaisService();
             List<Animais> listaDeAnimais = servico.retornarAnimal();
             tabelaAnimal = new TabelaAnimal(listaDeAnimais);
-
+            
             JTable tabela = tabelaAnimal.getTabela();
             tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
             tabela.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
+                	
                     int linhaSelecionada = tabela.getSelectedRow();
 
                     if (linhaSelecionada >= 0) {  // Verifica se alguma linha foi selecionada
@@ -123,6 +127,14 @@ public class Pets extends JPanel {
 
                             ImageIcon foto = new ImageIcon(animalSelecionado.getFoto());
                             labelFotoPet.setIcon(foto);
+                            
+                            btnEditarPets.setEnabled(true);
+                            btnExcluirPets.setEnabled(true);
+                            
+                            
+                        }else {
+                        	btnEditarPets.setEnabled(false);
+                            btnExcluirPets.setEnabled(false);
                         }
                     }
                 }
@@ -137,6 +149,7 @@ public class Pets extends JPanel {
             JComboBox<String> comboBoxFiltro = new JComboBox<>();
             comboBoxFiltro.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                	
                 	List<Animais> listaFiltrada = new ArrayList<>();
                     String tipoSelecionado = (String) comboBoxFiltro.getSelectedItem();
                     DefaultTableModel modelo = tabelaAnimal.getModelo();
@@ -179,15 +192,29 @@ public class Pets extends JPanel {
         
         
         //botão editar
-        JButton botaoEditarPets = new JButton("Editar");
-        botaoEditarPets.setBounds(493, 426, 85, 21);
-        add(botaoEditarPets);
+        btnEditarPets = new JButton("Editar");
+        btnEditarPets.setEnabled(false);
+        btnEditarPets.setBounds(493, 426, 85, 21);
+        btnEditarPets.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet();
+        		telaEdicaoPet.setVisible(true);
+        	}
+        });
+        add(btnEditarPets);
         
         
         // botão excluir
-        JButton botaoExcluirPets = new JButton("Excluir");
-        botaoExcluirPets.setBounds(644, 426, 85, 21);
-        add(botaoExcluirPets);
+        btnExcluirPets = new JButton("Excluir");
+        btnExcluirPets.setEnabled(false);
+        btnExcluirPets.setBounds(644, 426, 85, 21);
+        btnExcluirPets.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		
+        	}
+        });
+        add(btnExcluirPets);
 
         
         //recarregar tabela -- precisa aprimorar isso aqui pois foi uma mini gambiarra

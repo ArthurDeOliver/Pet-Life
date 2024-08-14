@@ -16,7 +16,7 @@ public class AnimaisRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/"; 
 	private static final String DB_NAME = "petlife"; 
     private static final String USER = "root";      //editável
-    private static final String PASSWORD = "admin"; //editável
+    private static final String PASSWORD = "duda"; //editável
     
 
     
@@ -141,5 +141,4 @@ public class AnimaisRepository {
         }
         
     }
-
 
