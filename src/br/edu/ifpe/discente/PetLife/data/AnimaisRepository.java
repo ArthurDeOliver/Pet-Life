@@ -37,7 +37,7 @@ public class AnimaisRepository {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
             String sql = "CREATE TABLE IF NOT EXISTS animais (" +
-                         "id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, " +
+                         "id INT AUTO_INCREMENT PRIMARY KEY, " +
                          "nome VARCHAR(255), " +
                          "idade INT, " +
                          "tipo VARCHAR(255), " +
@@ -49,6 +49,7 @@ public class AnimaisRepository {
             statement.executeUpdate(sql);
         }
     }
+
     
     // inicia a tabela e o bd
     public void iniciarBd() throws SQLException {

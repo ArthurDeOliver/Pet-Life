@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 import javax.swing.JTable;
@@ -31,7 +30,8 @@ import javax.swing.ListSelectionModel;
 public class Pets extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private JTable table;
+   
+    
     private JTextField textFieldNomePet;
     private JTextField textFieldTipoPet;
     private JTextField textFieldIdadePet;
@@ -42,7 +42,7 @@ public class Pets extends JPanel {
     private TabelaAnimal tabelaAnimal;
     private JButton btnEditarPets;
     private JButton btnExcluirPets;
-
+    private Animais animalSelecionado;
     
 
 
@@ -96,7 +96,7 @@ public class Pets extends JPanel {
      // Iniciar tabela de animais      
         try {
             AnimaisService servico = new AnimaisService();
-            List<Animais> listaDeAnimais = servico.retornarAnimal();
+            listaDeAnimais = servico.retornarAnimal();
             tabelaAnimal = new TabelaAnimal(listaDeAnimais);
             
             JTable tabela = tabelaAnimal.getTabela();
@@ -110,7 +110,7 @@ public class Pets extends JPanel {
                     if (linhaSelecionada >= 0) {  // Verifica se alguma linha foi selecionada
                         String nomeAnimal = tabela.getValueAt(linhaSelecionada, 0).toString().trim();
 
-                        Animais animalSelecionado = null;
+                        animalSelecionado = null;
                         for (Animais animal : listaDeAnimais) {
                             if (animal.getNome().equals(nomeAnimal)) {
                                 animalSelecionado = animal;
@@ -196,12 +196,17 @@ public class Pets extends JPanel {
         btnEditarPets.setEnabled(false);
         btnEditarPets.setBounds(493, 426, 85, 21);
         btnEditarPets.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet();
-        		telaEdicaoPet.setVisible(true);
-        	}
+            public void actionPerformed(ActionEvent e) {
+                if (animalSelecionado != null) { 
+                    TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet();
+                    telaEdicaoPet.informacoesEditaveis(animalSelecionado);
+                    telaEdicaoPet.setVisible(true);
+                }
+            }
         });
         add(btnEditarPets);
+        
+
         
         
         // botão excluir

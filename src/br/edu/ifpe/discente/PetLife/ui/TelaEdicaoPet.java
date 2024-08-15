@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.net.URL;
-
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -18,18 +16,27 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+
 import javax.swing.JButton;
 
 public class TelaEdicaoPet extends JFrame{
 	
+
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField nomeTextField;
 	private JTextField textFieldNomePet;
 	private JTextField textFieldIdadePet;
 	private JTextField textFieldRacaPet;
-	private JTextField TextFieldRacao;
+	private JTextField textFieldRacao;
 	private JTextField textFieldVacinasPet;
-	private JFrame frame;
+	private JComboBox<String> comboBoxTipoPet;
+	private JComboBox<String> comboBoxStatusPet;
+	
+	
+	
 	
 	public TelaEdicaoPet() {
 		
@@ -97,7 +104,7 @@ public class TelaEdicaoPet extends JFrame{
         textFieldIdadePet.setColumns(10);
         
         
-        JComboBox comboBoxTipoPet = new JComboBox();
+        comboBoxTipoPet = new JComboBox();
         comboBoxTipoPet.setModel(new DefaultComboBoxModel(new String[] {"Cachorro", "Gato"}));
         comboBoxTipoPet.setBounds(58, 200, 178, 22);
         edicaoPetCorpoPainel.add(comboBoxTipoPet);
@@ -150,17 +157,17 @@ public class TelaEdicaoPet extends JFrame{
         labelRacaoPet.setBounds(305, 32, 45, 23);
         edicaoPetCorpoPainel.add(labelRacaoPet);
         
-        TextFieldRacao = new JTextField();
-        TextFieldRacao.setBounds(305, 58, 176, 19);
-        edicaoPetCorpoPainel.add(TextFieldRacao);
-        TextFieldRacao.setColumns(10);
+        textFieldRacao = new JTextField();
+        textFieldRacao.setBounds(305, 58, 176, 19);
+        edicaoPetCorpoPainel.add(textFieldRacao);
+        textFieldRacao.setColumns(10);
         
         JLabel labelStatusPet = new JLabel("Status");
         labelStatusPet.setFont(new Font("Tahoma", Font.BOLD, 14));
         labelStatusPet.setBounds(305, 100, 46, 31);
         edicaoPetCorpoPainel.add(labelStatusPet);
         
-        JComboBox comboBoxStatusPet = new JComboBox();
+        comboBoxStatusPet = new JComboBox();
         comboBoxStatusPet.setModel(new DefaultComboBoxModel(new String[] {"Adotado", "Apto", "Não apto"}));
         comboBoxStatusPet.setBounds(305, 128, 177, 22);
         edicaoPetCorpoPainel.add(comboBoxStatusPet);
@@ -193,12 +200,25 @@ public class TelaEdicaoPet extends JFrame{
         btnEdicaoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
         btnEdicaoPet.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
+        		//adicionar lógica para atualizar no banco de dados
         	}
         });
         btnEdicaoPet.setBounds(459, 292, 75, 31);
         edicaoPetCorpoPainel.add(btnEdicaoPet);
-        
-      
-   
+	}
+	
+	//pegando informações do objeto animal e setando nos campos de texto da tela de edição
+	
+	public void informacoesEditaveis(Animais animalSelecionado) {
+		
+		textFieldNomePet.setText(animalSelecionado.getNome());
+        textFieldIdadePet.setText(String.valueOf(animalSelecionado.getIdade()));
+        textFieldRacaPet.setText(animalSelecionado.getRaca());
+        textFieldRacao.setText(String.valueOf(animalSelecionado.getRacao()));
+        textFieldVacinasPet.setText(animalSelecionado.getVacina());
+        comboBoxTipoPet.setSelectedItem(animalSelecionado.getTipo());
+        comboBoxStatusPet.setSelectedItem(animalSelecionado.getStatus());
+	
 	}
 }
