@@ -30,5 +30,9 @@ public class AnimaisService {
 		
 	}
 	
-		// regras de negócio aqui
+	public void deletarAnimal(String nome) throws SQLException {
+		repositoryA.deletarAnimal(nome);
+	}
+	
+		// TODO regras de negócio
 }
