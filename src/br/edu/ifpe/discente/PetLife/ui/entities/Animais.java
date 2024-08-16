@@ -2,6 +2,7 @@ package br.edu.ifpe.discente.PetLife.ui.entities;
 
 public class Animais {
 	
+	private int id;
 	private String nome;
 	private int idade;
 	private String tipo;
@@ -12,7 +13,8 @@ public class Animais {
 	private String foto;
 	
 	
-	public Animais (String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
+	public Animais ( String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
+		this.id = id;
 		this.nome = nome;
 		this.idade = idade;
 		this.tipo = tipo;
@@ -21,9 +23,18 @@ public class Animais {
 		this.vacina = vacina;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String name) {
 		this.nome = name;
 	}

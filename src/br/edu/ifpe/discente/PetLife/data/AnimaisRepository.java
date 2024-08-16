@@ -117,6 +117,7 @@ public class AnimaisRepository {
 
 	}
 
+	//deletar
 	public void deletarAnimal(String nome) throws SQLException {
 		
 	    String sql = "DELETE FROM animais WHERE nome = ?";
@@ -133,5 +134,32 @@ public class AnimaisRepository {
 	    }
 	}
 	
+	//update
+	public void atualizarAnimal(Animais animal) {
+		
+	    String sql = "UPDATE animais SET nome = ?, idade = ?, tipo = ?, raca = ?, racao = ?, status = ?, vacina = ?, foto = ? WHERE nome = ?";
+
+	    try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+	        statement.setString(1, animal.getNome());
+	        statement.setInt(2, animal.getIdade());
+	        statement.setString(3, animal.getTipo());
+	        statement.setString(4, animal.getRaca());
+	        statement.setInt(5, animal.getRacao());
+	        statement.setString(6, animal.getStatus());
+	        statement.setString(7, animal.getVacina());
+	        statement.setString(8, animal.getFoto());
+	        statement.setString(9, animal.getNome()); 
+
+	        statement.executeUpdate();
+	        
+	    } catch (SQLException e) {
+	       //TODO
+	    }
+	}
+
+
+
 }
+	
+
 
