@@ -21,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
+import javax.swing.Box;
 
 public class TelaRegistroRecursos extends JFrame{
 
@@ -409,6 +410,20 @@ public class TelaRegistroRecursos extends JFrame{
         telaRegistrar.add(telaMedicamentos, "telaMedicamentos");
         telaMedicamentos.setBackground(new Color(240, 240, 240));
         telaMedicamentos.setLayout(null);
+        
+        JScrollPane scrollPaneSelecionarAnimal = new JScrollPane();
+        scrollPaneSelecionarAnimal.setBounds(170, 40, 174, 28);
+        telaMedicamentos.add(scrollPaneSelecionarAnimal);
+        
+        JComboBox comboBoxSelecionarAnimal = new JComboBox();
+        scrollPaneSelecionarAnimal.setViewportView(comboBoxSelecionarAnimal);
+        
+        JScrollPane scrollPaneSelecionarVacina = new JScrollPane();
+        scrollPaneSelecionarVacina.setBounds(170, 124, 174, 28);
+        telaMedicamentos.add(scrollPaneSelecionarVacina);
+        
+        JComboBox comboBoxSelecionarVacina = new JComboBox();
+        scrollPaneSelecionarVacina.setViewportView(comboBoxSelecionarVacina);
         
         
         JLabel lblPetLifeNome = new JLabel("PetLife");
