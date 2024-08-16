@@ -18,7 +18,7 @@ public class AnimaisRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "admin"; // editável
+	private static final String PASSWORD = "1234567"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -66,6 +66,27 @@ public class AnimaisRepository {
 			statement.execute();
 		}
 
+	}
+	
+	public int retornarID(Animais animal) throws SQLException {
+	    String sql = "SELECT id FROM animais WHERE id = ?";  // Usando o ID como critério de seleção
+	    try (Connection connection = getConnection();
+	         PreparedStatement statement = connection.prepareStatement(sql)) {
+	        
+	        // Definindo o ID do animal no PreparedStatement
+	        statement.setInt(1, animal.getID());
+
+	        // Executando a query
+	        try (ResultSet rs = statement.executeQuery()) {
+	            if (rs.next()) {
+	                // Retornando o ID, que deve ser o mesmo que foi passado como parâmetro
+	                return rs.getInt("id");
+	            }
+	        }
+	    }
+	    
+	    // Se nenhum registro for encontrado com o ID fornecido
+	    return -1;  // ou lançar uma exceção
 	}
 
 	// retornar animais
@@ -168,30 +189,6 @@ public class AnimaisRepository {
 	      //TODO
 	    }
 	}
-	
-	//update
-	public void atualizarAnimal(Animais animal) {
-		
-	    String sql = "UPDATE animais SET nome = ?, idade = ?, tipo = ?, raca = ?, racao = ?, status = ?, vacina = ?, foto = ? WHERE nome = ?";
-
-	    try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-	        statement.setString(1, animal.getNome());
-	        statement.setInt(2, animal.getIdade());
-	        statement.setString(3, animal.getTipo());
-	        statement.setString(4, animal.getRaca());
-	        statement.setInt(5, animal.getRacao());
-	        statement.setString(6, animal.getStatus());
-	        statement.setString(7, animal.getVacina());
-	        statement.setString(8, animal.getFoto());
-	        statement.setString(9, animal.getNome()); 
-
-	        statement.executeUpdate();
-	        
-	    } catch (SQLException e) {
-	       //TODO
-	    }
-	}
-
 
 
 }

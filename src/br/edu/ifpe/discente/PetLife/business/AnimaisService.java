@@ -30,6 +30,10 @@ public class AnimaisService {
 		
 	}
 	
+	public int retornarID(Animais animal)throws SQLException{
+		return repositoryA.retornarID(animal);
+	}
+	
 	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto, int id) throws SQLException {
 		repositoryA.atualizarAnimal(nome, idade, tipo, raca, racao, status, vacina, foto, id);
 	}
@@ -38,9 +42,6 @@ public class AnimaisService {
 		repositoryA.deletarAnimal(nome);
 	}
 	
-	public void atualizarAnimal(Animais animal) {
-		repositoryA.atualizarAnimal(animal);
-	}
 	
 		// TODO regras de negócio
 }

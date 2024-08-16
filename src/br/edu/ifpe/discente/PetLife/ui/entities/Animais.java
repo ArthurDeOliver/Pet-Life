@@ -13,14 +13,14 @@ public class Animais {
 	private String foto;
 	
 	
-	public Animais ( String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
-		this.id = id;
+	public Animais (String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
 		this.nome = nome;
 		this.idade = idade;
 		this.tipo = tipo;
 		this.raca = raca;
-		this.status = status;
-		this.vacina = vacina;
+		this.status = "Não Apto";
+		this.vacina = "";
+		this.racao = 0;
 	}
 	
 	public Animais (int id, String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
@@ -29,8 +29,9 @@ public class Animais {
 		this.idade = idade;
 		this.tipo = tipo;
 		this.raca = raca;
-		this.status = status;
-		this.vacina = vacina;
+		this.status = "Não Apto";
+		this.vacina = "";
+		this.racao = 0;
 	}
 	
 	public int getID() {

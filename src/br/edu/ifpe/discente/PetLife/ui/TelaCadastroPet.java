@@ -157,7 +157,8 @@ public class TelaCadastroPet extends JFrame {
         ButtonCadastroPet.addActionListener(new ActionListener() {
         	
             public void actionPerformed(ActionEvent e) {
-            	 
+            	 	
+            		 
                      String nome = textFieldNomePet.getText();
                      int idade = Integer.parseInt(textFieldIdadePet.getText());
                      String tipo = (String) comboBoxTipoPet.getSelectedItem();
@@ -170,6 +171,13 @@ public class TelaCadastroPet extends JFrame {
                 
                      Animais animal = new Animais(nome, idade, tipo, raca, racao ,status, vacina, foto);
                      AnimaisService service = new AnimaisService();
+                     
+                     try {
+						int id = service.retornarID(animal);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                      
                      try {
      					service.criarAnimal(animal);

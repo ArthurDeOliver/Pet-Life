@@ -209,7 +209,7 @@ public class TelaEdicaoPet extends JFrame {
                 
                 if (animalSelecionado != null) {
                     try {
-                        petID = animalSelecionado.getID();
+                        //petID = animalSelecionado.getID();
                         System.out.println("Atualizando animal com ID: " + petID);
 
                         AnimaisService servico = new AnimaisService();
@@ -257,6 +257,8 @@ public class TelaEdicaoPet extends JFrame {
 		textFieldVacinasPet.setText(animalSelecionado.getVacina());
 		comboBoxTipoPet.setSelectedItem(animalSelecionado.getTipo());
 		comboBoxStatusPet.setSelectedItem(animalSelecionado.getStatus());
+		this.animalSelecionado = animalSelecionado;
+		petID = animalSelecionado.getID();
 
 	}
 }
