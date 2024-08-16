@@ -100,7 +100,7 @@ public class Pets extends JPanel {
 
 					int linhaSelecionada = tabela.getSelectedRow();
 
-					if (linhaSelecionada >= 0) { // Verifica se alguma linha foi selecionada
+					if (linhaSelecionada >= 0) { 
 						String nomeAnimal = tabela.getValueAt(linhaSelecionada, 0).toString().trim();
 
 						animalSelecionado = null;

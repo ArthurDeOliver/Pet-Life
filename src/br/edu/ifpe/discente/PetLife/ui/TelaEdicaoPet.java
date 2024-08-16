@@ -6,17 +6,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 
 import javax.swing.JButton;
@@ -32,8 +36,12 @@ public class TelaEdicaoPet extends JFrame{
 	private JTextField textFieldRacaPet;
 	private JTextField textFieldRacao;
 	private JTextField textFieldVacinasPet;
+	private JTextField textFieldTipoPet;
+	private JTextField textFieldStatusPet;
 	private JComboBox<String> comboBoxTipoPet;
 	private JComboBox<String> comboBoxStatusPet;
+	private Animais animalSelecionado;
+	private int petID;
 	
 	
 	
@@ -199,10 +207,38 @@ public class TelaEdicaoPet extends JFrame{
         JButton btnEdicaoPet = new JButton("OK");
         btnEdicaoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
         btnEdicaoPet.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		
-        		//adicionar lógica para atualizar no banco de dados
-        	}
+            public void actionPerformed(ActionEvent e) {
+                
+                if (animalSelecionado != null) {
+                    try {
+                        petID = animalSelecionado.getID();
+                        System.out.println("Atualizando animal com ID: " + petID);
+
+                        AnimaisService servico = new AnimaisService();
+                        
+                        String nome = textFieldNomePet.getText();
+                        int idade = Integer.parseInt(textFieldIdadePet.getText()); 
+                        String tipo = comboBoxTipoPet.getSelectedItem().toString();
+                        String raca = textFieldRacaPet.getText();
+                        int racao = Integer.parseInt(textFieldRacao.getText()); 
+                        String status = comboBoxStatusPet.getSelectedItem().toString();
+                        String vacina = textFieldVacinasPet.getText();
+                        String foto = ""; 
+
+                        servico.atualizarAnimal(nome, idade, tipo, raca, racao, status, vacina, foto, petID);
+
+                        JOptionPane.showMessageDialog(null, "Animal atualizado com sucesso!");
+
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "Por favor, insira um número válido.");
+                        ex.printStackTrace();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nenhum animal selecionado.");
+                }
+            }
         });
         btnEdicaoPet.setBounds(459, 292, 75, 31);
         edicaoPetCorpoPainel.add(btnEdicaoPet);
@@ -211,6 +247,8 @@ public class TelaEdicaoPet extends JFrame{
 	//pegando informações do objeto animal e setando nos campos de texto da tela de edição
 	
 	public void informacoesEditaveis(Animais animalSelecionado) {
+		
+		
 		
 		textFieldNomePet.setText(animalSelecionado.getNome());
         textFieldIdadePet.setText(String.valueOf(animalSelecionado.getIdade()));

@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 
 public class AnimaisRepository {
@@ -15,7 +18,7 @@ public class AnimaisRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "root1"; // editável
+	private static final String PASSWORD = "admin"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -90,7 +93,7 @@ public class AnimaisRepository {
 		return listaDeAnimais;
 
 	}
-
+	
 	// retornar animais aptos a adoção
 	public List<Animais> listarAnimaisAptos() throws SQLException {
 
@@ -116,6 +119,38 @@ public class AnimaisRepository {
 		return listaDeAnimaisAptos;
 
 	}
+	
+	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto, int id) throws SQLException {
+		String sql = "UPDATE animais SET nome = ?, idade = ?, tipo = ?, raca = ?, racao = ?, status = ?, vacina = ?, foto = ? WHERE id = ?";
+
+        try (Connection connection = getConnection(); 
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            // Definindo os valores para os placeholders na SQL
+            statement.setString(1, nome);
+            statement.setInt(2, idade);
+            statement.setString(3, tipo);
+            statement.setString(4, raca);
+            statement.setInt(5, racao);
+            statement.setString(6, status);
+            statement.setString(7, vacina);
+            statement.setString(8, foto);
+            statement.setInt(9, id);  // Alterado de setInt(0, id) para setInt(9, id)
+
+            // Executando a query de atualização
+            int registrosAtualizados = statement.executeUpdate();
+
+            if (registrosAtualizados > 0) {
+                JOptionPane.showMessageDialog(null, "Animal atualizado com sucesso!");
+            } else {
+                System.out.println("Nenhum registro foi atualizado.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+	
 
 	public void deletarAnimal(String nome) throws SQLException {
 		

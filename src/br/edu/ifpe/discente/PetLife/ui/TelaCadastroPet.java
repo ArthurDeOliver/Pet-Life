@@ -117,6 +117,7 @@ public class TelaCadastroPet extends JFrame {
         RadioButtonSemRacaPet.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if (RadioButtonSemRacaPet.isSelected()) {
+        			textFieldRacaPet.setText(null);
         			textFieldRacaPet.setEditable(false);
         		}
         	}

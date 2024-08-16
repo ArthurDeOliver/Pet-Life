@@ -30,6 +30,10 @@ public class AnimaisService {
 		
 	}
 	
+	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto, int id) throws SQLException {
+		repositoryA.atualizarAnimal(nome, idade, tipo, raca, racao, status, vacina, foto, id);
+	}
+	
 	public void deletarAnimal(String nome) throws SQLException {
 		repositoryA.deletarAnimal(nome);
 	}
