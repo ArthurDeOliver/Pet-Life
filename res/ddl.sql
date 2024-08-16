@@ -14,21 +14,21 @@ vacina VARCHAR(45),
 foto VARCHAR(45)
 );
 
-CREATE TABLE MEDICAMENTOS (
+CREATE TABLE IF NOT EXISTS medicamentos (
 Nome_medicamento VARCHAR(45),
-Quantidade INT,	
-Valor DECIMAL (10,2),
+Quantidade_Medicamento INT,	
+Valor_Medicamento DECIMAL (10,2),
 Primary key Nome_medicamento 	
 );
 
-CREATE TABLE Ração(
-Marca_Racao VARCHAT(45),
+CREATE TABLE IF NOT EXISTS racoes (
+Marca_Racao VARCHAR(45),
 Quantidade_Racao INT,
 Valor_Racao DECIMAL (8,2),
 Primary key Marca_Racao		
 );
 
-CREATE TABLE Vacina(
+CREATE TABLE IF NOT EXISTS vacinas(
 Nome_Vacina VARCHAR(45),
 Quantidade_Vacina INT,
 Valor_Vacina DECIMAL (10,2),	
