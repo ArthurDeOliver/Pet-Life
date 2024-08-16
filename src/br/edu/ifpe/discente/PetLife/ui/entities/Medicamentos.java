@@ -16,24 +16,24 @@ public class Medicamentos{
 		return this.Nome_Medicamento;
 	}
 
-	public void setNome_Medicamento(String nome_Medicamento) {
-		this.Nome_Medicamento = nome_Medicamento;
+	public void setNome_Medicamento(String nome) {
+		this.Nome_Medicamento = nome;
 	}
 
 	public int getQuantidade_Medicamento() {
 		return this.Quantidade_Medicamento;
 	}
 
-	public void setQuantidade_Medicamento(int quantidade_Medicamento) {
-		this.Quantidade_Medicamento = quantidade_Medicamento;
+	public void setQuantidade_Medicamento(int quantidade) {
+		this.Quantidade_Medicamento = quantidade;
 	}
 
 	public double getValor_Medicamento() {
 		return this.Valor_Medicamento;
 	}
 
-	public void setValor_Medicamento(double valor_Medicamento) {
-		this.Valor_Medicamento = valor_Medicamento;
+	public void setValor_Medicamento(double valor) {
+		this.Valor_Medicamento = valor;
 	}
 	
 	
