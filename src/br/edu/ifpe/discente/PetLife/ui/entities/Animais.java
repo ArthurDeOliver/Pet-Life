@@ -13,7 +13,8 @@ public class Animais {
 	private String foto;
 	
 	
-	public Animais (String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
+	public Animais ( String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
+		this.id = id;
 		this.nome = nome;
 		this.idade = idade;
 		this.tipo = tipo;
@@ -22,6 +23,7 @@ public class Animais {
 		this.vacina = vacina;
 	}
 	
+<<<<<<< HEAD
 	public Animais (int id, String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
 		this.id = id;
 		this.nome = nome;
@@ -35,10 +37,20 @@ public class Animais {
 	public int getID() {
 		return id;
 	}
+=======
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+>>>>>>> 58015cc65a8f8c18fb71036416a0959aac05cb28
 	
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String name) {
 		this.nome = name;
 	}

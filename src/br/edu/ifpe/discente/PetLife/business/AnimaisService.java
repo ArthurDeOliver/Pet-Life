@@ -38,5 +38,9 @@ public class AnimaisService {
 		repositoryA.deletarAnimal(nome);
 	}
 	
+	public void atualizarAnimal(Animais animal) {
+		repositoryA.atualizarAnimal(animal);
+	}
+	
 		// TODO regras de negócio
 }
