@@ -14,6 +14,18 @@ vacina VARCHAR(45),
 foto VARCHAR(45)
 );
 
+CREATE TABLE IF NOT EXISTS adocao (
+id_pet INT,
+nome_pet VARCHAR(45),
+tipo_pet VARCHAR(45),
+nome_tutor VARCHAR(255),
+cpf_tutor VARCHAR(45),
+endereco_tutor VARCHAR(255),
+telefone_tutor VARCHAR(45),
+FOREIGN KEY (id_pet) REFERENCES animais(id),
+PRIMARY KEY (id_pet, cpf_tutor)
+);
+
 CREATE TABLE IF NOT EXISTS medicamentos (
 Nome_medicamento VARCHAR(45),
 Quantidade_Medicamento INT,	

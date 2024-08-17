@@ -10,9 +10,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
-import br.edu.ifpe.discente.PetLife.ui.entities.Tutor;
+import br.edu.ifpe.discente.PetLife.ui.entities.Adocoes;
 
-public class TabelaTutor extends JPanel{
+public class TabelaAdocoes extends JPanel{
 	
 	/**
 	 * 
@@ -21,13 +21,12 @@ public class TabelaTutor extends JPanel{
 	private JTable tabela;
     private DefaultTableModel modelo;
  
-    public TabelaTutor(List<Tutor> listaDeTutor) {
+    public TabelaAdocoes(List<Adocoes> listaDeAdocoes) {
     	
         
         setLayout(new BorderLayout());
 
-        
-        
+
         String[] colunas = {"Nome", "CPF", "Endereço", "Telefone"};
         modelo = new DefaultTableModel(colunas, 0);
         tabela = new JTable(modelo);
@@ -37,12 +36,13 @@ public class TabelaTutor extends JPanel{
         add(rolagem, BorderLayout.CENTER);
 
         // Adicionar dados na tabela
-        for (Tutor tutor : listaDeTutor) {
+        for (Adocoes adocao : listaDeAdocoes) {
             Object[] linha = {
-                tutor.getNome(),
-                tutor.getCpf(),
-                tutor.getEndereco(),
-                tutor.getTelefone()
+            	adocao.getNomePet(),
+            	adocao.getTipoPet(),
+            	adocao.getNomeTutor(),
+            	adocao.getCpf(),
+                adocao.getTelefone()
             };
             modelo.addRow(linha);
         }

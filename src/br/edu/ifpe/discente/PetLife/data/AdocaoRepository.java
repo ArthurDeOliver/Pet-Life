@@ -1,7 +1,7 @@
 package br.edu.ifpe.discente.PetLife.data;
 
 
-public class TutorRepository {
+public class AdocaoRepository {
 		    
 	
 	
