@@ -12,6 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -197,6 +198,7 @@ public class TelaEdicaoPet extends JFrame {
         btnFotoPet.setIcon(new ImageIcon(TelaEdicaoPet.class.getResource("/Imagens/camera.png")));
         btnFotoPet.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		JFileChooser foto = new JFileChooser();
         	}
         });
         btnFotoPet.setBounds(305, 266, 67, 42);
@@ -209,8 +211,6 @@ public class TelaEdicaoPet extends JFrame {
                 
                 if (animalSelecionado != null) {
                     try {
-                        //petID = animalSelecionado.getID();
-                        System.out.println("Atualizando animal com ID: " + petID);
 
                         AnimaisService servico = new AnimaisService();
                         
@@ -227,9 +227,6 @@ public class TelaEdicaoPet extends JFrame {
 
                         JOptionPane.showMessageDialog(null, "Animal atualizado com sucesso!");
 
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(null, "Por favor, insira um número válido.");
-                        ex.printStackTrace();
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }

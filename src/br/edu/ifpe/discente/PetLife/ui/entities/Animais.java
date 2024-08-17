@@ -18,9 +18,9 @@ public class Animais {
 		this.idade = idade;
 		this.tipo = tipo;
 		this.raca = raca;
-		this.status = "Não Apto";
-		this.vacina = "";
-		this.racao = 0;
+		this.status = status;
+		this.vacina = vacina;
+		this.racao = racao;
 	}
 	
 	public Animais (int id, String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
@@ -29,9 +29,9 @@ public class Animais {
 		this.idade = idade;
 		this.tipo = tipo;
 		this.raca = raca;
-		this.status = "Não Apto";
-		this.vacina = "";
-		this.racao = 0;
+		this.status = status;
+		this.vacina = vacina;
+		this.racao = racao;
 	}
 	
 	public int getID() {

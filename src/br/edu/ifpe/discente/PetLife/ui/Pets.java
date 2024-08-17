@@ -101,11 +101,11 @@ public class Pets extends JPanel {
 					int linhaSelecionada = tabela.getSelectedRow();
 
 					if (linhaSelecionada >= 0) { 
-						String nomeAnimal = tabela.getValueAt(linhaSelecionada, 0).toString().trim();
+						int idAnimal = (int) tabela.getValueAt(linhaSelecionada, 0);
 
 						animalSelecionado = null;
 						for (Animais animal : listaDeAnimais) {
-							if (animal.getNome().equals(nomeAnimal)) {
+							if (animal.getID() == idAnimal) {
 								animalSelecionado = animal;
 								break;
 							}
@@ -159,7 +159,7 @@ public class Pets extends JPanel {
 
 					for (Animais animalFiltrado : listaFiltrada) {
 						modelo.addRow(new Object[] { // colocndo anmais filtrados
-								animalFiltrado.getNome(), animalFiltrado.getIdade(), animalFiltrado.getTipo(),
+								animalFiltrado.getID(), animalFiltrado.getNome(), animalFiltrado.getTipo(), animalFiltrado.getIdade(),
 								animalFiltrado.getRaca(), animalFiltrado.getRacao(), animalFiltrado.getStatus(),
 								animalFiltrado.getVacina(), animalFiltrado.getFoto() });
 					}
@@ -207,7 +207,7 @@ public class Pets extends JPanel {
 					try {
 
 						AnimaisService servico = new AnimaisService();
-						servico.deletarAnimal(animalSelecionado.getNome());
+						servico.deletarAnimal(animalSelecionado.getID());
 						
 						recarregarTabela();
 						
@@ -324,7 +324,7 @@ public class Pets extends JPanel {
 			modelo.setRowCount(0); // Limpar o modelo atual
 
 			for (Animais animal : listaDeAnimais) {
-				modelo.addRow(new Object[] { animal.getNome(), animal.getIdade(), animal.getTipo(), animal.getRaca(),
+				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(), animal.getRaca(),
 						animal.getRacao(), animal.getStatus(), animal.getVacina(), animal.getFoto() });
 			}
 

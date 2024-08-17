@@ -9,8 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 
 public class AnimaisRepository {
@@ -18,7 +16,7 @@ public class AnimaisRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "1234567"; // editável
+	private static final String PASSWORD = "admin"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -37,8 +35,8 @@ public class AnimaisRepository {
 	private void createTable() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais (" + "id INT AUTO_INCREMENT PRIMARY KEY, "
-					+ "nome VARCHAR(255), " + "idade INT, " + "tipo VARCHAR(255), " + "raca VARCHAR(255), "
-					+ "racao INT, " + "status VARCHAR(50), " + "vacina VARCHAR(255), " + "foto VARCHAR(255))";
+					+ "nome VARCHAR(255), " + "idade INT, " + "tipo VARCHAR(255), " + "raca VARCHAR(255) NOT NULL, "
+					+ "racao INT, " + "status VARCHAR(50) NOT NULL, " + "vacina VARCHAR(255), " + "foto VARCHAR(255))";
 			statement.executeUpdate(sql);
 		}
 	}
@@ -53,14 +51,15 @@ public class AnimaisRepository {
 	public void criarAnimal(Animais animal) throws SQLException {
 		String sql = "INSERT INTO animais (nome, idade, tipo, raca, racao, status, vacina, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; // editável
 		try (Connection connection = getConnection();
-
+				
 				PreparedStatement statement = connection.prepareStatement(sql)) {
+			String raca = animal.getRaca().length() > 0 ? animal.getRaca() : "SRD";
 			statement.setString(1, animal.getNome());
 			statement.setInt(2, animal.getIdade());
 			statement.setString(3, animal.getTipo());
-			statement.setString(4, animal.getRaca());
+			statement.setString(4, raca);
 			statement.setInt(5, animal.getRacao());
-			statement.setString(6, animal.getStatus());
+			statement.setString(6, "Não apto");
 			statement.setString(7, animal.getVacina());
 			statement.setString(8, animal.getFoto());
 			statement.execute();
@@ -68,27 +67,6 @@ public class AnimaisRepository {
 
 	}
 	
-	public int retornarID(Animais animal) throws SQLException {
-	    String sql = "SELECT id FROM animais WHERE id = ?";  // Usando o ID como critério de seleção
-	    try (Connection connection = getConnection();
-	         PreparedStatement statement = connection.prepareStatement(sql)) {
-	        
-	        // Definindo o ID do animal no PreparedStatement
-	        statement.setInt(1, animal.getID());
-
-	        // Executando a query
-	        try (ResultSet rs = statement.executeQuery()) {
-	            if (rs.next()) {
-	                // Retornando o ID, que deve ser o mesmo que foi passado como parâmetro
-	                return rs.getInt("id");
-	            }
-	        }
-	    }
-	    
-	    // Se nenhum registro for encontrado com o ID fornecido
-	    return -1;  // ou lançar uma exceção
-	}
-
 	// retornar animais
 
 	public List<Animais> listarTodosAnimais() throws SQLException {
@@ -106,7 +84,7 @@ public class AnimaisRepository {
 
 				Animais anima1 = new Animais(
 
-						rs.getString("nome"), rs.getInt("idade"), rs.getString("tipo"), rs.getString("raca"),
+						rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"), rs.getString("tipo"), rs.getString("raca"),
 						rs.getInt("racao"), rs.getString("status"), rs.getString("vacina"), rs.getString("foto"));
 				listaDeAnimais.add(anima1);
 			}
@@ -118,7 +96,7 @@ public class AnimaisRepository {
 	// retornar animais aptos a adoção
 	public List<Animais> listarAnimaisAptos() throws SQLException {
 
-		String sql = "SELECT * FROM animais WHERE status = 'apto'"; // script sql para selecionar todos os dados do bd
+		String sql = "SELECT * FROM animais WHERE status = 'Apto'"; // script sql para selecionar todos os dados do bd
 																	// onde status for "apto"
 
 		List<Animais> listaDeAnimaisAptos = new ArrayList<>();
@@ -132,7 +110,7 @@ public class AnimaisRepository {
 
 				Animais animal = new Animais(
 
-						rs.getString("nome"), rs.getInt("idade"), rs.getString("tipo"), rs.getString("raca"),
+						rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"), rs.getString("tipo"), rs.getString("raca"),
 						rs.getInt("racao"), rs.getString("status"), rs.getString("vacina"), rs.getString("foto"));
 				listaDeAnimaisAptos.add(animal);
 			}
@@ -147,7 +125,6 @@ public class AnimaisRepository {
         try (Connection connection = getConnection(); 
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            // Definindo os valores para os placeholders na SQL
             statement.setString(1, nome);
             statement.setInt(2, idade);
             statement.setString(3, tipo);
@@ -156,16 +133,11 @@ public class AnimaisRepository {
             statement.setString(6, status);
             statement.setString(7, vacina);
             statement.setString(8, foto);
-            statement.setInt(9, id);  // Alterado de setInt(0, id) para setInt(9, id)
+            statement.setInt(9, id);  
 
-            // Executando a query de atualização
-            int registrosAtualizados = statement.executeUpdate();
 
-            if (registrosAtualizados > 0) {
-                JOptionPane.showMessageDialog(null, "Animal atualizado com sucesso!");
-            } else {
-                System.out.println("Nenhum registro foi atualizado.");
-            }
+            statement.executeUpdate();
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -174,14 +146,14 @@ public class AnimaisRepository {
 	
 
 	//deletar
-	public void deletarAnimal(String nome) throws SQLException {
+	public void deletarAnimal(int id) throws SQLException {
 		
-	    String sql = "DELETE FROM animais WHERE nome = ?";
+	    String sql = "DELETE FROM animais WHERE id = ?";
 	    
 	    try (Connection connection = getConnection(); 
 	         PreparedStatement statement = connection.prepareStatement(sql)) {
 	        
-	        statement.setString(1, nome);
+	        statement.setInt(1, id);
 	        statement.executeUpdate();
 	        
 	    } catch (SQLException e) {

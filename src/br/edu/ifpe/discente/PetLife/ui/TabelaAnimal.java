@@ -18,7 +18,7 @@ public class TabelaAnimal extends JPanel {
 
         
         
-        String[] colunas = {"Nome", "Idade", "Tipo"};
+        String[] colunas = {"ID", "Nome", "Tipo"};
         modelo = new DefaultTableModel(colunas, 0);
         tabela = new JTable(modelo);
 
@@ -29,8 +29,8 @@ public class TabelaAnimal extends JPanel {
         // Adicionar dados na tabela
         for (Animais animal : listaDeAnimais) {
             Object[] linha = {
+            	animal.getID(),
                 animal.getNome(),
-                animal.getIdade(),
                 animal.getTipo(),
             };
             modelo.addRow(linha);

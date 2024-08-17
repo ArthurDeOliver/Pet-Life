@@ -171,14 +171,7 @@ public class TelaCadastroPet extends JFrame {
                 
                      Animais animal = new Animais(nome, idade, tipo, raca, racao ,status, vacina, foto);
                      AnimaisService service = new AnimaisService();
-                     
-                     try {
-						int id = service.retornarID(animal);
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-                     
+                                       
                      try {
      					service.criarAnimal(animal);
      					 JOptionPane.showMessageDialog(null, "Animal criado com sucesso!");
