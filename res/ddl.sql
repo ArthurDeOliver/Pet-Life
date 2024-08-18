@@ -14,7 +14,7 @@ vacina VARCHAR(45),
 foto VARCHAR(45)
 );
 
-CREATE TABLE IF NOT EXISTS adocao (
+CREATE TABLE IF NOT EXISTS adocoes (
 id_pet INT,
 nome_pet VARCHAR(45),
 tipo_pet VARCHAR(45),

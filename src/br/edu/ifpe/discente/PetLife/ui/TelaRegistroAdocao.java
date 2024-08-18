@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,8 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import br.edu.ifpe.discente.PetLife.business.TutorService;
-import br.edu.ifpe.discente.PetLife.ui.entities.Tutor;
+import br.edu.ifpe.discente.PetLife.business.AdocaoService;
+import br.edu.ifpe.discente.PetLife.ui.entities.Adocoes;
+
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,6 +33,10 @@ public class TelaRegistroAdocao extends JFrame{
 	private JTextField textFieldCpfTutor;
 	private JTextField textFieldEnderecoTutor;
 	private JTextField textFieldTelefoneTutor;
+	static int idPet;
+	static String nomePet;
+	static String tipoPet;
+
 	/**
 	 * Launch the application.
 	 */
@@ -37,7 +44,8 @@ public class TelaRegistroAdocao extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaRegistroAdocao window = new TelaRegistroAdocao();
+
+					TelaRegistroAdocao window = new TelaRegistroAdocao(idPet, nomePet, tipoPet);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,10 +57,45 @@ public class TelaRegistroAdocao extends JFrame{
 	/**
 	 * Create the application.
 	 */
+	//Abrir tela selecionando Pet
+	public TelaRegistroAdocao(int idPet, String nomePet, String tipoPet) {
+		getContentPane().setLayout(null);
+		initialize();
+	}
+	
+	//	//Abrir tela sem selecionar Pet
 	public TelaRegistroAdocao() {
 		getContentPane().setLayout(null);
 		initialize();
 	}
+
+	
+	//Get e set para parâmetros recebidos dos Pets
+	public static int getIdPet() {
+		return idPet;
+	}
+
+	public static void setIdPet(int idPet) {
+		TelaRegistroAdocao.idPet = idPet;
+	}
+
+	public static String getNomePet() {
+		return nomePet;
+	}
+
+	public static void setNomePet(String nomePet) {
+		TelaRegistroAdocao.nomePet = nomePet;
+	}
+
+	public static String getTipoPet() {
+		return tipoPet;
+	}
+
+	public static void setTipoPet(String tipoPet) {
+		TelaRegistroAdocao.tipoPet = tipoPet;
+	}
+
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -160,13 +203,22 @@ public class TelaRegistroAdocao extends JFrame{
         btnAdotar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		String nome = textFieldNomeTutor.getText();
+        		String nomeTutor = textFieldNomeTutor.getText();
         		String cpf = textFieldCpfTutor.getText();
         		String telefone = textFieldTelefoneTutor.getText();
         		String endereco = textFieldEnderecoTutor.getText();
+        		int idPet = getIdPet();
+        		String nomePet = getNomePet();
+        		String tipoPet = getTipoPet();
         		
-        		Tutor tutor = new Tutor (nome, cpf, telefone, endereco);
-        		TutorService service = new TutorService();
+        		Adocoes adocao = new Adocoes (idPet, nomePet, tipoPet, nomeTutor, cpf, telefone, endereco);
+        		AdocaoService service = new AdocaoService();
+        		try {
+					service.adotar(adocao);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         		
         		//Criar lógica de cadastrar tutor
         		

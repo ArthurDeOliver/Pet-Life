@@ -23,7 +23,6 @@ import br.edu.ifpe.discente.PetLife.ui.TabelaAdotaveis;
 public class Adocao extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTable tableAdotaveis;
 	private JTable tableAdotados;
     private TabelaAdotaveis tabelaAnimaisAptos;
     private List<Animais> listaPetsAdotaveis;
@@ -53,32 +52,7 @@ public class Adocao extends JPanel {
 		lblNewLabel.setBounds(10, 14, 84, 20);
 		add(lblNewLabel);
 		
-		JButton btnRegistrarAdocao = new JButton("");
-		btnRegistrarAdocao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaRegistroAdocao telaAdocao = new TelaRegistroAdocao();
-				telaAdocao.setVisible(true);
-			}
-		});
-		URL imgURL1 = getClass().getResource("/Imagens/mais.png");
-        URL imgURL2 = getClass().getResource("/Imagens/pawprint2.png");
-        ImageIcon imgMais = new ImageIcon(imgURL1);
-        ImageIcon imgPata = new ImageIcon(imgURL2);
-		
-        //Adicionar ícones ao botão
-        JLabel iconMais = new JLabel(imgMais);
-        JLabel iconPata = new JLabel(imgPata);
-        
-        iconMais.setBounds(5, 5, 32, 32);
-        iconPata.setBounds(45, 5, 32, 32);
 
-        btnRegistrarAdocao.setLayout(null);
-        btnRegistrarAdocao.add(iconMais);
-        btnRegistrarAdocao.add(iconPata);
-		
-		
-		btnRegistrarAdocao.setBounds(812, 11, 82, 46);;
-		add(btnRegistrarAdocao);
 		
 		//Label para tabela de Pets para adoção
 		JLabel lblPetsParaAdocao = new JLabel("Pets para adoção");
@@ -114,25 +88,47 @@ public class Adocao extends JPanel {
         			    }
         			}
         			
-        			if (animalSelecionado != null) {
-        				textFieldNomePet.setText("Nome: " + animalSelecionado.getNome());
-        				textFieldTipoPet.setText("Tipo: " + animalSelecionado.getTipo());
-        				textFieldRacaPet.setText("Raça: " + animalSelecionado.getRaca());
-                        textFieldIdadePet.setText("Idade: " + animalSelecionado.getIdade());
-                        textFieldStatusPet.setText("Status: " + animalSelecionado.getStatus());
-                        
-                        ImageIcon foto = new ImageIcon(animalSelecionado.getFoto());
-                        labelFotoPet.setIcon(foto);
-                        
-                    }
-        		}
-        		
-        	}
+    				if (animalSelecionado != null) {
+    					int idPet = animalSelecionado.getID();
+    					String nomePet = animalSelecionado.getNome();
+    					String tipoPet = animalSelecionado.getTipo();
+    					TelaRegistroAdocao telaRegistroAdocao = new TelaRegistroAdocao(idPet, nomePet, tipoPet);
+    					telaRegistroAdocao.setVisible(true);
+
+    				}
+    			}
+    		}
+
         });
 		scrollPanePetsAdotaveis.setBounds(32, 128, 342, 288);
 		add(scrollPanePetsAdotaveis);
 		
+		JButton btnRegistrarAdocao = new JButton("");
+		btnRegistrarAdocao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaRegistroAdocao telaAdocao = new TelaRegistroAdocao();
+				telaAdocao.setVisible(true);
+			}
+		});
+		URL imgURL1 = getClass().getResource("/Imagens/mais.png");
+        URL imgURL2 = getClass().getResource("/Imagens/pawprint2.png");
+        ImageIcon imgMais = new ImageIcon(imgURL1);
+        ImageIcon imgPata = new ImageIcon(imgURL2);
+		
+        //Adicionar ícones ao botão
+        JLabel iconMais = new JLabel(imgMais);
+        JLabel iconPata = new JLabel(imgPata);
+        
+        iconMais.setBounds(5, 5, 32, 32);
+        iconPata.setBounds(45, 5, 32, 32);
 
+        btnRegistrarAdocao.setLayout(null);
+        btnRegistrarAdocao.add(iconMais);
+        btnRegistrarAdocao.add(iconPata);
+		
+		
+		btnRegistrarAdocao.setBounds(812, 11, 82, 46);;
+		add(btnRegistrarAdocao);
 		
 		//Label para tabela de Pets adotados
 		JLabel lblPetsAdotados = new JLabel("Pets adotados");
@@ -150,7 +146,7 @@ public class Adocao extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"Nome", "Tipo", "Raça", "Idade", "Tutor"
+				"Nome", "Tipo", "Tutor", "Cpf", "Endereco", "Telefone"
 			}
 		));
 	}

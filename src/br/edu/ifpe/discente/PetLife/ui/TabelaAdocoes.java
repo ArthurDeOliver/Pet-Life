@@ -42,7 +42,8 @@ public class TabelaAdocoes extends JPanel{
             	adocao.getTipoPet(),
             	adocao.getNomeTutor(),
             	adocao.getCpf(),
-                adocao.getTelefone()
+                adocao.getTelefone(),
+                adocao.getEndereco()
             };
             modelo.addRow(linha);
         }
