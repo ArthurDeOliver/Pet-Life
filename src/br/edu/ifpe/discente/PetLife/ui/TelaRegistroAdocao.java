@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -59,6 +60,10 @@ public class TelaRegistroAdocao extends JFrame{
 	 */
 	//Abrir tela selecionando Pet
 	public TelaRegistroAdocao(int idPet, String nomePet, String tipoPet) {
+		TelaRegistroAdocao.idPet = idPet;
+		TelaRegistroAdocao.nomePet= nomePet;
+		TelaRegistroAdocao.tipoPet= tipoPet;
+		
 		getContentPane().setLayout(null);
 		initialize();
 	}
@@ -202,26 +207,26 @@ public class TelaRegistroAdocao extends JFrame{
         JButton btnAdotar = new JButton("Adotar");
         btnAdotar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
+        		int idPet = getIdPet();
+        		String nomePet = getNomePet();
+        		String tipoPet = getTipoPet();
         		String nomeTutor = textFieldNomeTutor.getText();
         		String cpf = textFieldCpfTutor.getText();
         		String telefone = textFieldTelefoneTutor.getText();
         		String endereco = textFieldEnderecoTutor.getText();
-        		int idPet = getIdPet();
-        		String nomePet = getNomePet();
-        		String tipoPet = getTipoPet();
+
         		
         		Adocoes adocao = new Adocoes (idPet, nomePet, tipoPet, nomeTutor, cpf, telefone, endereco);
         		AdocaoService service = new AdocaoService();
+        		
         		try {
 					service.adotar(adocao);
+                    JOptionPane.showMessageDialog(null, "Animal adotado com sucesso!");
+                    
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Animal já está adotado!");
 					e1.printStackTrace();
-				}
-        		
-        		//Criar lógica de cadastrar tutor
-        		
+				}	
         		
         	}
         });

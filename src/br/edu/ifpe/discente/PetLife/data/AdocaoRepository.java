@@ -40,7 +40,7 @@ public class AdocaoRepository {
 			String sql = "CREATE TABLE IF NOT EXISTS adocoes (" + "id_pet INT, " + "nome_pet VARCHAR(45), " +
 					"tipo_pet VARCHAR(45), " + "nome_tutor VARCHAR(255), " + "cpf_tutor VARCHAR(45), " + 
 					"endereco_tutor VARCHAR(255), " + "telefone_tutor VARCHAR(45), " + 
-					"FOREIGN KEY (id_pet) REFERENCES animais(id), " + "PRIMARY KEY (id_pet, cpf_tutor)";
+					"FOREIGN KEY (id_pet) REFERENCES animais(id), " + "PRIMARY KEY (id_pet)";
 			statement.executeUpdate(sql);
 		}
 	}
@@ -54,7 +54,7 @@ public class AdocaoRepository {
 	//criar adocao
 	public void adotar(Adocoes adocao) throws SQLException {
 		String sql = "INSERT INTO adocoes (id_pet, nome_pet, tipo_pet, nome_tutor, cpf_tutor, endereco_tutor, telefone_tutor)"
-				+ " VALUES (?, ?, ?, ?, ?, ?, ?)"; // editável
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -65,6 +65,18 @@ public class AdocaoRepository {
 				statement.setString(5, adocao.getCpf());
 				statement.setString(6, adocao.getEndereco());
 				statement.setString(7, adocao.getTelefone());	
+			statement.execute();
+			
+			//Mudar status do pet para adotado
+			String sqlUpdate = "UPDATE animais SET status = 'Adotado' WHERE id = ?";
+			
+			try (Connection connectionUpdate = getConnection(); 
+					PreparedStatement statementUpdate = connection.prepareStatement(sqlUpdate)) {
+
+					statementUpdate.setInt(1, adocao.getIdPet());	
+					statementUpdate.execute();
+			}
+
 	}
 			}
 
