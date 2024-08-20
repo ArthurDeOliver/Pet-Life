@@ -1,15 +1,12 @@
 package br.edu.ifpe.discente.PetLife.ui;
 
 import java.awt.BorderLayout;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 import br.edu.ifpe.discente.PetLife.ui.entities.Adocoes;
 
 public class TabelaAdocoes extends JPanel{
@@ -27,7 +24,7 @@ public class TabelaAdocoes extends JPanel{
         setLayout(new BorderLayout());
 
 
-        String[] colunas = {"Nome", "CPF", "Endereço", "Telefone"};
+        String[] colunas = {"ID", "Nome pet", "Tipo Pet", "Tutor", "CPF", "Telefone" , "Endereço"};
         modelo = new DefaultTableModel(colunas, 0);
         tabela = new JTable(modelo);
 
@@ -38,6 +35,7 @@ public class TabelaAdocoes extends JPanel{
         // Adicionar dados na tabela
         for (Adocoes adocao : listaDeAdocoes) {
             Object[] linha = {
+            	adocao.getIdPet(),
             	adocao.getNomePet(),
             	adocao.getTipoPet(),
             	adocao.getNomeTutor(),
@@ -51,6 +49,9 @@ public class TabelaAdocoes extends JPanel{
 
     public JTable getTabela() {
         return tabela;
+    }
+    public DefaultTableModel getModelo() {
+    	return modelo;
     }
 }
 

@@ -113,8 +113,11 @@ public class AnimaisRepository {
 						rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"), rs.getString("tipo"), rs.getString("raca"),
 						rs.getInt("racao"), rs.getString("status"), rs.getString("vacina"), rs.getString("foto"));
 				listaDeAnimaisAptos.add(animal);
+			} 
+			
+		} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		}
 		return listaDeAnimaisAptos;
 
 	}

@@ -14,9 +14,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
+
 
 import br.edu.ifpe.discente.PetLife.business.AdocaoService;
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
@@ -28,17 +27,16 @@ import br.edu.ifpe.discente.PetLife.ui.TabelaAdotaveis;
 public class Adocao extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTable tabelaAdotados;
     private TabelaAdotaveis tabelaAnimaisAptos;
     private List<Animais> listaPetsAdotaveis;
     private List<Adocoes> listaPetsAdotados;
+    TabelaAdocoes tabelaPetsAdotados;
 	private Animais animalSelecionado;
 	private int idPet;
 	private String nomePet;
 	private String tipoPet;
 
     
-
 	/**
 	 * Create the panel.
 	 */
@@ -81,25 +79,25 @@ public class Adocao extends JPanel {
 		
 
 		
-			URL imgURL1 = getClass().getResource("/Imagens/mais.png");
-	        URL imgURL2 = getClass().getResource("/Imagens/pawprint2.png");
-	        ImageIcon imgMais = new ImageIcon(imgURL1);
-	        ImageIcon imgPata = new ImageIcon(imgURL2);
-			
-	        //Adicionar ícones ao botão
-	        JLabel iconMais = new JLabel(imgMais);
-	        JLabel iconPata = new JLabel(imgPata);
-	        
-	        iconMais.setBounds(5, 5, 32, 32);
-	        iconPata.setBounds(45, 5, 32, 32);
+		URL imgURL1 = getClass().getResource("/Imagens/mais.png");
+        URL imgURL2 = getClass().getResource("/Imagens/pawprint2.png");
+        ImageIcon imgMais = new ImageIcon(imgURL1);
+        ImageIcon imgPata = new ImageIcon(imgURL2);
+		
+        //Adicionar ícones ao botão
+        JLabel iconMais = new JLabel(imgMais);
+        JLabel iconPata = new JLabel(imgPata);
+        
+        iconMais.setBounds(5, 5, 32, 32);
+        iconPata.setBounds(45, 5, 32, 32);
 
-	        btnRegistrarAdocao.setLayout(null);
-	        btnRegistrarAdocao.add(iconMais);
-	        btnRegistrarAdocao.add(iconPata);
-			
-			
-			btnRegistrarAdocao.setBounds(812, 11, 82, 46);;
-			add(btnRegistrarAdocao);
+        btnRegistrarAdocao.setLayout(null);
+        btnRegistrarAdocao.add(iconMais);
+        btnRegistrarAdocao.add(iconPata);
+		
+		
+		btnRegistrarAdocao.setBounds(812, 11, 82, 46);;
+		add(btnRegistrarAdocao);
 		 
 		 
 		//Criação da tabela de animais aptos
@@ -163,29 +161,20 @@ public class Adocao extends JPanel {
 		 try {
 		 	AdocaoService servicoAdotados = new AdocaoService();
         	listaPetsAdotados = servicoAdotados.listarAdocoes();
-            TabelaAdocoes tabelaAdotados = new TabelaAdocoes(listaPetsAdotados); // adicionando a lista de animais aptos na tabela
+            tabelaPetsAdotados = new TabelaAdocoes(listaPetsAdotados); // adicionando a lista de animais aptos na tabela
             
-            JTable tabelaAdotados1 = ((TabelaAdotaveis) listaPetsAdotados).getTabela();
-            tabelaAdotados1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-			JScrollPane scrollPanePetsAdotados = new JScrollPane();
-			scrollPanePetsAdotados.setBounds(516, 133, 342, 281);
-			add(scrollPanePetsAdotados);
-			
-			tabelaAdotados1 = new JTable();
-			scrollPanePetsAdotados.setViewportView(tabelaAdotados1);
-			tabelaAdotados1.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Nome", "Tipo", "Tutor", "Cpf", "Endereco", "Telefone"
+            JTable tabelaAdotados = tabelaPetsAdotados.getTabela();
+            tabelaAdotados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            
+            JScrollPane scrollPanePetsAdotados = new JScrollPane(tabelaPetsAdotados.getTabela());
+            scrollPanePetsAdotados.setBounds(516, 133, 342, 281);
+            add(scrollPanePetsAdotados);
+	 
+					
+		} catch (Exception e) {
 
-		    	
-		    }
-			));
-						}
-		    catch (Exception e) {
+		}
 
-		 }
-	 }
+
+}
 }

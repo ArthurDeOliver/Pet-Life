@@ -13,6 +13,7 @@ import br.edu.ifpe.discente.PetLife.ui.entities.Adocoes;
 
 
 
+
 public class AdocaoRepository {
 		
 
@@ -80,13 +81,13 @@ public class AdocaoRepository {
 	}
 			}
 
-	// retornar adocoes
 
-		public List<Adocoes> listarAdocoes() throws SQLException {
+	// retornar adocoes
+	public List<Adocoes> listarAdocoes() throws SQLException {
 
 			String sql = "SELECT * FROM adocoes"; // script sql para selecionar todos os dados do bd
 
-			List<Adocoes> listaDeAdocoes = new ArrayList<>();
+			List<Adocoes> listaAdocoes = new ArrayList<>();
 
 			try (Connection connection = getConnection();
 
@@ -99,10 +100,13 @@ public class AdocaoRepository {
 
 							rs.getInt("id_pet"), rs.getString("nome_pet"), rs.getString("tipo_pet"), rs.getString("nome_tutor"),
 							rs.getString("cpf_tutor"), rs.getString("endereco_tutor"), rs.getString("telefone_tutor"));
-					listaDeAdocoes.add(adocao);
+					listaAdocoes.add(adocao);
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			return listaDeAdocoes;
+			return listaAdocoes;
+			}
+
 		}
 		
-}
