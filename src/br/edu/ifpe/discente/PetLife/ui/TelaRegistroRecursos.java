@@ -29,6 +29,8 @@ import javax.swing.JTable;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.Box;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class TelaRegistroRecursos extends JFrame{
 
@@ -185,6 +187,21 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovoMedicamento.add(lblQuantidadeMedicamentoNovo);
         
         textFieldQuantidadeMedicamentoNovo = new JTextField();
+        textFieldQuantidadeMedicamentoNovo.addKeyListener(new KeyAdapter() {
+        
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldQuantidadeMedicamentoNovo.getText().length() > 2) {
+        			e.consume();
+        		}
+        		
+        	}
+        });
+      
         textFieldQuantidadeMedicamentoNovo.setBounds(169, 108, 173, 20);
         panelNovoMedicamento.add(textFieldQuantidadeMedicamentoNovo);
         textFieldQuantidadeMedicamentoNovo.setColumns(10);
@@ -195,6 +212,20 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovoMedicamento.add(lblValorMedicamentoNovo);
         
         textFieldValorMedicamentoNovo = new JTextField();
+        textFieldValorMedicamentoNovo.addKeyListener(new KeyAdapter() {
+        	
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldValorMedicamentoNovo.getText().length() > 4) {
+        			e.consume();
+        		}
+        		
+        	}
+        });
         textFieldValorMedicamentoNovo.setBounds(169, 164, 173, 20);
         panelNovoMedicamento.add(textFieldValorMedicamentoNovo);
         textFieldValorMedicamentoNovo.setColumns(10);
@@ -244,6 +275,18 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaRacao.add(lblQuantidadeRacaoNova);
         
         JTextField textFieldQuantidadeRacaoNova = new JTextField();
+        textFieldQuantidadeRacaoNova.addKeyListener(new KeyAdapter() {	
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldQuantidadeRacaoNova.getText().length() > 1) {
+        			e.consume();
+        		}
+        	}
+        });
         textFieldQuantidadeRacaoNova.setBounds(169, 108, 173, 20);
         panelNovaRacao.add(textFieldQuantidadeRacaoNova);
         textFieldQuantidadeRacaoNova.setColumns(10);
@@ -254,6 +297,19 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaRacao.add(lblValorRacaoNova);
         
         JTextField textFieldValorRacaoNova = new JTextField();
+        textFieldValorRacaoNova.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldValorRacaoNova.getText().length() > 3) {
+        			e.consume();
+        		}
+        		
+        	}
+        });
         textFieldValorRacaoNova.setBounds(169, 164, 173, 20);
         panelNovaRacao.add(textFieldValorRacaoNova);
         textFieldValorRacaoNova.setColumns(10);
@@ -286,6 +342,18 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaVacina.add(lblQuantidadeVacinaNova);
         
         JTextField textFieldQuantidadeVacinaNova = new JTextField();
+        textFieldQuantidadeVacinaNova.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldQuantidadeVacinaNova.getText().length() > 1) {
+        			e.consume();
+        		}
+        	}
+        });
         textFieldQuantidadeVacinaNova.setBounds(169, 108, 173, 20);
         panelNovaVacina.add(textFieldQuantidadeVacinaNova);
         textFieldQuantidadeVacinaNova.setColumns(10);
@@ -296,6 +364,18 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaVacina.add(lblValorVacinaNova);
         
         JTextField textFieldValorVacinaNova = new JTextField();
+        textFieldValorVacinaNova.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldValorVacinaNova.getText().length() > 4) {
+        			e.consume();
+        		}
+        	}
+        });
         textFieldValorVacinaNova.setBounds(169, 164, 173, 20);
         panelNovaVacina.add(textFieldValorVacinaNova);
         textFieldValorVacinaNova.setColumns(10);
@@ -340,6 +420,19 @@ public class TelaRegistroRecursos extends JFrame{
         panelMedicamento.add(lblQuantidadeMedicamento);
         
         JTextField textFieldQuantidadeMedicamento = new JTextField();
+        textFieldQuantidadeMedicamento.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldQuantidadeMedicamento.getText().length() > 2) {
+        			e.consume();
+        		}
+        	}
+        	
+        });
         textFieldQuantidadeMedicamento.setBounds(169, 108, 173, 20);
         panelMedicamento.add(textFieldQuantidadeMedicamento);
         textFieldQuantidadeMedicamento.setColumns(10);
@@ -350,6 +443,18 @@ public class TelaRegistroRecursos extends JFrame{
         panelMedicamento.add(lblValorMedicamento);
         
         JTextField textFieldValorMedicamento = new JTextField();
+        textFieldValorMedicamento.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldValorMedicamento.getText().length() > 4) {
+        			e.consume();
+        		}
+        	}
+        });
         textFieldValorMedicamento.setBounds(169, 164, 173, 20);
         panelMedicamento.add(textFieldValorMedicamento);
         textFieldValorMedicamento.setColumns(10);
