@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import br.edu.ifpe.discente.PetLife.business.RecursosService;
+import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
 
 import javax.swing.JButton;
@@ -199,6 +200,24 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldValorMedicamentoNovo.setColumns(10);
         
         btnRegistrarMedicamentoNovo = new JButton("Registrar");
+        btnRegistrarMedicamentoNovo.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String nome = textFieldNomeMedicamentoNovo.getText();
+        		int quantidade = Integer.parseInt(textFieldQuantidadeMedicamentoNovo.getText());
+        		float valor = Float.parseFloat(textFieldValorMedicamentoNovo.getText());
+        		Medicamentos medicamento = new Medicamentos(nome, quantidade, valor);
+        		RecursosService registrar = new RecursosService();
+        		try {
+					registrar.criarMedicamento(medicamento);
+					JOptionPane.showMessageDialog(null, "Medicamento registrado com sucesso!!");
+				} catch (SQLException e1) {					
+					e1.printStackTrace();
+									
+										
+				}
+        		
+        	}
+        });
         
         btnRegistrarMedicamentoNovo.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnRegistrarMedicamentoNovo.setBounds(417, 179, 105, 30);

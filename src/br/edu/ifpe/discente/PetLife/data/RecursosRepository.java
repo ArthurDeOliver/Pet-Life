@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
 
 public class RecursosRepository{
@@ -110,8 +111,17 @@ public class RecursosRepository{
 			 statement.execute();
 		}
 }
+		public void criarMedicamento(Medicamentos medicamento) throws SQLException{
+			String sql = "INSERT INTO medicamentos (Nome_medicamento, Quantidade_Medicamento, Valor_Medicamento) VALUES (?, ?, ?)";
+			try (Connection connection = getConnection();			
+					PreparedStatement statement = connection.prepareStatement(sql)) {
+			 statement.setString(1, medicamento.getNome_Medicamento());
+			 statement.setInt(2, medicamento.getQuantidade_Medicamento());
+			 statement.setDouble(3, medicamento.getValor_Medicamento());
+			 statement.execute();
 		
+		}
 }
-
+}
      
 

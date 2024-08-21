@@ -2,6 +2,7 @@ package br.edu.ifpe.discente.PetLife.business;
 import java.sql.SQLException;
 
 import br.edu.ifpe.discente.PetLife.data.RecursosRepository;
+import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
 
 public class RecursosService {
@@ -17,4 +18,7 @@ public class RecursosService {
 	this.repositoryR.criarVacina(vacina);
  	}
 	
+ 	public void criarMedicamento(Medicamentos medicamento) throws SQLException {
+ 		this.repositoryR.criarMedicamento(medicamento);
+ 	}
 }
