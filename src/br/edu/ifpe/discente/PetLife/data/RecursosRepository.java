@@ -107,9 +107,10 @@ public class RecursosRepository{
 			 statement.setString(1, vacina.getNome_Vacina());
 			 statement.setInt(2, vacina.getQuantidade_Vacina());
 			 statement.setDouble(3, vacina.getValor_Vacina());
-			
+			 statement.execute();
 		}
 }
+		
 }
 
      

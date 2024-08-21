@@ -8,10 +8,16 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.edu.ifpe.discente.PetLife.business.RecursosService;
+import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -76,6 +82,7 @@ public class TelaRegistroRecursos extends JFrame{
 		initialize();
 	}
 
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -192,6 +199,7 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldValorMedicamentoNovo.setColumns(10);
         
         btnRegistrarMedicamentoNovo = new JButton("Registrar");
+        
         btnRegistrarMedicamentoNovo.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnRegistrarMedicamentoNovo.setBounds(417, 179, 105, 30);
         panelNovoMedicamento.add(btnRegistrarMedicamentoNovo);
@@ -274,6 +282,24 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldValorVacinaNova.setColumns(10);
         
         JButton btnRegistrarVacinaNova = new JButton("Registrar");
+        btnRegistrarVacinaNova.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String nome = textFieldVacinaNova.getText();
+        		int quantidade = Integer.parseInt(textFieldQuantidadeVacinaNova.getText());
+        		float valor = Float.parseFloat(textFieldValorVacinaNova.getText());
+        		Vacinas vacina = new Vacinas(nome, quantidade, valor);
+        		RecursosService registrar = new RecursosService();
+        		try {
+					registrar.criarVacina(vacina);
+					JOptionPane.showMessageDialog(null, "Vacina registrada com sucesso!!");
+				} catch (SQLException e1) {					
+					e1.printStackTrace();
+									
+										
+				}
+        	}
+        	}
+        );
         btnRegistrarVacinaNova.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnRegistrarVacinaNova.setBounds(417, 179, 105, 30);
         panelNovaVacina.add(btnRegistrarVacinaNova);
