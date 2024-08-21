@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
 
 public class RecursosRepository{
 	
@@ -34,7 +35,8 @@ public class RecursosRepository{
 		}
 	      
 		
-	
+	//Criar tabela medicamento
+		
 	private void createTableMedicamento() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS medicamentos (" + "Nome_medicamento VARCHAR(45), "
@@ -42,6 +44,9 @@ public class RecursosRepository{
 			statement.executeUpdate(sql);
 		}
 	}
+	
+	//Criar tabela ração
+	
 	private void createTableRacao() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS racoes (" + "Marca_Racao VARCHAR(45), "
@@ -49,6 +54,9 @@ public class RecursosRepository{
 			statement.executeUpdate(sql);
 		}
 	}
+	
+	//Criar tabela vacina
+	
 	private void createTableVacina() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS vacinas (" + "Nome_Vacina VARCHAR(45), "
@@ -57,24 +65,27 @@ public class RecursosRepository{
 		}
 	}
 	
+	//Criar tabela de animais medicados
 	
-//	private void createTableAnimaisMedicados() throws SQLException {
-//		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-//			String sql = "CREATE TABLE IF NOT EXISTS animais_medicados (" + "id_animal int, "
-//					+ "nome_animal VARCHAR(45), " + "nome_medicamento VARCHAR(45), " + "FOREIGN KEY (id_animal) references animais (id), " + 
-//					" FOREIGN KEY (nome_animal) references animais (nome), "+ "FOREIGN KEY (nome_medicamento) references medicamentos (Nome_medicamento)";
-//			statement.executeUpdate(sql);
-//		}
-//	}
-//	
-//	private void createTableAnimaisVacinados() throws SQLException {
-//		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-//			String sql = "CREATE TABLE IF NOT EXISTS animais_vacinados (" + "id_animal int, "
-//					+ "nome_animal VARCHAR(45), " + "vacina_animal VARCHAR(45), " + "FOREIGN KEY (id_animal) references animais (id), " + 
-//					" FOREIGN KEY (nome_animal) references animais (nome), "+ "FOREIGN KEY (vacina_animal) references vacinas (Nome_Vacina)";
-//			statement.executeUpdate(sql);
-//		}
-//	}
+	private void createTableAnimaisMedicados() throws SQLException {
+		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+			String sql = "CREATE TABLE IF NOT EXISTS animais_medicados (" + "id_animal int, "
+					+ "nome_animal VARCHAR(45), " + "nome_Medicamento VARCHAR(45), " + "FOREIGN KEY (id_animal) references animais (id), " + 
+					 "FOREIGN KEY (nome_Medicamento) references medicamentos (Nome_medicamento))";
+			statement.executeUpdate(sql);
+		}
+	}
+	
+	//Criar tabela de animais vacinados
+	
+	private void createTableAnimaisVacinados() throws SQLException {
+		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+			String sql = "CREATE TABLE IF NOT EXISTS animais_vacinados (" + "id_animal int, "
+					+ "nome_animal VARCHAR(45), " + "vacina_animal VARCHAR(45), " + "FOREIGN KEY (id_animal) references animais (id), " + 
+					 "FOREIGN KEY (vacina_animal) references vacinas (Nome_Vacina))";
+			statement.executeUpdate(sql);
+		}
+	}
 	
 	
 	// inicia a tabela e o bd
@@ -83,7 +94,23 @@ public class RecursosRepository{
 			createTableMedicamento();
 			createTableRacao();
 			createTableVacina();
-//			createTableAnimaisMedicados();
-//			createTableAnimaisVacinados();
+			createTableAnimaisMedicados();
+			createTableAnimaisVacinados();
+		}
+		
+		//Inserir vacina no banco de dados
+		
+		public void criarVacina(Vacinas vacina) throws SQLException {
+			String sql = "INSERT INTO vacinas (Nome_Vacina, Quantidade_Vacina, Valor_Vacina) VALUES (?, ?, ?)";
+			try (Connection connection = getConnection();
+					PreparedStatement statement = connection.prepareStatement(sql)) {
+			 statement.setString(1, vacina.getNome_Vacina());
+			 statement.setInt(2, vacina.getQuantidade_Vacina());
+			 statement.setDouble(3, vacina.getValor_Vacina());
+			
 		}
 }
+}
+
+     
+

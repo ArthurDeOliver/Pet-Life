@@ -50,18 +50,16 @@ Primary key Nome_Vacina
 CREATE TABLE IF NOT EXISTS animais_medicados(
 id_animal int,
 nome_animal VARCHAR(45),
-nome_medicamento VARCHAR(45),
+nome_Medicamento VARCHAR(45),
 FOREIGN KEY (id_animal) references animais (id),
-FOREIGN KEY (nome_animal) references animais (nome),
-FOREIGN KEY (nome_medicamento) references medicamentos (Nome_medicamento)	
+FOREIGN KEY (nome_Medicamento) references medicamentos (Nome_medicamento)	
 );
 
 CREATE TABLE IF NOT EXISTS animais_vacinados(
 id_animal int,
-nome_animal VARCHAR(45)
+nome_animal VARCHAR(45),
 vacina_animal VARCHAR(45),
 FOREIGN KEY (id_animal) references animais (id),
-FOREIGN KEY (nome_animal) references animais (nome),
 FOREIGN KEY (vacina_animal) references vacinas (Nome_Vacina)
 );
 
