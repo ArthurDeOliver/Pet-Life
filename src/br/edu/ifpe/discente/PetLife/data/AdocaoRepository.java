@@ -41,13 +41,17 @@ public class AdocaoRepository {
 			String sql = "CREATE TABLE IF NOT EXISTS adocoes (" + "id_pet INT, " + "nome_pet VARCHAR(45), " +
 					"tipo_pet VARCHAR(45), " + "nome_tutor VARCHAR(255), " + "cpf_tutor VARCHAR(45), " + 
 					"endereco_tutor VARCHAR(255), " + "telefone_tutor VARCHAR(45), " + 
-					"FOREIGN KEY (id_pet) REFERENCES animais(id), " + "PRIMARY KEY (id_pet)";
-			statement.executeUpdate(sql);
+					"FOREIGN KEY (id_pet) REFERENCES animais(id), " + "PRIMARY KEY (id_pet));";
+			statement.execute(sql);
 		}
+	 catch (SQLException e) {
+		e.printStackTrace();
 	}
+	}
+	
 
 	// inicia a tabela e o bd
-	public void iniciarBd() throws SQLException {
+	public void iniciarBdAdocoes() throws SQLException {
 		createDatabase();
 		createTable();
 	}
