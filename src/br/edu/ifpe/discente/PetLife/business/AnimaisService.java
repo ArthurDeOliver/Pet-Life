@@ -1,7 +1,5 @@
-
 package br.edu.ifpe.discente.PetLife.business;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import br.edu.ifpe.discente.PetLife.data.AnimaisRepository;
@@ -14,39 +12,32 @@ public class AnimaisService {
 	private AnimaisRepository repositoryA;
 
 	public AnimaisService() {
-
 		this.repositoryA = new AnimaisRepository();
 	}
 
-	public void criarAnimal(Animais animal) throws BusinessException { // aprimorar
+	public void criarAnimal(Animais animal) throws BusinessException {
 		try {
 			repositoryA.criarAnimal(animal);
 		} catch (DataAccessException e) {
-			// TODO
+			//TODO
 		}
-
 	}
 
-	public List<Animais> retornarAnimal() throws BusinessException { // aprimorar
+	public List<Animais> retornarAnimal() throws BusinessException {
 		try {
-
 			return repositoryA.listarTodosAnimais();
-
 		} catch (DataAccessException e) {
-			// TODO
+			throw new BusinessException("Erro ao recuperar a lista de animais ", e);
 		}
-		return null;
 	}
 
-	public List<Animais> retornarAnimaisAptos() throws BusinessException { // aprimorar
+	public List<Animais> retornarAnimaisAptos() throws BusinessException {
 		try {
-
 			return repositoryA.listarAnimaisAptos();
-
 		} catch (DataAccessException e) {
-			// TODO
+			
+			throw new BusinessException("Erro ao recuperar a lista de animais aptos ", e);
 		}
-		return null;
 	}
 
 	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status,
@@ -54,7 +45,8 @@ public class AnimaisService {
 		try {
 			repositoryA.atualizarAnimal(nome, idade, tipo, raca, racao, status, vacina, foto, id);
 		} catch (DataAccessException e) {
-			// TODO
+			
+			//TODO
 		}
 	}
 
@@ -62,9 +54,8 @@ public class AnimaisService {
 		try {
 			repositoryA.deletarAnimal(id);
 		} catch (DataAccessException e) {
-			// TODO regras de negócio
-
+			
+			//TODO
 		}
-
 	}
 }

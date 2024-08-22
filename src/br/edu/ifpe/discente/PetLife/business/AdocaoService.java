@@ -1,6 +1,5 @@
 package br.edu.ifpe.discente.PetLife.business;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import br.edu.ifpe.discente.PetLife.data.AdocaoRepository;
@@ -20,17 +19,15 @@ public class AdocaoService {
 		try {
 			adocaoRepositoryA.adotar(adocao);
 		} catch (DataAccessException e) {
-			// TODO
+			//TODO
 		}
-
 	}
 
 	public List<Adocoes> listarAdocoes() throws BusinessException {
 		try {
 			return adocaoRepositoryA.listarAdocoes();
 		} catch (DataAccessException e) {
-			// TODO
+			throw new BusinessException("Erro ao listar adoções ", e);
 		}
-		return null;
 	}
 }

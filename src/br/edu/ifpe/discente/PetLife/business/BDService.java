@@ -1,18 +1,16 @@
 package br.edu.ifpe.discente.PetLife.business;
 
-import java.sql.SQLException;
-
 import br.edu.ifpe.discente.PetLife.data.AnimaisRepository;
 import br.edu.ifpe.discente.PetLife.data.RecursosRepository;
+import br.edu.ifpe.discente.PetLife.data.AdocaoRepository;
 import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 import br.edu.ifpe.discente.PetLife.ui.exception.DataAccessException;
-import br.edu.ifpe.discente.PetLife.data.AdocaoRepository;
 
 public class BDService {
 
-	AnimaisRepository repositoryA = new AnimaisRepository();
-	RecursosRepository repositoryR = new RecursosRepository();
-	AdocaoRepository adocaorepositoryA = new AdocaoRepository();
+	private AnimaisRepository repositoryA;
+	private RecursosRepository repositoryR;
+	private AdocaoRepository adocaorepositoryA;
 
 	public BDService() {
 		this.repositoryA = new AnimaisRepository();
@@ -20,15 +18,14 @@ public class BDService {
 		this.adocaorepositoryA = new AdocaoRepository();
 	}
 
-	public void iniciarBD() throws BusinessException { // aprimorar
+	public void iniciarBD() throws BusinessException {
 		try {
 			repositoryA.iniciarBd();
 			repositoryR.iniciarBdRecursos();
 			adocaorepositoryA.iniciarBdAdocoes();
-
 		} catch (DataAccessException e) {
-			// TODO
+			
+			//TODO
 		}
 	}
-
 }
