@@ -16,8 +16,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
-import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
-
 import javax.swing.JTable;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -102,7 +100,7 @@ public class Pets extends JPanel {
 
 					int linhaSelecionada = tabela.getSelectedRow();
 
-					if (linhaSelecionada >= 0) {
+					if (linhaSelecionada >= 0) { 
 						int idAnimal = (int) tabela.getValueAt(linhaSelecionada, 0);
 
 						animalSelecionado = null;
@@ -161,9 +159,9 @@ public class Pets extends JPanel {
 
 					for (Animais animalFiltrado : listaFiltrada) {
 						modelo.addRow(new Object[] { // colocndo anmais filtrados
-								animalFiltrado.getID(), animalFiltrado.getNome(), animalFiltrado.getTipo(),
-								animalFiltrado.getIdade(), animalFiltrado.getRaca(), animalFiltrado.getRacao(),
-								animalFiltrado.getStatus(), animalFiltrado.getVacina(), animalFiltrado.getFoto() });
+								animalFiltrado.getID(), animalFiltrado.getNome(), animalFiltrado.getTipo(), animalFiltrado.getIdade(),
+								animalFiltrado.getRaca(), animalFiltrado.getRacao(), animalFiltrado.getStatus(),
+								animalFiltrado.getVacina(), animalFiltrado.getFoto() });
 					}
 
 				}
@@ -173,11 +171,12 @@ public class Pets extends JPanel {
 			comboBoxFiltro.setBounds(270, 105, 115, 16);
 			add(comboBoxFiltro);
 
-		} catch (BusinessException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			tabelaAnimal = new TabelaAnimal(List.of());
 		}
 
+		
 		// botão editar
 		btnEditarPets = new JButton("Editar");
 		btnEditarPets.setEnabled(false);
@@ -194,6 +193,7 @@ public class Pets extends JPanel {
 		});
 		add(btnEditarPets);
 
+		
 		// botão excluir
 		btnExcluirPets = new JButton("Excluir");
 		btnExcluirPets.setEnabled(false);
@@ -208,9 +208,9 @@ public class Pets extends JPanel {
 
 						AnimaisService servico = new AnimaisService();
 						servico.deletarAnimal(animalSelecionado.getID());
-
+						
 						recarregarTabela();
-
+						
 						// limpando os campos da parte direita da tabela
 						textFieldNomePet.setText("");
 						textFieldTipoPet.setText("");
@@ -221,7 +221,7 @@ public class Pets extends JPanel {
 
 						tabelaAnimal.getTabela().clearSelection(); // limpando linha da tabela
 
-					} catch (BusinessException ex) {
+					} catch (SQLException ex) {
 						ex.printStackTrace();
 						// TODO
 					}
@@ -229,19 +229,21 @@ public class Pets extends JPanel {
 			}
 		});
 		add(btnExcluirPets);
+		
 
-		// recarregar tabela
+		// recarregar tabela 
 		JButton recarregarTabela = new JButton("🔄");
 		recarregarTabela.setBackground(new Color(244, 255, 254));
 		recarregarTabela.setBounds(215, 105, 46, 16);
 		recarregarTabela.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				recarregarTabela();
-			}
+		    public void actionPerformed(ActionEvent e) {
+		    	
+		        recarregarTabela();
+		    }
 		});
 		add(recarregarTabela);
-
+		
+	
 		JLabel labelImagemPet = new JLabel("Foto");
 		labelImagemPet.setFont(new Font("Tahoma", Font.BOLD, 11));
 		labelImagemPet.setBounds(582, 106, 46, 14);
@@ -322,15 +324,14 @@ public class Pets extends JPanel {
 			modelo.setRowCount(0); // Limpar o modelo atual
 
 			for (Animais animal : listaDeAnimais) {
-				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(),
-						animal.getRaca(), animal.getRacao(), animal.getStatus(), animal.getVacina(),
-						animal.getFoto() });
+				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(), animal.getRaca(),
+						animal.getRacao(), animal.getStatus(), animal.getVacina(), animal.getFoto() });
 			}
 
 			tabelaAnimal.getTabela().clearSelection();
 
-		} catch (BusinessException ex) {
-			// TODO
+		} catch (SQLException ex) {
+			//TODO
 		}
 
 	}

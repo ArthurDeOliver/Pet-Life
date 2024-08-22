@@ -9,40 +9,52 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import br.edu.ifpe.discente.PetLife.ui.entities.Adocoes;
 
-public class TabelaAdocoes extends JPanel {
-
+public class TabelaAdocoes extends JPanel{
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTable tabela;
-	private DefaultTableModel modelo;
+    private DefaultTableModel modelo;
+ 
+    public TabelaAdocoes(List<Adocoes> listaDeAdocoes) {
+    	
+        
+        setLayout(new BorderLayout());
 
-	public TabelaAdocoes(List<Adocoes> listaDeAdocoes) {
 
-		setLayout(new BorderLayout());
+        String[] colunas = {"ID", "Nome pet", "Tipo Pet", "Tutor", "CPF", "Telefone" , "Endereço"};
+        modelo = new DefaultTableModel(colunas, 0);
+        tabela = new JTable(modelo);
 
-		String[] colunas = { "ID", "Nome pet", "Tipo Pet", "Tutor", "CPF", "Telefone", "Endereço" };
-		modelo = new DefaultTableModel(colunas, 0);
-		tabela = new JTable(modelo);
+        // Adicionar rolagem a tabela
+        JScrollPane rolagem = new JScrollPane(tabela);
+        add(rolagem, BorderLayout.CENTER);
 
-		// Adicionar rolagem a tabela
-		JScrollPane rolagem = new JScrollPane(tabela);
-		add(rolagem, BorderLayout.CENTER);
+        // Adicionar dados na tabela
+        for (Adocoes adocao : listaDeAdocoes) {
+            Object[] linha = {
+            	adocao.getIdPet(),
+            	adocao.getNomePet(),
+            	adocao.getTipoPet(),
+            	adocao.getNomeTutor(),
+            	adocao.getCpf(),
+                adocao.getTelefone(),
+                adocao.getEndereco()
+            };
+            modelo.addRow(linha);
+        }
+    }
 
-		// Adicionar dados na tabela
-		for (Adocoes adocao : listaDeAdocoes) {
-			Object[] linha = { adocao.getIdPet(), adocao.getNomePet(), adocao.getTipoPet(), adocao.getNomeTutor(),
-					adocao.getCpf(), adocao.getTelefone(), adocao.getEndereco() };
-			modelo.addRow(linha);
-		}
-	}
-
-	public JTable getTabela() {
-		return tabela;
-	}
-
-	public DefaultTableModel getModelo() {
-		return modelo;
-	}
+    public JTable getTabela() {
+        return tabela;
+    }
+    public DefaultTableModel getModelo() {
+    	return modelo;
+    }
 }
+
+    
+    
+    

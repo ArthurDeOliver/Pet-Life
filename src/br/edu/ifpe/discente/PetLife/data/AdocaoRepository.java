@@ -10,65 +10,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.ifpe.discente.PetLife.ui.entities.Adocoes;
-import br.edu.ifpe.discente.PetLife.ui.exception.DataAccessException;
 
 public class AdocaoRepository {
 
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "root1"; // editável
+	private static final String PASSWORD = "admin"; // editável
 
-	
-	private Connection getConnection() throws DataAccessException {
-		try {
-			
-			return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
-			
-		}catch(SQLException e) {
-			
-			throw new DataAccessException("Erro ao conectar com banco de dados", e);
-		}
+	private Connection getConnection() throws SQLException {
+		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
 	}
 
 	// cria o bd if not exists
-	private void createDatabase() throws DataAccessException {
+	private void createDatabase() throws SQLException {
 		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 				Statement statement = connection.createStatement()) {
 			String sql = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
 			statement.executeUpdate(sql);
-			
-		}catch(SQLException e) {
-			
-			throw new DataAccessException("Erro ao criar banco de dados", e);
 		}
 	}
-	
 
 	// cria a tabela if not exists
-	private void createTable() throws DataAccessException {
+	private void createTable() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS adocoes (" + "id_pet INT, " + "nome_pet VARCHAR(45), "
 					+ "tipo_pet VARCHAR(45), " + "nome_tutor VARCHAR(255), " + "cpf_tutor VARCHAR(45), "
 					+ "endereco_tutor VARCHAR(255), " + "telefone_tutor VARCHAR(45), "
 					+ "FOREIGN KEY (id_pet) REFERENCES animais(id), " + "PRIMARY KEY (id_pet));";
 			statement.execute(sql);
-			
 		} catch (SQLException e) {
-			
-			throw new DataAccessException("Erro ao criar tabela adocoes", e);
+			e.printStackTrace();
 		}
 	}
-	
 
 	// inicia a tabela e o bd
-	public void iniciarBdAdocoes() throws DataAccessException {
+	public void iniciarBdAdocoes() throws SQLException {
 		createDatabase();
 		createTable();
 	}
 
 	// criar adocao
-	public void adotar(Adocoes adocao) throws DataAccessException {
+	public void adotar(Adocoes adocao) throws SQLException {
 		String sql = "INSERT INTO adocoes (id_pet, nome_pet, tipo_pet, nome_tutor, cpf_tutor, endereco_tutor, telefone_tutor)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -92,14 +75,11 @@ public class AdocaoRepository {
 				statementUpdate.execute();
 			}
 
-		}catch(SQLException e) {
-			throw new DataAccessException("Erro ao adotar", e);
-			
 		}
 	}
 
 	// retornar adocoes
-	public List<Adocoes> listarAdocoes() throws DataAccessException {
+	public List<Adocoes> listarAdocoes() throws SQLException {
 
 		String sql = "SELECT * FROM adocoes"; // script sql para selecionar todos os dados do bd
 
@@ -120,7 +100,7 @@ public class AdocaoRepository {
 				listaAdocoes.add(adocao);
 			}
 		} catch (SQLException e) {
-			throw new DataAccessException("Erro ao listar adocoes", e);
+			e.printStackTrace();
 		}
 		return listaAdocoes;
 	}
