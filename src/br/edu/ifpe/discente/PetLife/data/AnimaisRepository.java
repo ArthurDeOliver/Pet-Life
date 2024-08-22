@@ -17,7 +17,7 @@ public class AnimaisRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "admin"; // editável
+	private static final String PASSWORD = "root1"; // editável
 
 	private Connection getConnection() throws DataAccessException {
 		try {
@@ -85,33 +85,28 @@ public class AnimaisRepository {
 	// retornar animais
 
 	public List<Animais> listarTodosAnimais() throws DataAccessException {
+	    String sql = "SELECT * FROM animais";
+	    List<Animais> listaDeAnimais = new ArrayList<>();
+	    
+	    try (Connection connection = getConnection();
+	         PreparedStatement statement = connection.prepareStatement(sql);
+	         ResultSet rs = statement.executeQuery()) {
 
-		String sql = "SELECT * FROM animais"; // script sql para selecionar todos os dados do bd
+	        while (rs.next()) {
+	            Animais anima1 = new Animais(
+	                rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"), rs.getString("tipo"),
+	                rs.getString("raca"), rs.getInt("racao"), rs.getString("status"), rs.getString("vacina"),
+	                rs.getString("foto"));
+	            listaDeAnimais.add(anima1);
+	        }
 
-		List<Animais> listaDeAnimais = new ArrayList<>();
+	    } catch (SQLException e) {
+	        throw new DataAccessException("Erro ao listar todos os animais", e);
+	    }
 
-		try (Connection connection = getConnection();
-
-				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
-				ResultSet rs = statement.executeQuery()) { // executa as consultas
-
-			while (rs.next()) {
-
-				Animais anima1 = new Animais(
-
-						rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"), rs.getString("tipo"),
-						rs.getString("raca"), rs.getInt("racao"), rs.getString("status"), rs.getString("vacina"),
-						rs.getString("foto"));
-				listaDeAnimais.add(anima1);
-			}
-
-		} catch (SQLException e) {
-			throw new DataAccessException("Erro ao listar todos os animais", e);
-		}
-
-		return listaDeAnimais;
-
+	    return listaDeAnimais;
 	}
+
 
 	// retornar animais aptos a adoção
 	public List<Animais> listarAnimaisAptos() throws DataAccessException {

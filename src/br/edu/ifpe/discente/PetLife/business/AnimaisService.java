@@ -27,15 +27,13 @@ public class AnimaisService {
 
 	}
 
-	public List<Animais> retornarAnimal() throws BusinessException { // aprimorar
-		try {
-
-			return repositoryA.listarTodosAnimais();
-
-		} catch (DataAccessException e) {
-			// TODO
-		}
-		return null;
+	public List<Animais> retornarAnimal() throws BusinessException {
+	    try {
+	        return repositoryA.listarTodosAnimais();
+	    } catch (DataAccessException e) {
+	    	
+	        throw new BusinessException("Não foi possível recuperar os animais.", e);
+	    }
 	}
 
 	public List<Animais> retornarAnimaisAptos() throws BusinessException { // aprimorar
