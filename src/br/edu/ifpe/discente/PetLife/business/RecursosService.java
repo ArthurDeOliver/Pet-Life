@@ -3,6 +3,7 @@ import java.sql.SQLException;
 
 import br.edu.ifpe.discente.PetLife.data.RecursosRepository;
 import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
+import br.edu.ifpe.discente.PetLife.ui.entities.Racoes;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
 
 public class RecursosService {
@@ -20,5 +21,9 @@ public class RecursosService {
 	
  	public void criarMedicamento(Medicamentos medicamento) throws SQLException {
  		this.repositoryR.criarMedicamento(medicamento);
+ 	}
+ 	
+ 	public void criarRacao(Racoes racao) throws SQLException {
+ 		this.repositoryR.criarRacao(racao);
  	}
 }

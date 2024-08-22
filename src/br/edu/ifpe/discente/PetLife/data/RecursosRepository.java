@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
+import br.edu.ifpe.discente.PetLife.ui.entities.Racoes;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
 
 public class RecursosRepository {
@@ -111,15 +112,31 @@ public class RecursosRepository {
 			statement.execute();
 		}
 	}
-
+ 
+	//Inserir medicamento no banco de dados
+	
 	public void criarMedicamento(Medicamentos medicamento) throws SQLException {
 		String sql = "INSERT INTO medicamentos (Nome_medicamento, Quantidade_Medicamento, Valor_Medicamento) VALUES (?, ?, ?)";
 		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-			// statement.setString(1, medicamento.getNomeMedicamento());
-			// statement.setInt(2, medicamento.getQuantidadeMedicamento());
-			// statement.setDouble(3, medicamento.getValorMedicamento());
-			// statement.execute();
+			 statement.setString(1, medicamento.getNomeMedicamento());
+			 statement.setInt(2, medicamento.getQuantidadeMedicamento());
+			 statement.setDouble(3, medicamento.getValorMedicamento());
+			 statement.execute();
 
 		}
 	}
+	
+	//Inserir ração no banco de dados
+	
+	public void criarRacao(Racoes racao) throws SQLException{
+		String sql = "INSERT INTO racoes (Marca_Racao, Quantidade_Racao, Valor_Racao) VALUES (?, ?, ?)";
+		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+			 statement.setString(1, racao.getMarcaRacao());
+			 statement.setInt(2, racao.getQuantidadeRacao());
+			 statement.setDouble(3, racao.getValorRacao());
+			 statement.execute();
+
+		}
+	}
+	
 }

@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.edu.ifpe.discente.PetLife.business.RecursosService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
+import br.edu.ifpe.discente.PetLife.ui.entities.Racoes;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
 
 import javax.swing.JButton;
@@ -315,6 +316,25 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldValorRacaoNova.setColumns(10);
         
         JButton btnRegistrarRacaoNova = new JButton("Registrar");
+        btnRegistrarRacaoNova.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String nome = textFieldMarcaRacaoNova.getText();
+        		int quantidade = Integer.parseInt(textFieldQuantidadeRacaoNova.getText());
+        		float valor = Float.parseFloat(textFieldValorRacaoNova.getText());
+        		Racoes racao = new Racoes(nome, quantidade, valor);
+        		RecursosService registrar = new RecursosService();
+        		try {
+					registrar.criarRacao(racao);
+					JOptionPane.showMessageDialog(null, "Ração registrada com sucesso!!");
+				} catch (SQLException e1) {					
+					e1.printStackTrace();
+									
+										
+				}
+        		
+        	}
+        	}
+        );
         btnRegistrarRacaoNova.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnRegistrarRacaoNova.setBounds(417, 179, 105, 30);
         panelNovaRacao.add(btnRegistrarRacaoNova);
@@ -484,6 +504,18 @@ public class TelaRegistroRecursos extends JFrame{
         panelRacao.add(lblQuantidadeRacao);
         
         JTextField textFieldQuantidadeRacao = new JTextField();
+        textFieldQuantidadeRacao.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldQuantidadeRacao.getText().length() > 1) {
+        			e.consume();
+        		}
+        	}
+        });
         textFieldQuantidadeRacao.setBounds(169, 108, 173, 20);
         panelRacao.add(textFieldQuantidadeRacao);
         textFieldQuantidadeRacao.setColumns(10);
@@ -494,6 +526,19 @@ public class TelaRegistroRecursos extends JFrame{
         panelRacao.add(lblValorRacao);
         
         JTextField textFieldValorRacao = new JTextField();
+        textFieldValorRacao.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldValorRacao.getText().length() > 3) {
+        			e.consume();
+        		}
+        		
+        	}
+        });
         textFieldValorRacao.setBounds(169, 164, 173, 20);
         panelRacao.add(textFieldValorRacao);
         textFieldValorRacao.setColumns(10);
@@ -523,6 +568,18 @@ public class TelaRegistroRecursos extends JFrame{
         panelVacina.add(lblQuantidadeVacina);
         
         JTextField textFieldQuantidadeVacina = new JTextField();
+        textFieldQuantidadeVacina.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		String caracteres = "0123456789";
+        		if (!caracteres.contains(e.getKeyChar()+"")) {
+        			e.consume();
+        		}
+        		
+        		if (textFieldQuantidadeVacina.getText().length() > 1) {
+        			e.consume();
+        		}
+        	}
+        });
         textFieldQuantidadeVacina.setBounds(169, 108, 173, 20);
         panelVacina.add(textFieldQuantidadeVacina);
         textFieldQuantidadeVacina.setColumns(10);
@@ -533,6 +590,18 @@ public class TelaRegistroRecursos extends JFrame{
         panelVacina.add(lblValorVacina);
         
         JTextField textFieldValorVacina= new JTextField();
+        textFieldValorVacina.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {       		
+            		String caracteres = "0123456789";
+            		if (!caracteres.contains(e.getKeyChar()+"")) {
+            			e.consume();
+            		}
+            		
+            		if (textFieldValorVacina.getText().length() > 4) {
+            			e.consume();
+            		}
+        	}
+        });
         textFieldValorVacina.setBounds(169, 164, 173, 20);
         panelVacina.add(textFieldValorVacina);
         textFieldValorVacina.setColumns(10);
