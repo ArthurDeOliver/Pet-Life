@@ -3,10 +3,10 @@ package br.edu.ifpe.discente.PetLife.ui.entities;
 public class Racoes {
 
 	private String marcaRacao;
-	private int quantidadeRacao;
+	private double quantidadeRacao;
 	private double valorRacao;
 
-	public Racoes(String marcaRacao, int quantidadeRacao, double valorRacao) {
+	public Racoes(String marcaRacao, double quantidadeRacao, double valorRacao) {
 		this.marcaRacao = marcaRacao;
 		this.quantidadeRacao = quantidadeRacao;
 		this.valorRacao = valorRacao;
@@ -20,7 +20,7 @@ public class Racoes {
 		this.marcaRacao = marcaRacao;
 	}
 
-	public int getQuantidadeRacao() {
+	public double getQuantidadeRacao() {
 		return quantidadeRacao;
 	}
 

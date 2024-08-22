@@ -196,7 +196,7 @@ public class TelaRegistroRecursos extends JFrame{
         			e.consume();
         		}
         		
-        		if (textFieldQuantidadeMedicamentoNovo.getText().length() > 2) {
+        		if (textFieldQuantidadeMedicamentoNovo.getText().length() > 10) {
         			e.consume();
         		}
         		
@@ -216,12 +216,12 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldValorMedicamentoNovo.addKeyListener(new KeyAdapter() {
         	
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789";
+        		String caracteres = "0123456789,";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
         		
-        		if (textFieldValorMedicamentoNovo.getText().length() > 4) {
+        		if (textFieldValorMedicamentoNovo.getText().length() > 10) {
         			e.consume();
         		}
         		
@@ -278,12 +278,12 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldQuantidadeRacaoNova = new JTextField();
         textFieldQuantidadeRacaoNova.addKeyListener(new KeyAdapter() {	
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789";
+        		String caracteres = "0123456789,";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
         		
-        		if (textFieldQuantidadeRacaoNova.getText().length() > 1) {
+        		if (textFieldQuantidadeRacaoNova.getText().length() > 10) {
         			e.consume();
         		}
         	}
@@ -300,12 +300,12 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldValorRacaoNova = new JTextField();
         textFieldValorRacaoNova.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789";
+        		String caracteres = "0123456789,";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
         		
-        		if (textFieldValorRacaoNova.getText().length() > 3) {
+        		if (textFieldValorRacaoNova.getText().length() > 10) {
         			e.consume();
         		}
         		
@@ -369,7 +369,7 @@ public class TelaRegistroRecursos extends JFrame{
         			e.consume();
         		}
         		
-        		if (textFieldQuantidadeVacinaNova.getText().length() > 1) {
+        		if (textFieldQuantidadeVacinaNova.getText().length() > 10) {
         			e.consume();
         		}
         	}
@@ -386,12 +386,12 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldValorVacinaNova = new JTextField();
         textFieldValorVacinaNova.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789";
+        		String caracteres = "0123456789,";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
         		
-        		if (textFieldValorVacinaNova.getText().length() > 4) {
+        		if (textFieldValorVacinaNova.getText().length() > 10) {
         			e.consume();
         		}
         	}
@@ -447,7 +447,7 @@ public class TelaRegistroRecursos extends JFrame{
         			e.consume();
         		}
         		
-        		if (textFieldQuantidadeMedicamento.getText().length() > 2) {
+        		if (textFieldQuantidadeMedicamento.getText().length() > 10) {
         			e.consume();
         		}
         	}
@@ -465,12 +465,12 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldValorMedicamento = new JTextField();
         textFieldValorMedicamento.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789";
+        		String caracteres = "0123456789, ";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
         		
-        		if (textFieldValorMedicamento.getText().length() > 4) {
+        		if (textFieldValorMedicamento.getText().length() > 10) {
         			e.consume();
         		}
         	}
@@ -506,12 +506,12 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldQuantidadeRacao = new JTextField();
         textFieldQuantidadeRacao.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789";
+        		String caracteres = "0123456789,";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
         		
-        		if (textFieldQuantidadeRacao.getText().length() > 1) {
+        		if (textFieldQuantidadeRacao.getText().length() > 10) {
         			e.consume();
         		}
         	}
@@ -528,12 +528,12 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldValorRacao = new JTextField();
         textFieldValorRacao.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789";
+        		String caracteres = "0123456789,";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
         		
-        		if (textFieldValorRacao.getText().length() > 3) {
+        		if (textFieldValorRacao.getText().length() > 10) {
         			e.consume();
         		}
         		
@@ -575,7 +575,7 @@ public class TelaRegistroRecursos extends JFrame{
         			e.consume();
         		}
         		
-        		if (textFieldQuantidadeVacina.getText().length() > 1) {
+        		if (textFieldQuantidadeVacina.getText().length() > 10) {
         			e.consume();
         		}
         	}
@@ -592,12 +592,12 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldValorVacina= new JTextField();
         textFieldValorVacina.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {       		
-            		String caracteres = "0123456789";
+            		String caracteres = "0123456789,";
             		if (!caracteres.contains(e.getKeyChar()+"")) {
             			e.consume();
             		}
             		
-            		if (textFieldValorVacina.getText().length() > 4) {
+            		if (textFieldValorVacina.getText().length() > 10) {
             			e.consume();
             		}
         	}

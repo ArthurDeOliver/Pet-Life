@@ -51,7 +51,7 @@ public class RecursosRepository {
 
 	private void createTableRacao() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-			String sql = "CREATE TABLE IF NOT EXISTS racoes (" + "Marca_Racao VARCHAR(45), " + "Quantidade_Racao INT, "
+			String sql = "CREATE TABLE IF NOT EXISTS racoes (" + "Marca_Racao VARCHAR(45), " + "Quantidade_Racao DOUBLE, "
 					+ "Valor_Racao DECIMAL (10,2), " + "Primary key (Marca_Racao)) ";
 			statement.executeUpdate(sql);
 		}
@@ -112,31 +112,102 @@ public class RecursosRepository {
 			statement.execute();
 		}
 	}
- 
-	//Inserir medicamento no banco de dados
-	
+
+	// Inserir medicamento no banco de dados
+
 	public void criarMedicamento(Medicamentos medicamento) throws SQLException {
 		String sql = "INSERT INTO medicamentos (Nome_medicamento, Quantidade_Medicamento, Valor_Medicamento) VALUES (?, ?, ?)";
 		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-			 statement.setString(1, medicamento.getNomeMedicamento());
-			 statement.setInt(2, medicamento.getQuantidadeMedicamento());
-			 statement.setDouble(3, medicamento.getValorMedicamento());
-			 statement.execute();
+			statement.setString(1, medicamento.getNomeMedicamento());
+			statement.setInt(2, medicamento.getQuantidadeMedicamento());
+			statement.setDouble(3, medicamento.getValorMedicamento());
+			statement.execute();
 
 		}
 	}
-	
-	//Inserir ração no banco de dados
-	
-	public void criarRacao(Racoes racao) throws SQLException{
+
+	// Inserir ração no banco de dados
+
+	public void criarRacao(Racoes racao) throws SQLException {
 		String sql = "INSERT INTO racoes (Marca_Racao, Quantidade_Racao, Valor_Racao) VALUES (?, ?, ?)";
 		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-			 statement.setString(1, racao.getMarcaRacao());
-			 statement.setInt(2, racao.getQuantidadeRacao());
-			 statement.setDouble(3, racao.getValorRacao());
-			 statement.execute();
+			statement.setString(1, racao.getMarcaRacao());
+			statement.setDouble(2, racao.getQuantidadeRacao());
+			statement.setDouble(3, racao.getValorRacao());
+			statement.execute();
 
 		}
 	}
-	
+
+	public List<Medicamentos> listarTodosMedicamentos() throws SQLException {
+		String sql = "SELECT * FROM medicamentos";
+
+		List<Medicamentos> listaDeMedicamentos = new ArrayList<>();
+
+		try (Connection connection = getConnection();
+
+				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
+				ResultSet rs = statement.executeQuery()) { // executa as consultas
+
+			while (rs.next()) {
+
+				Medicamentos medicamento = new Medicamentos(rs.getString("nomeMedicamento"),
+						rs.getInt("quantidadeMedicamento"), rs.getDouble("valorMedicamento"));
+				listaDeMedicamentos.add(medicamento);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaDeMedicamentos;
+
+	}
+
+	public List<Racoes> listarTodasRacoes() throws SQLException {
+		String sql = "SELECT * FROM racoes";
+
+		List<Racoes> listaDeRacoes = new ArrayList<>();
+
+		try (Connection connection = getConnection();
+
+				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
+				ResultSet rs = statement.executeQuery()) { // executa as consultas
+
+			while (rs.next()) {
+
+				Racoes racao = new Racoes(rs.getString("Marca_Racao"), rs.getDouble("Quantidade_Racao"),
+						rs.getDouble("Valor_Racao"));
+				listaDeRacoes.add(racao);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaDeRacoes;
+
+	}
+
+	public List<Vacinas> listarTodasVacinas() throws SQLException {
+		String sql = "SELECT * FROM vacinas";
+
+		List<Vacinas> listaDeVacinas = new ArrayList<>();
+
+		try (Connection connection = getConnection();
+
+				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
+				ResultSet rs = statement.executeQuery()) { // executa as consultas
+
+			while (rs.next()) {
+
+				Vacinas vacina = new Vacinas(rs.getString("nomeVacina"), rs.getInt("quantidadeVacina"),
+						rs.getDouble("valorVacina"));
+				listaDeVacinas.add(vacina);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaDeVacinas;
+
+	}
 }
