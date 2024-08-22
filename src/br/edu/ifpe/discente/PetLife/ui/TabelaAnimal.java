@@ -8,41 +8,34 @@ import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 
 public class TabelaAnimal extends JPanel {
 
-    private JTable tabela;
-    private DefaultTableModel modelo;
+	private JTable tabela;
+	private DefaultTableModel modelo;
 
-    public TabelaAnimal(List<Animais> listaDeAnimais) {
-    	
-      
-        setLayout(new BorderLayout());
+	public TabelaAnimal(List<Animais> listaDeAnimais) {
 
-        
-        
-        String[] colunas = {"ID", "Nome", "Tipo"};
-        modelo = new DefaultTableModel(colunas, 0);
-        tabela = new JTable(modelo);
+		setLayout(new BorderLayout());
 
-        // Adicionar rolagem a tabela
-        JScrollPane rolagem = new JScrollPane(tabela);
-        add(rolagem, BorderLayout.CENTER);
+		String[] colunas = { "ID", "Nome", "Tipo" };
+		modelo = new DefaultTableModel(colunas, 0);
+		tabela = new JTable(modelo);
 
-        // Adicionar dados na tabela
-        for (Animais animal : listaDeAnimais) {
-            Object[] linha = {
-            	animal.getID(),
-                animal.getNome(),
-                animal.getTipo(),
-            };
-            modelo.addRow(linha);
-        }
-    }
+		// Adicionar rolagem a tabela
+		JScrollPane rolagem = new JScrollPane(tabela);
+		add(rolagem, BorderLayout.CENTER);
 
-    public JTable getTabela() {
-        return tabela;
-    }
-    
-    public DefaultTableModel getModelo() {
-    	return modelo;
-    }
-    
+		// Adicionar dados na tabela
+		for (Animais animal : listaDeAnimais) {
+			Object[] linha = { animal.getID(), animal.getNome(), animal.getTipo(), };
+			modelo.addRow(linha);
+		}
+	}
+
+	public JTable getTabela() {
+		return tabela;
+	}
+
+	public DefaultTableModel getModelo() {
+		return modelo;
+	}
+
 }

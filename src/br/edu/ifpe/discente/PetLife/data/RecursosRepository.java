@@ -14,114 +14,143 @@ import javax.swing.JOptionPane;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
+import br.edu.ifpe.discente.PetLife.ui.exception.DataAccessException;
 
-public class RecursosRepository{
-	
+public class RecursosRepository {
+
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "admin"; // editável
+	private static final String PASSWORD = "root1"; // editável
 
-	private Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
+	private Connection getConnection() throws DataAccessException {
+		try {
+			return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
+
+		} catch (SQLException e) {
+			throw new DataAccessException("Erro ao criar conexão com o banco de dados", e);
+		}
 	}
-	
+
 	// cria o bd if not exists
-		private void createDatabase() throws SQLException {
-			try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-					Statement statement = connection.createStatement()) {
-				String sql = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
-				statement.executeUpdate(sql);
-			}
-		}
-	      
-		
-	//Criar tabela medicamento
-		
-	private void createTableMedicamento() throws SQLException {
-		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-			String sql = "CREATE TABLE IF NOT EXISTS medicamentos (" + "Nome_medicamento VARCHAR(45), "
-					+ "Quantidade_Medicamento INT, " + "Valor_Medicamento DECIMAL (10,2), " + "Primary key (Nome_Medicamento)) ";
+	private void createDatabase() throws DataAccessException {
+		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+				Statement statement = connection.createStatement()) {
+			String sql = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
 			statement.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			throw new DataAccessException("Erro ao criar banco de dados", e);
 		}
 	}
-	
-	//Criar tabela ração
-	
-	private void createTableRacao() throws SQLException {
+
+	// Criar tabela medicamento
+
+	private void createTableMedicamento() throws DataAccessException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-			String sql = "CREATE TABLE IF NOT EXISTS racoes (" + "Marca_Racao VARCHAR(45), "
-					+ "Quantidade_Racao INT, " + "Valor_Racao DECIMAL (10,2), " + "Primary key (Marca_Racao)) ";
+			String sql = "CREATE TABLE IF NOT EXISTS medicamentos (" + "nomeMedicamento VARCHAR(45), "
+					+ "quantidadeMedicamento INT, " + "valorMedicamento DECIMAL (10,2), "
+					+ "Primary key (nomeMedicamento)) ";
 			statement.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			throw new DataAccessException("Erro ao criar tabela medicamentos", e);
 		}
 	}
-	
-	//Criar tabela vacina
-	
-	private void createTableVacina() throws SQLException {
+
+	// Criar tabela ração
+
+	private void createTableRacao() throws DataAccessException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-			String sql = "CREATE TABLE IF NOT EXISTS vacinas (" + "Nome_Vacina VARCHAR(45), "
-					+ "Quantidade_Vacina INT, " + "Valor_Vacina DECIMAL (10,2), " + "Primary key (Nome_Vacina)) ";
+			String sql = "CREATE TABLE IF NOT EXISTS racoes (" + "marcaRacao VARCHAR(45), " + "quantidadeRacao INT, "
+					+ "valorRacao DECIMAL (10,2), " + "Primary key (marcaRacao)) ";
 			statement.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			throw new DataAccessException("Erro ao criar tabela racoes", e);
 		}
 	}
-	
-	//Criar tabela de animais medicados
-	
-	private void createTableAnimaisMedicados() throws SQLException {
+
+	// Criar tabela vacina
+
+	private void createTableVacina() throws DataAccessException {
+		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+			String sql = "CREATE TABLE IF NOT EXISTS vacinas (" + "nomeVacina VARCHAR(45), " + "quantidadeVacina INT, "
+					+ "valorVacina DECIMAL (10,2), " + "primary key (Nome_Vacina)) ";
+			statement.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			throw new DataAccessException("Erro ao criar tabela vacinas", e);
+		}
+	}
+
+	// Criar tabela de animais medicados
+
+	private void createTableAnimaisMedicados() throws DataAccessException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais_medicados (" + "id_animal int, "
-					+ "nome_animal VARCHAR(45), " + "nome_Medicamento VARCHAR(45), " + "FOREIGN KEY (id_animal) references animais (id), " + 
-					 "FOREIGN KEY (nome_Medicamento) references medicamentos (Nome_medicamento))";
+					+ "nomeAnimal VARCHAR(45), " + "nomeMedicamento VARCHAR(45), "
+					+ "FOREIGN KEY (id_animal) references animais (id), "
+					+ "FOREIGN KEY (nomeMedicamento) references medicamentos (nomeMedicamento))";
 			statement.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			throw new DataAccessException("Erro ao criar tabela animais_medicados", e);
 		}
 	}
-	
-	//Criar tabela de animais vacinados
-	
-	private void createTableAnimaisVacinados() throws SQLException {
+
+	// Criar tabela de animais vacinados
+
+	private void createTableAnimaisVacinados() throws DataAccessException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais_vacinados (" + "id_animal int, "
-					+ "nome_animal VARCHAR(45), " + "vacina_animal VARCHAR(45), " + "FOREIGN KEY (id_animal) references animais (id), " + 
-					 "FOREIGN KEY (vacina_animal) references vacinas (Nome_Vacina))";
+					+ "nomeAnimal VARCHAR(45), " + "vacinaAnimal VARCHAR(45), "
+					+ "FOREIGN KEY (id_animal) references animais (id), "
+					+ "FOREIGN KEY (vacinaAnimal) references vacinas (nomeVacina))";
 			statement.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			throw new DataAccessException("Erro ao criar tabela animais_vacinados", e);
+
 		}
 	}
-	
-	
-	// inicia a tabela e o bd
-		public void iniciarBdRecursos() throws SQLException {
-			createDatabase();
-			createTableMedicamento();
-			createTableRacao();
-			createTableVacina();
-			createTableAnimaisMedicados();
-			createTableAnimaisVacinados();
-		}
-		
-		//Inserir vacina no banco de dados
-		
-		public void criarVacina(Vacinas vacina) throws SQLException {
-			String sql = "INSERT INTO vacinas (Nome_Vacina, Quantidade_Vacina, Valor_Vacina) VALUES (?, ?, ?)";
-			try (Connection connection = getConnection();
-					PreparedStatement statement = connection.prepareStatement(sql)) {
-			 statement.setString(1, vacina.getNome_Vacina());
-			 statement.setInt(2, vacina.getQuantidade_Vacina());
-			 statement.setDouble(3, vacina.getValor_Vacina());
-			 statement.execute();
-		}
-}
-		public void criarMedicamento(Medicamentos medicamento) throws SQLException{
-			String sql = "INSERT INTO medicamentos (Nome_medicamento, Quantidade_Medicamento, Valor_Medicamento) VALUES (?, ?, ?)";
-			try (Connection connection = getConnection();			
-					PreparedStatement statement = connection.prepareStatement(sql)) {
-			 statement.setString(1, medicamento.getNome_Medicamento());
-			 statement.setInt(2, medicamento.getQuantidade_Medicamento());
-			 statement.setDouble(3, medicamento.getValor_Medicamento());
-			 statement.execute();
-		
-		}
-}
-}
-     
 
+	// inicia a tabela e o bd
+	public void iniciarBdRecursos() throws DataAccessException {
+		createDatabase();
+		createTableMedicamento();
+		createTableRacao();
+		createTableVacina();
+		createTableAnimaisMedicados();
+		createTableAnimaisVacinados();
+	}
+
+	// Inserir vacina no banco de dados
+
+	public void criarVacina(Vacinas vacina) throws DataAccessException {
+		String sql = "INSERT INTO vacinas (nomeVacina, quantidadeVacina, valorVacina) VALUES (?, ?, ?)";
+		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setString(1, vacina.getNomeVacina());
+			statement.setInt(2, vacina.getQuantidadeVacina());
+			statement.setDouble(3, vacina.getValorVacina());
+			statement.execute();
+
+		} catch (SQLException e) {
+			throw new DataAccessException("Erro ao inserir vacinas", e);
+		}
+	}
+
+	public void criarMedicamento(Medicamentos medicamento) throws DataAccessException {
+		String sql = "INSERT INTO medicamentos (nomeMedicamento, quantidadeMedicamento, valorMedicamento) VALUES (?, ?, ?)";
+		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setString(1, medicamento.getNomeMedicamento());
+			statement.setInt(2, medicamento.getQuantidadeMedicamento());
+			statement.setDouble(3, medicamento.getValorMedicamento());
+			statement.execute();
+
+		} catch (SQLException e) {
+			throw new DataAccessException("Erro ao inserir medicamentos", e);
+
+		}
+	}
+}

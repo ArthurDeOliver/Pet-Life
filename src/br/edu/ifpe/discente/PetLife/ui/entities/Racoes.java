@@ -1,39 +1,39 @@
 package br.edu.ifpe.discente.PetLife.ui.entities;
 
-public class Racoes{
-	
-	private String Marca_Racao;
-	private int Quantidade_Racao;
-	private double Valor_Racao;
-	
-	public Racoes(String nome, int quantidade, double valor) {
-		this.Marca_Racao = nome;
-		this.Valor_Racao = quantidade;
-		this.Valor_Racao = valor;	
+public class Racoes {
+
+	private String marcaRacao;
+	private int quantidadeRacao;
+	private double valorRacao;
+
+	public Racoes(String marcaRacao, int quantidadeRacao, double valorRacao) {
+		this.marcaRacao = marcaRacao;
+		this.quantidadeRacao = quantidadeRacao;
+		this.valorRacao = valorRacao;
 	}
 
-	public String getMarca_Racao() {
-		return Marca_Racao;
+	public String getMarcaRacao() {
+		return marcaRacao;
 	}
 
-	public void setMarca_Racao(String marca) {
-		Marca_Racao = marca;
+	public void setMarcaRacao(String marcaRacao) {
+		this.marcaRacao = marcaRacao;
 	}
 
-	public int getQuantidade_Racao() {
-		return Quantidade_Racao;
+	public int getQuantidadeRacao() {
+		return quantidadeRacao;
 	}
 
-	public void setQuantidade_Racao(int quantidade) {
-		Quantidade_Racao = quantidade;
+	public void setQuantidadeRacao(int quantidadeRacao) {
+		this.quantidadeRacao = quantidadeRacao;
 	}
 
-	public double getValor_Racao() {
-		return Valor_Racao;
+	public double getValorRacao() {
+		return valorRacao;
 	}
 
-	public void setValor_Racao(double valor) {
-		Valor_Racao = valor;
+	public void setValorRacao(double valorRacao) {
+		this.valorRacao = valorRacao;
 	}
-	
+
 }

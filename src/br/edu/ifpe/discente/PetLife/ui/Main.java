@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import br.edu.ifpe.discente.PetLife.business.BDService;
+import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
+
 import javax.swing.JLabel;
 
 public class Main {
@@ -44,8 +46,9 @@ public class Main {
 	
 	/**
 	 * Launch the application.
+	 * @throws BusinessException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws BusinessException {
 		
 		
 		
@@ -53,7 +56,7 @@ public class Main {
 
     		BDService bdservice = new BDService();
             bdservice.iniciarBD(); //inicializando bd e tabela
-        } catch (SQLException e) {
+        } catch (BusinessException e) {
             e.printStackTrace();
         }
         

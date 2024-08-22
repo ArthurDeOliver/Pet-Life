@@ -1,41 +1,39 @@
 package br.edu.ifpe.discente.PetLife.ui.entities;
 
-public class Medicamentos{
-	
-	private String Nome_Medicamento;
-	private int Quantidade_Medicamento;
-	private double Valor_Medicamento;
-	
-	public Medicamentos(String nome, int quantidade, double valor){
-		this.Nome_Medicamento = nome;
-		this.Quantidade_Medicamento = quantidade;
-		this.Valor_Medicamento = valor;
+public class Medicamentos {
+
+	private String nomeMedicamento;
+	private int quantidadeMedicamento;
+	private double valorMedicamento;
+
+	public Medicamentos(String nomeMedicamento, int quantidadeMedicamento, double valorMedicamento) {
+		this.nomeMedicamento = nomeMedicamento;
+		this.quantidadeMedicamento = quantidadeMedicamento;
+		this.valorMedicamento = valorMedicamento;
 	}
 
-	public String getNome_Medicamento() {
-		return this.Nome_Medicamento;
+	public String getNomeMedicamento() {
+		return nomeMedicamento;
 	}
 
-	public void setNome_Medicamento(String nome) {
-		this.Nome_Medicamento = nome;
+	public void setNomeMedicamento(String nomeMedicamento) {
+		this.nomeMedicamento = nomeMedicamento;
 	}
 
-	public int getQuantidade_Medicamento() {
-		return this.Quantidade_Medicamento;
+	public int getQuantidadeMedicamento() {
+		return quantidadeMedicamento;
 	}
 
-	public void setQuantidade_Medicamento(int quantidade) {
-		this.Quantidade_Medicamento = quantidade;
+	public void setQuantidadeMedicamento(int quantidadeMedicamento) {
+		this.quantidadeMedicamento = quantidadeMedicamento;
 	}
 
-	public double getValor_Medicamento() {
-		return this.Valor_Medicamento;
+	public double getValorMedicamento() {
+		return valorMedicamento;
 	}
 
-	public void setValor_Medicamento(double valor) {
-		this.Valor_Medicamento = valor;
+	public void setValorMedicamento(double valorMedicamento) {
+		this.valorMedicamento = valorMedicamento;
 	}
-	
-	
-	
+
 }
