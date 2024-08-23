@@ -44,5 +44,23 @@ CREATE TABLE IF NOT EXISTS vacinas(
 Nome_Vacina VARCHAR(45),
 Quantidade_Vacina INT,
 Valor_Vacina DECIMAL (10,2),	
-Primary key Nome_Vacina,
+Primary key Nome_Vacina
 );
+
+CREATE TABLE IF NOT EXISTS animais_medicados(
+id_animal int,
+nome_animal VARCHAR(45),
+nome_Medicamento VARCHAR(45),
+FOREIGN KEY (id_animal) references animais (id),
+FOREIGN KEY (nome_Medicamento) references medicamentos (Nome_medicamento)	
+);
+
+CREATE TABLE IF NOT EXISTS animais_vacinados(
+id_animal int,
+nome_animal VARCHAR(45),
+vacina_animal VARCHAR(45),
+FOREIGN KEY (id_animal) references animais (id),
+FOREIGN KEY (vacina_animal) references vacinas (Nome_Vacina)
+);
+
+

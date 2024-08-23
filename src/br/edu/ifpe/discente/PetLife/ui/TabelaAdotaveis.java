@@ -2,6 +2,7 @@ package br.edu.ifpe.discente.PetLife.ui;
 
 import java.awt.BorderLayout;
 import java.util.List;
+import javax.swing.JTable;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +24,7 @@ public class TabelaAdotaveis extends JPanel {
         setLayout(new BorderLayout());
 
         
-        String[] colunas = {"Nome", "Idade", "Tipo", "Raça"};
+        String[] colunas = {"ID", "Nome", "Idade", "Tipo", "Raça"};
         modeloAdotaveis = new DefaultTableModel(colunas, 0);
         tabelaAdotaveis = new JTable(modeloAdotaveis);
 
@@ -34,6 +35,7 @@ public class TabelaAdotaveis extends JPanel {
         // Adicionar dados na tabela
         for (Animais animal : listaDeAnimaisAptos) {
             Object[] linha = {
+            	animal.getID(),
                 animal.getNome(),
                 animal.getIdade(),
                 animal.getTipo(),
@@ -43,8 +45,12 @@ public class TabelaAdotaveis extends JPanel {
         }
     }
 
-    public JTable getTabelaAdotaveis() {
+    public JTable getTabela() {
         return tabelaAdotaveis;
+    }
+    
+    public DefaultTableModel getModelo() {
+    	return modeloAdotaveis;
     }
 }
 

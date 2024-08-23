@@ -12,10 +12,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
+
+
+import br.edu.ifpe.discente.PetLife.business.AdocaoService;
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
+import br.edu.ifpe.discente.PetLife.ui.entities.Adocoes;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 import javax.swing.JScrollPane;
 import br.edu.ifpe.discente.PetLife.ui.TabelaAdotaveis;
@@ -23,17 +27,16 @@ import br.edu.ifpe.discente.PetLife.ui.TabelaAdotaveis;
 public class Adocao extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTable tableAdotados;
     private TabelaAdotaveis tabelaAnimaisAptos;
     private List<Animais> listaPetsAdotaveis;
-    private JTextField textFieldNomePet;
-    private JTextField textFieldTipoPet;
-    private JTextField textFieldIdadePet;
-    private JTextField textFieldRacaPet;
-    private JTextField textFieldStatusPet;
-    private JLabel labelFotoPet;
-    
+    private List<Adocoes> listaPetsAdotados;
+    TabelaAdocoes tabelaPetsAdotados;
+	private Animais animalSelecionado;
+	private int idPet;
+	private String nomePet;
+	private String tipoPet;
 
+    
 	/**
 	 * Create the panel.
 	 */
@@ -60,56 +63,22 @@ public class Adocao extends JPanel {
 		lblPetsParaAdocao.setBounds(32, 53, 182, 70);
 		add(lblPetsParaAdocao);
 		
-		//Criação da tabela de animais aptos
-		 try {
-	        	AnimaisService servico = new AnimaisService();
-	            List<Animais> listaDeAnimaisAptos= servico.retornarAnimaisAptos();
-	            tabelaAnimaisAptos = new TabelaAdotaveis(listaDeAnimaisAptos); // adicionando a lista de animais aptos na tabela
-	            
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            tabelaAnimaisAptos = new TabelaAdotaveis(List.of()); // Cria uma tabela vazia se houver erro -- coloquei pra nao ficar vazio
-	        }
-		
-		
-		JScrollPane scrollPanePetsAdotaveis = new JScrollPane(tabelaAnimaisAptos.getTabelaAdotaveis());
-        scrollPanePetsAdotaveis.addMouseListener(new MouseAdapter() {
-        	
-        	public void mouseClicked(MouseEvent e) {
-        		int linhaSelecionada = tabelaAnimaisAptos.getTabelaAdotaveis().getSelectedRow();
-        		if (linhaSelecionada >= 0) {
-        			String nomeAnimal = (String) tabelaAnimaisAptos.getTabelaAdotaveis().getValueAt(linhaSelecionada, 1);
-        			
-        			Animais animalSelecionado = null;
-        			for (Animais animal : listaPetsAdotaveis) {
-        			    if (animal.getNome().equals(nomeAnimal)) {
-        			        animalSelecionado = animal;
-        			        break;
-        			    }
-        			}
-        			
-    				if (animalSelecionado != null) {
-    					int idPet = animalSelecionado.getID();
-    					String nomePet = animalSelecionado.getNome();
-    					String tipoPet = animalSelecionado.getTipo();
-    					TelaRegistroAdocao telaRegistroAdocao = new TelaRegistroAdocao(idPet, nomePet, tipoPet);
-    					telaRegistroAdocao.setVisible(true);
 
-    				}
-    			}
-    		}
-
-        });
-		scrollPanePetsAdotaveis.setBounds(32, 128, 342, 288);
-		add(scrollPanePetsAdotaveis);
 		
 		JButton btnRegistrarAdocao = new JButton("");
+		btnRegistrarAdocao.setEnabled(false);
 		btnRegistrarAdocao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRegistroAdocao telaAdocao = new TelaRegistroAdocao();
-				telaAdocao.setVisible(true);
-			}
-		});
+				if (animalSelecionado != null) {
+					TelaRegistroAdocao telaAdocao = new TelaRegistroAdocao(idPet, nomePet, tipoPet);
+					telaAdocao.setVisible(true);
+				}	
+				}
+				});
+		add(btnRegistrarAdocao);
+		
+
+		
 		URL imgURL1 = getClass().getResource("/Imagens/mais.png");
         URL imgURL2 = getClass().getResource("/Imagens/pawprint2.png");
         ImageIcon imgMais = new ImageIcon(imgURL1);
@@ -129,6 +98,58 @@ public class Adocao extends JPanel {
 		
 		btnRegistrarAdocao.setBounds(812, 11, 82, 46);;
 		add(btnRegistrarAdocao);
+		 
+		 
+		//Criação da tabela de animais aptos
+		 try {
+	        	AnimaisService servico = new AnimaisService();
+	        	listaPetsAdotaveis= servico.retornarAnimaisAptos();
+	            tabelaAnimaisAptos = new TabelaAdotaveis(listaPetsAdotaveis); // adicionando a lista de animais aptos na tabela
+	            
+	            JTable tabelaAdotaveis = tabelaAnimaisAptos.getTabela();
+	            tabelaAdotaveis.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				
+	            tabelaAdotaveis.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent e) {
+        	
+						int linhaSelecionada = tabelaAdotaveis.getSelectedRow();
+
+						if (linhaSelecionada >= 0) { 
+							int idAnimal = (int) tabelaAdotaveis.getValueAt(linhaSelecionada, 0);
+
+							animalSelecionado = null;
+							for (Animais animal : listaPetsAdotaveis) {
+								if (animal.getID() == idAnimal) {
+									animalSelecionado = animal;
+									break;
+								}
+							}
+
+							if (animalSelecionado != null) {
+		    					idPet = animalSelecionado.getID();
+		    					nomePet = animalSelecionado.getNome();
+								tipoPet= animalSelecionado.getTipo();
+		    				
+		    					btnRegistrarAdocao.setEnabled(true);
+							}
+							else {
+								btnRegistrarAdocao.setEnabled(false);
+							}
+						}
+					}
+					
+	            });
+		 }
+	          
+	    catch (Exception e) {
+	    	
+	    }
+
+        JScrollPane scrollPanePetsAdotaveis = new JScrollPane(tabelaAnimaisAptos.getTabela());
+		scrollPanePetsAdotaveis.setBounds(32, 128, 342, 288);
+		add(scrollPanePetsAdotaveis);
+		
+        
 		
 		//Label para tabela de Pets adotados
 		JLabel lblPetsAdotados = new JLabel("Pets adotados");
@@ -136,18 +157,24 @@ public class Adocao extends JPanel {
 		lblPetsAdotados.setBounds(516, 58, 234, 60);
 		add(lblPetsAdotados);
 		
-		JScrollPane scrollPanePetsAdotados = new JScrollPane();
-		scrollPanePetsAdotados.setBounds(516, 133, 342, 281);
-		add(scrollPanePetsAdotados);
-		
-		tableAdotados = new JTable();
-		scrollPanePetsAdotados.setViewportView(tableAdotados);
-		tableAdotados.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nome", "Tipo", "Tutor", "Cpf", "Endereco", "Telefone"
-			}
-		));
-	}
+		//Criação da tabela de animais adotados
+		 try {
+		 	AdocaoService servicoAdotados = new AdocaoService();
+        	listaPetsAdotados = servicoAdotados.listarAdocoes();
+            tabelaPetsAdotados = new TabelaAdocoes(listaPetsAdotados); // adicionando a lista de animais aptos na tabela
+            
+            JTable tabelaAdotados = tabelaPetsAdotados.getTabela();
+            tabelaAdotados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            
+            JScrollPane scrollPanePetsAdotados = new JScrollPane(tabelaPetsAdotados.getTabela());
+            scrollPanePetsAdotados.setBounds(516, 133, 342, 281);
+            add(scrollPanePetsAdotados);
+	 
+					
+		} catch (Exception e) {
+
+		}
+
+
+}
 }

@@ -1,7 +1,7 @@
 package br.edu.ifpe.discente.PetLife.ui.entities;
 
 public class Animais {
-	
+
 	private int id;
 	private String nome;
 	private int idade;
@@ -11,9 +11,9 @@ public class Animais {
 	private String status;
 	private String vacina;
 	private String foto;
-	
-	
-	public Animais (String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
+
+	public Animais(String nome, int idade, String tipo, String raca, int racao, String status, String vacina,
+			String foto) {
 		this.nome = nome;
 		this.idade = idade;
 		this.tipo = tipo;
@@ -22,8 +22,9 @@ public class Animais {
 		this.vacina = vacina;
 		this.racao = racao;
 	}
-	
-	public Animais (int id, String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto) {
+
+	public Animais(int id, String nome, int idade, String tipo, String raca, int racao, String status, String vacina,
+			String foto) {
 		this.id = id;
 		this.nome = nome;
 		this.idade = idade;
@@ -33,11 +34,11 @@ public class Animais {
 		this.vacina = vacina;
 		this.racao = racao;
 	}
-	
+
 	public int getID() {
 		return id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -45,33 +46,43 @@ public class Animais {
 	public void setNome(String name) {
 		this.nome = name;
 	}
+
 	public int getIdade() {
 		return idade;
 	}
+
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
+
 	public String getTipo() {
 		return tipo;
 	}
+
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
 	public String getRaca() {
 		return raca;
 	}
+
 	public void setRaca(String raca) {
 		this.raca = raca;
 	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	public String getVacina() {
 		return vacina;
 	}
+
 	public void setVacina(String vacina) {
 		this.vacina = vacina;
 	}
@@ -91,12 +102,5 @@ public class Animais {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }

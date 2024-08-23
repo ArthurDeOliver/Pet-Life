@@ -1,39 +1,43 @@
 package br.edu.ifpe.discente.PetLife.ui.entities;
 
-public class Vacinas{
+public class Vacinas {
+
+	private String nomeVacina;
+	private int quantidadeVacina;
+	private double valorVacina;
 	
-	private String Nome_Vacina;
-	private int Quantidade_Vacina;
-	private double Valor_Vacina;
-	
-	public Vacinas(String nome, int quantidade, double valor) {
-		this.Nome_Vacina = nome;
-		this.Quantidade_Vacina = quantidade;
-		this.Valor_Vacina = valor;
+	public Vacinas(String nomeVacina, int quantidadeVacina, double valorVacina) {
+		this.nomeVacina = nomeVacina;
+		this.quantidadeVacina = quantidadeVacina;
+		this.valorVacina = valorVacina;
 	}
 
-	public String getNome_Vacina() {
-		return Nome_Vacina;
+	public String getNomeVacina() {
+		return nomeVacina;
 	}
 
-	public void setNome_Vacina(String nome) {
-		Nome_Vacina = nome;
+	public void setNomeVacina(String nomeVacina) {
+		this.nomeVacina = nomeVacina;
 	}
 
-	public int getQuantidade_Vacina() {
-		return Quantidade_Vacina;
+	public int getQuantidadeVacina() {
+		return quantidadeVacina;
 	}
 
-	public void setQuantidade_Vacina(int quantidade) {
-		Quantidade_Vacina = quantidade;
+	public void setQuantidadeVacina(int quantidadeVacina) {
+		this.quantidadeVacina = quantidadeVacina;
 	}
 
-	public double getValor_Vacina() {
-		return Valor_Vacina;
+	public double getValorVacina() {
+		return valorVacina;
 	}
 
-	public void setValor_Vacina(double valor) {
-		Valor_Vacina = valor;
+	public void setValorVacina(double valorVacina) {
+		this.valorVacina = valorVacina;
 	}
 	
+	
+
+	
+
 }

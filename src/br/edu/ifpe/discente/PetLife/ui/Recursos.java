@@ -36,11 +36,11 @@ public class Recursos extends JPanel {
 		lblNewLabel.setBounds(10, 11, 112, 27);
 		add(lblNewLabel);
 		
-		JButton btnRegistrarAdocao = new JButton("");
-		btnRegistrarAdocao.addActionListener(new ActionListener() {
+		JButton btnRegistrarRecurso = new JButton("");
+		btnRegistrarRecurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaRegistroRecursos telaRecurso = new TelaRegistroRecursos();
-				telaRecurso.setVisible(true);
+				telaRecurso.setVisible(true);				
 			}
 		});
 		URL imgURL1 = getClass().getResource("/Imagens/mais.png");
@@ -56,13 +56,13 @@ public class Recursos extends JPanel {
         iconMais.setBounds(5, 5, 32, 32);
         iconRacao.setBounds(45, 5, 32, 32);
 
-        btnRegistrarAdocao.setLayout(null);
-        btnRegistrarAdocao.add(iconMais);
-        btnRegistrarAdocao.add(iconRacao);
+        btnRegistrarRecurso.setLayout(null);
+        btnRegistrarRecurso.add(iconMais);
+        btnRegistrarRecurso.add(iconRacao);
 		
 		
-		btnRegistrarAdocao.setBounds(812, 11, 82, 46);;
-		add(btnRegistrarAdocao);
+		btnRegistrarRecurso.setBounds(812, 11, 82, 46);;
+		add(btnRegistrarRecurso);
 		
 		//Aqui vai ter as coisas da tabela
 		
