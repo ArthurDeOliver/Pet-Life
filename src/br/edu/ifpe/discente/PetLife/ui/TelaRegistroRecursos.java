@@ -125,11 +125,6 @@ public class TelaRegistroRecursos extends JFrame{
         telaPrincipalRecursos.add(btnEstoque);
         
         JButton btnMedicamentos = new JButton("Medicamentos/Vacinas");
-        btnMedicamentos.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		cl_telaRegistrar.show(telaRegistrar, "telaMedicamentos");
-        	}
-        });
         btnMedicamentos.setBounds(297, 64, 257, 42);
         telaPrincipalRecursos.add(btnMedicamentos);
         btnMedicamentos.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -570,12 +565,16 @@ public class TelaRegistroRecursos extends JFrame{
         		try {
 					switch (selecionado) {
 					case "Medicamentos":		
-						RecursosService service = new RecursosService(); 
-						service.carregarComboBoxMedicamentos(comboBoxMedicamento);
+						RecursosService serviceMedicamento = new RecursosService(); 
+						serviceMedicamento.carregarComboBoxMedicamentos(comboBoxMedicamento);
 						
 					  case "Rações":		
 		                    RecursosService serviceRacao = new RecursosService(); 
 		                    serviceRacao.carregarComboBoxRacoes(comboBoxRacao);
+		                    
+					  case "Vacinas":
+						  RecursosService serviceVacina = new RecursosService(); 
+		                    serviceVacina.carregarComboBoxVacinas(comboBoxVacina);
 		                    
 					}
 				} catch (Exception e1) {
@@ -637,13 +636,7 @@ public class TelaRegistroRecursos extends JFrame{
         btnAdicionarVacina.setBounds(417, 179, 105, 30);
         panelVacina.add(btnAdicionarVacina);
         panelVacina.setLayout(null);
-        
-        
-  
-        
-        
-   
-        
+              
         JPanel telaMedicamentos = new JPanel();
         telaRegistrar.add(telaMedicamentos, "telaMedicamentos");
         telaMedicamentos.setBackground(new Color(240, 240, 240));
@@ -652,10 +645,25 @@ public class TelaRegistroRecursos extends JFrame{
         JScrollPane scrollPaneSelecionarAnimal = new JScrollPane();
         scrollPaneSelecionarAnimal.setBounds(170, 40, 174, 28);
         telaMedicamentos.add(scrollPaneSelecionarAnimal);
-        
+                
         JComboBox comboBoxSelecionarAnimal = new JComboBox();
-        scrollPaneSelecionarAnimal.setViewportView(comboBoxSelecionarAnimal);
         
+        scrollPaneSelecionarAnimal.setViewportView(comboBoxSelecionarAnimal);
+        btnMedicamentos.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		cl_telaRegistrar.show(telaRegistrar, "telaMedicamentos");
+        		try {	
+        			
+					RecursosService serviceAnimal = new RecursosService(); 
+					serviceAnimal.carregarAnimaisComboBox(comboBoxSelecionarAnimal);		                    
+				}
+			 catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	}
+        });                           
         JScrollPane scrollPaneSelecionarVacina = new JScrollPane();
         scrollPaneSelecionarVacina.setBounds(170, 124, 174, 28);
         telaMedicamentos.add(scrollPaneSelecionarVacina);

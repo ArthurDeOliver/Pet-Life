@@ -227,7 +227,8 @@ public class RecursosRepository {
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
 				ResultSet rs = statement.executeQuery()) { // executa as consultas
-			combobox.removeAllItems();	
+			combobox.removeAllItems();
+			combobox.addItem("Selecionar");
 			while (rs.next()) {
             String adicionar;
             adicionar = rs.getString("Nome_medicamento");
@@ -248,7 +249,8 @@ public class RecursosRepository {
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
 				ResultSet rs = statement.executeQuery()) { // executa as consultas
-			combobox.removeAllItems();	
+			combobox.removeAllItems();
+			combobox.addItem("Selecionar");
 			while (rs.next()) {
             String adicionar;
             adicionar = rs.getString("Marca_Racao");
@@ -261,6 +263,39 @@ public class RecursosRepository {
 		}
 	}
 	
+	public void listarVacinasComboBox(JComboBox combobox) throws SQLException{
+		String sql = "SELECT * FROM vacinas";
+
+
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
+				ResultSet rs = statement.executeQuery()) { // executa as consultas
+			combobox.removeAllItems();
+			combobox.addItem("Selecionar");
+			while (rs.next()) {
+            String adicionar;
+            adicionar = rs.getString("Nome_Vacina");
+            combobox.addItem(adicionar);           
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
+	public void listarAnimaisComboBox(JComboBox combobox) throws SQLException{
+		String sql = "SELECT * FROM animais";
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
+				ResultSet rs = statement.executeQuery()) { // executa as consultas
+			combobox.removeAllItems();
+			combobox.addItem("Selecionar");
+			while (rs.next()) {
+            String adicionar;            
+            adicionar = rs.getString("nome");
+            combobox.addItem(adicionar);                      
+			}
+	}
 	
+}
 }
