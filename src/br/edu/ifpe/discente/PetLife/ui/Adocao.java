@@ -146,7 +146,7 @@ public class Adocao extends JPanel {
 	    }
 
         JScrollPane scrollPanePetsAdotaveis = new JScrollPane(tabelaAnimaisAptos.getTabela());
-		scrollPanePetsAdotaveis.setBounds(32, 128, 342, 288);
+		scrollPanePetsAdotaveis.setBounds(32, 128, 310, 300);
 		add(scrollPanePetsAdotaveis);
 		
         
@@ -154,7 +154,7 @@ public class Adocao extends JPanel {
 		//Label para tabela de Pets adotados
 		JLabel lblPetsAdotados = new JLabel("Pets adotados");
 		lblPetsAdotados.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblPetsAdotados.setBounds(516, 58, 234, 60);
+		lblPetsAdotados.setBounds(414, 58, 234, 60);
 		add(lblPetsAdotados);
 		
 		//Criação da tabela de animais adotados
@@ -167,7 +167,7 @@ public class Adocao extends JPanel {
             tabelaAdotados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             
             JScrollPane scrollPanePetsAdotados = new JScrollPane(tabelaPetsAdotados.getTabela());
-            scrollPanePetsAdotados.setBounds(516, 133, 342, 281);
+            scrollPanePetsAdotados.setBounds(414, 128, 480, 300);
             add(scrollPanePetsAdotados);
 	 
 					
