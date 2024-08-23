@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
@@ -21,7 +22,7 @@ public class RecursosRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "admin"; // editável
+	private static final String PASSWORD = "5972"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -51,7 +52,7 @@ public class RecursosRepository {
 
 	private void createTableRacao() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-			String sql = "CREATE TABLE IF NOT EXISTS racoes (" + "Marca_Racao VARCHAR(45), " + "Quantidade_Racao DOUBLE, "
+			String sql = "CREATE TABLE IF NOT EXISTS racoes (" + "Marca_Racao VARCHAR(45), " + "Quantidade_Racao DECIMAL (10,2), "
 					+ "Valor_Racao DECIMAL (10,2), " + "Primary key (Marca_Racao)) ";
 			statement.executeUpdate(sql);
 		}
@@ -139,6 +140,8 @@ public class RecursosRepository {
 		}
 	}
 
+	// Listar Medicamentos
+	
 	public List<Medicamentos> listarTodosMedicamentos() throws SQLException {
 		String sql = "SELECT * FROM medicamentos";
 
@@ -153,9 +156,10 @@ public class RecursosRepository {
 
 				Medicamentos medicamento = new Medicamentos(rs.getString("nomeMedicamento"),
 						rs.getInt("quantidadeMedicamento"), rs.getDouble("valorMedicamento"));
-				listaDeMedicamentos.add(medicamento);
+				listaDeMedicamentos.add(medicamento);				
 			}
 
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -163,6 +167,8 @@ public class RecursosRepository {
 
 	}
 
+	// Listar Rações
+	
 	public List<Racoes> listarTodasRacoes() throws SQLException {
 		String sql = "SELECT * FROM racoes";
 
@@ -187,6 +193,9 @@ public class RecursosRepository {
 
 	}
 
+	
+	// Listar Vacinas
+	
 	public List<Vacinas> listarTodasVacinas() throws SQLException {
 		String sql = "SELECT * FROM vacinas";
 
@@ -210,4 +219,26 @@ public class RecursosRepository {
 		return listaDeVacinas;
 
 	}
+	
+	public void listarMedicamentosComboBox(JComboBox combobox) throws SQLException {
+		String sql = "SELECT * FROM medicamentos";
+
+
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
+				ResultSet rs = statement.executeQuery()) { // executa as consultas
+			combobox.removeAllItems();	
+			while (rs.next()) {
+            String adicionar;
+            adicionar = rs.getString("Nome_medicamento");
+            combobox.addItem(adicionar);           
+			}
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 }

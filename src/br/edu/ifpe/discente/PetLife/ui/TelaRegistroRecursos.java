@@ -150,23 +150,22 @@ public class TelaRegistroRecursos extends JFrame{
         telaEstoque.setBackground(new Color(6, 26, 53));
         telaEstoque.setLayout(null);
         
-        JComboBox comboBoxEstoque = new JComboBox();
-        comboBoxEstoque.setFont(new Font("Tahoma", Font.BOLD, 14));
-        comboBoxEstoque.setModel(new DefaultComboBoxModel(new String[] {"Novo Medicamento", "Nova Ração", "Nova Vacina", "Medicamentos", "Rações", "Vacinas"}));
-        comboBoxEstoque.setBounds(188, 11, 128, 22);
-        telaEstoque.add(comboBoxEstoque);
-    
-        
-        cl_panelMudar = new CardLayout();
-        
-        
+        cl_panelMudar = new CardLayout();            
         JPanel panelMudar = new JPanel(cl_panelMudar);
         panelMudar.setLocation(0, 59);
         panelMudar.setSize(544, 229);
         telaEstoque.add(panelMudar);
         panelMudar.setLayout(cl_panelMudar);
         
+             
+        JComboBox comboBoxEstoque = new JComboBox();
+        comboBoxEstoque.setFont(new Font("Tahoma", Font.BOLD, 14));
+        comboBoxEstoque.setModel(new DefaultComboBoxModel(new String[] {"Novo Medicamento", "Nova Ração", "Nova Vacina", "Medicamentos", "Rações", "Vacinas"}));
+        comboBoxEstoque.setBounds(188, 11, 128, 22);
+        telaEstoque.add(comboBoxEstoque);
         
+              
+         
         JPanel panelNovoMedicamento = new JPanel();
         panelNovoMedicamento.setBounds(0, 0, 544, 229);
         panelMudar.add(panelNovoMedicamento, "Novo Medicamento");
@@ -216,7 +215,7 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldValorMedicamentoNovo.addKeyListener(new KeyAdapter() {
         	
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789,";
+        		String caracteres = "0123456789.";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
@@ -278,7 +277,7 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldQuantidadeRacaoNova = new JTextField();
         textFieldQuantidadeRacaoNova.addKeyListener(new KeyAdapter() {	
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789,";
+        		String caracteres = "0123456789.";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
@@ -300,7 +299,7 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldValorRacaoNova = new JTextField();
         textFieldValorRacaoNova.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789,";
+        		String caracteres = "0123456789.";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
@@ -319,7 +318,7 @@ public class TelaRegistroRecursos extends JFrame{
         btnRegistrarRacaoNova.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String nome = textFieldMarcaRacaoNova.getText();
-        		int quantidade = Integer.parseInt(textFieldQuantidadeRacaoNova.getText());
+        		float quantidade = Float.parseFloat(textFieldQuantidadeRacaoNova.getText());
         		float valor = Float.parseFloat(textFieldValorRacaoNova.getText());
         		Racoes racao = new Racoes(nome, quantidade, valor);
         		RecursosService registrar = new RecursosService();
@@ -386,7 +385,7 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldValorVacinaNova = new JTextField();
         textFieldValorVacinaNova.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789,";
+        		String caracteres = "0123456789.";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
@@ -465,7 +464,7 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldValorMedicamento = new JTextField();
         textFieldValorMedicamento.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789, ";
+        		String caracteres = "0123456789. ";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
@@ -506,7 +505,7 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldQuantidadeRacao = new JTextField();
         textFieldQuantidadeRacao.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789,";
+        		String caracteres = "0123456789.";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
@@ -528,7 +527,7 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldValorRacao = new JTextField();
         textFieldValorRacao.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
-        		String caracteres = "0123456789,";
+        		String caracteres = "0123456789.";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
         			e.consume();
         		}
@@ -562,6 +561,28 @@ public class TelaRegistroRecursos extends JFrame{
         comboBoxVacina.setModel(new DefaultComboBoxModel(new String[] {","}));
         scrollPaneVacina.setViewportView(comboBoxVacina);
         
+        
+        
+        comboBoxEstoque.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {    
+        		String selecionado = (String) comboBoxEstoque.getSelectedItem();
+        		cl_panelMudar.show(panelMudar, selecionado);  
+        		try {
+					switch (selecionado) {
+					case "Medicamentos":
+						RecursosService service = new RecursosService(); 
+						service.carregarComboBoxMedicamentos(comboBoxMedicamento);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        
+        
+        
+        
         JLabel lblQuantidadeVacina = new JLabel("Quantidade");
         lblQuantidadeVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
         lblQuantidadeVacina.setBounds(211, 80, 86, 17);
@@ -592,7 +613,7 @@ public class TelaRegistroRecursos extends JFrame{
         JTextField textFieldValorVacina= new JTextField();
         textFieldValorVacina.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {       		
-            		String caracteres = "0123456789,";
+            		String caracteres = "0123456789.";
             		if (!caracteres.contains(e.getKeyChar()+"")) {
             			e.consume();
             		}
@@ -616,14 +637,7 @@ public class TelaRegistroRecursos extends JFrame{
   
         
         
-        comboBoxEstoque.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		String selecionado = (String) comboBoxEstoque.getSelectedItem();
-        		cl_panelMudar.show(panelMudar, selecionado);
-        		
-        	}
-        });
-        
+   
         
         JPanel telaMedicamentos = new JPanel();
         telaRegistrar.add(telaMedicamentos, "telaMedicamentos");
