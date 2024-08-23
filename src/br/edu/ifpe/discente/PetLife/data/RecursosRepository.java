@@ -240,5 +240,27 @@ public class RecursosRepository {
 		}
 
 	}
+	 
+	public void listarRacoesComboBox(JComboBox combobox) throws SQLException{
+		String sql = "SELECT * FROM racoes";
+
+
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
+				ResultSet rs = statement.executeQuery()) { // executa as consultas
+			combobox.removeAllItems();	
+			while (rs.next()) {
+            String adicionar;
+            adicionar = rs.getString("Marca_Racao");
+            combobox.addItem(adicionar);           
+			}
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 }

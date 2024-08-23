@@ -569,9 +569,14 @@ public class TelaRegistroRecursos extends JFrame{
         		cl_panelMudar.show(panelMudar, selecionado);  
         		try {
 					switch (selecionado) {
-					case "Medicamentos":
+					case "Medicamentos":		
 						RecursosService service = new RecursosService(); 
 						service.carregarComboBoxMedicamentos(comboBoxMedicamento);
+						
+					  case "Rações":		
+		                    RecursosService serviceRacao = new RecursosService(); 
+		                    serviceRacao.carregarComboBoxRacoes(comboBoxRacao);
+		                    
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
