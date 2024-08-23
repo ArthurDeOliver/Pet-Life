@@ -35,6 +35,11 @@ public class Animais {
 		this.racao = racao;
 	}
 
+	public Animais(int id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
+	
 	public int getID() {
 		return id;
 	}

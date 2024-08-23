@@ -648,6 +648,20 @@ public class TelaRegistroRecursos extends JFrame{
                 
         JComboBox comboBoxSelecionarAnimal = new JComboBox();
         
+        JScrollPane scrollPaneSelecionarVacina = new JScrollPane();
+        scrollPaneSelecionarVacina.setBounds(170, 96, 174, 28);
+        telaMedicamentos.add(scrollPaneSelecionarVacina);
+        
+        JComboBox comboBoxSelecionarVacina = new JComboBox();
+        scrollPaneSelecionarVacina.setViewportView(comboBoxSelecionarVacina);
+        
+        JScrollPane scrollPaneSelecionarMedicamento = new JScrollPane();
+        scrollPaneSelecionarMedicamento.setBounds(170, 151, 174, 28);
+        telaMedicamentos.add(scrollPaneSelecionarMedicamento);
+        
+        JComboBox comboBoxSelecionarMedicamento = new JComboBox();
+        scrollPaneSelecionarMedicamento.setViewportView(comboBoxSelecionarMedicamento);
+        
         scrollPaneSelecionarAnimal.setViewportView(comboBoxSelecionarAnimal);
         btnMedicamentos.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -656,7 +670,14 @@ public class TelaRegistroRecursos extends JFrame{
         		try {	
         			
 					RecursosService serviceAnimal = new RecursosService(); 
-					serviceAnimal.carregarAnimaisComboBox(comboBoxSelecionarAnimal);		                    
+					serviceAnimal.carregarAnimaisComboBox(comboBoxSelecionarAnimal);
+					
+					RecursosService serviceSelecionarVacina = new RecursosService(); 
+					serviceSelecionarVacina.carregarComboBoxVacinas(comboBoxSelecionarVacina);
+					
+					RecursosService serviceSelecionarMedicamento = new RecursosService(); 
+                    serviceSelecionarMedicamento.carregarComboBoxMedicamentos(comboBoxSelecionarMedicamento);
+				
 				}
 			 catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -664,12 +685,12 @@ public class TelaRegistroRecursos extends JFrame{
 			}
         	}
         });                           
-        JScrollPane scrollPaneSelecionarVacina = new JScrollPane();
-        scrollPaneSelecionarVacina.setBounds(170, 124, 174, 28);
-        telaMedicamentos.add(scrollPaneSelecionarVacina);
         
-        JComboBox comboBoxSelecionarVacina = new JComboBox();
-        scrollPaneSelecionarVacina.setViewportView(comboBoxSelecionarVacina);
+        
+        JButton btnRegistrarNoAnimal = new JButton("Registrar");
+        btnRegistrarNoAnimal.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnRegistrarNoAnimal.setBounds(418, 231, 105, 30);
+        telaMedicamentos.add(btnRegistrarNoAnimal);
         
         
         JLabel lblPetLifeNome = new JLabel("PetLife");

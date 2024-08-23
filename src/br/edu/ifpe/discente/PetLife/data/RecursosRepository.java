@@ -228,7 +228,7 @@ public class RecursosRepository {
 				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
 				ResultSet rs = statement.executeQuery()) { // executa as consultas
 			combobox.removeAllItems();
-			combobox.addItem("Selecionar");
+			combobox.addItem("Nenhum");
 			while (rs.next()) {
             String adicionar;
             adicionar = rs.getString("Nome_medicamento");
@@ -250,7 +250,7 @@ public class RecursosRepository {
 				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
 				ResultSet rs = statement.executeQuery()) { // executa as consultas
 			combobox.removeAllItems();
-			combobox.addItem("Selecionar");
+			combobox.addItem("Nenhuma");
 			while (rs.next()) {
             String adicionar;
             adicionar = rs.getString("Marca_Racao");
@@ -271,7 +271,7 @@ public class RecursosRepository {
 				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
 				ResultSet rs = statement.executeQuery()) { // executa as consultas
 			combobox.removeAllItems();
-			combobox.addItem("Selecionar");
+			combobox.addItem("Nenhuma");
 			while (rs.next()) {
             String adicionar;
             adicionar = rs.getString("Nome_Vacina");
@@ -284,16 +284,15 @@ public class RecursosRepository {
 	}
 	
 	public void listarAnimaisComboBox(JComboBox combobox) throws SQLException{
-		String sql = "SELECT * FROM animais";
+		String sql = "SELECT id, nome, tipo FROM animais";
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
 				ResultSet rs = statement.executeQuery()) { // executa as consultas
 			combobox.removeAllItems();
-			combobox.addItem("Selecionar");
+			combobox.addItem("Selecionar");			
 			while (rs.next()) {
-            String adicionar;            
-            adicionar = rs.getString("nome");
-            combobox.addItem(adicionar);                      
+            Animais animal = new Animais(rs.getInt("id"), rs.getString("nome"));           
+            combobox.addItem(animal.getNome());                      
 			}
 	}
 	
