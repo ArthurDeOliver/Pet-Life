@@ -55,8 +55,8 @@ public class Pets extends JPanel {
 		btnCadastroPet.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCadastroPet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroPet telaCadastroPet = new TelaCadastroPet();
-				telaCadastroPet.setVisible(true);
+				TelaCadastroPet telaCadastroPet = new TelaCadastroPet(Pets.this);
+		        telaCadastroPet.setVisible(true);
 			}
 		});
 		btnCadastroPet.setBounds(812, 11, 82, 46);
@@ -185,7 +185,7 @@ public class Pets extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (animalSelecionado != null) {
 
-					TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet();
+					TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet(Pets.this);
 					telaEdicaoPet.informacoesEditaveis(animalSelecionado);
 					telaEdicaoPet.setVisible(true);
 				}
@@ -231,19 +231,6 @@ public class Pets extends JPanel {
 		add(btnExcluirPets);
 		
 
-		// recarregar tabela 
-		JButton recarregarTabela = new JButton("🔄");
-		recarregarTabela.setBackground(new Color(244, 255, 254));
-		recarregarTabela.setBounds(215, 105, 46, 16);
-		recarregarTabela.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    	
-		        recarregarTabela();
-		    }
-		});
-		add(recarregarTabela);
-		
-	
 		JLabel labelImagemPet = new JLabel("Foto");
 		labelImagemPet.setFont(new Font("Tahoma", Font.BOLD, 11));
 		labelImagemPet.setBounds(582, 106, 46, 14);

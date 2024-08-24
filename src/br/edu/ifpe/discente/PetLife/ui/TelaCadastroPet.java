@@ -10,7 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.Window;
+
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -32,11 +35,13 @@ public class TelaCadastroPet extends JFrame {
 	private JTextField textFieldNomePet;
 	private JTextField textFieldIdadePet;
 	private JTextField textFieldRacaPet;
+	private Pets mainWindow;
 
     /**
      * Create the frame.
      */
-    public TelaCadastroPet() {
+    public TelaCadastroPet(Pets mainWindow) {
+    	this.mainWindow = mainWindow;
     	setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 580, 455);
@@ -158,29 +163,45 @@ public class TelaCadastroPet extends JFrame {
         	
             public void actionPerformed(ActionEvent e) {
             	 	
-            		 
-                     String nome = textFieldNomePet.getText();
-                     int idade = Integer.parseInt(textFieldIdadePet.getText());
-                     String tipo = (String) comboBoxTipoPet.getSelectedItem();
-                     String raca = textFieldRacaPet.getText();
-                     int racao = 0;
-                     String status = null;
-                     String vacina = null;
-                     String foto = null;
-                     
-                
-                     Animais animal = new Animais(nome, idade, tipo, raca, racao ,status, vacina, foto);
-                     AnimaisService service = new AnimaisService();
+            		try {
+	                     String nome = textFieldNomePet.getText();
+	                     int idade = Integer.parseInt(textFieldIdadePet.getText());
+	                     String tipo = (String) comboBoxTipoPet.getSelectedItem();
+	                     String raca = textFieldRacaPet.getText();
+	                     if (RadioButtonSemRacaPet.isSelected()) {
+	                    	 raca = null;
+	                     } 
+	                     int racao = 0;
+	                     String status = null;
+	                     String vacina = null;
+	                     String foto = null;
+	                     
+	                
+	                     Animais animal = new Animais(nome, idade, tipo, raca, racao ,status, vacina, foto);
+	                     AnimaisService service = new AnimaisService();
                                        
-                     try {
+                     
      					service.criarAnimal(animal);
-     					 JOptionPane.showMessageDialog(null, "Animal criado com sucesso!");
+     					 int resposta = JOptionPane.showConfirmDialog(null, "Animal criado com sucesso! Deseja cadastrar outro?", "Confirmação", JOptionPane.YES_NO_OPTION);
      					 
+     					while (resposta == JOptionPane.YES_OPTION) {
+     		                textFieldNomePet.setText("");
+     		                textFieldIdadePet.setText("");
+     		                comboBoxTipoPet.setSelectedIndex(0);
+     		                textFieldRacaPet.setText("");
+     		            } 
      					
-     				} catch (SQLException e1) {
-     					// TODO Auto-generated catch block 
-     					e1.printStackTrace();
-     				}
+     		            mainWindow.recarregarTabela();
+                        Window window = SwingUtilities.getWindowAncestor(TelaCadastroPet.this);
+                        dispose();                                		                
+     		            
+     					
+     				} catch (IllegalArgumentException ex) {
+     		            JOptionPane.showMessageDialog(null, "Todos os campos de texto são obrigatórios.");
+     		        } catch (SQLException ex) {
+     		        	ex.getMessage();
+     		            ex.printStackTrace();
+     		        }
 
                  }
              });
@@ -188,4 +209,6 @@ public class TelaCadastroPet extends JFrame {
         ButtonCadastroPet.setBounds(427, 287, 104, 34);
         CadastroPetCorpoPainel.add(ButtonCadastroPet);
     }
+    
+    
 }

@@ -122,8 +122,8 @@ public class AnimaisRepository {
 
 	}
 	
-	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto, int id) throws SQLException {
-		String sql = "UPDATE animais SET nome = ?, idade = ?, tipo = ?, raca = ?, racao = ?, status = ?, vacina = ?, foto = ? WHERE id = ?";
+	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String foto, int id) throws SQLException {
+		String sql = "UPDATE animais SET nome = ?, idade = ?, tipo = ?, raca = ?, racao = ?, status = ?, foto = ? WHERE id = ?";
 
         try (Connection connection = getConnection(); 
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -134,9 +134,8 @@ public class AnimaisRepository {
             statement.setString(4, raca);
             statement.setInt(5, racao);
             statement.setString(6, status);
-            statement.setString(7, vacina);
-            statement.setString(8, foto);
-            statement.setInt(9, id);  
+            statement.setString(7, foto);
+            statement.setInt(8, id);  
 
 
             statement.executeUpdate();
