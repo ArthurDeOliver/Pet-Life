@@ -49,4 +49,11 @@ public class RecursosService {
 	public void carregarComboBoxRacoes(JComboBox combobox) throws SQLException{
 		this.repositoryR.listarRacoesComboBox(combobox);
 }
+	public void carregarComboBoxVacinas(JComboBox combobox) throws SQLException{
+		this.repositoryR.listarVacinasComboBox(combobox);
+	}
+	
+	public void carregarAnimaisComboBox(JComboBox combobox) throws SQLException {
+		this.repositoryR.listarAnimaisComboBox(combobox);
+	}
 }
