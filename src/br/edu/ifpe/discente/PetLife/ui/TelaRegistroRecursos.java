@@ -64,6 +64,9 @@ public class TelaRegistroRecursos extends JFrame{
     private JLabel lblValorMedicamento;
     private JLabel lblQuantidadeMedicamente;
     private JButton btnRegistrarMedicamentoNovo;
+    private JTextField textFieldNomeMedicamento;
+    private JTextField textFieldNomeMarcaRacao;
+    private JTextField textFieldNomeVacina;
 	/**
 	 * Launch the application.
 	 */
@@ -468,16 +471,15 @@ public class TelaRegistroRecursos extends JFrame{
         panelMudar.add(panelMedicamento, "Medicamentos");
        
         JScrollPane scrollPaneMedicamento = new JScrollPane();
-        scrollPaneMedicamento.setBounds(169, 33, 173, 24);
+        scrollPaneMedicamento.setBounds(169, 11, 173, 24);
         panelMedicamento.add(scrollPaneMedicamento);
         
         JComboBox comboBoxMedicamento = new JComboBox();
-        comboBoxMedicamento.setModel(new DefaultComboBoxModel(new String[] {","}));
         scrollPaneMedicamento.setViewportView(comboBoxMedicamento);
         
         JLabel lblQuantidadeMedicamento = new JLabel("Quantidade");
         lblQuantidadeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblQuantidadeMedicamento.setBounds(211, 80, 86, 17);
+        lblQuantidadeMedicamento.setBounds(210, 100, 86, 17);
         panelMedicamento.add(lblQuantidadeMedicamento);
         
         JTextField textFieldQuantidadeMedicamento = new JTextField();
@@ -495,13 +497,13 @@ public class TelaRegistroRecursos extends JFrame{
         	}
         	
         });
-        textFieldQuantidadeMedicamento.setBounds(169, 108, 173, 20);
+        textFieldQuantidadeMedicamento.setBounds(169, 128, 173, 20);
         panelMedicamento.add(textFieldQuantidadeMedicamento);
         textFieldQuantidadeMedicamento.setColumns(10);
         
         JLabel lblValorMedicamento = new JLabel("Valor");
         lblValorMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblValorMedicamento.setBounds(232, 139, 42, 14);
+        lblValorMedicamento.setBounds(233, 159, 42, 14);
         panelMedicamento.add(lblValorMedicamento);
         
         JTextField textFieldValorMedicamento = new JTextField();
@@ -518,7 +520,7 @@ public class TelaRegistroRecursos extends JFrame{
         		}
         	}
         });
-        textFieldValorMedicamento.setBounds(169, 164, 173, 20);
+        textFieldValorMedicamento.setBounds(169, 184, 173, 20);
         panelMedicamento.add(textFieldValorMedicamento);
         textFieldValorMedicamento.setColumns(10);
         
@@ -533,17 +535,25 @@ public class TelaRegistroRecursos extends JFrame{
         panelRacao.setLayout(null);
         
         JScrollPane scrollPaneRacao = new JScrollPane();
-        scrollPaneRacao.setBounds(169, 33, 173, 24);
+        scrollPaneRacao.setBounds(169, 11, 173, 24);
         panelRacao.add(scrollPaneRacao);
         
         JComboBox comboBoxRacao = new JComboBox();
-        comboBoxRacao.setModel(new DefaultComboBoxModel(new String[] {"."}));
-        comboBoxMedicamento.setModel(new DefaultComboBoxModel(new String[] {","}));
+        
+        JLabel lblNomeMedicamento = new JLabel("Nome");
+        lblNomeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblNomeMedicamento.setBounds(233, 46, 42, 17);
+        panelMedicamento.add(lblNomeMedicamento);
+        
+        textFieldNomeMedicamento = new JTextField();
+        textFieldNomeMedicamento.setBounds(169, 69, 173, 20);
+        panelMedicamento.add(textFieldNomeMedicamento);
+        textFieldNomeMedicamento.setColumns(10);
         scrollPaneRacao.setViewportView(comboBoxRacao);
         
         JLabel lblQuantidadeRacao = new JLabel("Quantidade");
         lblQuantidadeRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblQuantidadeRacao.setBounds(211, 80, 86, 17);
+        lblQuantidadeRacao.setBounds(210, 100, 86, 17);
         panelRacao.add(lblQuantidadeRacao);
         
         JTextField textFieldQuantidadeRacao = new JTextField();
@@ -560,13 +570,13 @@ public class TelaRegistroRecursos extends JFrame{
         		}
         	}
         });
-        textFieldQuantidadeRacao.setBounds(169, 108, 173, 20);
+        textFieldQuantidadeRacao.setBounds(169, 128, 173, 20);
         panelRacao.add(textFieldQuantidadeRacao);
         textFieldQuantidadeRacao.setColumns(10);
         
         JLabel lblValorRacao = new JLabel("Valor");
         lblValorRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblValorRacao.setBounds(232, 139, 42, 14);
+        lblValorRacao.setBounds(233, 159, 42, 14);
         panelRacao.add(lblValorRacao);
         
         JTextField textFieldValorRacao = new JTextField();
@@ -584,7 +594,7 @@ public class TelaRegistroRecursos extends JFrame{
         		
         	}
         });
-        textFieldValorRacao.setBounds(169, 164, 173, 20);
+        textFieldValorRacao.setBounds(169, 184, 173, 20);
         panelRacao.add(textFieldValorRacao);
         textFieldValorRacao.setColumns(10);
         
@@ -594,17 +604,25 @@ public class TelaRegistroRecursos extends JFrame{
         panelRacao.add(btnAdicionarRacao);
         panelRacao.setLayout(null);
         
+        JLabel lblNomeMarcaRacao = new JLabel("Nome");
+        lblNomeMarcaRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblNomeMarcaRacao.setBounds(233, 47, 46, 14);
+        panelRacao.add(lblNomeMarcaRacao);
+        
+        textFieldNomeMarcaRacao = new JTextField();
+        textFieldNomeMarcaRacao.setBounds(169, 69, 173, 20);
+        panelRacao.add(textFieldNomeMarcaRacao);
+        textFieldNomeMarcaRacao.setColumns(10);
+        
         JPanel panelVacina = new JPanel();
         panelMudar.add(panelVacina, "Vacinas");
         panelVacina.setLayout(null);
         
         JScrollPane scrollPaneVacina = new JScrollPane();
-        scrollPaneVacina.setBounds(169, 33, 173, 24);
+        scrollPaneVacina.setBounds(169, 11, 173, 24);
         panelVacina.add(scrollPaneVacina);
         
         JComboBox comboBoxVacina = new JComboBox();
-        comboBoxVacina.setModel(new DefaultComboBoxModel(new String[] {"."}));
-        comboBoxVacina.setModel(new DefaultComboBoxModel(new String[] {","}));
         scrollPaneVacina.setViewportView(comboBoxVacina);
         
         
@@ -640,7 +658,7 @@ public class TelaRegistroRecursos extends JFrame{
         
         JLabel lblQuantidadeVacina = new JLabel("Quantidade");
         lblQuantidadeVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblQuantidadeVacina.setBounds(211, 80, 86, 17);
+        lblQuantidadeVacina.setBounds(210, 100, 86, 17);
         panelVacina.add(lblQuantidadeVacina);
         
         JTextField textFieldQuantidadeVacina = new JTextField();
@@ -657,13 +675,13 @@ public class TelaRegistroRecursos extends JFrame{
         		}
         	}
         });
-        textFieldQuantidadeVacina.setBounds(169, 108, 173, 20);
+        textFieldQuantidadeVacina.setBounds(169, 128, 173, 20);
         panelVacina.add(textFieldQuantidadeVacina);
         textFieldQuantidadeVacina.setColumns(10);
         
         JLabel lblValorVacina = new JLabel("Valor");
         lblValorVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblValorVacina.setBounds(232, 139, 42, 14);
+        lblValorVacina.setBounds(233, 159, 42, 14);
         panelVacina.add(lblValorVacina);
         
         JTextField textFieldValorVacina= new JTextField();
@@ -680,16 +698,27 @@ public class TelaRegistroRecursos extends JFrame{
             		}
         	}
         });
-        textFieldValorVacina.setBounds(169, 164, 173, 20);
+        textFieldValorVacina.setBounds(169, 184, 173, 20);
         panelVacina.add(textFieldValorVacina);
         textFieldValorVacina.setColumns(10);
+                 
+        JLabel lblNomeVacina = new JLabel("Nome");
+        lblNomeVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblNomeVacina.setBounds(233, 47, 46, 14);
+        panelVacina.add(lblNomeVacina);
         
+        textFieldNomeVacina = new JTextField();
+        textFieldNomeVacina.setBounds(169, 69, 173, 20);
+        panelVacina.add(textFieldNomeVacina);
+        textFieldNomeVacina.setColumns(10);
+              
         JButton btnAdicionarVacina = new JButton("Adicionar");
         btnAdicionarVacina.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnAdicionarVacina.setBounds(417, 179, 105, 30);
         panelVacina.add(btnAdicionarVacina);
         panelVacina.setLayout(null);
-              
+        
+        
         JPanel telaMedicamentos = new JPanel();
         telaRegistrar.add(telaMedicamentos, "telaMedicamentos");
         telaMedicamentos.setBackground(new Color(240, 240, 240));

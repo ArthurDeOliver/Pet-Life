@@ -22,7 +22,7 @@ public class RecursosRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "1234"; // editável
+	private static final String PASSWORD = "5972"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -230,9 +230,8 @@ public class RecursosRepository {
 			combobox.removeAllItems();
 			combobox.addItem("Nenhum");
 			while (rs.next()) {
-            String adicionar;
-            adicionar = rs.getString("Nome_medicamento");
-            combobox.addItem(adicionar);           
+			Medicamentos medicamento = new Medicamentos (rs.getString("Nome_medicamento"), rs.getInt("Quantidade_Medicamento"), rs.getDouble("Valor_Medicamento"));	
+            combobox.addItem(medicamento);           
 			}
 
 			
@@ -252,9 +251,8 @@ public class RecursosRepository {
 			combobox.removeAllItems();
 			combobox.addItem("Nenhuma");
 			while (rs.next()) {
-            String adicionar;
-            adicionar = rs.getString("Marca_Racao");
-            combobox.addItem(adicionar);           
+            Racoes racao = new Racoes(rs.getString("Marca_Racao"), rs.getDouble("Quantidade_Racao"),rs.getDouble("Valor_Racao"));
+            combobox.addItem(racao);           
 			}
 
 			
@@ -273,9 +271,8 @@ public class RecursosRepository {
 			combobox.removeAllItems();
 			combobox.addItem("Nenhuma");
 			while (rs.next()) {
-            String adicionar;
-            adicionar = rs.getString("Nome_Vacina");
-            combobox.addItem(adicionar);           
+            Vacinas vacina = new Vacinas(rs.getString("Nome_Vacina"), rs.getInt("Quantidade_Vacina"), rs.getDouble("Valor_Vacina"));
+            combobox.addItem(vacina);           
 			}
 			
 		} catch (SQLException e) {
@@ -292,9 +289,9 @@ public class RecursosRepository {
 			combobox.addItem("Selecionar");			
 			while (rs.next()) {
             Animais animal = new Animais(rs.getInt("id"), rs.getString("nome"));           
-            combobox.addItem(animal.getNome());                      
+            combobox.addItem(animal);                      
 			}
-	}
-	
+	}	
+		
 }
 }
