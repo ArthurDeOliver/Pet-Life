@@ -95,6 +95,7 @@ public class TelaEdicaoPet extends JFrame {
         textFieldNomePet.setBounds(60, 57, 176, 20);
         edicaoPetCorpoPainel.add(textFieldNomePet);
         textFieldNomePet.setColumns(10);
+        textFieldNomePet.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         
         textFieldIdadePet = new JFormattedTextField();
         textFieldIdadePet.addKeyListener(new KeyAdapter() {
@@ -115,6 +116,7 @@ public class TelaEdicaoPet extends JFrame {
         textFieldIdadePet.setBounds(59, 129, 177, 20);
         edicaoPetCorpoPainel.add(textFieldIdadePet);
         textFieldIdadePet.setColumns(10);
+        textFieldIdadePet.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         
         
         comboBoxTipoPet = new JComboBox();
@@ -133,6 +135,7 @@ public class TelaEdicaoPet extends JFrame {
         RadioButtonSemRacaPet.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if (RadioButtonSemRacaPet.isSelected()) {
+        			textFieldRacaPet.setText("");
         			textFieldRacaPet.setEditable(false);
         		}
         	}
@@ -164,6 +167,7 @@ public class TelaEdicaoPet extends JFrame {
         textFieldRacaPet.setBounds(151, 292, 86, 15);
         edicaoPetCorpoPainel.add(textFieldRacaPet);
         textFieldRacaPet.setColumns(10);
+        textFieldRacaPet.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         
         JLabel labelRacaoPet = new JLabel("Ração");
         labelRacaoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -174,6 +178,7 @@ public class TelaEdicaoPet extends JFrame {
         textFieldRacao.setBounds(305, 58, 176, 19);
         edicaoPetCorpoPainel.add(textFieldRacao);
         textFieldRacao.setColumns(10);
+        textFieldRacao.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         
         JLabel labelStatusPet = new JLabel("Status");
         labelStatusPet.setFont(new Font("Tahoma", Font.BOLD, 14));

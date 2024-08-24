@@ -13,6 +13,7 @@ import java.awt.Font;
 import java.awt.Window;
 
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
@@ -84,6 +85,7 @@ public class TelaCadastroPet extends JFrame {
         textFieldNomePet.setBounds(170, 44, 208, 20);
         CadastroPetCorpoPainel.add(textFieldNomePet);
         textFieldNomePet.setColumns(10);
+        textFieldNomePet.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         
         textFieldIdadePet = new JTextField();
         textFieldIdadePet.addKeyListener(new KeyAdapter() {
@@ -104,6 +106,7 @@ public class TelaCadastroPet extends JFrame {
         textFieldIdadePet.setBounds(170, 112, 208, 20);
         CadastroPetCorpoPainel.add(textFieldIdadePet);
         textFieldIdadePet.setColumns(10);
+        textFieldIdadePet.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         
         
         JComboBox comboBoxTipoPet = new JComboBox();
@@ -154,6 +157,7 @@ public class TelaCadastroPet extends JFrame {
         textFieldRacaPet.setBounds(271, 274, 107, 20);
         CadastroPetCorpoPainel.add(textFieldRacaPet);
         textFieldRacaPet.setColumns(10);
+        textFieldRacaPet.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         
         
         //----------------------------------------------------------------------
