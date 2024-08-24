@@ -25,6 +25,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.KeyStroke;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.DefaultComboBoxModel;
@@ -172,16 +173,33 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovoMedicamento.add(lblNomeMedicamentoNovo);
         
         textFieldNomeMedicamentoNovo = new JTextField();
+        textFieldNomeMedicamentoNovo.addKeyListener(new KeyAdapter() {
+   
+        	public void keyTyped(KeyEvent e) {
+                if (textFieldNomeMedicamentoNovo.getText().length() > 20) {
+                    e.consume(); 
+                }
+
+                if (Character.isDigit(e.getKeyChar())) {
+                    e.consume(); 
+                }
+            }
+        });
+        		
         textFieldNomeMedicamentoNovo.setBounds(169, 50, 173, 20);
         panelNovoMedicamento.add(textFieldNomeMedicamentoNovo);
         textFieldNomeMedicamentoNovo.setColumns(10);
+        textFieldNomeMedicamentoNovo.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
+        
         
         JLabel lblQuantidadeMedicamentoNovo = new JLabel("Quantidade");
         lblQuantidadeMedicamentoNovo.setFont(new Font("Tahoma", Font.BOLD, 14));
         lblQuantidadeMedicamentoNovo.setBounds(211, 80, 86, 17);
         panelNovoMedicamento.add(lblQuantidadeMedicamentoNovo);
+
         
         textFieldQuantidadeMedicamentoNovo = new JTextField();
+        textFieldQuantidadeMedicamentoNovo.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldQuantidadeMedicamentoNovo.addKeyListener(new KeyAdapter() {
         
         	public void keyTyped(KeyEvent e) {
@@ -207,6 +225,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovoMedicamento.add(lblValorMedicamentoNovo);
         
         textFieldValorMedicamentoNovo = new JTextField();
+        textFieldValorMedicamentoNovo.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldValorMedicamentoNovo.addKeyListener(new KeyAdapter() {
         	
         	public void keyTyped(KeyEvent e) {
@@ -260,6 +279,18 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaRacao.add(lblMarcaRacaoNova);
         
         JTextField textFieldMarcaRacaoNova = new JTextField();
+        textFieldMarcaRacaoNova.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+                if (textFieldMarcaRacaoNova.getText().length() > 20) {
+                    e.consume(); 
+                }
+
+                if (Character.isDigit(e.getKeyChar())) {
+                    e.consume(); 
+                }
+            }
+        });
+        textFieldMarcaRacaoNova.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldMarcaRacaoNova.setBounds(169, 50, 173, 20);
         panelNovaRacao.add(textFieldMarcaRacaoNova);
         textFieldMarcaRacaoNova.setColumns(10);
@@ -270,6 +301,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaRacao.add(lblQuantidadeRacaoNova);
         
         JTextField textFieldQuantidadeRacaoNova = new JTextField();
+        textFieldQuantidadeRacaoNova.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldQuantidadeRacaoNova.addKeyListener(new KeyAdapter() {	
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789.";
@@ -292,6 +324,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaRacao.add(lblValorRacaoNova);
         
         JTextField textFieldValorRacaoNova = new JTextField();
+        textFieldValorRacaoNova.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldValorRacaoNova.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789.";
@@ -346,6 +379,18 @@ public class TelaRegistroRecursos extends JFrame{
         
         
         JTextField textFieldVacinaNova = new JTextField();
+        textFieldVacinaNova.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e){
+                if (textFieldVacinaNova.getText().length() > 20) {
+                    e.consume(); 
+                }
+
+                if (Character.isDigit(e.getKeyChar())) {
+                    e.consume(); 
+                }
+            }
+        });
+        textFieldVacinaNova.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldVacinaNova.setBounds(169, 50, 173, 20);
         panelNovaVacina.add(textFieldVacinaNova);
         textFieldVacinaNova.setColumns(10);
@@ -356,6 +401,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaVacina.add(lblQuantidadeVacinaNova);
         
         JTextField textFieldQuantidadeVacinaNova = new JTextField();
+        textFieldQuantidadeVacinaNova.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldQuantidadeVacinaNova.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789";
@@ -378,6 +424,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaVacina.add(lblValorVacinaNova);
         
         JTextField textFieldValorVacinaNova = new JTextField();
+        textFieldValorVacinaNova.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldValorVacinaNova.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789.";
@@ -434,6 +481,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelMedicamento.add(lblQuantidadeMedicamento);
         
         JTextField textFieldQuantidadeMedicamento = new JTextField();
+        textFieldQuantidadeMedicamento.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldQuantidadeMedicamento.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789";
@@ -457,6 +505,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelMedicamento.add(lblValorMedicamento);
         
         JTextField textFieldValorMedicamento = new JTextField();
+        textFieldValorMedicamento.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldValorMedicamento.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789. ";
@@ -498,6 +547,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelRacao.add(lblQuantidadeRacao);
         
         JTextField textFieldQuantidadeRacao = new JTextField();
+        textFieldQuantidadeRacao.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldQuantidadeRacao.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789.";
@@ -520,6 +570,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelRacao.add(lblValorRacao);
         
         JTextField textFieldValorRacao = new JTextField();
+        textFieldValorRacao.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldValorRacao.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789.";
@@ -593,6 +644,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelVacina.add(lblQuantidadeVacina);
         
         JTextField textFieldQuantidadeVacina = new JTextField();
+        textFieldQuantidadeVacina.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldQuantidadeVacina.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789";
@@ -615,6 +667,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelVacina.add(lblValorVacina);
         
         JTextField textFieldValorVacina= new JTextField();
+        textFieldValorVacina.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldValorVacina.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {       		
             		String caracteres = "0123456789.";
