@@ -235,21 +235,28 @@ public class TelaRegistroAdocao extends JFrame{
         		String cpf = textFieldCpfTutor.getText();
         		String telefone = textFieldTelefoneTutor.getText();
         		String endereco = textFieldEnderecoTutor.getText();
-
         		
-        		Adocoes adocao = new Adocoes (idPet, nomePet, tipoPet, nomeTutor, cpf, telefone, endereco);
-        		AdocaoService service = new AdocaoService();
+        		if (nomeTutor == null || nomeTutor.trim().isEmpty()) {
+        			JOptionPane.showMessageDialog(null, "É necessário inserir o nome do tutor para adotar pet!");
+        		} else if (cpf == null || cpf.equals("___.___.___-__")) {
+        			JOptionPane.showMessageDialog(null, "É necessário inserir o cpf do tutor para adotar pet!");
+        		} else if (telefone == null || telefone.equals("(__) _____-____")) {
+        			JOptionPane.showMessageDialog(null, "É necessário inserir o telefone do tutor para adotar pet!");
+        		} else if (endereco == null || endereco.trim().isEmpty()) {
+        			JOptionPane.showMessageDialog(null, "É necessário inserir o endereço do tutor para adotar pet!");
+        		} else {
+        			Adocoes adocao = new Adocoes (idPet, nomePet, tipoPet, nomeTutor, cpf, telefone, endereco);
+        			AdocaoService service = new AdocaoService();
         		
-        		try {
-					service.adotar(adocao);
-                    JOptionPane.showMessageDialog(null, "Animal adotado com sucesso!");
-                    
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, "Ocorreu um erro a tentar adotar esse animal.");
-					e1.printStackTrace();
-				}	
-        		
-        		
+	        		try {
+						service.adotar(adocao);
+	                    JOptionPane.showMessageDialog(null, "Animal adotado com sucesso!");
+	                    
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, "Ocorreu um erro a tentar adotar esse animal.");
+						e1.printStackTrace();
+					}	
+        	}
         	}
         });
         btnAdotar.setBounds(424, 292, 104, 34);

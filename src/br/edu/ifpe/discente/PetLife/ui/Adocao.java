@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-
+import javax.swing.table.DefaultTableModel;
 
 import br.edu.ifpe.discente.PetLife.business.AdocaoService;
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
@@ -101,12 +101,13 @@ public class Adocao extends JPanel {
 		 
 		 
 		//Criação da tabela de animais aptos
-		 try {
-	        	AnimaisService servico = new AnimaisService();
+		 
+		try {
+				AnimaisService servico = new AnimaisService();
 	        	listaPetsAdotaveis= servico.retornarAnimaisAptos();
 	            tabelaAnimaisAptos = new TabelaAdotaveis(listaPetsAdotaveis); // adicionando a lista de animais aptos na tabela
 	            
-	            JTable tabelaAdotaveis = tabelaAnimaisAptos.getTabela();
+	            JTable tabelaAdotaveis = TabelaAdotaveis.getTabela();
 	            tabelaAdotaveis.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				
 	            tabelaAdotaveis.addMouseListener(new MouseAdapter() {
@@ -139,17 +140,17 @@ public class Adocao extends JPanel {
 					}
 					
 	            });
-		 }
-	          
-	    catch (Exception e) {
-	    	
+		 } catch (Exception e) {
 	    }
+		 
 
-        JScrollPane scrollPanePetsAdotaveis = new JScrollPane(tabelaAnimaisAptos.getTabela());
+        JScrollPane scrollPanePetsAdotaveis = new JScrollPane(TabelaAdotaveis.getTabela());
 		scrollPanePetsAdotaveis.setBounds(32, 128, 310, 300);
 		add(scrollPanePetsAdotaveis);
 		
-        
+
+		
+		
 		
 		//Label para tabela de Pets adotados
 		JLabel lblPetsAdotados = new JLabel("Pets adotados");
@@ -174,7 +175,32 @@ public class Adocao extends JPanel {
 		} catch (Exception e) {
 
 		}
+	}
+		 
+			 
+			public void recarregarTabela(){
+			try {
+				AnimaisService servico = new AnimaisService();
+				List<Animais> listaAtualizada = servico.retornarAnimaisAptos();
 
+				// Atualizar a lista de animais
+				listaPetsAdotaveis.clear();
+				listaPetsAdotaveis.addAll(listaAtualizada);
+
+				// Atualizar o modelo da tabela
+				DefaultTableModel modelo = TabelaAdotaveis.getModelo();
+				modelo.setRowCount(0); // Limpar o modelo atual
+
+				for (Animais animal : listaPetsAdotaveis) {
+					modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(), animal.getRaca(),
+							animal.getRacao(), animal.getStatus(), animal.getVacina(), animal.getFoto() });
+				}
+
+				TabelaAdotaveis.getTabela().clearSelection();
+
+			} catch (SQLException ex) {
+				//TODO
+			}
 
 }
 }
