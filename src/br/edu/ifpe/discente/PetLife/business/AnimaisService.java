@@ -15,8 +15,22 @@ public class AnimaisService {
 		this.repositoryA = new AnimaisRepository();
 	}
 	
-	public void criarAnimal (Animais animal) throws SQLException { //aprimorar
-		repositoryA.criarAnimal(animal);
+	public void criarAnimal (Animais animal) throws SQLException { 
+		if (animal.getNome() == null || animal.getNome().isEmpty() || Integer.toString(animal.getIdade()).equals("")  ||
+		        animal.getTipo() == null || animal.getTipo().isEmpty()) {
+		        throw new IllegalArgumentException("Todos os campos de texto são obrigatórios.");
+		    }
+		
+		    if (animal.getIdade() < 0) {
+		        throw new IllegalArgumentException("A idade deve ser um número positivo.");
+		    }
+
+		    if (animal.getRacao() < 0) {
+		        throw new IllegalArgumentException("A quantidade de ração deve ser um número positivo.");
+		    }
+			
+		    repositoryA.criarAnimal(animal);
+		
 		
 	}
 	
@@ -31,8 +45,27 @@ public class AnimaisService {
 	}
 	
 		
-	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String vacina, String foto, int id) throws SQLException {
-		repositoryA.atualizarAnimal(nome, idade, tipo, raca, racao, status, vacina, foto, id);
+	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String foto, int id) throws SQLException {
+		if (nome == null || nome.isEmpty() ||
+		        tipo == null || tipo.isEmpty() ||
+		        raca == null || raca.isEmpty() ||
+		        status == null || status.isEmpty()) {
+		        throw new IllegalArgumentException("Todos os campos de texto são obrigatórios.");
+		    }
+
+		    if (idade < 0) {
+		        throw new IllegalArgumentException("A idade deve ser um número positivo.");
+		    }
+
+		    if (racao < 0) {
+		        throw new IllegalArgumentException("A quantidade de ração deve ser um número positivo.");
+		    }
+
+		    if (id <= 0) {
+		        throw new IllegalArgumentException("O ID deve ser um número positivo.");
+		    }    
+		    
+		    repositoryA.atualizarAnimal(nome, idade, tipo, raca, racao, status, foto, id);
 	}
 	
 	public void deletarAnimal(int id) throws SQLException {

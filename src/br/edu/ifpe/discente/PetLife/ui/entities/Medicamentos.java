@@ -35,5 +35,8 @@ public class Medicamentos {
 	public void setValorMedicamento(double valorMedicamento) {
 		this.valorMedicamento = valorMedicamento;
 	}
-
-}
+	@Override
+	public String toString() {	
+	      return this.getNomeMedicamento();
+	}
+	}

@@ -36,8 +36,8 @@ public class Vacinas {
 		this.valorVacina = valorVacina;
 	}
 	
-	
-
-	
-
+	@Override	
+    public String toString() {	
+      return this.getNomeVacina();
+}
 }

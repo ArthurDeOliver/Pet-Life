@@ -12,6 +12,9 @@ import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+
+import br.edu.ifpe.discente.PetLife.ui.entities.GraficoBarra;
+
 import javax.swing.JScrollPane;
 
 public class Recursos extends JPanel {
@@ -67,7 +70,7 @@ public class Recursos extends JPanel {
 		//Aqui vai ter as coisas da tabela
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(77, 111, 342, 288);
+		scrollPane.setBounds(47, 111, 296, 291);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -84,14 +87,21 @@ public class Recursos extends JPanel {
 		
 		JComboBox comboBoxFiltro = new JComboBox();
 		comboBoxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Cachorro", "Gato"}));
-		comboBoxFiltro.setBounds(304, 84, 115, 16);
+		comboBoxFiltro.setBounds(228, 84, 115, 16);
 		add(comboBoxFiltro);
 		
 		//Botão que vai extrair os relatórios
 		
 		JButton btnRelatorio = new JButton("Relatório");
-		btnRelatorio.setBounds(352, 405, 112, 23);
+		btnRelatorio.setBounds(231, 413, 112, 23);
 		add(btnRelatorio);
 		
+		double Valor1 = 10.8; //teste
+		double Valor2 = 24.24; //teste
+		double Valor3 = 150.10; //teste
+		double Valor4 = 200.10; //teste
+		GraficoBarra grafico = new GraficoBarra(Valor1, Valor2, Valor3, Valor4); //teste
+		grafico.setBounds(391, 95, 503, 307); 
+		add(grafico); 
 	}
 }

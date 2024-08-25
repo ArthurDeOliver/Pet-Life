@@ -15,8 +15,8 @@ public class TabelaAdotaveis extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTable tabelaAdotaveis;
-    private DefaultTableModel modeloAdotaveis;
+	private static JTable tabelaAdotaveis;
+    private static DefaultTableModel modeloAdotaveis;
 
     public TabelaAdotaveis(List<Animais> listaDeAnimaisAptos) {
     	
@@ -45,11 +45,11 @@ public class TabelaAdotaveis extends JPanel {
         }
     }
 
-    public JTable getTabela() {
+    public static JTable getTabela() {
         return tabelaAdotaveis;
     }
     
-    public DefaultTableModel getModelo() {
+    public static DefaultTableModel getModelo() {
     	return modeloAdotaveis;
     }
 }

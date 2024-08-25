@@ -36,4 +36,8 @@ public class Racoes {
 		this.valorRacao = valorRacao;
 	}
 
+	@Override	
+    public String toString() {	
+      return this.getMarcaRacao();
+}
 }

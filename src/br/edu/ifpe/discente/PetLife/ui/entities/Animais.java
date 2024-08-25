@@ -35,6 +35,11 @@ public class Animais {
 		this.racao = racao;
 	}
 
+	public Animais(int id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
+	
 	public int getID() {
 		return id;
 	}
@@ -102,5 +107,9 @@ public class Animais {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-
+	
+	@Override
+	public String toString() { 
+    return this.getNome();
+}
 }

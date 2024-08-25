@@ -22,7 +22,7 @@ public class RecursosRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "5972"; // editável
+	private static final String PASSWORD = "1234"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -228,11 +228,10 @@ public class RecursosRepository {
 				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
 				ResultSet rs = statement.executeQuery()) { // executa as consultas
 			combobox.removeAllItems();
-			combobox.addItem("Selecionar");
+			combobox.addItem("Nenhum");
 			while (rs.next()) {
-            String adicionar;
-            adicionar = rs.getString("Nome_medicamento");
-            combobox.addItem(adicionar);           
+			Medicamentos medicamento = new Medicamentos (rs.getString("Nome_medicamento"), rs.getInt("Quantidade_Medicamento"), rs.getDouble("Valor_Medicamento"));	
+            combobox.addItem(medicamento);           
 			}
 
 			
@@ -250,11 +249,10 @@ public class RecursosRepository {
 				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
 				ResultSet rs = statement.executeQuery()) { // executa as consultas
 			combobox.removeAllItems();
-			combobox.addItem("Selecionar");
+			combobox.addItem("Nenhuma");
 			while (rs.next()) {
-            String adicionar;
-            adicionar = rs.getString("Marca_Racao");
-            combobox.addItem(adicionar);           
+            Racoes racao = new Racoes(rs.getString("Marca_Racao"), rs.getDouble("Quantidade_Racao"),rs.getDouble("Valor_Racao"));
+            combobox.addItem(racao);           
 			}
 
 			
@@ -271,11 +269,10 @@ public class RecursosRepository {
 				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
 				ResultSet rs = statement.executeQuery()) { // executa as consultas
 			combobox.removeAllItems();
-			combobox.addItem("Selecionar");
+			combobox.addItem("Nenhuma");
 			while (rs.next()) {
-            String adicionar;
-            adicionar = rs.getString("Nome_Vacina");
-            combobox.addItem(adicionar);           
+            Vacinas vacina = new Vacinas(rs.getString("Nome_Vacina"), rs.getInt("Quantidade_Vacina"), rs.getDouble("Valor_Vacina"));
+            combobox.addItem(vacina);           
 			}
 			
 		} catch (SQLException e) {
@@ -284,18 +281,17 @@ public class RecursosRepository {
 	}
 	
 	public void listarAnimaisComboBox(JComboBox combobox) throws SQLException{
-		String sql = "SELECT * FROM animais";
+		String sql = "SELECT id, nome, tipo FROM animais";
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
 				ResultSet rs = statement.executeQuery()) { // executa as consultas
 			combobox.removeAllItems();
-			combobox.addItem("Selecionar");
+			combobox.addItem("Selecionar");			
 			while (rs.next()) {
-            String adicionar;            
-            adicionar = rs.getString("nome");
-            combobox.addItem(adicionar);                      
+            Animais animal = new Animais(rs.getInt("id"), rs.getString("nome"));           
+            combobox.addItem(animal);                      
 			}
-	}
-	
+	}	
+		
 }
 }
