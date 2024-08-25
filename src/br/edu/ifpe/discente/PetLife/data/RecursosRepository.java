@@ -154,8 +154,8 @@ public class RecursosRepository {
 
 			while (rs.next()) {
 
-				Medicamentos medicamento = new Medicamentos(rs.getString("nomeMedicamento"),
-						rs.getInt("quantidadeMedicamento"), rs.getDouble("valorMedicamento"));
+				Medicamentos medicamento = new Medicamentos(rs.getString("Nome_medicamento"),
+						rs.getInt("Quantidade_Medicamento"), rs.getDouble("Valor_Medicamento"));
 				listaDeMedicamentos.add(medicamento);				
 			}
 
@@ -208,8 +208,8 @@ public class RecursosRepository {
 
 			while (rs.next()) {
 
-				Vacinas vacina = new Vacinas(rs.getString("nomeVacina"), rs.getInt("quantidadeVacina"),
-						rs.getDouble("valorVacina"));
+				Vacinas vacina = new Vacinas(rs.getString("Nome_Vacina"), rs.getInt("Quantidade_Vacina"),
+						rs.getDouble("Valor_Vacina"));
 				listaDeVacinas.add(vacina);
 			}
 
@@ -273,8 +273,8 @@ public class RecursosRepository {
 			while (rs.next()) {
             Vacinas vacina = new Vacinas(rs.getString("Nome_Vacina"), rs.getInt("Quantidade_Vacina"), rs.getDouble("Valor_Vacina"));
             combobox.addItem(vacina);           
-			}
-			
+			}			
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -291,7 +291,17 @@ public class RecursosRepository {
             Animais animal = new Animais(rs.getInt("id"), rs.getString("nome"));           
             combobox.addItem(animal);                      
 			}
-	}	
-		
+	}
+				
+}
+	public Medicamentos buscarMedicamentoSelecionado(String nomeMedicamento) throws SQLException{
+		String sql = "SELECT * FROM medicamentos where Nome_medicamento =?";
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
+				ResultSet rs = statement.executeQuery()) { // executa as consultas
+			statement.setString(1, nomeMedicamento) ;
+		Medicamentos medicamento = new Medicamentos(rs.getString("Nome_medicamento"), rs.getInt("Quantidade_Medicamento"), rs.getDouble("Valor_Medicamento"));
+		return medicamento;
+	}
 }
 }

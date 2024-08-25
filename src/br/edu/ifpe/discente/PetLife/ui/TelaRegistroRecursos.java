@@ -549,6 +549,18 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldNomeMedicamento.setBounds(169, 69, 173, 20);
         panelMedicamento.add(textFieldNomeMedicamento);
         textFieldNomeMedicamento.setColumns(10);
+        textFieldNomeMedicamento.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
+        textFieldNomeMedicamento.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+                if (textFieldNomeMedicamento.getText().length() > 20) {
+                    e.consume(); 
+                }
+
+                if (Character.isDigit(e.getKeyChar())) {
+                    e.consume(); 
+                }
+            }
+        });
         scrollPaneRacao.setViewportView(comboBoxRacao);
         
         JLabel lblQuantidadeRacao = new JLabel("Quantidade");
@@ -612,6 +624,18 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldNomeMarcaRacao = new JTextField();
         textFieldNomeMarcaRacao.setBounds(169, 69, 173, 20);
         panelRacao.add(textFieldNomeMarcaRacao);
+        textFieldNomeMarcaRacao.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
+        textFieldNomeMarcaRacao.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+                if (textFieldNomeMarcaRacao.getText().length() > 20) {
+                    e.consume(); 
+                }
+
+                if (Character.isDigit(e.getKeyChar())) {
+                    e.consume(); 
+                }
+            }
+        });
         textFieldNomeMarcaRacao.setColumns(10);
         
         JPanel panelVacina = new JPanel();
@@ -710,7 +734,19 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldNomeVacina = new JTextField();
         textFieldNomeVacina.setBounds(169, 69, 173, 20);
         panelVacina.add(textFieldNomeVacina);
+        textFieldNomeVacina.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldNomeVacina.setColumns(10);
+        textFieldNomeVacina.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+                if (textFieldNomeVacina.getText().length() > 20) {
+                    e.consume(); 
+                }
+
+                if (Character.isDigit(e.getKeyChar())) {
+                    e.consume(); 
+                }
+            }
+        });
               
         JButton btnAdicionarVacina = new JButton("Adicionar");
         btnAdicionarVacina.setFont(new Font("Tahoma", Font.BOLD, 11));
