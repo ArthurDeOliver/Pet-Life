@@ -18,7 +18,6 @@ import javax.imageio.ImageIO;
 
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 
-
 public class AnimaisRepository {
 
 	private static final String URL = "jdbc:mysql://localhost:3306/";
