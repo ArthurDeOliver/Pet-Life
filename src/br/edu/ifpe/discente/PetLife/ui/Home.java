@@ -121,7 +121,7 @@ public class Home extends JPanel {
 
         // Adiciona os nomes dos últimos 4 animais à tabela
         int totalAnimais = listaAnimais.size();
-        for (int i = Math.max(totalAnimais - 4, 0); i < totalAnimais; i++) {
+        for (int i = totalAnimais - 1; i > totalAnimais - 5; i--) {
             model.addRow(new Object[]{listaAnimais.get(i).getNome()});
         }
 
