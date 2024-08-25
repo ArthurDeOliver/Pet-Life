@@ -208,7 +208,7 @@ public class Pets extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (animalSelecionado != null) {
 
-					TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet(Pets.this, null);
+					TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet(Pets.this);
 					telaEdicaoPet.informacoesEditaveis(animalSelecionado);
 					telaEdicaoPet.setVisible(true);
 				}

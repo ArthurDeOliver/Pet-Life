@@ -23,7 +23,7 @@ public class AnimaisRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "@Luan018515"; // editável
+	private static final String PASSWORD = "1234"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
