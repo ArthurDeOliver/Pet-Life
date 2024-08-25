@@ -1,6 +1,7 @@
 package br.edu.ifpe.discente.PetLife.ui;
 
 import java.awt.Font;
+import java.awt.Window;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import br.edu.ifpe.discente.PetLife.business.AdocaoService;
@@ -35,6 +37,8 @@ public class Adocao extends JPanel {
 	private int idPet;
 	private String nomePet;
 	private String tipoPet;
+	private Adocao mainWindow;
+	
 
     
 	/**
@@ -42,6 +46,7 @@ public class Adocao extends JPanel {
 	 */
 	public Adocao() {
 		setLayout(null);
+
 		
         URL imgURL = getClass().getResource("/Imagens/coracaom.png");
         ImageIcon icon = new ImageIcon(imgURL);
@@ -70,7 +75,7 @@ public class Adocao extends JPanel {
 		btnRegistrarAdocao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (animalSelecionado != null) {
-					TelaRegistroAdocao telaAdocao = new TelaRegistroAdocao(idPet, nomePet, tipoPet);
+					TelaRegistroAdocao telaAdocao = new TelaRegistroAdocao(Adocao.this, idPet, nomePet, tipoPet);
 					telaAdocao.setVisible(true);
 				}	
 				}
@@ -112,7 +117,6 @@ public class Adocao extends JPanel {
 				
 	            tabelaAdotaveis.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
-        	
 						int linhaSelecionada = tabelaAdotaveis.getSelectedRow();
 
 						if (linhaSelecionada >= 0) { 
@@ -175,10 +179,12 @@ public class Adocao extends JPanel {
 		} catch (Exception e) {
 
 		}
+
+
 	}
 		 
 			 
-			public void recarregarTabela(){
+			public void recarregarTabelaAptos(){
 			try {
 				AnimaisService servico = new AnimaisService();
 				List<Animais> listaAtualizada = servico.retornarAnimaisAptos();
@@ -201,6 +207,39 @@ public class Adocao extends JPanel {
 			} catch (SQLException ex) {
 				//TODO
 			}
+			}
+			public void recarregarTabelaAdocoes(){
+				try {
+					AdocaoService servico = new AdocaoService();
+					List<Adocoes> listaAdocoesAtualizada = servico.listarAdocoes();
 
+					// Atualizar a lista de adocoes
+					listaPetsAdotados.clear();
+					listaPetsAdotados.addAll(listaAdocoesAtualizada);
+
+					// Atualizar o modelo da tabela
+					DefaultTableModel modelo = TabelaAdocoes.getModelo();
+					modelo.setRowCount(0); // Limpar o modelo atual
+
+					for (Adocoes adocao : listaPetsAdotados) {
+						modelo.addRow(new Object[] { adocao.getIdPet(), adocao.getNomePet(), adocao.getTipoPet(), adocao.getNomeTutor(), adocao.getCpf(), 
+								adocao.getEndereco(), adocao.getTelefone() });
+					}
+
+					TabelaAdocoes.getTabela().clearSelection();
+
+				} catch (SQLException ex) {
+					//TODO
+				}
+			
+			}
+			public Adocao getMainWindowAdocao() {
+				return mainWindow;
+			}
+
+
+			
+			
+			
 }
-}
+

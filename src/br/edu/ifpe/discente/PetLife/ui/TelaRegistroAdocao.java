@@ -3,6 +3,7 @@ package br.edu.ifpe.discente.PetLife.ui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Window;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
@@ -40,36 +42,27 @@ public class TelaRegistroAdocao extends JFrame{
 	static int idPet;
 	static String nomePet;
 	static String tipoPet;
+	private static Adocao mainWindow;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-
-					TelaRegistroAdocao window = new TelaRegistroAdocao(idPet, nomePet, tipoPet);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
+	 * 
 	 */
 	//Abrir tela selecionando Pet
-	public TelaRegistroAdocao(int idPet, String nomePet, String tipoPet) {
+	public TelaRegistroAdocao(Adocao mainWindow, int idPet, String nomePet, String tipoPet) {
 		TelaRegistroAdocao.idPet = idPet;
 		TelaRegistroAdocao.nomePet= nomePet;
 		TelaRegistroAdocao.tipoPet= tipoPet;
+		this.mainWindow=  mainWindow;
 		
 		getContentPane().setLayout(null);
 		initialize();
 	}
+	
 		
 	//Get e set para parâmetros recebidos dos Pets
 	public static int getIdPet() {
@@ -251,6 +244,10 @@ public class TelaRegistroAdocao extends JFrame{
 	        		try {
 						service.adotar(adocao);
 	                    JOptionPane.showMessageDialog(null, "Animal adotado com sucesso!");
+ 		            	mainWindow.recarregarTabelaAptos();
+ 		            	mainWindow.recarregarTabelaAdocoes();
+ 		            	Window window = SwingUtilities.getWindowAncestor(TelaRegistroAdocao.this);
+ 		            	dispose(); 
 	                    
 					} catch (SQLException e1) {
 						JOptionPane.showMessageDialog(null, "Ocorreu um erro a tentar adotar esse animal.");

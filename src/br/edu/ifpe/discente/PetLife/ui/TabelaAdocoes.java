@@ -15,8 +15,8 @@ public class TabelaAdocoes extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTable tabela;
-    private DefaultTableModel modelo;
+	private static JTable tabela;
+    private static DefaultTableModel modelo;
  
     public TabelaAdocoes(List<Adocoes> listaDeAdocoes) {
     	
@@ -47,10 +47,10 @@ public class TabelaAdocoes extends JPanel{
         }
     }
 
-    public JTable getTabela() {
+    public static JTable getTabela() {
         return tabela;
     }
-    public DefaultTableModel getModelo() {
+    public static DefaultTableModel getModelo() {
     	return modelo;
     }
 }

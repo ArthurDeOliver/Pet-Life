@@ -107,6 +107,7 @@ public class Main {
 		btnAbrirTelaAdocao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "adocao");
+				
 			}
 		});
 		btnAbrirTelaAdocao.setFont(new Font("Tahoma", Font.PLAIN, 14));
