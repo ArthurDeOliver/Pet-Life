@@ -173,7 +173,7 @@ public class TelaCadastroPet extends JFrame {
 	                     String tipo = (String) comboBoxTipoPet.getSelectedItem();
 	                     String raca = textFieldRacaPet.getText();
 	                     if (RadioButtonSemRacaPet.isSelected()) {
-	                    	 raca = null;
+	                    	 raca = "";
 	                     } 
 	                     int racao = 0;
 	                     String status = null;
@@ -188,17 +188,16 @@ public class TelaCadastroPet extends JFrame {
      					service.criarAnimal(animal);
      					 int resposta = JOptionPane.showConfirmDialog(null, "Animal criado com sucesso! Deseja cadastrar outro?", "Confirmação", JOptionPane.YES_NO_OPTION);
      					 
-     					while (resposta == JOptionPane.YES_OPTION) {
+     					if (resposta == JOptionPane.YES_OPTION) {
      		                textFieldNomePet.setText("");
      		                textFieldIdadePet.setText("");
      		                comboBoxTipoPet.setSelectedIndex(0);
      		                textFieldRacaPet.setText("");
-     		            } 
-     					
-     		            mainWindow.recarregarTabela();
-                        Window window = SwingUtilities.getWindowAncestor(TelaCadastroPet.this);
-                        dispose();                                		                
-     		            
+     		            } else {
+     		            	mainWindow.recarregarTabela();
+     		            	Window window = SwingUtilities.getWindowAncestor(TelaCadastroPet.this);
+     		            	dispose();   
+     		            }			
      					
      				} catch (IllegalArgumentException ex) {
      		            JOptionPane.showMessageDialog(null, "Todos os campos de texto são obrigatórios.");

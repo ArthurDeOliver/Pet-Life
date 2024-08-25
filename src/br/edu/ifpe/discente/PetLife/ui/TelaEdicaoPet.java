@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 import javax.swing.ButtonGroup;
@@ -24,6 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
@@ -45,8 +48,10 @@ public class TelaEdicaoPet extends JFrame {
 	private Animais animalSelecionado;
 	private int petID;
 	private Pets mainWindow;
-	JRadioButton RadioButtonSemRacaPet;
-	JRadioButton RadioButtonRacaDefinidaPet;
+	private JRadioButton RadioButtonSemRacaPet;
+	private JRadioButton RadioButtonRacaDefinidaPet;
+	private FileInputStream fis;
+	private int tamanho;
 	
 	
 	
@@ -200,6 +205,18 @@ public class TelaEdicaoPet extends JFrame {
         btnFotoPet.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		JFileChooser foto = new JFileChooser();
+        		foto.setDialogTitle("Procurar foto");
+        		foto.setFileFilter(new FileNameExtensionFilter("Arquivo de Imagens (*.PNG, *JPG, *JPEG)", "png", "jpg", "jpeg"));
+        		int resultado = foto.showOpenDialog(null);
+        		if (resultado == JFileChooser.APPROVE_OPTION) {
+        			try {
+						fis = new FileInputStream(foto.getSelectedFile());
+						tamanho = (int) foto.getSelectedFile().length();
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					}
+
+        		}
         	}
         });
         btnFotoPet.setBounds(305, 192, 67, 42);
