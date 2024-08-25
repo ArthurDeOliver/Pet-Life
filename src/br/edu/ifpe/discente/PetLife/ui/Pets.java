@@ -1,6 +1,7 @@
 package br.edu.ifpe.discente.PetLife.ui;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -16,11 +17,20 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+import br.edu.ifpe.discente.PetLife.ui.entities.ImageUtil;
+
+
 import javax.swing.JTable;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
 import javax.swing.JComboBox;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
@@ -41,6 +51,7 @@ public class Pets extends JPanel {
 	private JButton btnEditarPets;
 	private JButton btnExcluirPets;
 	private Animais animalSelecionado;
+	ImageIcon imageIcon;
 
 	public Pets() {
 		setLayout(null);
@@ -89,46 +100,58 @@ public class Pets extends JPanel {
 		// Iniciar tabela de animais
 		try {
 			AnimaisService servico = new AnimaisService();
-			listaDeAnimais = servico.retornarAnimal();
-			tabelaAnimal = new TabelaAnimal(listaDeAnimais);
+		    listaDeAnimais = servico.retornarAnimal();
+		    tabelaAnimal = new TabelaAnimal(listaDeAnimais);
 
-			JTable tabela = tabelaAnimal.getTabela();
-			tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		    JTable tabela = tabelaAnimal.getTabela();
+		    tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-			tabela.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
+		    tabela.addMouseListener(new MouseAdapter() {
+		        public void mouseClicked(MouseEvent e) {
+		            int linhaSelecionada = tabela.getSelectedRow();
 
-					int linhaSelecionada = tabela.getSelectedRow();
+		            if (linhaSelecionada >= 0) {
+		                int idAnimal = (int) tabela.getValueAt(linhaSelecionada, 0);
 
-					if (linhaSelecionada >= 0) { 
-						int idAnimal = (int) tabela.getValueAt(linhaSelecionada, 0);
+		                animalSelecionado = null;
+		                for (Animais animal : listaDeAnimais) {
+		                    if (animal.getID() == idAnimal) {
+		                        animalSelecionado = animal;
+		                        break;
+		                    }
+		                }
 
-						animalSelecionado = null;
-						for (Animais animal : listaDeAnimais) {
-							if (animal.getID() == idAnimal) {
-								animalSelecionado = animal;
-								break;
-							}
-						}
+		                if (animalSelecionado != null) {
+		                    textFieldNomePet.setText(animalSelecionado.getNome());
+		                    textFieldTipoPet.setText(animalSelecionado.getTipo());
+		                    textFieldRacaPet.setText(animalSelecionado.getRaca());
+		                    textFieldIdadePet.setText(String.valueOf(animalSelecionado.getIdade()));
+		                    textFieldStatusPet.setText(animalSelecionado.getStatus());
+		                    System.out.println(animalSelecionado.getFoto());
 
-						if (animalSelecionado != null) {
-							textFieldNomePet.setText(animalSelecionado.getNome());
-							textFieldTipoPet.setText(animalSelecionado.getTipo());
-							textFieldRacaPet.setText(animalSelecionado.getRaca());
-							textFieldIdadePet.setText(String.valueOf(animalSelecionado.getIdade()));
-							textFieldStatusPet.setText(animalSelecionado.getStatus());
+		                    // Converta o array de bytes para ImageIcon
+		                    byte[] fotoBytes = animalSelecionado.getFoto();
+		                    if (fotoBytes != null) {
+		                    	try {
+		                    		AnimaisService servico = new AnimaisService();
+		                            byte[] imageBytes = servico.getImageBytes(1); // Use o ID da imagem que você deseja buscar
+		                            imageIcon = ImageUtil.convertToImageIcon(imageBytes);
+		                            
+		                            labelFotoPet.setIcon(imageIcon);
+		                        } catch (Exception ex) {
+		                            ex.printStackTrace();
+		                        }
+		                    } else {
+		                        labelFotoPet.setIcon(null); // Não há imagem, limpar o JLabel
+		                    }
 
-							ImageIcon foto = new ImageIcon(animalSelecionado.getFoto());
-							labelFotoPet.setIcon(foto);
+		                    btnEditarPets.setEnabled(true);
+		                    btnExcluirPets.setEnabled(true);
 
-							btnEditarPets.setEnabled(true);
-							btnExcluirPets.setEnabled(true);
-
-						} else {
-
-							btnEditarPets.setEnabled(false);
-							btnExcluirPets.setEnabled(false);
-						}
+		                } else {
+		                    btnEditarPets.setEnabled(false);
+		                    btnExcluirPets.setEnabled(false);
+		                }
 					}
 				}
 			});
@@ -291,7 +314,7 @@ public class Pets extends JPanel {
 		textFieldStatusPet.setBounds(569, 351, 105, 27);
 		add(textFieldStatusPet);
 
-		labelFotoPet = new JLabel("");
+		labelFotoPet = new JLabel(imageIcon);
 		labelFotoPet.setBounds(520, 131, 140, 140);
 		add(labelFotoPet);
 

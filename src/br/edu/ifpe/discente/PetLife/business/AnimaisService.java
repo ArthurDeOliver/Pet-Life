@@ -1,5 +1,6 @@
 
 package br.edu.ifpe.discente.PetLife.business;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class AnimaisService {
 		this.repositoryA = new AnimaisRepository();
 	}
 	
-	public void criarAnimal (Animais animal) throws SQLException { 
+	public void criarAnimal (Animais animal) throws SQLException, IOException { 
 		if (animal.getNome() == null || animal.getNome().isEmpty() || Integer.toString(animal.getIdade()).equals("")  ||
 		        animal.getTipo() == null || animal.getTipo().isEmpty()) {
 		        throw new IllegalArgumentException("Todos os campos de texto são obrigatórios.");
@@ -45,7 +46,7 @@ public class AnimaisService {
 	}
 	
 		
-	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String foto, int id) throws SQLException {
+	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, byte[] foto, int id) throws SQLException {
 		if (nome == null || nome.isEmpty() ||
 		        tipo == null || tipo.isEmpty() ||
 		        raca == null || raca.isEmpty() ||
@@ -71,6 +72,12 @@ public class AnimaisService {
 	public void deletarAnimal(int id) throws SQLException {
 		repositoryA.deletarAnimal(id);
 	}
+	
+	public byte[] getImageBytes(int imageId) throws Exception {
+		return repositoryA.getImageBytes(imageId);
+	}
+	
+	
 	
 	
 		// TODO regras de negócio

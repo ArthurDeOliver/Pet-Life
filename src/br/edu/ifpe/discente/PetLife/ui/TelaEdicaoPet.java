@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.ButtonGroup;
@@ -203,21 +204,21 @@ public class TelaEdicaoPet extends JFrame {
         JButton btnFotoPet = new JButton("");
         btnFotoPet.setIcon(new ImageIcon(TelaEdicaoPet.class.getResource("/Imagens/camera.png")));
         btnFotoPet.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		JFileChooser foto = new JFileChooser();
-        		foto.setDialogTitle("Procurar foto");
-        		foto.setFileFilter(new FileNameExtensionFilter("Arquivo de Imagens (*.PNG, *JPG, *JPEG)", "png", "jpg", "jpeg"));
-        		int resultado = foto.showOpenDialog(null);
-        		if (resultado == JFileChooser.APPROVE_OPTION) {
-        			try {
-						fis = new FileInputStream(foto.getSelectedFile());
-						tamanho = (int) foto.getSelectedFile().length();
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					}
-
-        		}
-        	}
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser foto = new JFileChooser();
+                foto.setDialogTitle("Procurar foto");
+                foto.setFileFilter(new FileNameExtensionFilter("Arquivo de Imagens (*.PNG, *JPG, *JPEG)", "png", "jpg", "jpeg"));
+                int resultado = foto.showOpenDialog(null);
+                if (resultado == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        // Atualize fis e tamanho aqui
+                        fis = new FileInputStream(foto.getSelectedFile());
+                        tamanho = (int) foto.getSelectedFile().length();
+                    } catch (FileNotFoundException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
         });
         btnFotoPet.setBounds(305, 192, 67, 42);
         edicaoPetCorpoPainel.add(btnFotoPet);
@@ -226,19 +227,31 @@ public class TelaEdicaoPet extends JFrame {
         btnEdicaoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
         btnEdicaoPet.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
                 if (animalSelecionado != null) {
                     try {
-
                         AnimaisService servico = new AnimaisService();
-                        
+
                         String nome = textFieldNomePet.getText();
                         int idade = Integer.parseInt(textFieldIdadePet.getText()); 
                         String tipo = comboBoxTipoPet.getSelectedItem().toString();
                         String raca = textFieldRacaPet.getText();
                         int racao = Integer.parseInt(textFieldRacao.getText()); 
                         String status = comboBoxStatusPet.getSelectedItem().toString();
-                        String foto = ""; 
+
+                        byte[] foto = null;
+                        if (fis != null) {
+                            foto = new byte[tamanho];
+                            try {
+                                fis.read(foto); // Lê o conteúdo do InputStream para o array de bytes
+                                fis.close(); // Fecha o stream
+                                animalSelecionado.setFoto(foto);
+                                System.out.println("Foto alterada.");
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                        	System.out.println("Foto não foi alterada.");
+                        }
 
                         servico.atualizarAnimal(nome, idade, tipo, raca, racao, status, foto, petID);
 
@@ -248,10 +261,10 @@ public class TelaEdicaoPet extends JFrame {
                         dispose();    
 
                     } catch (IllegalArgumentException ex) {
-     		            JOptionPane.showMessageDialog(null, "Todos os campos de texto são obrigatórios.");
-     		        } catch (SQLException ex) {
-     		            ex.printStackTrace();
-     		        }
+                        JOptionPane.showMessageDialog(null, "Todos os campos de texto são obrigatórios.");
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Nenhum animal selecionado.");
                 }
