@@ -24,7 +24,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class TelaCadastroPet extends JFrame {
@@ -179,7 +178,7 @@ public class TelaCadastroPet extends JFrame {
 	                     int racao = 0;
 	                     String status = null;
 	                     String vacina = null;
-	                     byte[] foto = null;
+	                     String foto = null;
 	                     
 	                
 	                     Animais animal = new Animais(nome, idade, tipo, raca, racao ,status, vacina, foto);
@@ -205,10 +204,7 @@ public class TelaCadastroPet extends JFrame {
      		        } catch (SQLException ex) {
      		        	ex.getMessage();
      		            ex.printStackTrace();
-     		        } catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+     		        }
 
                  }
              });

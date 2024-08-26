@@ -107,7 +107,7 @@ public class Home extends JPanel {
             listaDeRecursos.addAll(listaVacina);
 
             // Método para configurar a JTable com os nomes dos últimos 4 animais cadastrados
-            configurarTabelaPets();
+            //configurarTabelaPets();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -122,7 +122,7 @@ public class Home extends JPanel {
         // Adiciona os nomes dos últimos 4 animais à tabela
         int totalAnimais = listaAnimais.size();
         for (int i = totalAnimais - 1; i > totalAnimais - 5; i--) {
-            model.addRow(new Object[]{listaAnimais.get(i).getNome()});
+          //  model.addRow(new Object[]{listaAnimais.get(i).getNome()});
         }
 
         // Define o modelo da tabela
