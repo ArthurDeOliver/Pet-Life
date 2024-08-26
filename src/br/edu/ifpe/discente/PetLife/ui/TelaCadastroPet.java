@@ -40,6 +40,7 @@ public class TelaCadastroPet extends JFrame {
 
     /**
      * Create the frame.
+     * @param mainWindowAdocao 
      */
     public TelaCadastroPet(Pets mainWindow) {
     	this.mainWindow = mainWindow;

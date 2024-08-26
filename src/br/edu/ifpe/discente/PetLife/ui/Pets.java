@@ -16,6 +16,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+import br.edu.ifpe.discente.PetLife.ui.entities.Adocoes;
+import br.edu.ifpe.discente.PetLife.ui.Adocao;
 import javax.swing.JTable;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -29,6 +31,8 @@ import javax.swing.ListSelectionModel;
 public class Pets extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+
+	private Adocao adocao;
 
 	private JTextField textFieldNomePet;
 	private JTextField textFieldTipoPet;
@@ -185,7 +189,7 @@ public class Pets extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (animalSelecionado != null) {
 
-					TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet(Pets.this);
+					TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet(Pets.this, adocao);
 					telaEdicaoPet.informacoesEditaveis(animalSelecionado);
 					telaEdicaoPet.setVisible(true);
 				}
@@ -321,5 +325,31 @@ public class Pets extends JPanel {
 			//TODO
 		}
 
+	}
+	public void recarregarTabelaAptos(){
+	try {
+		AnimaisService servico = new AnimaisService();
+		List<Animais> listaPetsAdotaveis = servico.retornarAnimaisAptos();
+		List<Animais> listaAtualizada = servico.retornarAnimaisAptos();
+
+		// Atualizar a lista de animais
+
+		listaPetsAdotaveis.clear();
+		listaPetsAdotaveis.addAll(listaAtualizada);
+
+		// Atualizar o modelo da tabela
+		DefaultTableModel modelo = TabelaAdotaveis.getModelo();
+		modelo.setRowCount(0); // Limpar o modelo atual
+
+		for (Animais animal : listaPetsAdotaveis) {
+			modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(), animal.getRaca(),
+					animal.getRacao(), animal.getStatus(), animal.getVacina(), animal.getFoto() });
+		}
+
+		TabelaAdotaveis.getTabela().clearSelection();
+
+	} catch (SQLException ex) {
+		//TODO
+	}
 	}
 }
