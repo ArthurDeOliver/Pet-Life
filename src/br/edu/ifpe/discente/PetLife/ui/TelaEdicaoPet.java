@@ -134,7 +134,7 @@ public class TelaEdicaoPet extends JFrame {
         
         JLabel labelRaçaPet = new JLabel("Raça");
         labelRaçaPet.setFont(new Font("Tahoma", Font.BOLD, 14));
-        labelRaçaPet.setBounds(58, 238, 46, 31);
+        labelRaçaPet.setBounds(308, 170, 46, 31);
         edicaoPetCorpoPainel.add(labelRaçaPet);
         
         
@@ -158,10 +158,10 @@ public class TelaEdicaoPet extends JFrame {
         });
         
         
-        RadioButtonSemRacaPet.setBounds(55, 265, 153, 23);
+        RadioButtonSemRacaPet.setBounds(305, 197, 153, 23);
         edicaoPetCorpoPainel.add(RadioButtonSemRacaPet);
         
-        RadioButtonRacaDefinidaPet.setBounds(55, 285, 95, 23);
+        RadioButtonRacaDefinidaPet.setBounds(305, 217, 95, 23);
         edicaoPetCorpoPainel.add(RadioButtonRacaDefinidaPet);
         
         
@@ -171,7 +171,7 @@ public class TelaEdicaoPet extends JFrame {
         
         textFieldRacaPet = new JFormattedTextField();
         textFieldRacaPet.setEditable(false);
-        textFieldRacaPet.setBounds(151, 292, 86, 15);
+        textFieldRacaPet.setBounds(401, 220, 80, 20);
         edicaoPetCorpoPainel.add(textFieldRacaPet);
         textFieldRacaPet.setColumns(10);
         textFieldRacaPet.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
@@ -193,36 +193,9 @@ public class TelaEdicaoPet extends JFrame {
         edicaoPetCorpoPainel.add(labelStatusPet);
         
         comboBoxStatusPet = new JComboBox();
-        comboBoxStatusPet.setModel(new DefaultComboBoxModel(new String[] {"Adotado", "Apto", "Não apto"}));
+        comboBoxStatusPet.setModel(new DefaultComboBoxModel(new String[] {"Apto", "Não apto"}));
         comboBoxStatusPet.setBounds(305, 128, 177, 22);
         edicaoPetCorpoPainel.add(comboBoxStatusPet);
-        
-        JLabel labelFotoPet = new JLabel("Foto");
-        labelFotoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
-        labelFotoPet.setBounds(309, 170, 45, 13);
-        edicaoPetCorpoPainel.add(labelFotoPet);
-        
-        JButton btnFotoPet = new JButton("");
-        btnFotoPet.setIcon(new ImageIcon(TelaEdicaoPet.class.getResource("/Imagens/camera.png")));
-        btnFotoPet.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		JFileChooser foto = new JFileChooser();
-        		foto.setDialogTitle("Procurar foto");
-        		foto.setFileFilter(new FileNameExtensionFilter("Arquivo de Imagens (*.PNG, *JPG, *JPEG)", "png", "jpg", "jpeg"));
-        		int resultado = foto.showOpenDialog(null);
-        		if (resultado == JFileChooser.APPROVE_OPTION) {
-        			try {
-						fis = new FileInputStream(foto.getSelectedFile());
-						tamanho = (int) foto.getSelectedFile().length();
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					}
-
-        		}
-        	}
-        });
-        btnFotoPet.setBounds(305, 192, 67, 42);
-        edicaoPetCorpoPainel.add(btnFotoPet);
         
         JButton btnEdicaoPet = new JButton("OK");
         btnEdicaoPet.setFont(new Font("Tahoma", Font.BOLD, 14));

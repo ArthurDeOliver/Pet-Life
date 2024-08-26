@@ -16,7 +16,7 @@ public class AnimaisRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "@Luan018515"; // editável
+	private static final String PASSWORD = "1234"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -53,8 +53,8 @@ public class AnimaisRepository {
 		try (Connection connection = getConnection();
 				
 				PreparedStatement statement = connection.prepareStatement(sql)) {
-			String raca = animal.getRaca().length() > 0 ? animal.getRaca() : "SRD";
-			statement.setString(1, animal.getNome());
+			String raca = animal.getRaca().length() > 0 ? Character.toUpperCase(animal.getRaca().charAt(0)) + animal.getRaca().substring(1) : "SRD";
+			statement.setString(1, Character.toUpperCase(animal.getNome().charAt(0)) + animal.getNome().substring(1));
 			statement.setInt(2, animal.getIdade());
 			statement.setString(3, animal.getTipo());
 			statement.setString(4, raca);
@@ -127,11 +127,12 @@ public class AnimaisRepository {
 
         try (Connection connection = getConnection(); 
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
+        	
+        	String racaAnimal = raca.length() > 0 ? Character.toUpperCase(raca.charAt(0)) + raca.substring(1) : "SRD";
             statement.setString(1, nome);
             statement.setInt(2, idade);
             statement.setString(3, tipo);
-            statement.setString(4, raca);
+            statement.setString(4, racaAnimal);
             statement.setInt(5, racao);
             statement.setString(6, status);
             statement.setString(7, foto);
