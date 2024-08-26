@@ -106,11 +106,25 @@ public class RecursosService {
 		}
 		this.repositoryR.atualizarVacina(novoNome, novaQuantidade, novoValor, id);
 	}
-	public void inserirMedicamentoAnimal(Animais animal, Medicamentos medicamento) throws SQLException {
+	public void inserirMedicamentoAnimal(Animais animal, Medicamentos medicamento) throws SQLException, BusinessException {
+		if(this.repositoryR.animalJaMedicado(animal, medicamento)) {
+			throw new BusinessException("O animal já possui esse Medicamento!!");
+		};
 		this.repositoryR.inserirMedicamentoAnimal(animal, medicamento);
 	}
-	public void inserirVacinaAnimal(Animais animal, Vacinas vacina) throws SQLException {
+	public void inserirVacinaAnimal(Animais animal, Vacinas vacina) throws SQLException, BusinessException {
+		if(this.repositoryR.animalJaVacinado(animal, vacina)) {
+			throw new BusinessException("O animal já possui essa Vacina!!");
+		};
 		this.repositoryR.inserirVacinaAnimal(animal, vacina);
 	}
-	
+	public boolean animalJaVacinado(Animais animal, Vacinas vacina) throws SQLException, BusinessException{
+		return this.repositoryR.animalJaVacinado(animal, vacina);
+	}
+	public void diminuirQuantidadeMedicamento(int id_Medicamento, int quantidadeNova) throws SQLException, BusinessException {
+		this.repositoryR.diminuirQuantidadeMedicamento(id_Medicamento, quantidadeNova);
+	}
+	public void diminuirQuantidadeVacina(int id_Vacina, int quantidadeNova) throws SQLException, BusinessException {
+		this.repositoryR.diminuirQuantidadeVacina(id_Vacina, quantidadeNova);
+	}
 }

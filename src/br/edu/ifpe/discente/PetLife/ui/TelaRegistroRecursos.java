@@ -740,6 +740,7 @@ public class TelaRegistroRecursos extends JFrame{
 						comboBoxSelecionarVacina.addItem(vacina);
 					}
 					AnimaisService serviceAnimais = new AnimaisService();
+					comboBoxSelecionarAnimal.removeAllItems();
 					List<Animais> listaAnimais = serviceAnimais.retornarAnimal();
 					for(Animais animal: listaAnimais) {
 						comboBoxSelecionarAnimal.addItem(animal);
@@ -951,53 +952,86 @@ public class TelaRegistroRecursos extends JFrame{
 				}
         	}
         });
-        btnRegistrarNoAnimal.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+		btnRegistrarNoAnimal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				Animais animal = (Animais) comboBoxSelecionarAnimal.getSelectedItem();
 				try {
+					//Bloco a ser executado caso ambos comboBox SelecionarVacina e Selecionar Medicamento sejam "Nenhum"
 					if (comboBoxSelecionarMedicamento.getSelectedItem() == "Nenhum"
 							&& comboBoxSelecionarVacina.getSelectedItem() == "Nenhum") {
 						throw new BusinessException("Selecione um Medicamento ou Vacina para registrar no animal!");
-					}
+					} 
+					//Bloco a ser executado caso apenas comboBox SelecionarVacina seja "Nenhum"
 					else if (comboBoxSelecionarVacina.getSelectedItem() == "Nenhum") {
 						Medicamentos medicamento = (Medicamentos) comboBoxSelecionarMedicamento.getSelectedItem();
 						RecursosService service = new RecursosService();
 						try {
+					//Verifica se o estoque possui medicamento selecionado
+							if (medicamento.getQuantidadeMedicamento() == 0) {
+								throw new BusinessException("Estoque de Medicamento está zerado!");
+							}
+					//Insere o medicamento no animal selecionado
 							service.inserirMedicamentoAnimal(animal, medicamento);
+							int novaQuantidade = medicamento.getQuantidadeMedicamento() - 1;
+							service.diminuirQuantidadeMedicamento(medicamento.getId(), novaQuantidade);
 							JOptionPane.showMessageDialog(null, "Medicamento atribuido com sucesso!!");
-							
+
 						} catch (SQLException e1) {
 							e1.printStackTrace();
-						}				
-					}
+						}
+					} 
+					// Bloco a ser executado caso apenas comboBox SelecionarMedicamento seja "Nenhum"
 					else if (comboBoxSelecionarMedicamento.getSelectedItem() == "Nenhum") {
 						Vacinas vacina = (Vacinas) comboBoxSelecionarVacina.getSelectedItem();
+					//Verifica se o estoque possui vacina selecionada
+						if (vacina.getQuantidadeVacina() == 0) {
+							throw new BusinessException("Estoque de Vacina está zerado!");
+						}
 						RecursosService service = new RecursosService();
 						try {
+					//Insere a vacina no animal selecionado
 							service.inserirVacinaAnimal(animal, vacina);
+							int novaQuantidade = vacina.getQuantidadeVacina() - 1;
+							service.diminuirQuantidadeVacina(vacina.getId(), novaQuantidade);
 							JOptionPane.showMessageDialog(null, "Vacina atribuida com sucesso!!");
-							
+
 						} catch (SQLException e1) {
 							e1.printStackTrace();
-						}		
+						}
+					} 
+					//Bloco a ser executado caso ambos comboBox SelecionarMedicamento e SelecionarVacina estejam selecionados
+					else {
+						Medicamentos medicamento = (Medicamentos) comboBoxSelecionarMedicamento.getSelectedItem();
+						Vacinas vacina = (Vacinas) comboBoxSelecionarVacina.getSelectedItem();
+					//Verifica se o estoque possui o medicamento selecionado
+						if (medicamento.getQuantidadeMedicamento() == 0) {
+							throw new BusinessException("Estoque de Medicamento está zerado!");
+						}
+					//Verifica se o estoque possui a vacina selecionada
+						if (vacina.getQuantidadeVacina() == 0) {
+							throw new BusinessException("Estoque de Vacina está zerado!");
+						}
+						RecursosService service = new RecursosService();
+						try {
+					//Insere ambos medicamento e vacinas selecionadas no animal
+							service.inserirMedicamentoAnimal(animal, medicamento);
+							int novaQuantidadeMedicamento = medicamento.getQuantidadeMedicamento() - 1;
+							service.diminuirQuantidadeMedicamento(medicamento.getId(), novaQuantidadeMedicamento);
+							service.inserirVacinaAnimal(animal, vacina);
+							int novaQuantidadeVacina = vacina.getQuantidadeVacina() - 1;
+							service.diminuirQuantidadeMedicamento(vacina.getId(), novaQuantidadeVacina);
+							JOptionPane.showMessageDialog(null, "Vacina e Medicamento atribuidos com sucesso!!");
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+
 					}
-					Medicamentos medicamento = (Medicamentos) comboBoxSelecionarMedicamento.getSelectedItem();
-					Vacinas vacina = (Vacinas) comboBoxSelecionarVacina.getSelectedItem();
-					RecursosService service = new RecursosService();
-					try {
-						service.inserirMedicamentoAnimal(animal, medicamento);
-						service.inserirVacinaAnimal(animal, vacina);
-						JOptionPane.showMessageDialog(null, "Vacina e Medicamento atribuidos com sucesso!!");	
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}				
-					
-				} catch (BusinessException e1) {		
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);		
+				} catch (BusinessException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);
 				}
-				
-        	}
-        });
+
+			}
+		});
         
         
         JLabel lblPetLifeNome = new JLabel("PetLife");

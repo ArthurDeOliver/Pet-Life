@@ -86,7 +86,7 @@ public class RecursosRepository {
 	private void createTableAnimaisVacinados() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais_vacinados (" + "id_animal int, "
-					+ "nome_animal VARCHAR(45), " + "id_Vacina int, "+ "nome_vacina VARCHAR(45),"
+					+ "nome_animal VARCHAR(45), " + "id_vacina int, "+ "nome_vacina VARCHAR(45),"
 					+ "FOREIGN KEY (id_animal) references animais (id), "
 					+ "FOREIGN KEY (id_Vacina) references vacinas (id_Vacina))";
 			statement.executeUpdate(sql);
@@ -296,5 +296,74 @@ public class RecursosRepository {
 				statement.execute();
 				}
 			}
-		
-}
+		//Verifica se o animal ja esta vacinado com Vacina Selecionada
+		public boolean animalJaVacinado(Animais animal, Vacinas vacina) throws SQLException {
+		    String sql = "SELECT * FROM animais_vacinados WHERE id_animal = ? AND id_vacina = ?";
+		    
+		    try (Connection connection = getConnection();
+		         PreparedStatement statement = connection.prepareStatement(sql)) {
+		        
+		        // Definindo os parâmetros antes de executar a consulta
+		        statement.setInt(1, animal.getID());
+		        statement.setInt(2, vacina.getId());
+		        
+		        // Executando a consulta
+		        try (ResultSet rs = statement.executeQuery()) {
+		            // Verificando se há algum resultado
+		            if (rs.next()) {
+		                return true; // O animal já está vacinado com essa vacina
+		            }
+		            return false; // O animal não está vacinado com essa vacina
+		        }
+		    }
+		}
+		public boolean animalJaMedicado(Animais animal, Medicamentos medicamento) throws SQLException {
+		    String sql = "SELECT * FROM animais_medicados WHERE id_animal = ? AND id_medicamento = ?";
+		    
+		    try (Connection connection = getConnection();
+		         PreparedStatement statement = connection.prepareStatement(sql)) {
+		        
+		        // Definindo os parâmetros antes de executar a consulta
+		        statement.setInt(1, animal.getID());
+		        statement.setInt(2, medicamento.getId());
+		        
+		        // Executando a consulta
+		        try (ResultSet rs = statement.executeQuery()) {
+		            // Verificando se há algum resultado
+		            if (rs.next()) {
+		                return true; // O animal já está vacinado com essa vacina
+		            }
+		            return false; // O animal não está vacinado com essa vacina
+		        }
+		    }
+		}
+		public void diminuirQuantidadeMedicamento(int id_Medicamento, int quantidadeNova) {
+			 String sql = "UPDATE medicamentos SET  Quantidade_Medicamento = ? WHERE id_Medicamento = ?";
+
+			    try (Connection connection = getConnection(); 
+			         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+			        statement.setInt(1, quantidadeNova);
+			        statement.setInt(2, id_Medicamento);
+			        statement.executeUpdate();
+
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			    }	
+		}
+		public void diminuirQuantidadeVacina(int id_Vacina, int quantidadeNova) {
+			 String sql = "UPDATE vacinas SET  Quantidade_Vacina = ? WHERE id_Vacina = ?";
+
+			    try (Connection connection = getConnection(); 
+			         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+			        statement.setInt(1, quantidadeNova);
+			        statement.setInt(2, id_Vacina);
+			        statement.executeUpdate();
+
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			    }	
+		}
+	
+		}
