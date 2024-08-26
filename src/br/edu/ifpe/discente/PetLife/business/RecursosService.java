@@ -42,18 +42,14 @@ public class RecursosService {
 	public List<Vacinas> retornarTodasVacinas() throws SQLException {
 		return this.repositoryR.listarTodasVacinas();
 	}
-	
-	public void carregarComboBoxMedicamentos(JComboBox combobox)  throws SQLException {
-    this.repositoryR.listarMedicamentosComboBox(combobox);
-}
-	public void carregarComboBoxRacoes(JComboBox combobox) throws SQLException{
-		this.repositoryR.listarRacoesComboBox(combobox);
-}
-	public void carregarComboBoxVacinas(JComboBox combobox) throws SQLException{
-		this.repositoryR.listarVacinasComboBox(combobox);
+	public void atualizarMedicamento(String novoNome, int novaQuantidade, double novoValor, int id) {
+		this.repositoryR.atualizarMedicamento(novoNome, novaQuantidade, novoValor, id);
+	}
+	public void atualizarRacao(String novoNome, double novaQuantidade, double novoValor, int id) {
+		this.repositoryR.atualizarRacao(novoNome, novaQuantidade, novoValor, id);
+	}
+	public void atualizarVacina(String novoNome, int novaQuantidade, double novoValor, int id) {
+		this.repositoryR.atualizarVacina(novoNome, novaQuantidade, novoValor, id);
 	}
 	
-	public void carregarAnimaisComboBox(JComboBox combobox) throws SQLException {
-		this.repositoryR.listarAnimaisComboBox(combobox);
-	}
 }

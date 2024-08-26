@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -22,7 +23,7 @@ public class RecursosRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "1234"; // editável
+	private static final String PASSWORD = "5972"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -41,9 +42,9 @@ public class RecursosRepository {
 
 	private void createTableMedicamento() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-			String sql = "CREATE TABLE IF NOT EXISTS medicamentos (" + "Nome_medicamento VARCHAR(45), "
+			String sql = "CREATE TABLE IF NOT EXISTS medicamentos ("+ "id_Medicamento INT AUTO_INCREMENT," + "Nome_Medicamento VARCHAR(45), "
 					+ "Quantidade_Medicamento INT, " + "Valor_Medicamento DECIMAL (10,2), "
-					+ "Primary key (Nome_Medicamento)) ";
+					+ "Primary key (id_Medicamento)) ";
 			statement.executeUpdate(sql);
 		}
 	}
@@ -52,8 +53,8 @@ public class RecursosRepository {
 
 	private void createTableRacao() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-			String sql = "CREATE TABLE IF NOT EXISTS racoes (" + "Marca_Racao VARCHAR(45), " + "Quantidade_Racao DECIMAL (10,2), "
-					+ "Valor_Racao DECIMAL (10,2), " + "Primary key (Marca_Racao)) ";
+			String sql = "CREATE TABLE IF NOT EXISTS racoes (" + "id_Racao INT AUTO_INCREMENT,"+ "Marca_Racao VARCHAR(45), " + "Quantidade_Racao DECIMAL (10,2), "
+					+ "Valor_Racao DECIMAL (10,2), " + "Primary key (id_Racao)) ";
 			statement.executeUpdate(sql);
 		}
 	}
@@ -62,8 +63,8 @@ public class RecursosRepository {
 
 	private void createTableVacina() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-			String sql = "CREATE TABLE IF NOT EXISTS vacinas (" + "Nome_Vacina VARCHAR(45), "
-					+ "Quantidade_Vacina INT, " + "Valor_Vacina DECIMAL (10,2), " + "Primary key (Nome_Vacina)) ";
+			String sql = "CREATE TABLE IF NOT EXISTS vacinas (" + "id_Vacina INT AUTO_INCREMENT,"+ "Nome_Vacina VARCHAR(45), "
+					+ "Quantidade_Vacina INT, " + "Valor_Vacina DECIMAL (10,2), " + "Primary key (id_Vacina)) ";
 			statement.executeUpdate(sql);
 		}
 	}
@@ -73,9 +74,9 @@ public class RecursosRepository {
 	private void createTableAnimaisMedicados() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais_medicados (" + "id_animal int, "
-					+ "nome_animal VARCHAR(45), " + "nome_Medicamento VARCHAR(45), "
+					+ "nome_animal VARCHAR(45), " + "id_Medicamento int, "
 					+ "FOREIGN KEY (id_animal) references animais (id), "
-					+ "FOREIGN KEY (nome_Medicamento) references medicamentos (Nome_medicamento))";
+					+ "FOREIGN KEY (id_Medicamento) references medicamentos (id_Medicamento))";
 			statement.executeUpdate(sql);
 		}
 	}
@@ -85,9 +86,9 @@ public class RecursosRepository {
 	private void createTableAnimaisVacinados() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais_vacinados (" + "id_animal int, "
-					+ "nome_animal VARCHAR(45), " + "vacina_animal VARCHAR(45), "
+					+ "nome_animal VARCHAR(45), " + "vacina_animal int, "
 					+ "FOREIGN KEY (id_animal) references animais (id), "
-					+ "FOREIGN KEY (vacina_animal) references vacinas (Nome_Vacina))";
+					+ "FOREIGN KEY (vacina_animal) references vacinas (id_Vacina))";
 			statement.executeUpdate(sql);
 		}
 	}
@@ -117,7 +118,7 @@ public class RecursosRepository {
 	// Inserir medicamento no banco de dados
 
 	public void criarMedicamento(Medicamentos medicamento) throws SQLException {
-		String sql = "INSERT INTO medicamentos (Nome_medicamento, Quantidade_Medicamento, Valor_Medicamento) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO medicamentos (Nome_Medicamento, Quantidade_Medicamento, Valor_Medicamento) VALUES (?, ?, ?)";
 		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 			statement.setString(1, medicamento.getNomeMedicamento());
 			statement.setInt(2, medicamento.getQuantidadeMedicamento());
@@ -145,7 +146,7 @@ public class RecursosRepository {
 	public List<Medicamentos> listarTodosMedicamentos() throws SQLException {
 		String sql = "SELECT * FROM medicamentos";
 
-		List<Medicamentos> listaDeMedicamentos = new ArrayList<>();
+		List<Medicamentos> listaDeMedicamentos = new LinkedList<>();
 
 		try (Connection connection = getConnection();
 
@@ -154,7 +155,7 @@ public class RecursosRepository {
 
 			while (rs.next()) {
 
-				Medicamentos medicamento = new Medicamentos(rs.getString("Nome_medicamento"),
+				Medicamentos medicamento = new Medicamentos(rs.getInt("id_Medicamento"),rs.getString("Nome_Medicamento"),
 						rs.getInt("Quantidade_Medicamento"), rs.getDouble("Valor_Medicamento"));
 				listaDeMedicamentos.add(medicamento);				
 			}
@@ -172,7 +173,7 @@ public class RecursosRepository {
 	public List<Racoes> listarTodasRacoes() throws SQLException {
 		String sql = "SELECT * FROM racoes";
 
-		List<Racoes> listaDeRacoes = new ArrayList<>();
+		List<Racoes> listaDeRacoes = new LinkedList<>();
 
 		try (Connection connection = getConnection();
 
@@ -181,7 +182,7 @@ public class RecursosRepository {
 
 			while (rs.next()) {
 
-				Racoes racao = new Racoes(rs.getString("Marca_Racao"), rs.getDouble("Quantidade_Racao"),
+				Racoes racao = new Racoes(rs.getInt("id_Racao"),rs.getString("Marca_Racao"), rs.getDouble("Quantidade_Racao"),
 						rs.getDouble("Valor_Racao"));
 				listaDeRacoes.add(racao);
 			}
@@ -199,7 +200,7 @@ public class RecursosRepository {
 	public List<Vacinas> listarTodasVacinas() throws SQLException {
 		String sql = "SELECT * FROM vacinas";
 
-		List<Vacinas> listaDeVacinas = new ArrayList<>();
+		List<Vacinas> listaDeVacinas = new LinkedList<>();
 
 		try (Connection connection = getConnection();
 
@@ -208,7 +209,7 @@ public class RecursosRepository {
 
 			while (rs.next()) {
 
-				Vacinas vacina = new Vacinas(rs.getString("Nome_Vacina"), rs.getInt("Quantidade_Vacina"),
+				Vacinas vacina = new Vacinas(rs.getInt("id_Vacina"),rs.getString("Nome_Vacina"), rs.getInt("Quantidade_Vacina"),
 						rs.getDouble("Valor_Vacina"));
 				listaDeVacinas.add(vacina);
 			}
@@ -219,89 +220,62 @@ public class RecursosRepository {
 		return listaDeVacinas;
 
 	}
-	
-	public void listarMedicamentosComboBox(JComboBox combobox) throws SQLException {
-		String sql = "SELECT * FROM medicamentos";
-
-
-		try (Connection connection = getConnection();
-				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
-				ResultSet rs = statement.executeQuery()) { // executa as consultas
-			combobox.removeAllItems();
-			combobox.addItem("Nenhum");
-			while (rs.next()) {
-			Medicamentos medicamento = new Medicamentos (rs.getString("Nome_medicamento"), rs.getInt("Quantidade_Medicamento"), rs.getDouble("Valor_Medicamento"));	
-            combobox.addItem(medicamento);           
-			}
-
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
-	 
-	public void listarRacoesComboBox(JComboBox combobox) throws SQLException{
-		String sql = "SELECT * FROM racoes";
-
-
-		try (Connection connection = getConnection();
-				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
-				ResultSet rs = statement.executeQuery()) { // executa as consultas
-			combobox.removeAllItems();
-			combobox.addItem("Nenhuma");
-			while (rs.next()) {
-            Racoes racao = new Racoes(rs.getString("Marca_Racao"), rs.getDouble("Quantidade_Racao"),rs.getDouble("Valor_Racao"));
-            combobox.addItem(racao);           
-			}
-
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void listarVacinasComboBox(JComboBox combobox) throws SQLException{
-		String sql = "SELECT * FROM vacinas";
-
-
-		try (Connection connection = getConnection();
-				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
-				ResultSet rs = statement.executeQuery()) { // executa as consultas
-			combobox.removeAllItems();
-			combobox.addItem("Nenhuma");
-			while (rs.next()) {
-            Vacinas vacina = new Vacinas(rs.getString("Nome_Vacina"), rs.getInt("Quantidade_Vacina"), rs.getDouble("Valor_Vacina"));
-            combobox.addItem(vacina);           
-			}			
+	public void atualizarMedicamento(String novoNome, int novaQuantidade, double novoValor, int id) {
 		
-		} catch (SQLException e) {
-			e.printStackTrace();
+	    String sql = "UPDATE medicamentos SET Nome_Medicamento = ?, Quantidade_Medicamento = ?, Valor_Medicamento = ? WHERE id_Medicamento = ?";
+
+	    try (Connection connection = getConnection(); 
+	         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	        statement.setString(1, novoNome);
+	        statement.setInt(2, novaQuantidade);
+	        statement.setDouble(3, novoValor);
+	        statement.setInt(4, id);  
+	        statement.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        }
+	    	
+	}
+	    public void atualizarRacao(String novoNome, Double novaQuantidade, double novoValor, int id) {
+			
+		    String sql = "UPDATE racoes SET Marca_Racao = ?, Quantidade_Racao = ?, Valor_Racao = ? WHERE id_Racao = ?";
+
+		    try (Connection connection = getConnection(); 
+		         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+		        statement.setString(1, novoNome);
+		        statement.setDouble(2, novaQuantidade);
+		        statement.setDouble(3, novoValor);
+		        statement.setInt(4, id);  
+		        statement.executeUpdate();
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        }
+		    	
 		}
-	}
-	
-	public void listarAnimaisComboBox(JComboBox combobox) throws SQLException{
-		String sql = "SELECT id, nome, tipo FROM animais";
-		try (Connection connection = getConnection();
-				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
-				ResultSet rs = statement.executeQuery()) { // executa as consultas
-			combobox.removeAllItems();
-			combobox.addItem("Selecionar");			
-			while (rs.next()) {
-            Animais animal = new Animais(rs.getInt("id"), rs.getString("nome"));           
-            combobox.addItem(animal);                      
-			}
-	}
+		public void atualizarVacina(String novoNome, int novaQuantidade, double novoValor, int id) {
 				
-}
-	public Medicamentos buscarMedicamentoSelecionado(String nomeMedicamento) throws SQLException{
-		String sql = "SELECT * FROM medicamentos where Nome_medicamento =?";
-		try (Connection connection = getConnection();
-				PreparedStatement statement = connection.prepareStatement(sql); // prepara as consultas no bd
-				ResultSet rs = statement.executeQuery()) { // executa as consultas
-			statement.setString(1, nomeMedicamento) ;
-		Medicamentos medicamento = new Medicamentos(rs.getString("Nome_medicamento"), rs.getInt("Quantidade_Medicamento"), rs.getDouble("Valor_Medicamento"));
-		return medicamento;
-	}
+			    String sql = "UPDATE vacinas SET Nome_Vacina = ?, Quantidade_Vacina = ?, Valor_Vacina = ? WHERE id_Vacina = ?";
+
+			    try (Connection connection = getConnection(); 
+			         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+			        statement.setString(1, novoNome);
+			        statement.setInt(2, novaQuantidade);
+			        statement.setDouble(3, novoValor);
+			        statement.setInt(4, id);  
+			        statement.executeUpdate();
+
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			    	
+			}
+	    
+	    
+	    
+	    
 }
 }

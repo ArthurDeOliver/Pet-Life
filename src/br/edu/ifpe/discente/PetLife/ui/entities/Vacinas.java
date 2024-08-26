@@ -5,11 +5,28 @@ public class Vacinas {
 	private String nomeVacina;
 	private int quantidadeVacina;
 	private double valorVacina;
+	private int id;
 	
 	public Vacinas(String nomeVacina, int quantidadeVacina, double valorVacina) {
 		this.nomeVacina = nomeVacina;
 		this.quantidadeVacina = quantidadeVacina;
 		this.valorVacina = valorVacina;
+	}
+
+	public Vacinas(int id,String nomeVacina, int quantidadeVacina, double valorVacina) {
+		this.id = id;
+		this.nomeVacina = nomeVacina;
+		this.quantidadeVacina = quantidadeVacina;
+		this.valorVacina = valorVacina;
+	}
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNomeVacina() {
@@ -38,6 +55,6 @@ public class Vacinas {
 	
 	@Override	
     public String toString() {	
-      return this.getNomeVacina();
+		return this.id + "-" + this.nomeVacina;
 }
 }
