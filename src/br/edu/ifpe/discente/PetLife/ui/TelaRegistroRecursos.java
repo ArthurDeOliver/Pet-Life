@@ -975,6 +975,7 @@ public class TelaRegistroRecursos extends JFrame{
 							int novaQuantidade = medicamento.getQuantidadeMedicamento() - 1;
 							service.diminuirQuantidadeMedicamento(medicamento.getId(), novaQuantidade);
 							JOptionPane.showMessageDialog(null, "Medicamento atribuido com sucesso!!");
+							dispose();
 
 						} catch (SQLException e1) {
 							e1.printStackTrace();
@@ -994,6 +995,7 @@ public class TelaRegistroRecursos extends JFrame{
 							int novaQuantidade = vacina.getQuantidadeVacina() - 1;
 							service.diminuirQuantidadeVacina(vacina.getId(), novaQuantidade);
 							JOptionPane.showMessageDialog(null, "Vacina atribuida com sucesso!!");
+							dispose();
 
 						} catch (SQLException e1) {
 							e1.printStackTrace();
@@ -1021,6 +1023,7 @@ public class TelaRegistroRecursos extends JFrame{
 							int novaQuantidadeVacina = vacina.getQuantidadeVacina() - 1;
 							service.diminuirQuantidadeMedicamento(vacina.getId(), novaQuantidadeVacina);
 							JOptionPane.showMessageDialog(null, "Vacina e Medicamento atribuidos com sucesso!!");
+							dispose();
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}

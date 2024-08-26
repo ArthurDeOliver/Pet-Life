@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.sql.SQLException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
+import br.edu.ifpe.discente.PetLife.business.RecursosService;
 import br.edu.ifpe.discente.PetLife.ui.entities.GraficoBarra;
 
 import javax.swing.JScrollPane;
@@ -96,12 +99,14 @@ public class Recursos extends JPanel {
 		btnRelatorio.setBounds(231, 413, 112, 23);
 		add(btnRelatorio);
 		
-		double Valor1 = 10.8; //teste
-		double Valor2 = 24.24; //teste
-		double Valor3 = 150.10; //teste
-		double Valor4 = 200.10; //teste
-		GraficoBarra grafico = new GraficoBarra(Valor1, Valor2, Valor3, Valor4); //teste
-		grafico.setBounds(391, 95, 503, 307); 
-		add(grafico); 
+		//Instanciamento do grafico
+		
+		RecursosService service = new RecursosService();
+		try {
+			GraficoBarra grafico = service.criarGrafico();
+			add(grafico);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

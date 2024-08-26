@@ -7,6 +7,7 @@ import javax.swing.JComboBox;
 
 import br.edu.ifpe.discente.PetLife.data.RecursosRepository;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+import br.edu.ifpe.discente.PetLife.ui.entities.GraficoBarra;
 import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
 import br.edu.ifpe.discente.PetLife.ui.entities.Racoes;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
@@ -126,5 +127,24 @@ public class RecursosService {
 	}
 	public void diminuirQuantidadeVacina(int id_Vacina, int quantidadeNova) throws SQLException, BusinessException {
 		this.repositoryR.diminuirQuantidadeVacina(id_Vacina, quantidadeNova);
+	}
+	public double retornarTotalRacoes() throws SQLException {
+		return this.repositoryR.totalValorRacoes();
+	}
+	public double retornarTotalMedicamentos() throws SQLException {
+		return this.repositoryR.totalValorMedicamentos();
+	}
+	public double retornarTotalVacinas() throws SQLException {
+		return this.repositoryR.totalValorVacinas();
+	}
+	public GraficoBarra criarGrafico() throws SQLException {
+		
+		double totalRacoes = this.repositoryR.totalValorRacoes();
+		double totalMedicamentos = this.repositoryR.totalValorMedicamentos();
+		double totalVacinas = this.repositoryR.totalValorVacinas();
+		double totalRecursos = totalRacoes + totalMedicamentos + totalVacinas;
+		GraficoBarra grafico = new GraficoBarra(totalRacoes, totalMedicamentos, totalVacinas, totalRecursos); 
+		grafico.setBounds(391, 95, 503, 307); 
+		return grafico;
 	}
 }

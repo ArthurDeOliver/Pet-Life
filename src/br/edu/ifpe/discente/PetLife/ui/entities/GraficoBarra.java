@@ -18,6 +18,11 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 public class GraficoBarra extends JPanel {
+	
+	private DefaultCategoryDataset dataset;
+    private JFreeChart grafico;
+    private ChartPanel graficoPanel;
+    
 	public GraficoBarra(double totalRacoes, double totalMedicamentos, double totalVacinas, double totalRecursos) {
 		CategoryDataset dataset = createDataSet(totalRacoes, totalMedicamentos, totalVacinas, totalRecursos);
 		JFreeChart grafico = createGrafico(dataset);
@@ -58,7 +63,6 @@ public class GraficoBarra extends JPanel {
 			  float brightness2 = 0.80f;
 	         plot.setBackgroundPaint(Color.getHSBColor(hue2,saturation2,brightness2));
 
-	        return graficoBarra;
-		
+	        return graficoBarra;	
 	}
 }

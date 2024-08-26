@@ -25,6 +25,7 @@ public class RecursosRepository {
 	private static final String USER = "root"; // editável
 	private static final String PASSWORD = "1234"; // editável
 
+
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
 	}
@@ -365,5 +366,81 @@ public class RecursosRepository {
 			        e.printStackTrace();
 			    }	
 		}
+
+		public double totalValorRacoes() throws SQLException {
+			String sql = "SELECT SUM(Valor_Racao) AS soma FROM racoes";
+
+			try (Connection connection = getConnection();
+					PreparedStatement statement = connection.prepareStatement(sql);
+					ResultSet rs = statement.executeQuery()) {
+
+				// Verifica se a consulta retornou algum resultado
+				if (rs.next()) {
+					// Se o valor de soma é nulo, retorna 0.0
+					double totalValorRacoes = rs.getDouble("soma");
+					if (rs.wasNull()) {
+						return 0.0;
+					}
+					return totalValorRacoes;
+				} else {
+					return 0.0; // Retorna 0 se não houver resultado
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e; // Re-lança a exceção se necessário
+			}
 	
 		}
+		public double totalValorMedicamentos() throws SQLException {
+			String sql = "SELECT SUM(Valor_Medicamento) AS soma FROM medicamentos";
+
+			try (Connection connection = getConnection();
+					PreparedStatement statement = connection.prepareStatement(sql);
+					ResultSet rs = statement.executeQuery()) {
+
+				// Verifica se a consulta retornou algum resultado
+				if (rs.next()) {
+					// Se o valor de soma é nulo, retorna 0.0
+					double totalValorMedicamentos = rs.getDouble("soma");
+					if (rs.wasNull()) {
+						return 0.0;
+					}
+					return totalValorMedicamentos;
+				} else {
+					return 0.0; // Retorna 0 se não houver resultado
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e; // Re-lança a exceção se necessário
+			}
+
+		}
+
+		public double totalValorVacinas() throws SQLException {
+			String sql = "SELECT SUM(Valor_Vacina) AS soma FROM Vacinas";
+
+			try (Connection connection = getConnection();
+					PreparedStatement statement = connection.prepareStatement(sql);
+					ResultSet rs = statement.executeQuery()) {
+
+				// Verifica se a consulta retornou algum resultado
+				if (rs.next()) {
+					// Se o valor de soma é nulo, retorna 0.0
+					double totalValorVacinas = rs.getDouble("soma");
+					if (rs.wasNull()) {
+						return 0.0;
+					}
+					return totalValorVacinas;
+				} else {
+					return 0.0; // Retorna 0 se não houver resultado
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e; // Re-lança a exceção se necessário
+			}
+
+		}
+}
