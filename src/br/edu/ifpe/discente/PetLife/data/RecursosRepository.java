@@ -74,7 +74,7 @@ public class RecursosRepository {
 	private void createTableAnimaisMedicados() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais_medicados (" + "id_animal int, "
-					+ "nome_animal VARCHAR(45), " + "id_Medicamento int, "
+					+ "nome_animal VARCHAR(45), " + "id_Medicamento int, " + "nome_medicamento VARCHAR(45),"
 					+ "FOREIGN KEY (id_animal) references animais (id), "
 					+ "FOREIGN KEY (id_Medicamento) references medicamentos (id_Medicamento))";
 			statement.executeUpdate(sql);
@@ -86,9 +86,9 @@ public class RecursosRepository {
 	private void createTableAnimaisVacinados() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais_vacinados (" + "id_animal int, "
-					+ "nome_animal VARCHAR(45), " + "vacina_animal int, "
+					+ "nome_animal VARCHAR(45), " + "id_Vacina int, "+ "nome_vacina VARCHAR(45),"
 					+ "FOREIGN KEY (id_animal) references animais (id), "
-					+ "FOREIGN KEY (vacina_animal) references vacinas (id_Vacina))";
+					+ "FOREIGN KEY (id_Vacina) references vacinas (id_Vacina))";
 			statement.executeUpdate(sql);
 		}
 	}
@@ -221,7 +221,7 @@ public class RecursosRepository {
 
 	}
 	// Atualizar Medicamento
-	public void atualizarMedicamento(String novoNome, int novaQuantidade, double novoValor, int id) {
+	public void atualizarMedicamento(String novoNome, int novaQuantidade, double novoValor, int id) throws SQLException  {
 		
 	    String sql = "UPDATE medicamentos SET Nome_Medicamento = ?, Quantidade_Medicamento = ?, Valor_Medicamento = ? WHERE id_Medicamento = ?";
 
@@ -240,7 +240,7 @@ public class RecursosRepository {
 	    	
 	}
 	// Atualizar Ração
-	    public void atualizarRacao(String novoNome, Double novaQuantidade, double novoValor, int id) {
+	    public void atualizarRacao(String novoNome, Double novaQuantidade, double novoValor, int id) throws SQLException {
 			
 		    String sql = "UPDATE racoes SET Marca_Racao = ?, Quantidade_Racao = ?, Valor_Racao = ? WHERE id_Racao = ?";
 
@@ -259,7 +259,7 @@ public class RecursosRepository {
 		    	
 		}
 	    //Atualizar Vacina
-		public void atualizarVacina(String novoNome, int novaQuantidade, double novoValor, int id) {
+		public void atualizarVacina(String novoNome, int novaQuantidade, double novoValor, int id) throws SQLException {
 				
 			    String sql = "UPDATE vacinas SET Nome_Vacina = ?, Quantidade_Vacina = ?, Valor_Vacina = ? WHERE id_Vacina = ?";
 
@@ -274,8 +274,27 @@ public class RecursosRepository {
 
 			    } catch (SQLException e) {
 			        e.printStackTrace();
-			    	
+			    }	
 			}
-			    
-}
+		public void inserirMedicamentoAnimal(Animais animal, Medicamentos medicamento) throws SQLException {
+				String sql = "INSERT INTO animais_medicados (id_animal, nome_animal, id_Medicamento, nome_medicamento) VALUES (?, ?, ?, ?)";
+				try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+					statement.setInt(1, animal.getID());
+					statement.setString(2, animal.getNome());
+					statement.setInt(3, medicamento.getId());
+					statement.setString(4, medicamento.getNomeMedicamento());
+					statement.execute();
+					}
+				}
+		public void inserirVacinaAnimal(Animais animal, Vacinas vacina) throws SQLException {
+			String sql = "INSERT INTO animais_vacinados (id_animal, nome_animal, id_Vacina, nome_Vacina) VALUES (?, ?, ?, ?)";
+			try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+				statement.setInt(1, animal.getID());
+				statement.setString(2, animal.getNome());
+				statement.setInt(3, vacina.getId());
+				statement.setString(4, vacina.getNomeVacina());
+				statement.execute();
+				}
+			}
+		
 }

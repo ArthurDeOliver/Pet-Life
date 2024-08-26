@@ -908,9 +908,13 @@ public class TelaRegistroRecursos extends JFrame{
         		String novoNome = textFieldNomeMedicamento.getText();
         		int novaQuantidade = Integer.parseInt(textFieldQuantidadeMedicamento.getText());
         		float novoValor = Float.parseFloat(textFieldValorMedicamento.getText());
-        		service.atualizarMedicamento(novoNome, novaQuantidade, novoValor, medicamento.getId());
-        		JOptionPane.showMessageDialog(null, "Medicamento atualizado com sucesso!!");
-        		dispose();
+        		try {
+					service.atualizarMedicamento(novoNome, novaQuantidade, novoValor, medicamento.getId());
+					JOptionPane.showMessageDialog(null, "Medicamento atualizado com sucesso!!");
+					dispose();
+				} catch (SQLException | BusinessException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);		
+				}
         	}
         });
         //Atualiza os dados da Ração no Banco de dados
@@ -921,9 +925,13 @@ public class TelaRegistroRecursos extends JFrame{
         		String novoNome = textFieldNomeMarcaRacao.getText();
         		Float novaQuantidade = Float.parseFloat(textFieldQuantidadeRacao.getText());
         		float novoValor = Float.parseFloat(textFieldValorRacao.getText());
-        		service.atualizarRacao(novoNome, novaQuantidade, novoValor, racao.getId());
-        		JOptionPane.showMessageDialog(null, "Ração atualizada com sucesso!!");
-        		dispose();
+        		try {
+					service.atualizarRacao(novoNome, novaQuantidade, novoValor, racao.getId());
+					JOptionPane.showMessageDialog(null, "Ração atualizada com sucesso!!");
+					dispose();
+				} catch (SQLException | BusinessException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);		
+				}
         	}
         });
         //Atualiza os dados da Vacina no Banco de dados
@@ -934,9 +942,60 @@ public class TelaRegistroRecursos extends JFrame{
         		String novoNome = textFieldNomeVacina.getText();
         		int novaQuantidade = Integer.parseInt(textFieldQuantidadeVacina.getText());
         		float novoValor = Float.parseFloat(textFieldValorVacina.getText());
-        		service.atualizarVacina(novoNome, novaQuantidade, novoValor, vacina.getId());
-        		JOptionPane.showMessageDialog(null, "Vacina atulizada com sucesso!!");
-        		dispose();
+        		try {
+					service.atualizarVacina(novoNome, novaQuantidade, novoValor, vacina.getId());
+					JOptionPane.showMessageDialog(null, "Vacina atulizada com sucesso!!");
+					dispose();
+				} catch (SQLException | BusinessException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);		
+				}
+        	}
+        });
+        btnRegistrarNoAnimal.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+				Animais animal = (Animais) comboBoxSelecionarAnimal.getSelectedItem();
+				try {
+					if (comboBoxSelecionarMedicamento.getSelectedItem() == "Nenhum"
+							&& comboBoxSelecionarVacina.getSelectedItem() == "Nenhum") {
+						throw new BusinessException("Selecione um Medicamento ou Vacina para registrar no animal!");
+					}
+					else if (comboBoxSelecionarVacina.getSelectedItem() == "Nenhum") {
+						Medicamentos medicamento = (Medicamentos) comboBoxSelecionarMedicamento.getSelectedItem();
+						RecursosService service = new RecursosService();
+						try {
+							service.inserirMedicamentoAnimal(animal, medicamento);
+							JOptionPane.showMessageDialog(null, "Medicamento atribuido com sucesso!!");
+							
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}				
+					}
+					else if (comboBoxSelecionarMedicamento.getSelectedItem() == "Nenhum") {
+						Vacinas vacina = (Vacinas) comboBoxSelecionarVacina.getSelectedItem();
+						RecursosService service = new RecursosService();
+						try {
+							service.inserirVacinaAnimal(animal, vacina);
+							JOptionPane.showMessageDialog(null, "Vacina atribuida com sucesso!!");
+							
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}		
+					}
+					Medicamentos medicamento = (Medicamentos) comboBoxSelecionarMedicamento.getSelectedItem();
+					Vacinas vacina = (Vacinas) comboBoxSelecionarVacina.getSelectedItem();
+					RecursosService service = new RecursosService();
+					try {
+						service.inserirMedicamentoAnimal(animal, medicamento);
+						service.inserirVacinaAnimal(animal, vacina);
+						JOptionPane.showMessageDialog(null, "Vacina e Medicamento atribuidos com sucesso!!");	
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}				
+					
+				} catch (BusinessException e1) {		
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);		
+				}
+				
         	}
         });
         
