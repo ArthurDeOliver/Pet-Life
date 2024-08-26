@@ -1,3 +1,4 @@
+
 package br.edu.ifpe.discente.PetLife.business;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,8 +16,7 @@ public class AnimaisService {
 	}
 	
 	public void criarAnimal (Animais animal) throws SQLException { 
-		if (animal.getNome() == null || animal.getNome().isEmpty() || Integer.toString(animal.getIdade()).equals("")  ||
-		        animal.getTipo() == null || animal.getTipo().isEmpty()) {
+		if (animal.getNome() == null || animal.getNome().isEmpty() || Integer.toString(animal.getIdade()).equals("")) {
 		        throw new IllegalArgumentException("Todos os campos de texto são obrigatórios.");
 		    }
 		
@@ -45,12 +45,10 @@ public class AnimaisService {
 	
 		
 	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String foto, int id) throws SQLException {
-		if (nome == null || nome.isEmpty() ||
-		        tipo == null || tipo.isEmpty() ||
-		        raca == null || raca.isEmpty() ||
-		        status == null || status.isEmpty()) {
+			if (nome == null || nome.isEmpty() || Integer.toString(idade).equals("")) {
 		        throw new IllegalArgumentException("Todos os campos de texto são obrigatórios.");
 		    }
+			
 
 		    if (idade < 0) {
 		        throw new IllegalArgumentException("A idade deve ser um número positivo.");
@@ -59,10 +57,7 @@ public class AnimaisService {
 		    if (racao < 0) {
 		        throw new IllegalArgumentException("A quantidade de ração deve ser um número positivo.");
 		    }
-
-		    if (id <= 0) {
-		        throw new IllegalArgumentException("O ID deve ser um número positivo.");
-		    }    
+ 
 		    
 		    repositoryA.atualizarAnimal(nome, idade, tipo, raca, racao, status, foto, id);
 	}
