@@ -179,6 +179,7 @@ public class Adocao extends JPanel {
 		} catch (Exception e) {
 
 		}
+		 recarregarTabelaAptos();
 
 
 	}

@@ -48,6 +48,7 @@ public class TelaEdicaoPet extends JFrame {
 	private Animais animalSelecionado;
 	private int petID;
 	private Pets mainWindow;
+	private Adocao mainWindowAdocao;
 	private JRadioButton RadioButtonSemRacaPet;
 	private JRadioButton RadioButtonRacaDefinidaPet;
 	private FileInputStream fis;
@@ -56,8 +57,9 @@ public class TelaEdicaoPet extends JFrame {
 	
 	
 	
-	public TelaEdicaoPet(Pets mainWindow) {
+	public TelaEdicaoPet(Pets mainWindow, Adocao mainWindowAdocao) {
 		this.mainWindow = mainWindow;
+		this.mainWindowAdocao = mainWindowAdocao;
 		setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 580, 455);
@@ -244,6 +246,7 @@ public class TelaEdicaoPet extends JFrame {
 
                         JOptionPane.showMessageDialog(null, "Animal atualizado com sucesso!");
                         mainWindow.recarregarTabela();
+                        mainWindow.recarregarTabelaAptos();
                         Window window = SwingUtilities.getWindowAncestor(TelaEdicaoPet.this);
                         dispose();    
 
