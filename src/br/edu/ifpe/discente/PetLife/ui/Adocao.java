@@ -114,11 +114,13 @@ public class Adocao extends JPanel {
 	            
 	            JTable tabelaAdotaveis = TabelaAdotaveis.getTabela();
 	            tabelaAdotaveis.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	            recarregarTabelaAptos();
 				
 	            tabelaAdotaveis.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
+						
 						int linhaSelecionada = tabelaAdotaveis.getSelectedRow();
-
+						recarregarTabelaAptos();
 						if (linhaSelecionada >= 0) { 
 							int idAnimal = (int) tabelaAdotaveis.getValueAt(linhaSelecionada, 0);
 
