@@ -220,6 +220,7 @@ public class RecursosRepository {
 		return listaDeVacinas;
 
 	}
+	// Atualizar Medicamento
 	public void atualizarMedicamento(String novoNome, int novaQuantidade, double novoValor, int id) {
 		
 	    String sql = "UPDATE medicamentos SET Nome_Medicamento = ?, Quantidade_Medicamento = ?, Valor_Medicamento = ? WHERE id_Medicamento = ?";
@@ -238,6 +239,7 @@ public class RecursosRepository {
 	        }
 	    	
 	}
+	// Atualizar Ração
 	    public void atualizarRacao(String novoNome, Double novaQuantidade, double novoValor, int id) {
 			
 		    String sql = "UPDATE racoes SET Marca_Racao = ?, Quantidade_Racao = ?, Valor_Racao = ? WHERE id_Racao = ?";
@@ -256,6 +258,7 @@ public class RecursosRepository {
 		        }
 		    	
 		}
+	    //Atualizar Vacina
 		public void atualizarVacina(String novoNome, int novaQuantidade, double novoValor, int id) {
 				
 			    String sql = "UPDATE vacinas SET Nome_Vacina = ?, Quantidade_Vacina = ?, Valor_Vacina = ? WHERE id_Vacina = ?";
@@ -273,9 +276,6 @@ public class RecursosRepository {
 			        e.printStackTrace();
 			    	
 			}
-	    
-	    
-	    
-	    
+			    
 }
 }

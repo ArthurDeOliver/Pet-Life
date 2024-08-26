@@ -9,6 +9,7 @@ import br.edu.ifpe.discente.PetLife.data.RecursosRepository;
 import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
 import br.edu.ifpe.discente.PetLife.ui.entities.Racoes;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
+import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 
 public class RecursosService {
 
@@ -18,16 +19,42 @@ public class RecursosService {
 		this.repositoryR = new RecursosRepository();
 	}
 
-	public void criarVacina(Vacinas vacina) throws SQLException {
-
+	public void criarVacina(Vacinas vacina) throws SQLException, BusinessException {
+		if(vacina.getNomeVacina().trim().isEmpty()) {
+			throw new BusinessException("O nome da Vacina não pode ser vazio!!");
+		}
+		if(vacina.getQuantidadeVacina() == 0) {
+			throw new BusinessException("A quantidade de Vacinas precisa ser um numero maior que 0!");
+		}
+		if(vacina.getValorVacina() == 0) {
+			throw new BusinessException("O valor da Vacina precisa ser um valor maior que 0!");
+		}
 		this.repositoryR.criarVacina(vacina);
 	}
 
-	public void criarMedicamento(Medicamentos medicamento) throws SQLException {
+	public void criarMedicamento(Medicamentos medicamento) throws SQLException, BusinessException {
+		if(medicamento.getNomeMedicamento().trim().isEmpty()) {
+			throw new BusinessException("O nome do Medicamento não pode ser vazio!!");
+		}
+		if(medicamento.getQuantidadeMedicamento() == 0) {
+			throw new BusinessException("A quantidade de Medicamentos precisa ser um numero maior que 0!");
+		}
+		if(medicamento.getValorMedicamento() == 0) {
+			throw new BusinessException("O valor do Medicamento precisa ser um valor maior que 0!");
+		}
 		this.repositoryR.criarMedicamento(medicamento);
 	}
 
-	public void criarRacao(Racoes racao) throws SQLException {
+	public void criarRacao(Racoes racao) throws SQLException, BusinessException {
+		if(racao.getMarcaRacao().trim().isEmpty()) {
+			throw new BusinessException("O nome da Ração não pode ser vazio!!");
+		}
+		if(racao.getQuantidadeRacao() == 0) {
+			throw new BusinessException("A quantidade de Rações precisa ser um numero maior que 0!");
+		}
+		if(racao.getValorRacao() == 0) {
+			throw new BusinessException("O valor da Ração precisa ser um valor maior que 0!");
+		}
 		this.repositoryR.criarRacao(racao);
 	}
 

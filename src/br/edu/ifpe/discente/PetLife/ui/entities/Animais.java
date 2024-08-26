@@ -110,6 +110,6 @@ public class Animais {
 	
 	@Override
 	public String toString() { 
-    return this.getNome();
+    return this.id + " - " + this.getNome();
 }
 }
