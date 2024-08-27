@@ -114,13 +114,11 @@ public class Adocao extends JPanel {
 	            
 	            JTable tabelaAdotaveis = TabelaAdotaveis.getTabela();
 	            tabelaAdotaveis.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	            recarregarTabelaAptos();
 				
 	            tabelaAdotaveis.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
-						
 						int linhaSelecionada = tabelaAdotaveis.getSelectedRow();
-						recarregarTabelaAptos();
+
 						if (linhaSelecionada >= 0) { 
 							int idAnimal = (int) tabelaAdotaveis.getValueAt(linhaSelecionada, 0);
 
@@ -202,7 +200,7 @@ public class Adocao extends JPanel {
 
 				for (Animais animal : listaPetsAdotaveis) {
 					modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(), animal.getRaca(),
-							animal.getRacao(), animal.getStatus(), animal.getVacina(), animal.getFoto() });
+							animal.getRacao(), animal.getStatus(), animal.getVacina(), });
 				}
 
 				TabelaAdotaveis.getTabela().clearSelection();
@@ -245,4 +243,3 @@ public class Adocao extends JPanel {
 			
 			
 }
-

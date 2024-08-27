@@ -1,6 +1,7 @@
 package br.edu.ifpe.discente.PetLife.ui;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -22,6 +23,8 @@ import javax.swing.JTable;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ScrollPaneConstants;
@@ -111,6 +114,7 @@ public class Pets extends JPanel {
 						for (Animais animal : listaDeAnimais) {
 							if (animal.getID() == idAnimal) {
 								animalSelecionado = animal;
+								animalSelecionado.setFoto(animal.getFoto());
 								break;
 							}
 						}
@@ -122,8 +126,26 @@ public class Pets extends JPanel {
 							textFieldIdadePet.setText(String.valueOf(animalSelecionado.getIdade()));
 							textFieldStatusPet.setText(animalSelecionado.getStatus());
 
-							ImageIcon foto = new ImageIcon(animalSelecionado.getFoto());
-							labelFotoPet.setIcon(foto);
+			                    String fileName = animalSelecionado.getID() + "_" + animalSelecionado.getNome();
+			                    String appDataPath = System.getenv("APPDATA");
+			                    File appDataDir = new File(appDataPath, "Petlife/Imagens");
+			                    File file = new File(appDataDir, fileName);
+
+			                    if (file.exists()) {
+			                    	ImageIcon originalIcon = new ImageIcon(file.getAbsolutePath());
+			                        Image originalImage = originalIcon.getImage();
+
+			                        int labelLargura = labelFotoPet.getWidth();
+			                        int labelAltura = labelFotoPet.getHeight();
+
+			                        Image imagemAjustada = originalImage.getScaledInstance(labelLargura, labelAltura, Image.SCALE_SMOOTH);
+
+			                        ImageIcon resizedIcon = new ImageIcon(imagemAjustada);
+			                        labelFotoPet.setIcon(resizedIcon);
+			                    } else {
+			                        labelFotoPet.setIcon(null);
+			                    }
+			                
 
 							btnEditarPets.setEnabled(true);
 							btnExcluirPets.setEnabled(true);
@@ -165,7 +187,7 @@ public class Pets extends JPanel {
 						modelo.addRow(new Object[] { // colocndo anmais filtrados
 								animalFiltrado.getID(), animalFiltrado.getNome(), animalFiltrado.getTipo(), animalFiltrado.getIdade(),
 								animalFiltrado.getRaca(), animalFiltrado.getRacao(), animalFiltrado.getStatus(),
-								animalFiltrado.getVacina(), animalFiltrado.getFoto() });
+								animalFiltrado.getVacina() });
 					}
 
 				}
@@ -237,7 +259,7 @@ public class Pets extends JPanel {
 
 		JLabel labelImagemPet = new JLabel("Foto");
 		labelImagemPet.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelImagemPet.setBounds(582, 106, 46, 14);
+		labelImagemPet.setBounds(638, 105, 46, 14);
 		add(labelImagemPet);
 
 		JLabel labelIdadePet = new JLabel("Idade");
@@ -296,7 +318,7 @@ public class Pets extends JPanel {
 		add(textFieldStatusPet);
 
 		labelFotoPet = new JLabel("");
-		labelFotoPet.setBounds(520, 131, 140, 140);
+		labelFotoPet.setBounds(579, 125, 140, 119);
 		add(labelFotoPet);
 
 	}
@@ -316,7 +338,7 @@ public class Pets extends JPanel {
 
 			for (Animais animal : listaDeAnimais) {
 				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(), animal.getRaca(),
-						animal.getRacao(), animal.getStatus(), animal.getVacina(), animal.getFoto() });
+						animal.getRacao(), animal.getStatus(), animal.getVacina()});
 			}
 
 			tabelaAnimal.getTabela().clearSelection();
@@ -343,7 +365,7 @@ public class Pets extends JPanel {
 
 		for (Animais animal : listaPetsAdotaveis) {
 			modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(), animal.getRaca(),
-					animal.getRacao(), animal.getStatus(), animal.getVacina(), animal.getFoto() });
+					animal.getRacao(), animal.getStatus(), animal.getVacina()});
 		}
 
 		TabelaAdotaveis.getTabela().clearSelection();
