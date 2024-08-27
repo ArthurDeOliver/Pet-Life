@@ -23,7 +23,7 @@ public class RecursosRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "@Luan018515"; // editável
+	private static final String PASSWORD = "1234567"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -84,8 +84,8 @@ public class RecursosRepository {
 	private void createTableAnimaisMedicados() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais_medicados (" + "id_animal int, "
-					+ "nome_animal VARCHAR(45), " + "id_Medicamento int, " + "nome_medicamento VARCHAR(45),"
-					+ "FOREIGN KEY (id_animal) references animais (id), "
+					+ "nome_animal VARCHAR(45), " + "id_Medicamento int, " + "nome_medicamento VARCHAR(45)," + "valor_medicamento DECIMAL (10,2), " +
+					 "FOREIGN KEY (id_animal) references animais (id), "
 					+ "FOREIGN KEY (id_Medicamento) references medicamentos (id_Medicamento))";
 			statement.executeUpdate(sql);
 		} catch (Exception e) {
@@ -98,7 +98,7 @@ public class RecursosRepository {
 	private void createTableAnimaisVacinados() throws SQLException {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais_vacinados (" + "id_animal int, "
-					+ "nome_animal VARCHAR(45), " + "id_vacina int, " + "nome_vacina VARCHAR(45),"
+					+ "nome_animal VARCHAR(45), " + "id_vacina int, " + "nome_vacina VARCHAR(45)," + "valor_vacina DECIMAL (10,2),"
 					+ "FOREIGN KEY (id_animal) references animais (id), "
 					+ "FOREIGN KEY (id_Vacina) references vacinas (id_Vacina))";
 			statement.executeUpdate(sql);
@@ -298,12 +298,13 @@ public class RecursosRepository {
 	}
 
 	public void inserirMedicamentoAnimal(Animais animal, Medicamentos medicamento) throws SQLException {
-		String sql = "INSERT INTO animais_medicados (id_animal, nome_animal, id_Medicamento, nome_medicamento) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO animais_medicados (id_animal, nome_animal, id_Medicamento, nome_medicamento, valor_medicamento) VALUES (?, ?, ?, ?, ?)";
 		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 			statement.setInt(1, animal.getID());
 			statement.setString(2, animal.getNome());
 			statement.setInt(3, medicamento.getId());
 			statement.setString(4, medicamento.getNomeMedicamento());
+			statement.setDouble(5, medicamento.getValorMedicamento());
 			statement.execute();
 		} catch (Exception e) {
 			throw new SQLException("Erro ao inserir medicamento");
@@ -311,12 +312,13 @@ public class RecursosRepository {
 	}
 
 	public void inserirVacinaAnimal(Animais animal, Vacinas vacina) throws SQLException {
-		String sql = "INSERT INTO animais_vacinados (id_animal, nome_animal, id_Vacina, nome_Vacina) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO animais_vacinados (id_animal, nome_animal, id_Vacina, nome_Vacina, valor_vacina) VALUES (?, ?, ?, ?, ?)";
 		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 			statement.setInt(1, animal.getID());
 			statement.setString(2, animal.getNome());
 			statement.setInt(3, vacina.getId());
 			statement.setString(4, vacina.getNomeVacina());
+			statement.setDouble(5, vacina.getValorVacina());
 			statement.execute();
 		} catch (Exception e) {
 			throw new SQLException("Erro ao inserir vacina");
@@ -408,11 +410,11 @@ public class RecursosRepository {
 				// Se o valor de soma é nulo, retorna 0.0
 				double totalValorRacoes = rs.getDouble("soma");
 				if (rs.wasNull()) {
-					return 0.0;
+					return 0;
 				}
 				return totalValorRacoes;
 			} else {
-				return 0.0; // Retorna 0 se não houver resultado
+				return 0; // Retorna 0 se não houver resultado
 			}
 
 		} catch(Exception e) {
@@ -433,11 +435,11 @@ public class RecursosRepository {
 				// Se o valor de soma é nulo, retorna 0.0
 				double totalValorMedicamentos = rs.getDouble("soma");
 				if (rs.wasNull()) {
-					return 0.0;
+					return 0;
 				}
 				return totalValorMedicamentos;
 			} else {
-				return 0.0; // Retorna 0 se não houver resultado
+				return 0; // Retorna 0 se não houver resultado
 			}
 
 		}catch(Exception e) {
@@ -462,12 +464,25 @@ public class RecursosRepository {
 				}
 				return totalValorVacinas;
 			} else {
-				return 0.0; // Retorna 0 se não houver resultado
+				return 0; // Retorna 0 se não houver resultado
 			}
 
 		} catch(Exception e) {
 			throw new SQLException("Erro ao determinar valor total das vacinas");
 		}
-
+	}
+	public double totalGastosAnimal(Animais animal) throws SQLException {
+		String sql = "SELECT (SELECT SUM(valor_vacina) FROM animais_vacinados WHERE id_animal = ?) "
+				+ "+ (SELECT SUM(valor_medicamento) FROM animais_medicados WHERE id_animal = ?) AS total_soma";
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql);
+				ResultSet rs = statement.executeQuery()) {
+			statement.setInt(1, animal.getID());
+			statement.setInt(2, animal.getID());
+			rs.getDouble("total_soma");
+			return 0;
+		} catch(Exception e) {
+			throw new SQLException("Erro ao determinar valor total das vacinas");
+		}
 	}
 }
