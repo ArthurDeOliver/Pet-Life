@@ -147,4 +147,7 @@ public class RecursosService {
 		grafico.setBounds(391, 95, 503, 307); 
 		return grafico;
 	}
+	public double totalGastosAnimal(Animais animal) throws SQLException {
+		return this.repositoryR.totalGastosAnimal(animal);
+	}
 }

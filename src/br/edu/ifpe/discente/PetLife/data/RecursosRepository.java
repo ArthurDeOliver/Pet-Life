@@ -472,17 +472,29 @@ public class RecursosRepository {
 		}
 	}
 	public double totalGastosAnimal(Animais animal) throws SQLException {
-		String sql = "SELECT (SELECT SUM(valor_vacina) FROM animais_vacinados WHERE id_animal = ?) "
-				+ "+ (SELECT SUM(valor_medicamento) FROM animais_medicados WHERE id_animal = ?) AS total_soma";
-		try (Connection connection = getConnection();
-				PreparedStatement statement = connection.prepareStatement(sql);
-				ResultSet rs = statement.executeQuery()) {
-			statement.setInt(1, animal.getID());
-			statement.setInt(2, animal.getID());
-			rs.getDouble("total_soma");
-			return 0;
-		} catch(Exception e) {
-			throw new SQLException("Erro ao determinar valor total das vacinas");
-		}
+	    String sql = "SELECT ("
+	               + "SELECT COALESCE(SUM(valor_vacina), 0) FROM animais_vacinados WHERE id_animal = ?"
+	               + ") + ("
+	               + "SELECT COALESCE(SUM(valor_medicamento), 0) FROM animais_medicados WHERE id_animal = ?"
+	               + ") AS total_soma";
+
+	    try (Connection connection = getConnection();
+	         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	        // Configurando os parâmetros para ambas as subconsultas
+	        statement.setInt(1, animal.getID());
+	        statement.setInt(2, animal.getID());
+
+	        try (ResultSet rs = statement.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getDouble("total_soma");
+	            } else {
+	                return 0; // Retorna 0 se não houver resultado
+	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new SQLException("Erro ao determinar valor total dos gastos do animal.", e);
+	    }
 	}
+
 }
