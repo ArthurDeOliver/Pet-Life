@@ -96,22 +96,22 @@ public class Home extends JPanel {
         add(tblRecursos);
 
         try {
+   
             HomeService homeService = new HomeService();
 
             listaAnimais = homeService.retornarAnimal();
+            
             listaAdotados = homeService.listarAdocoes();
 
             listaRacao = homeService.retornarTodasRacoes();
             listaMedicamento = homeService.retornarTodosMedicamentos();
             listaVacina = homeService.retornarTodasVacinas();
-
             listaDeRecursos = new ArrayList<>();
             listaDeRecursos.addAll(listaRacao);
             listaDeRecursos.addAll(listaMedicamento);
             listaDeRecursos.addAll(listaVacina);
 
-            
-            criarTabelaPetsHome();
+            criarTabelasHome();
             
 
         } catch (BusinessException | SQLException e) {
@@ -133,57 +133,90 @@ public class Home extends JPanel {
             // Recria a tabela
             tblPets = new JTable();
         } 
+        
+        if (tblAdotados != null) {
+            Component[] components = getComponents();
+            for (Component component : components) {
+                if (component instanceof JScrollPane && ((JScrollPane) component).getViewport().getView() == tblAdotados) {
+                    remove(component);
+                    break;
+                }
+            }
+
+            // Recria a tabela
+            tblAdotados = new JTable();
+        } 
 
         // Configura uma nova tabela
-        criarTabelaPetsHome();
+        criarTabelasHome();
     }
     
-    public void criarTabelaPetsHome() {
-    	
-    	System.out.println("entrou na criação da tabela");
-    	
-        // Cria um modelo de tabela com as colunas "Nome" e "Tipo"
+    public void criarTabelasHome() {
+
+        // TABELA PETS
         DefaultTableModel tabelaPetHome = new DefaultTableModel();
         tabelaPetHome.addColumn("Nome");
-        tabelaPetHome.addColumn("Tipo");
+        tabelaPetHome.addColumn("Espécie");
 
-        // Atualiza a lista de animais antes de preencher a tabela
+        // TABELA ADOCAO
+        DefaultTableModel tabelaAdocaoHome = new DefaultTableModel();
+        tabelaAdocaoHome.addColumn("Nome");
+        tabelaAdocaoHome.addColumn("Espécie");
+        tabelaAdocaoHome.addColumn("Tutor");
+        tabelaAdocaoHome.addColumn("Telefone");
+
         try {
             HomeService homeService = new HomeService();
             listaAnimais = homeService.retornarAnimal();
-            
+            listaAdotados = homeService.listarAdocoes();
+
         } catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao criat tabela de pets da home", JOptionPane.ERROR_MESSAGE);
-		}
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao criar tabelas da home", JOptionPane.ERROR_MESSAGE);
+        }
 
         int totalAnimais = listaAnimais.size();
-//        System.out.println("Total de Animais: " + totalAnimais);
+        int totalAdotados = listaAdotados.size();
 
         if (totalAnimais > 0) {
+            // Preenche a tabela de pets
             for (Animais pet : listaAnimais) {
                 String nome = pet.getNome();
-                String raca = pet.getRaca();
+                String tipo = pet.getTipo();
                 String status = pet.getStatus();
 
                 if ("Não apto".equals(status)) {
-                    tabelaPetHome.addRow(new Object[]{nome, raca});
+                    tabelaPetHome.addRow(new Object[]{nome, tipo});
                 }
             }
         } else {
-            // Adiciona uma linha indicando que não há registros
             tabelaPetHome.addRow(new Object[]{"Sem ", "cadastros!"});
         }
 
-        // Define o modelo da tabela
-        tblPets.setModel(tabelaPetHome);
+        if (totalAdotados > 0) {
+            // Preenche a tabela de adoções
+            for (Adocoes petAdotado : listaAdotados) {
+                String nomePet = petAdotado.getNomePet();
+                String tipo = petAdotado.getTipoPet();
+                String nomeTutor = petAdotado.getNomeTutor();
+                String telTutor = petAdotado.getTelefone();
 
-        // Se o scroll pane ainda não foi adicionado, adicione-o
+                tabelaAdocaoHome.addRow(new Object[]{nomePet, tipo, nomeTutor, telTutor});
+            }
+        }
+
+        // Configura a tabela de pets
+        tblPets.setModel(tabelaPetHome);
         JScrollPane scrollPanePets = new JScrollPane(tblPets);
         scrollPanePets.setBounds(77, 198, 169, 186);
         this.add(scrollPanePets);
-    }
 
-  //mandar pro repositorio
+        // Configura a tabela de adoções
+        tblAdotados.setModel(tabelaAdocaoHome);
+        JScrollPane scrollPaneAdotados = new JScrollPane(tblAdotados);
+        scrollPaneAdotados.setBounds(355, 198, 169, 186);
+        this.add(scrollPaneAdotados);
+    }
+  
 }
 
     
