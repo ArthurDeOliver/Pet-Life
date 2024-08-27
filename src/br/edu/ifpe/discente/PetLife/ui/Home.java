@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,6 +21,7 @@ import br.edu.ifpe.discente.PetLife.ui.entities.Adocoes;
 import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
 import br.edu.ifpe.discente.PetLife.ui.entities.Racoes;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
+import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 
 public class Home extends JPanel {
 
@@ -112,9 +114,9 @@ public class Home extends JPanel {
             criarTabelaPetsHome();
             
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (BusinessException | SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao carregar tabela de pets na home", JOptionPane.ERROR_MESSAGE);
+		}
     }
     
     public void atualizarTabela() {
@@ -149,9 +151,10 @@ public class Home extends JPanel {
         try {
             HomeService homeService = new HomeService();
             listaAnimais = homeService.retornarAnimal();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            
+        } catch (BusinessException | SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao criat tabela de pets da home", JOptionPane.ERROR_MESSAGE);
+		}
 
         int totalAnimais = listaAnimais.size();
 //        System.out.println("Total de Animais: " + totalAnimais);

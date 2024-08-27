@@ -60,15 +60,15 @@ public class RecursosService {
 		this.repositoryR.criarRacao(racao);
 	}
 
-	public List<Racoes> retornarTodasRacoes() throws SQLException {
+	public List<Racoes> retornarTodasRacoes() throws BusinessException, SQLException  {
 		return this.repositoryR.listarTodasRacoes();
 	}
 
-	public List<Medicamentos> retornarTodosMedicamentos() throws SQLException {
+	public List<Medicamentos> retornarTodosMedicamentos() throws BusinessException, SQLException  {
 		return this.repositoryR.listarTodosMedicamentos();
 	}
 
-	public List<Vacinas> retornarTodasVacinas() throws SQLException {
+	public List<Vacinas> retornarTodasVacinas() throws BusinessException, SQLException  {
 		return this.repositoryR.listarTodasVacinas();
 	}
 	public void atualizarMedicamento(String novoNome, int novaQuantidade, double novoValor, int id) throws SQLException, BusinessException {
@@ -131,13 +131,13 @@ public class RecursosService {
 	public double retornarTotalRacoes() throws SQLException {
 		return this.repositoryR.totalValorRacoes();
 	}
-	public double retornarTotalMedicamentos() throws SQLException {
+	public double retornarTotalMedicamentos() throws BusinessException, SQLException  {
 		return this.repositoryR.totalValorMedicamentos();
 	}
-	public double retornarTotalVacinas() throws SQLException {
+	public double retornarTotalVacinas() throws BusinessException, SQLException  {
 		return this.repositoryR.totalValorVacinas();
 	}
-	public GraficoBarra criarGrafico() throws SQLException {
+	public GraficoBarra criarGrafico() throws BusinessException, SQLException  {
 		
 		double totalRacoes = this.repositoryR.totalValorRacoes();
 		double totalMedicamentos = this.repositoryR.totalValorMedicamentos();

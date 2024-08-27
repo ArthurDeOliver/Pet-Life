@@ -9,9 +9,11 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ButtonGroup;
@@ -22,12 +24,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 
 import javax.swing.JButton;
 
@@ -215,7 +219,7 @@ public class TelaEdicaoPet extends JFrame {
                         labelFotoPet.setText(file.getName());
                         fotoMap.put(petID, file.getAbsolutePath());
                     } catch (FileNotFoundException ex) {
-                        ex.printStackTrace();
+                    	JOptionPane.showMessageDialog(null, "Arquivo não encontrado: ", "Erro ao Abrir Arquivo", JOptionPane.ERROR_MESSAGE);
                     }
                 }
         	}
@@ -248,7 +252,12 @@ public class TelaEdicaoPet extends JFrame {
 
                         File destFile = new File(appDataDir, fileName);
 
-                        Files.copy(Paths.get(originalPath), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        try {
+							Files.copy(Paths.get(originalPath), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+						} catch (IOException e1) {
+							 JOptionPane.showMessageDialog(null, "Erro ao copiar o arquivo de imagem: " + 
+								        JOptionPane.ERROR_MESSAGE);
+						}
 
                         animalSelecionado.setFoto(destFile.getAbsolutePath());
                         System.out.println("Caminho da imagem: " + animalSelecionado.getFoto());
@@ -260,10 +269,12 @@ public class TelaEdicaoPet extends JFrame {
                     dispose();
 
                     mainWindow.recarregarTabela();
+                    
+                    JOptionPane.showMessageDialog(null, "Pet editado com sucesso");
 
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                } catch (BusinessException | SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);
+				}
             }
         });
 

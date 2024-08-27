@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -201,10 +203,10 @@ public class TelaCadastroPet extends JFrame {
      		            }			
      					
      				} catch (IllegalArgumentException ex) {
-     		            JOptionPane.showMessageDialog(null, "Todos os campos de texto são obrigatórios.");
-     		        } catch (SQLException ex) {
-     		        	ex.getMessage();
-     		            ex.printStackTrace();
+     		            JOptionPane.showMessageDialog(null, ex.getMessage(),"Todos os campos de texto são obrigatórios.", JOptionPane.ERROR_MESSAGE);
+     		        } catch (BusinessException | SQLException ex2) {
+     					JOptionPane.showMessageDialog(null, ex2.getMessage(), "Erro ao cadastrar animal", JOptionPane.ERROR_MESSAGE);
+     				
      		        }
 
                  }

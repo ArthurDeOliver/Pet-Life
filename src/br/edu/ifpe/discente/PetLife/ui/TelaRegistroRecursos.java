@@ -745,8 +745,8 @@ public class TelaRegistroRecursos extends JFrame{
 					for(Animais animal: listaAnimais) {
 						comboBoxSelecionarAnimal.addItem(animal);
 					}
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+				} catch (BusinessException | SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
@@ -771,7 +771,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Medicamento registrado com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {					
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);									
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);									
 				}
         		
         	}
@@ -791,7 +791,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Ração registrada com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {					
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);																					
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);																					
 				}     		
         	}
         	}
@@ -811,7 +811,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Vacina registrada com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {					
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);																	
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);																	
 				}
         	}
         	}
@@ -831,7 +831,7 @@ public class TelaRegistroRecursos extends JFrame{
                         for(Medicamentos medicamento: listaMedicamentos) {
                             comboBoxMedicamento.addItem(medicamento);
                         }
-                    } catch (SQLException e1) {
+                    } catch (BusinessException | SQLException e1) {
                         e1.printStackTrace();
                     }
                     break;
@@ -842,7 +842,7 @@ public class TelaRegistroRecursos extends JFrame{
                         for(Racoes racao: listaRacoes) {
                             comboBoxRacao.addItem(racao);
                         }
-                    } catch (SQLException e1) {
+                    } catch (BusinessException | SQLException e1) {
                         e1.printStackTrace();
                     }
                 	break;
@@ -853,7 +853,7 @@ public class TelaRegistroRecursos extends JFrame{
                         for(Vacinas vacina: listaVacinas) {
                             comboBoxVacina.addItem(vacina);
                         }
-                    } catch (SQLException e1) {
+                    } catch (BusinessException | SQLException e1) {
                         e1.printStackTrace();
                     }
                 }
@@ -914,7 +914,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Medicamento atualizado com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);		
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
 				}
         	}
         });
@@ -931,7 +931,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Ração atualizada com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);		
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
 				}
         	}
         });
@@ -948,7 +948,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Vacina atulizada com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);		
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
 				}
         	}
         });
@@ -977,8 +977,8 @@ public class TelaRegistroRecursos extends JFrame{
 							JOptionPane.showMessageDialog(null, "Medicamento atribuido com sucesso!!");
 							dispose();
 
-						} catch (SQLException e1) {
-							e1.printStackTrace();
+						} catch (SQLException | BusinessException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
 						}
 					} 
 					// Bloco a ser executado caso apenas comboBox SelecionarMedicamento seja "Nenhum"
@@ -997,8 +997,8 @@ public class TelaRegistroRecursos extends JFrame{
 							JOptionPane.showMessageDialog(null, "Vacina atribuida com sucesso!!");
 							dispose();
 
-						} catch (SQLException e1) {
-							e1.printStackTrace();
+						} catch (SQLException | BusinessException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
 						}
 					} 
 					//Bloco a ser executado caso ambos comboBox SelecionarMedicamento e SelecionarVacina estejam selecionados
@@ -1024,13 +1024,13 @@ public class TelaRegistroRecursos extends JFrame{
 							service.diminuirQuantidadeMedicamento(vacina.getId(), novaQuantidadeVacina);
 							JOptionPane.showMessageDialog(null, "Vacina e Medicamento atribuidos com sucesso!!");
 							dispose();
-						} catch (SQLException e1) {
-							e1.printStackTrace();
+						} catch (BusinessException | SQLException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
 						}
 
 					}
-				} catch (BusinessException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Failure", JOptionPane.ERROR_MESSAGE);
+				}catch (BusinessException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
 				}
 
 			}

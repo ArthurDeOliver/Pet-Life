@@ -16,7 +16,7 @@ public class AdocaoRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "1234"; // editável
+	private static final String PASSWORD = "admin"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -28,6 +28,8 @@ public class AdocaoRepository {
 				Statement statement = connection.createStatement()) {
 			String sql = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
 			statement.executeUpdate(sql);
+		}catch(Exception e) {
+			throw new SQLException("Erro ao criar banco de dados" + DB_NAME);
 		}
 	}
 
@@ -39,8 +41,8 @@ public class AdocaoRepository {
 					+ "endereco_tutor VARCHAR(255), " + "telefone_tutor VARCHAR(45), "
 					+ "FOREIGN KEY (id_pet) REFERENCES animais(id), " + "PRIMARY KEY (id_pet));";
 			statement.execute(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}catch(Exception e) {
+			throw new SQLException("Erro ao criar tabela adocoes");
 		}
 	}
 
@@ -75,6 +77,8 @@ public class AdocaoRepository {
 				statementUpdate.execute();
 			}
 
+		}catch(Exception e) {
+			throw new SQLException("Erro ao adotar");
 		}
 	}
 
@@ -99,8 +103,8 @@ public class AdocaoRepository {
 						rs.getString("telefone_tutor"));
 				listaAdocoes.add(adocao);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}catch(Exception e) {
+			throw new SQLException("Erro ao listar adocoes");
 		}
 		return listaAdocoes;
 	}

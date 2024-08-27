@@ -33,7 +33,7 @@ public class Main {
 
     		BDService bdservice = new BDService();
             bdservice.iniciarBD(); //inicializando bd e tabela
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import br.edu.ifpe.discente.PetLife.business.RecursosService;
 import br.edu.ifpe.discente.PetLife.ui.entities.GraficoBarra;
+import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 
 import javax.swing.JScrollPane;
 
@@ -105,8 +107,8 @@ public class Recursos extends JPanel {
 		try {
 			GraficoBarra grafico = service.criarGrafico();
 			add(grafico);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (BusinessException | SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao adicionar gráfico", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

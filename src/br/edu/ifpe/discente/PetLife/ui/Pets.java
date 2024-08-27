@@ -11,12 +11,14 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 import br.edu.ifpe.discente.PetLife.ui.entities.Adocoes;
 import br.edu.ifpe.discente.PetLife.ui.Adocao;
 import javax.swing.JTable;
@@ -63,7 +65,7 @@ public class Pets extends JPanel {
 		btnCadastroPet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroPet telaCadastroPet = new TelaCadastroPet(Pets.this);
-		        telaCadastroPet.setVisible(true);
+				telaCadastroPet.setVisible(true);
 			}
 		});
 		btnCadastroPet.setBounds(812, 11, 82, 46);
@@ -107,7 +109,7 @@ public class Pets extends JPanel {
 
 					int linhaSelecionada = tabela.getSelectedRow();
 
-					if (linhaSelecionada >= 0) { 
+					if (linhaSelecionada >= 0) {
 						int idAnimal = (int) tabela.getValueAt(linhaSelecionada, 0);
 
 						animalSelecionado = null;
@@ -126,26 +128,26 @@ public class Pets extends JPanel {
 							textFieldIdadePet.setText(String.valueOf(animalSelecionado.getIdade()));
 							textFieldStatusPet.setText(animalSelecionado.getStatus());
 
-			                    String fileName = animalSelecionado.getID() + "_" + animalSelecionado.getNome();
-			                    String appDataPath = System.getenv("APPDATA");
-			                    File appDataDir = new File(appDataPath, "Petlife/Imagens");
-			                    File file = new File(appDataDir, fileName);
+							String fileName = animalSelecionado.getID() + "_" + animalSelecionado.getNome();
+							String appDataPath = System.getenv("APPDATA");
+							File appDataDir = new File(appDataPath, "Petlife/Imagens");
+							File file = new File(appDataDir, fileName);
 
-			                    if (file.exists()) {
-			                    	ImageIcon originalIcon = new ImageIcon(file.getAbsolutePath());
-			                        Image originalImage = originalIcon.getImage();
+							if (file.exists()) {
+								ImageIcon originalIcon = new ImageIcon(file.getAbsolutePath());
+								Image originalImage = originalIcon.getImage();
 
-			                        int labelLargura = labelFotoPet.getWidth();
-			                        int labelAltura = labelFotoPet.getHeight();
+								int labelLargura = labelFotoPet.getWidth();
+								int labelAltura = labelFotoPet.getHeight();
 
-			                        Image imagemAjustada = originalImage.getScaledInstance(labelLargura, labelAltura, Image.SCALE_SMOOTH);
+								Image imagemAjustada = originalImage.getScaledInstance(labelLargura, labelAltura,
+										Image.SCALE_SMOOTH);
 
-			                        ImageIcon resizedIcon = new ImageIcon(imagemAjustada);
-			                        labelFotoPet.setIcon(resizedIcon);
-			                    } else {
-			                        labelFotoPet.setIcon(null);
-			                    }
-			                
+								ImageIcon resizedIcon = new ImageIcon(imagemAjustada);
+								labelFotoPet.setIcon(resizedIcon);
+							} else {
+								labelFotoPet.setIcon(null);
+							}
 
 							btnEditarPets.setEnabled(true);
 							btnExcluirPets.setEnabled(true);
@@ -185,9 +187,9 @@ public class Pets extends JPanel {
 
 					for (Animais animalFiltrado : listaFiltrada) {
 						modelo.addRow(new Object[] { // colocndo anmais filtrados
-								animalFiltrado.getID(), animalFiltrado.getNome(), animalFiltrado.getTipo(), animalFiltrado.getIdade(),
-								animalFiltrado.getRaca(), animalFiltrado.getRacao(), animalFiltrado.getStatus(),
-								animalFiltrado.getVacina() });
+								animalFiltrado.getID(), animalFiltrado.getNome(), animalFiltrado.getTipo(),
+								animalFiltrado.getIdade(), animalFiltrado.getRaca(), animalFiltrado.getRacao(),
+								animalFiltrado.getStatus(), animalFiltrado.getVacina() });
 					}
 
 				}
@@ -197,12 +199,12 @@ public class Pets extends JPanel {
 			comboBoxFiltro.setBounds(270, 105, 115, 16);
 			add(comboBoxFiltro);
 
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (BusinessException | SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro iniciar tabela de pets",
+					JOptionPane.ERROR_MESSAGE);
 			tabelaAnimal = new TabelaAnimal(List.of());
 		}
 
-		
 		// botão editar
 		btnEditarPets = new JButton("Editar");
 		btnEditarPets.setEnabled(false);
@@ -210,7 +212,6 @@ public class Pets extends JPanel {
 		btnEditarPets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (animalSelecionado != null) {
-
 					TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet(Pets.this, adocao);
 					telaEdicaoPet.informacoesEditaveis(animalSelecionado);
 					telaEdicaoPet.setVisible(true);
@@ -219,7 +220,6 @@ public class Pets extends JPanel {
 		});
 		add(btnEditarPets);
 
-		
 		// botão excluir
 		btnExcluirPets = new JButton("Excluir");
 		btnExcluirPets.setEnabled(false);
@@ -234,9 +234,9 @@ public class Pets extends JPanel {
 
 						AnimaisService servico = new AnimaisService();
 						servico.deletarAnimal(animalSelecionado.getID());
-						
+
 						recarregarTabela();
-						
+
 						// limpando os campos da parte direita da tabela
 						textFieldNomePet.setText("");
 						textFieldTipoPet.setText("");
@@ -247,15 +247,14 @@ public class Pets extends JPanel {
 
 						tabelaAnimal.getTabela().clearSelection(); // limpando linha da tabela
 
-					} catch (SQLException ex) {
-						ex.printStackTrace();
-						// TODO
+					} catch (BusinessException | SQLException e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro ao excluir pet",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
 		});
 		add(btnExcluirPets);
-		
 
 		JLabel labelImagemPet = new JLabel("Foto");
 		labelImagemPet.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -337,41 +336,44 @@ public class Pets extends JPanel {
 			modelo.setRowCount(0); // Limpar o modelo atual
 
 			for (Animais animal : listaDeAnimais) {
-				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(), animal.getRaca(),
-						animal.getRacao(), animal.getStatus(), animal.getVacina()});
+				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(),
+						animal.getRaca(), animal.getRacao(), animal.getStatus(), animal.getVacina() });
 			}
 
 			tabelaAnimal.getTabela().clearSelection();
 
-		} catch (SQLException ex) {
-			//TODO
+		} catch (BusinessException | SQLException ex) {
+			JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro ao atualizar a tabela",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
-	public void recarregarTabelaAptos(){
-	try {
-		AnimaisService servico = new AnimaisService();
-		List<Animais> listaPetsAdotaveis = servico.retornarAnimaisAptos();
-		List<Animais> listaAtualizada = servico.retornarAnimaisAptos();
 
-		// Atualizar a lista de animais
+	public void recarregarTabelaAptos() {
+		try {
+			AnimaisService servico = new AnimaisService();
+			List<Animais> listaPetsAdotaveis = servico.retornarAnimaisAptos();
+			List<Animais> listaAtualizada = servico.retornarAnimaisAptos();
 
-		listaPetsAdotaveis.clear();
-		listaPetsAdotaveis.addAll(listaAtualizada);
+			// Atualizar a lista de animais
 
-		// Atualizar o modelo da tabela
-		DefaultTableModel modelo = TabelaAdotaveis.getModelo();
-		modelo.setRowCount(0); // Limpar o modelo atual
+			listaPetsAdotaveis.clear();
+			listaPetsAdotaveis.addAll(listaAtualizada);
 
-		for (Animais animal : listaPetsAdotaveis) {
-			modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(), animal.getRaca(),
-					animal.getRacao(), animal.getStatus(), animal.getVacina()});
+			// Atualizar o modelo da tabela
+			DefaultTableModel modelo = TabelaAdotaveis.getModelo();
+			modelo.setRowCount(0); // Limpar o modelo atual
+
+			for (Animais animal : listaPetsAdotaveis) {
+				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(),
+						animal.getRaca(), animal.getRacao(), animal.getStatus(), animal.getVacina() });
+			}
+
+			TabelaAdotaveis.getTabela().clearSelection();
+
+		} catch (BusinessException | SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao recarregar a tabela de animais aptos",
+					JOptionPane.ERROR_MESSAGE);
 		}
-
-		TabelaAdotaveis.getTabela().clearSelection();
-
-	} catch (SQLException ex) {
-		//TODO
-	}
 	}
 }

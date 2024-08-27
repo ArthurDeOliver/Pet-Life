@@ -16,7 +16,7 @@ public class AnimaisRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "1234"; // editável
+	private static final String PASSWORD = "admin"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -28,6 +28,8 @@ public class AnimaisRepository {
 				Statement statement = connection.createStatement()) {
 			String sql = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
 			statement.executeUpdate(sql);
+		}catch(Exception e) {
+			throw new SQLException("Erro ao criar banco de dados" + DB_NAME);
 		}
 	}
 
@@ -38,6 +40,8 @@ public class AnimaisRepository {
 					+ "nome VARCHAR(255), " + "idade INT, " + "tipo VARCHAR(255), " + "raca VARCHAR(255) NOT NULL, "
 					+ "racao INT, " + "status VARCHAR(50) NOT NULL, " + "vacina VARCHAR(255))";
 			statement.executeUpdate(sql);
+		}catch(Exception e) {
+			throw new SQLException("Erro ao criar tabela animais");
 		}
 	}
 
@@ -62,6 +66,9 @@ public class AnimaisRepository {
 			statement.setString(6, "Não apto");
 			statement.setString(7, animal.getVacina());
 			statement.execute();
+			
+		}catch(Exception e) {
+			throw new SQLException("Erro ao criar animal");
 		}
 
 	}
@@ -87,6 +94,8 @@ public class AnimaisRepository {
 						rs.getInt("racao"), rs.getString("status"), rs.getString("vacina"));
 				listaDeAnimais.add(anima1);
 			}
+		}catch(Exception e) {
+			throw new SQLException("Erro ao listar animais");
 		}
 		return listaDeAnimais;
 
@@ -114,9 +123,9 @@ public class AnimaisRepository {
 				listaDeAnimaisAptos.add(animal);
 			} 
 			
-		} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		} catch(Exception e) {
+			throw new SQLException("Erro ao listar animais aptos");
+		}
 		return listaDeAnimaisAptos;
 
 	}
@@ -140,8 +149,8 @@ public class AnimaisRepository {
             statement.executeUpdate();
 
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(Exception e) {
+			throw new SQLException("Erro ao atualizar animal");
         }
     }
 	
@@ -157,10 +166,9 @@ public class AnimaisRepository {
 	        statement.setInt(1, id);
 	        statement.executeUpdate();
 	        
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	      //TODO
-	    }
+	    } catch(Exception e) {
+			throw new SQLException("Erro ao deletar animal");
+		}
 	}
 
 
