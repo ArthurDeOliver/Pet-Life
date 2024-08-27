@@ -1,5 +1,6 @@
 package br.edu.ifpe.discente.PetLife.ui;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.net.URL;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -106,26 +108,80 @@ public class Home extends JPanel {
             listaDeRecursos.addAll(listaMedicamento);
             listaDeRecursos.addAll(listaVacina);
 
-            // Método para configurar a JTable com os nomes dos últimos 4 animais cadastrados
-            //configurarTabelaPets();
+            
+            criarTabelaPetsHome();
+            
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
+    public void atualizarTabela() {
+        // Verifica se a tabela já foi criada
+        if (tblPets != null) {
+            Component[] components = getComponents();
+            for (Component component : components) {
+                if (component instanceof JScrollPane && ((JScrollPane) component).getViewport().getView() == tblPets) {
+                    remove(component);
+                    break;
+                }
+            }
 
-    private void configurarTabelaPets() {
-        // Cria um modelo de tabela com uma coluna "Nome"
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Nome");
+            // Recria a tabela
+            tblPets = new JTable();
+        } 
 
-        // Adiciona os nomes dos últimos 4 animais à tabela
+        // Configura uma nova tabela
+        criarTabelaPetsHome();
+    }
+    
+    public void criarTabelaPetsHome() {
+    	
+    	System.out.println("entrou na criação da tabela");
+    	
+        // Cria um modelo de tabela com as colunas "Nome" e "Tipo"
+        DefaultTableModel tabelaPetHome = new DefaultTableModel();
+        tabelaPetHome.addColumn("Nome");
+        tabelaPetHome.addColumn("Tipo");
+
+        // Atualiza a lista de animais antes de preencher a tabela
+        try {
+            HomeService homeService = new HomeService();
+            listaAnimais = homeService.retornarAnimal();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         int totalAnimais = listaAnimais.size();
-        for (int i = totalAnimais - 1; i > totalAnimais - 5; i--) {
-          //  model.addRow(new Object[]{listaAnimais.get(i).getNome()});
+//        System.out.println("Total de Animais: " + totalAnimais);
+
+        if (totalAnimais > 0) {
+            for (Animais pet : listaAnimais) {
+                String nome = pet.getNome();
+                String raca = pet.getRaca();
+                String status = pet.getStatus();
+
+                if ("Não apto".equals(status)) {
+                    tabelaPetHome.addRow(new Object[]{nome, raca});
+                }
+            }
+        } else {
+            // Adiciona uma linha indicando que não há registros
+            tabelaPetHome.addRow(new Object[]{"Sem ", "cadastros!"});
         }
 
         // Define o modelo da tabela
-        tblPets.setModel(model);
+        tblPets.setModel(tabelaPetHome);
+
+        // Se o scroll pane ainda não foi adicionado, adicione-o
+        JScrollPane scrollPanePets = new JScrollPane(tblPets);
+        scrollPanePets.setBounds(77, 198, 169, 186);
+        this.add(scrollPanePets);
     }
+
+  //mandar pro repositorio
 }
+
+    
+

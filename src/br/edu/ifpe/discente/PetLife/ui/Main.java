@@ -18,26 +18,6 @@ import javax.swing.JLabel;
 
 public class Main {
 
-	/*
-	 * Instruções para nomes de variáveis
-	 * 
-	 * BOTÕES:
-	 *                    btnAbrirTelaAdoção
-	 * 
-	 * [sigla do componente]+   [ação]   +   [complemento da ação]
-	 * 
-	 *         btn          +    Abrir   +       TelaAdoção
-	 * 
-	 * OBSERVAÇÃO: NÃO USAR "de" OU QUALQUER OUTRA PALAVRA DE LIGAÇÃO
-	 * APENAS USAR PALAVRAS CHAVES.
-	 * 
-	 * Tentar ser o mais sucinto possível!
-	 * 
-	 * para demais variáveis, usar o nome do componente e o que ela está associada.
-	 * 
-	 * */
-	
-	
 	private JFrame frame;
 	private CardLayout cardLayout;
 	private JPanel mainPanel;
@@ -89,6 +69,21 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         
+		//MAIN PAINEL
+		
+		//painel de mudança de layout
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+        mainPanel.setBounds(10, 100, 904, 450);
+        frame.getContentPane().add(mainPanel);
+        
+        //adicionando paineis no frame mainpainel
+        Home home = new Home();
+        mainPanel.add(home, "home");
+        mainPanel.add(new Pets(), "pets");
+        mainPanel.add(new Adocao(), "adocao");
+        mainPanel.add(new Recursos(), "recursos");
+        
 		//HEADER BOTÕES DE NAVEGAÇÃO
         
         //botão abrir tela de Pets
@@ -126,30 +121,14 @@ public class Main {
 		frame.getContentPane().add(btnAbrirTelaRecursos);
 		
 		//botão abrir tela Home
-        JButton btnAbrirTelaHome = new JButton("      PetLife");
-        btnAbrirTelaHome.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		cardLayout.show(mainPanel,"home");
-        	}
-        });
-		
-		//MAIN PAINEL
-		
-		//painel de mudança de layout
-        cardLayout = new CardLayout();
-        mainPanel = new JPanel(cardLayout);
-        mainPanel.setBounds(10, 100, 904, 450);
-        frame.getContentPane().add(mainPanel);
-        
-        //adicionando paineis no frame mainpainel
-        Home home = new Home();
-        mainPanel.add(home, "home");
-        mainPanel.add(new Pets(), "pets");
-        mainPanel.add(new Adocao(), "adocao");
-        mainPanel.add(new Recursos(), "recursos");
-        
+		JButton btnAbrirTelaHome = new JButton("      PetLife");
+		btnAbrirTelaHome.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        home.atualizarTabela();
+		        cardLayout.show(mainPanel, "home");
+		    }
+		});
 
-        
         //botao título petLife
         btnAbrirTelaHome.setForeground(new Color(0, 0, 0));
         btnAbrirTelaHome.setBackground(new Color(255, 255, 255));
@@ -160,7 +139,7 @@ public class Main {
         btnAbrirTelaHome.setFont(new Font("Tahoma", Font.PLAIN, 30));
         btnAbrirTelaHome.setBounds(10, 23, 228, 58);
         frame.getContentPane().add(btnAbrirTelaHome);
-   
+        //mandar pro repositorio
         //carregar a imagem
         URL imgURL = getClass().getResource("/Imagens/veterinario.png");
         ImageIcon icon = new ImageIcon(imgURL);
