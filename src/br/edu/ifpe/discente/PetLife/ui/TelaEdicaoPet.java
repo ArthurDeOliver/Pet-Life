@@ -269,6 +269,7 @@ public class TelaEdicaoPet extends JFrame {
                     dispose();
 
                     mainWindow.recarregarTabela();
+                    mainWindow.recarregarTabelaAptos();   
                     
                     JOptionPane.showMessageDialog(null, "Pet editado com sucesso");
 
