@@ -44,7 +44,7 @@ public class AnimaisService {
 	}
 	
 		
-	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String foto, int id) throws SQLException {
+	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, int id) throws SQLException {
 			if (nome == null || nome.isEmpty() || Integer.toString(idade).equals("")) {
 		        throw new IllegalArgumentException("Todos os campos de texto são obrigatórios.");
 		    }
@@ -59,7 +59,7 @@ public class AnimaisService {
 		    }
  
 		    
-		    repositoryA.atualizarAnimal(nome, idade, tipo, raca, racao, status, foto, id);
+		    repositoryA.atualizarAnimal(nome, idade, tipo, raca, racao, status, id);
 	}
 	
 	public void deletarAnimal(int id) throws SQLException {

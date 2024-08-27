@@ -182,7 +182,7 @@ public class TelaCadastroPet extends JFrame {
 	                     String foto = null;
 	                     
 	                
-	                     Animais animal = new Animais(nome, idade, tipo, raca, racao ,status, vacina, foto);
+	                     Animais animal = new Animais(nome, idade, tipo, raca, racao ,status, vacina);
 	                     AnimaisService service = new AnimaisService();
                                        
                      

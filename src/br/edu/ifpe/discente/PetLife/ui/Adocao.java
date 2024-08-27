@@ -200,7 +200,7 @@ public class Adocao extends JPanel {
 
 				for (Animais animal : listaPetsAdotaveis) {
 					modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(), animal.getRaca(),
-							animal.getRacao(), animal.getStatus(), animal.getVacina(), animal.getFoto() });
+							animal.getRacao(), animal.getStatus(), animal.getVacina(), });
 				}
 
 				TabelaAdotaveis.getTabela().clearSelection();
