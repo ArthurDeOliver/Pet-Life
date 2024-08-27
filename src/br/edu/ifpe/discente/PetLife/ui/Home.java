@@ -213,7 +213,7 @@ public class Home extends JPanel {
         // Configura a tabela de adoções
         tblAdotados.setModel(tabelaAdocaoHome);
         JScrollPane scrollPaneAdotados = new JScrollPane(tblAdotados);
-        scrollPaneAdotados.setBounds(355, 198, 169, 186);
+        scrollPaneAdotados.setBounds(315, 198, 266, 186);
         this.add(scrollPaneAdotados);
     }
   
