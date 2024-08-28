@@ -192,6 +192,7 @@ public class TelaCadastroPet extends JFrame {
      					 int resposta = JOptionPane.showConfirmDialog(null, "Animal criado com sucesso! Deseja cadastrar outro?", "Confirmação", JOptionPane.YES_NO_OPTION);
      					 
      					if (resposta == JOptionPane.YES_OPTION) {
+     						mainWindow.recarregarTabela();
      		                textFieldNomePet.setText("");
      		                textFieldIdadePet.setText("");
      		                comboBoxTipoPet.setSelectedIndex(0);

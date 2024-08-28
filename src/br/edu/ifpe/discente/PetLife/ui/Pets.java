@@ -152,7 +152,7 @@ public class Pets extends JPanel {
 							
 							if (animalSelecionado.getStatus().equals("Adotado")) {
 								btnEditarPets.setEnabled(false);
-								btnExcluirPets.setEnabled(true);
+								btnExcluirPets.setEnabled(false);
 							} else {
 								btnEditarPets.setEnabled(true);
 								btnExcluirPets.setEnabled(true);
