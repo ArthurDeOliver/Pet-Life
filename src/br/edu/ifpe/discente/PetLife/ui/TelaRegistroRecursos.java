@@ -670,6 +670,11 @@ public class TelaRegistroRecursos extends JFrame {
 		telaMedicamentos.add(scrollPaneSelecionarAnimal);
 
 		JComboBox comboBoxSelecionarAnimal = new JComboBox();
+		
+		JLabel lblMedicamentovacinasAnimal = new JLabel("Animal");
+		lblMedicamentovacinasAnimal.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblMedicamentovacinasAnimal.setBounds(228, 15, 46, 14);
+		telaMedicamentos.add(lblMedicamentovacinasAnimal);
 
 		JScrollPane scrollPaneSelecionarVacina = new JScrollPane();
 		scrollPaneSelecionarVacina.setBounds(150, 96, 210, 24);
@@ -677,6 +682,11 @@ public class TelaRegistroRecursos extends JFrame {
 
 		JComboBox comboBoxSelecionarVacina = new JComboBox();
 		scrollPaneSelecionarVacina.setViewportView(comboBoxSelecionarVacina);
+		
+		JLabel lblMedicamentovacinasVacina = new JLabel("Vacina");
+		lblMedicamentovacinasVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblMedicamentovacinasVacina.setBounds(228, 75, 46, 14);
+		telaMedicamentos.add(lblMedicamentovacinasVacina);
 
 		JScrollPane scrollPaneSelecionarMedicamento = new JScrollPane();
 		scrollPaneSelecionarMedicamento.setBounds(150, 151, 210, 24);
@@ -716,6 +726,11 @@ public class TelaRegistroRecursos extends JFrame {
 
 			}
 		});
+		
+		JLabel lblMedicamentosvacinasMedicamento = new JLabel("Medicamento");
+		lblMedicamentosvacinasMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblMedicamentosvacinasMedicamento.setBounds(211, 126, 94, 14);
+		telaMedicamentos.add(lblMedicamentosvacinasMedicamento);
 
 		JButton btnRegistrarNoAnimal = new JButton("Registrar");
 		btnRegistrarNoAnimal.setFont(new Font("Tahoma", Font.BOLD, 11));
