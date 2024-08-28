@@ -745,9 +745,10 @@ public class TelaRegistroRecursos extends JFrame {
 					registrar.criarMedicamento(medicamento);
 					JOptionPane.showMessageDialog(null, "Medicamento registrado com sucesso!!");
 					dispose();
-				} catch (SQLException | BusinessException e1) {					
-					JOptionPane.showMessageDialog(null,  "Não foi possível registrar medicamento", "Erro", JOptionPane.ERROR_MESSAGE);									
-
+				} catch (SQLException e1) {					
+					JOptionPane.showMessageDialog(null,  "Não foi possível registrar medicamento", "Erro", JOptionPane.ERROR_MESSAGE);
+				} catch (BusinessException e2) {
+					JOptionPane.showMessageDialog(null,  e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -775,39 +776,32 @@ public class TelaRegistroRecursos extends JFrame {
 					registrar.criarRacao(racao);
 					JOptionPane.showMessageDialog(null, "Ração registrada com sucesso!!");
 					dispose();
-				} catch (SQLException | BusinessException e1) {					
+				} catch (SQLException e1) {					
 					JOptionPane.showMessageDialog(null, "Não foi possível registrar ração", "Erro", JOptionPane.ERROR_MESSAGE);																					
-				}     		
+				} catch(BusinessException e2) {
+					JOptionPane.showMessageDialog(null, e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}
         	}
         	}
         );
         
-        //Registra uma nova vacina no banco de dados
-        
-        btnRegistrarVacinaNova.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		String nome = textFieldVacinaNova.getText();
-        		int quantidade = Integer.parseInt(textFieldQuantidadeVacinaNova.getText());
-        		float valor = Float.parseFloat(textFieldValorVacinaNova.getText());
-        		Vacinas vacina = new Vacinas(nome, quantidade, valor);
-        		RecursosService registrar = new RecursosService();
-        		try {
-					registrar.criarVacina(vacina);
-					JOptionPane.showMessageDialog(null, "Vacina registrada com sucesso!!");
-					dispose();
-				} catch (SQLException | BusinessException e1) {					
-					JOptionPane.showMessageDialog(null, "Não foi possível registrar vacina", "Erro", JOptionPane.ERROR_MESSAGE);																	
-				}
-			}
-		});
-
 		// Registra uma nova vacina no banco de dados
 
 		btnRegistrarVacinaNova.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome = textFieldVacinaNova.getText();
-				int quantidade = Integer.parseInt(textFieldQuantidadeVacinaNova.getText());
-				float valor = Float.parseFloat(textFieldValorVacinaNova.getText());
+				int quantidade;
+				float valor;
+				if (textFieldQuantidadeVacinaNova.getText().trim().equals("")) {
+					quantidade = 0;
+				} else {
+					quantidade = Integer.parseInt(textFieldQuantidadeVacinaNova.getText());
+				}
+				if (textFieldValorVacinaNova.getText().trim().equals("")) {
+					valor = 0;
+				} else {
+					valor = Float.parseFloat(textFieldValorVacinaNova.getText());
+				}
 				Vacinas vacina = new Vacinas(nome, quantidade, valor);
 				RecursosService registrar = new RecursosService();
 				try {
@@ -815,7 +809,8 @@ public class TelaRegistroRecursos extends JFrame {
 					JOptionPane.showMessageDialog(null, "Vacina registrada com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível registrar a vacina", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível registrar a vacina",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -913,14 +908,27 @@ public class TelaRegistroRecursos extends JFrame {
 				RecursosService service = new RecursosService();
 				Medicamentos medicamento = (Medicamentos) comboBoxMedicamento.getSelectedItem();
 				String novoNome = textFieldNomeMedicamento.getText();
-				int novaQuantidade = Integer.parseInt(textFieldQuantidadeMedicamento.getText());
-				float novoValor = Float.parseFloat(textFieldValorMedicamento.getText());
+				int novaQuantidade;
+				float novoValor;
+				if (textFieldQuantidadeMedicamento.getText().trim().equals("")) {
+					novaQuantidade = 0;
+				} else {
+					novaQuantidade = Integer.parseInt(textFieldQuantidadeMedicamento.getText());
+				}
+				if (textFieldValorMedicamento.getText().trim().equals("")) {
+					novoValor = 0;
+				} else {
+					novoValor = Float.parseFloat(textFieldValorMedicamento.getText());
+				}
 				try {
 					service.atualizarMedicamento(novoNome, novaQuantidade, novoValor, medicamento.getId());
 					JOptionPane.showMessageDialog(null, "Medicamento atualizado com sucesso!!");
 					dispose();
-				} catch (SQLException | BusinessException e1) {
-					JOptionPane.showMessageDialog(null, "Não foi possível atualizar medicamento", "Erro", JOptionPane.ERROR_MESSAGE);		
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "Não foi possível atualizar medicamento", "Erro",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (BusinessException e2) {
+					JOptionPane.showMessageDialog(null, e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -930,14 +938,25 @@ public class TelaRegistroRecursos extends JFrame {
 				RecursosService service = new RecursosService();
 				Racoes racao = (Racoes) comboBoxRacao.getSelectedItem();
 				String novoNome = textFieldNomeMarcaRacao.getText();
-				Float novaQuantidade = Float.parseFloat(textFieldQuantidadeRacao.getText());
-				float novoValor = Float.parseFloat(textFieldValorRacao.getText());
+				float novaQuantidade;
+				float novoValor;
+				if(textFieldQuantidadeRacao.getText().trim().equals("")) {
+					novaQuantidade = 0;
+				} else {
+				novaQuantidade = Float.parseFloat(textFieldQuantidadeRacao.getText());
+				} if (textFieldValorRacao.getText().trim().equals("")) {
+					novoValor = 0;
+				} else {
+				novoValor = Float.parseFloat(textFieldValorRacao.getText());
+				}
 				try {
 					service.atualizarRacao(novoNome, novaQuantidade, novoValor, racao.getId());
 					JOptionPane.showMessageDialog(null, "Ração atualizada com sucesso!!");
 					dispose();
-				} catch (SQLException | BusinessException e1) {
+				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null,  "Não foi possível atualizar ração", "Erro", JOptionPane.ERROR_MESSAGE);		
+				} catch(BusinessException e2) {
+					JOptionPane.showMessageDialog(null,  e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
