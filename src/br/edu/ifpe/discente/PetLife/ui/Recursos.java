@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -27,6 +28,8 @@ import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 import javax.swing.JScrollPane;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class Recursos extends JPanel {
 
@@ -34,6 +37,7 @@ public class Recursos extends JPanel {
 	private JTable table;
 	TabelaGastos tabelaGastos;
 	List<Animais> listaAnimais;
+	JComboBox<String> comboBoxFiltro;
 
 	/**
 	 * Create the panel.
@@ -80,17 +84,52 @@ public class Recursos extends JPanel {
 		btnRegistrarRecurso.setBounds(812, 11, 82, 46);;
 		add(btnRegistrarRecurso);
 		
-		//Aqui vai ter as coisas da tabela
+		//Inialização da tabela de Gastos por Animal
 		try {
 			AnimaisService serviceAnimal = new AnimaisService();
 			listaAnimais = serviceAnimal.retornarAnimal();
+			tabelaGastos = new TabelaGastos(listaAnimais);
+			add(tabelaGastos);
+			tabelaGastos.setBounds(new Rectangle(41, 111, 302, 291));
+			;
 		} catch (BusinessException | SQLException e1) {
 			 JOptionPane.showMessageDialog(null, "Erro ao inicializar tabela", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		//Filtro de animais
 		
-		JComboBox comboBoxFiltro = new JComboBox();
+		this.comboBoxFiltro = new JComboBox<>();
+		comboBoxFiltro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Animais> listaFiltrada = new ArrayList<>();
+				DefaultTableModel modelo = tabelaGastos.getModelo();
+				modelo.setRowCount(0);
+				RecursosService service = new RecursosService();
+				AnimaisService serviceAnimal = new AnimaisService();
+				// Filtra a lista de animais
+				if ("Todos".equals(comboBoxFiltro.getSelectedItem())) {
+					recarregarTabelaGastos();
+				} else {
+					try {
+						listaFiltrada = serviceAnimal.listarAnimaisTipo(String.valueOf(comboBoxFiltro.getSelectedItem()));
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+
+				for (Animais animal : listaFiltrada) {
+					try {
+						modelo.addRow(new Object[] { // colocando animais filtrados
+								animal.getNome(), service.totalGastosAnimal(animal) });
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível filtrar a lista",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+			
+			
+		});
 		comboBoxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Cachorro", "Gato"}));
 		comboBoxFiltro.setBounds(228, 84, 115, 16);
 		add(comboBoxFiltro);
@@ -107,10 +146,6 @@ public class Recursos extends JPanel {
 		try {
 			GraficoBarra grafico = service.criarGrafico();
 			add(grafico);
-			tabelaGastos = new TabelaGastos(listaAnimais);
-			add(tabelaGastos);
-			tabelaGastos.setBounds(new Rectangle(41, 111, 302, 291));
-			;
 		} catch (BusinessException | SQLException e) {
 			 JOptionPane.showMessageDialog(null, "Erro ao inicializar gráficos", "Erro", JOptionPane.ERROR_MESSAGE);
 			}
@@ -132,5 +167,9 @@ public class Recursos extends JPanel {
 		} catch (BusinessException | SQLException e) {
 			 JOptionPane.showMessageDialog(null, "Erro ao recarregar tabela de gastos", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	public JComboBox retornarComboBoxFiltro() {
+		return this.comboBoxFiltro;
+		
 	}
 }

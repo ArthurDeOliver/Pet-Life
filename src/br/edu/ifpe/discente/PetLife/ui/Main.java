@@ -122,7 +122,9 @@ public class Main {
 		btnAbrirTelaRecursos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "recursos");
+				if (recursos.retornarComboBoxFiltro().getSelectedItem() == "Todos") {
 				recursos.recarregarTabelaGastos();
+				}
 			}
 		});
 		btnAbrirTelaRecursos.setFont(new Font("DejaVu Sans", Font.PLAIN, 14));

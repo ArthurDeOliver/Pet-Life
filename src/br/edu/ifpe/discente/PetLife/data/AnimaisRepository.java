@@ -16,7 +16,7 @@ public class AnimaisRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "1234"; // editável
+	private static final String PASSWORD = "1234567"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -171,6 +171,30 @@ public class AnimaisRepository {
 		}
 	}
 
+	public List<Animais> listarAnimaisPeloTipo(String tipo) throws SQLException {
 
+		String sql = "SELECT * FROM animais WHERE tipo = ?";
+
+		List<Animais> listaDeAnimaisTipo = new ArrayList<>();
+
+		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+			// Define o valor do parâmetro "tipo"
+			statement.setString(1, tipo);
+
+			try (ResultSet rs = statement.executeQuery()) { // Executa a consulta
+				while (rs.next()) {
+					Animais animal = new Animais(rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"),
+							rs.getString("tipo"), rs.getString("raca"), rs.getInt("racao"), rs.getString("status"),
+							rs.getString("vacina"));
+					listaDeAnimaisTipo.add(animal);
+				}
+			}
+		} catch (Exception e) {
+			throw new SQLException("Erro ao listar animais pelo tipo");
+		}
+		return listaDeAnimaisTipo;
+
+	}
 }
 	

@@ -66,4 +66,8 @@ public class AnimaisService {
 			repositoryA.deletarAnimal(id);
 	}
 
+	public List<Animais> listarAnimaisTipo(String tipo) throws SQLException {
+		return repositoryA.listarAnimaisPeloTipo(tipo);
+	}
+
 }

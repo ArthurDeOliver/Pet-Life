@@ -809,8 +809,7 @@ public class TelaRegistroRecursos extends JFrame {
 					JOptionPane.showMessageDialog(null, "Vacina registrada com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível registrar a vacina",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível registrar a vacina", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -940,23 +939,25 @@ public class TelaRegistroRecursos extends JFrame {
 				String novoNome = textFieldNomeMarcaRacao.getText();
 				float novaQuantidade;
 				float novoValor;
-				if(textFieldQuantidadeRacao.getText().trim().equals("")) {
+				if (textFieldQuantidadeRacao.getText().trim().equals("")) {
 					novaQuantidade = 0;
 				} else {
-				novaQuantidade = Float.parseFloat(textFieldQuantidadeRacao.getText());
-				} if (textFieldValorRacao.getText().trim().equals("")) {
+					novaQuantidade = Float.parseFloat(textFieldQuantidadeRacao.getText());
+				}
+				if (textFieldValorRacao.getText().trim().equals("")) {
 					novoValor = 0;
 				} else {
-				novoValor = Float.parseFloat(textFieldValorRacao.getText());
+					novoValor = Float.parseFloat(textFieldValorRacao.getText());
 				}
 				try {
 					service.atualizarRacao(novoNome, novaQuantidade, novoValor, racao.getId());
 					JOptionPane.showMessageDialog(null, "Ração atualizada com sucesso!!");
 					dispose();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null,  "Não foi possível atualizar ração", "Erro", JOptionPane.ERROR_MESSAGE);		
-				} catch(BusinessException e2) {
-					JOptionPane.showMessageDialog(null,  e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Não foi possível atualizar ração", "Erro",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (BusinessException e2) {
+					JOptionPane.showMessageDialog(null, e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -966,14 +967,26 @@ public class TelaRegistroRecursos extends JFrame {
 				RecursosService service = new RecursosService();
 				Vacinas vacina = (Vacinas) comboBoxVacina.getSelectedItem();
 				String novoNome = textFieldNomeVacina.getText();
-				int novaQuantidade = Integer.parseInt(textFieldQuantidadeVacina.getText());
-				float novoValor = Float.parseFloat(textFieldValorVacina.getText());
+				int novaQuantidade;
+				float novoValor;
+				if (textFieldQuantidadeVacina.getText().trim().equals("")) {
+					novaQuantidade = 0;
+				} else {
+					novaQuantidade = Integer.parseInt(textFieldQuantidadeVacina.getText());
+				}
+				if (textFieldValorVacina.getText().trim().equals("")) {
+					novoValor = 0;
+				} else {
+					novoValor = Float.parseFloat(textFieldValorVacina.getText());
+				}
 				try {
 					service.atualizarVacina(novoNome, novaQuantidade, novoValor, vacina.getId());
 					JOptionPane.showMessageDialog(null, "Vacina atulizada com sucesso!!");
 					dispose();
-				} catch (SQLException | BusinessException e1) {
-					JOptionPane.showMessageDialog(null,  "Não foi possível atualizar vacina", "Erro", JOptionPane.ERROR_MESSAGE);		
+				} catch (SQLException  e1) {
+					JOptionPane.showMessageDialog(null, "Não foi possível atualizar vacina", "Erro", JOptionPane.ERROR_MESSAGE);
+				} catch (BusinessException e2) {
+					JOptionPane.showMessageDialog(null, e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

@@ -20,7 +20,7 @@ public class TabelaGastos extends JPanel {
 	    	
 	      
 	        setLayout(new BorderLayout());   
-	        String[] colunas = {"Nome", "Gastos"};
+	        String[] colunas = {"Nome", "Gastos (R$)"};
 	        modelo = new DefaultTableModel(colunas, 0);
 	        tabela = new JTable(modelo);
 	        
