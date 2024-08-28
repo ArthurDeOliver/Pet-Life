@@ -124,6 +124,8 @@ public class Main {
 				cardLayout.show(mainPanel, "recursos");
 				if (recursos.retornarComboBoxFiltro().getSelectedItem() == "Todos") {
 				recursos.recarregarTabelaGastos();
+				} else {
+					recursos.recarregarTabelaGastosPorTipo();
 				}
 			}
 		});

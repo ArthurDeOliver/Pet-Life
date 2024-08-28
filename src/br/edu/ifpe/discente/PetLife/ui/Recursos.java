@@ -101,31 +101,7 @@ public class Recursos extends JPanel {
 		this.comboBoxFiltro = new JComboBox<>();
 		comboBoxFiltro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<Animais> listaFiltrada = new ArrayList<>();
-				DefaultTableModel modelo = tabelaGastos.getModelo();
-				modelo.setRowCount(0);
-				RecursosService service = new RecursosService();
-				AnimaisService serviceAnimal = new AnimaisService();
-				// Filtra a lista de animais
-				if ("Todos".equals(comboBoxFiltro.getSelectedItem())) {
-					recarregarTabelaGastos();
-				} else {
-					try {
-						listaFiltrada = serviceAnimal.listarAnimaisTipo(String.valueOf(comboBoxFiltro.getSelectedItem()));
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-				}
-
-				for (Animais animal : listaFiltrada) {
-					try {
-						modelo.addRow(new Object[] { // colocando animais filtrados
-								animal.getNome(), service.totalGastosAnimal(animal) });
-					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível filtrar a lista",
-								JOptionPane.ERROR_MESSAGE);
-					}
-				}
+				recarregarTabelaGastosPorTipo();
 			}
 			
 			
@@ -161,11 +137,38 @@ public class Recursos extends JPanel {
 			modelo.setRowCount(0); // Limpar o modelo atual
 			RecursosService service = new RecursosService();
 			for (Animais animal : listaPets) {
-				modelo.addRow(new Object[] { animal.getNome(), service.totalGastosAnimal(animal)});
+				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), service.totalGastosAnimal(animal)});
 			}
 
 		} catch (BusinessException | SQLException e) {
 			 JOptionPane.showMessageDialog(null, "Erro ao recarregar tabela de gastos", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	public void recarregarTabelaGastosPorTipo() {
+		List<Animais> listaFiltrada = new ArrayList<>();
+		DefaultTableModel modelo = tabelaGastos.getModelo();
+		modelo.setRowCount(0);
+		RecursosService service = new RecursosService();
+		AnimaisService serviceAnimal = new AnimaisService();
+		// Filtra a lista de animais
+		if ("Todos".equals(comboBoxFiltro.getSelectedItem())) {
+			recarregarTabelaGastos();
+		} else {
+			try {
+				listaFiltrada = serviceAnimal.listarAnimaisTipo(String.valueOf(comboBoxFiltro.getSelectedItem()));
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		for (Animais animal : listaFiltrada) {
+			try {
+				modelo.addRow(new Object[] { // colocando animais filtrados
+						animal.getID(), animal.getNome(), service.totalGastosAnimal(animal) });
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível filtrar a lista",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	public JComboBox retornarComboBoxFiltro() {

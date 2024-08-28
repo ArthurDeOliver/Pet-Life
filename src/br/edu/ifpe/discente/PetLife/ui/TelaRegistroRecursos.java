@@ -1016,8 +1016,11 @@ public class TelaRegistroRecursos extends JFrame {
 							JOptionPane.showMessageDialog(null, "Medicamento atribuido com sucesso!!");
 							dispose();
 
-						} catch (SQLException | BusinessException e1) {
-							JOptionPane.showMessageDialog(null, "Não foi possível inserir medicamento", "Erro", JOptionPane.ERROR_MESSAGE);		
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, "Não foi possível inserir medicamento", "Erro",
+									JOptionPane.ERROR_MESSAGE);
+						} catch (BusinessException e2) {
+							JOptionPane.showMessageDialog(null, e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					// Bloco a ser executado caso apenas comboBox SelecionarMedicamento seja
@@ -1037,8 +1040,11 @@ public class TelaRegistroRecursos extends JFrame {
 							JOptionPane.showMessageDialog(null, "Vacina atribuida com sucesso!!");
 							dispose();
 
-						} catch (SQLException | BusinessException e1) {
-							JOptionPane.showMessageDialog(null, "Não foi possível inserir vacina", "Erro", JOptionPane.ERROR_MESSAGE);		
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, "Não foi possível inserir vacina", "Erro",
+									JOptionPane.ERROR_MESSAGE);
+						} catch (BusinessException e2) {
+							JOptionPane.showMessageDialog(null, e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					// Bloco a ser executado caso ambos comboBox SelecionarMedicamento e
@@ -1065,20 +1071,26 @@ public class TelaRegistroRecursos extends JFrame {
 							service.diminuirQuantidadeMedicamento(vacina.getId(), novaQuantidadeVacina);
 							JOptionPane.showMessageDialog(null, "Vacina e Medicamento atribuidos com sucesso!!");
 							dispose();
-						} catch (BusinessException | SQLException e1) {
+						} catch (SQLException e1) {
 
-							JOptionPane.showMessageDialog(null, "Não foi possível inserir medicamentos e vacinas / atualizar no estoque", "Erro", JOptionPane.ERROR_MESSAGE);		
+							JOptionPane.showMessageDialog(null,
+									"Não foi possível inserir medicamentos e vacinas / atualizar no estoque", "Erro",
+									JOptionPane.ERROR_MESSAGE);
+						} catch (BusinessException e2) {
+							JOptionPane.showMessageDialog(null, e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 						}
-
 					}
-				}catch (BusinessException e1) {
-					JOptionPane.showMessageDialog(null, "Não foi possível realizar ação.", "Erro", JOptionPane.ERROR_MESSAGE);
-						}
-
-					}
-
+				} catch (BusinessException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}
+				if (recursosWindow.retornarComboBoxFiltro().getSelectedItem() == "Todos") {
+					recursosWindow.recarregarTabelaGastos();
+				} else {
+					recursosWindow.recarregarTabelaGastosPorTipo();
+				}
 			}
-		);
+
+		});
 
 		JLabel lblPetLifeNome = new JLabel("PetLife");
 		lblPetLifeNome.setEnabled(false);
