@@ -670,11 +670,6 @@ public class TelaRegistroRecursos extends JFrame {
 		telaMedicamentos.add(scrollPaneSelecionarAnimal);
 
 		JComboBox comboBoxSelecionarAnimal = new JComboBox();
-		
-		JLabel lblMedicamentovacinasAnimal = new JLabel("Animal");
-		lblMedicamentovacinasAnimal.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMedicamentovacinasAnimal.setBounds(228, 15, 46, 14);
-		telaMedicamentos.add(lblMedicamentovacinasAnimal);
 
 		JScrollPane scrollPaneSelecionarVacina = new JScrollPane();
 		scrollPaneSelecionarVacina.setBounds(150, 96, 210, 24);
@@ -683,10 +678,20 @@ public class TelaRegistroRecursos extends JFrame {
 		JComboBox comboBoxSelecionarVacina = new JComboBox();
 		scrollPaneSelecionarVacina.setViewportView(comboBoxSelecionarVacina);
 		
-		JLabel lblMedicamentovacinasVacina = new JLabel("Vacina");
-		lblMedicamentovacinasVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMedicamentovacinasVacina.setBounds(228, 75, 46, 14);
-		telaMedicamentos.add(lblMedicamentovacinasVacina);
+		JLabel lblSelecionarAnimal = new JLabel("Animal");
+		lblSelecionarAnimal.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSelecionarAnimal.setBounds(228, 15, 46, 14);
+		telaMedicamentos.add(lblSelecionarAnimal);
+		
+		JLabel lblSelecionarVacina = new JLabel("Vacina");
+		lblSelecionarVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSelecionarVacina.setBounds(228, 75, 46, 14);
+		telaMedicamentos.add(lblSelecionarVacina);
+		
+		JLabel lblSelecionarMedicamento = new JLabel("Medicamento");
+		lblSelecionarMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSelecionarMedicamento.setBounds(211, 126, 94, 14);
+		telaMedicamentos.add(lblSelecionarMedicamento);
 
 		JScrollPane scrollPaneSelecionarMedicamento = new JScrollPane();
 		scrollPaneSelecionarMedicamento.setBounds(150, 151, 210, 24);
@@ -696,6 +701,12 @@ public class TelaRegistroRecursos extends JFrame {
 		scrollPaneSelecionarMedicamento.setViewportView(comboBoxSelecionarMedicamento);
 
 		scrollPaneSelecionarAnimal.setViewportView(comboBoxSelecionarAnimal);
+		
+		JButton btnRegistrarNoAnimal = new JButton("Registrar");
+		btnRegistrarNoAnimal.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRegistrarNoAnimal.setBounds(418, 231, 105, 30);
+		telaMedicamentos.add(btnRegistrarNoAnimal);
+		
 		// Carrega os ComboBox da tela de adicionar Vacina/Medicamento no Animal
 		btnMedicamentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -717,26 +728,30 @@ public class TelaRegistroRecursos extends JFrame {
 					AnimaisService serviceAnimais = new AnimaisService();
 					comboBoxSelecionarAnimal.removeAllItems();
 					List<Animais> listaAnimais = serviceAnimais.retornarAnimal();
+					comboBoxSelecionarAnimal.addItem("Nenhum");
 					for (Animais animal : listaAnimais) {
 						comboBoxSelecionarAnimal.addItem(animal);
 					}
+					if (String.valueOf(comboBoxSelecionarAnimal.getSelectedItem()).trim().equals("Nenhum")) {
+						btnRegistrarNoAnimal.setEnabled(false);
+					}
 				} catch (BusinessException | SQLException e1) {
-					JOptionPane.showMessageDialog(null, "Não foi possível carregar opções", "Erro", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Não foi possível carregar opções", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
 		});
 		
-		JLabel lblMedicamentosvacinasMedicamento = new JLabel("Medicamento");
-		lblMedicamentosvacinasMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMedicamentosvacinasMedicamento.setBounds(211, 126, 94, 14);
-		telaMedicamentos.add(lblMedicamentosvacinasMedicamento);
-
-		JButton btnRegistrarNoAnimal = new JButton("Registrar");
-		btnRegistrarNoAnimal.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRegistrarNoAnimal.setBounds(418, 231, 105, 30);
-		telaMedicamentos.add(btnRegistrarNoAnimal);
-
+		comboBoxSelecionarAnimal.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (String.valueOf(comboBoxSelecionarAnimal.getSelectedItem()).trim().equals("Nenhum")) {
+					btnRegistrarNoAnimal.setEnabled(false);
+				} else {
+					btnRegistrarNoAnimal.setEnabled(true);
+				}
+			}
+		});
 		// Registra um novo medicamento no banco de dados
 
 		btnRegistrarMedicamentoNovo.addActionListener(new ActionListener() {
@@ -1153,7 +1168,6 @@ public class TelaRegistroRecursos extends JFrame {
 					recursosWindow.recarregarTabelaGastosPorTipo();
 				}
 			}
-
 		});
 
 		JLabel lblPetLifeNome = new JLabel("PetLife");

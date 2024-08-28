@@ -22,7 +22,6 @@ public class Main {
 	private JFrame frame;
 	private CardLayout cardLayout;
 	private JPanel mainPanel;
-	private Recursos recursosWindow;
 	
 	/**
 	 * Launch the application.
@@ -109,7 +108,7 @@ public class Main {
 		btnAbrirTelaAdocao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "adocao");
-				
+				adocao.recarregarTabelaAptos();
 			}
 		});
 		btnAbrirTelaAdocao.setFont(new Font("DejaVu Sans", Font.PLAIN, 14));
@@ -123,7 +122,7 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "recursos");
 				if (recursos.retornarComboBoxFiltro().getSelectedItem() == "Todos") {
-				recursos.recarregarTabelaGastos();
+					recursos.recarregarTabelaGastos();
 				} else {
 					recursos.recarregarTabelaGastosPorTipo();
 				}
