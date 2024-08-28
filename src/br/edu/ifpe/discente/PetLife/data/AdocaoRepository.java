@@ -28,6 +28,8 @@ public class AdocaoRepository {
 				Statement statement = connection.createStatement()) {
 			String sql = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
 			statement.executeUpdate(sql);
+		}catch(Exception e) {
+			throw new SQLException("Erro ao criar banco de dados" + DB_NAME);
 		}
 	}
 
@@ -39,8 +41,8 @@ public class AdocaoRepository {
 					+ "endereco_tutor VARCHAR(255), " + "telefone_tutor VARCHAR(45), "
 					+ "FOREIGN KEY (id_pet) REFERENCES animais(id), " + "PRIMARY KEY (id_pet));";
 			statement.execute(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}catch(Exception e) {
+			throw new SQLException("Erro ao criar tabela adocoes");
 		}
 	}
 
@@ -59,9 +61,9 @@ public class AdocaoRepository {
 			statement.setInt(1, adocao.getIdPet());
 			statement.setString(2, adocao.getNomePet());
 			statement.setString(3, adocao.getTipoPet());
-			statement.setString(4, adocao.getNomeTutor());
+			statement.setString(4, Character.toUpperCase(adocao.getNomeTutor().charAt(0)) + adocao.getNomeTutor().substring(1));
 			statement.setString(5, adocao.getCpf());
-			statement.setString(6, adocao.getEndereco());
+			statement.setString(6, Character.toUpperCase(adocao.getEndereco().charAt(0)) + adocao.getEndereco().substring(1));
 			statement.setString(7, adocao.getTelefone());
 			statement.execute();
 
@@ -75,6 +77,8 @@ public class AdocaoRepository {
 				statementUpdate.execute();
 			}
 
+		}catch(Exception e) {
+			throw new SQLException("Erro ao adotar");
 		}
 	}
 
@@ -95,12 +99,12 @@ public class AdocaoRepository {
 				Adocoes adocao = new Adocoes(
 
 						rs.getInt("id_pet"), rs.getString("nome_pet"), rs.getString("tipo_pet"),
-						rs.getString("nome_tutor"), rs.getString("cpf_tutor"), rs.getString("endereco_tutor"),
-						rs.getString("telefone_tutor"));
+						rs.getString("nome_tutor"), rs.getString("cpf_tutor"),
+						rs.getString("telefone_tutor"), rs.getString("endereco_tutor"));
 				listaAdocoes.add(adocao);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}catch(Exception e) {
+			throw new SQLException("Erro ao listar adocoes");
 		}
 		return listaAdocoes;
 	}

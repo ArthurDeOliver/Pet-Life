@@ -2,15 +2,20 @@ package br.edu.ifpe.discente.PetLife.ui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
-
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -22,14 +27,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
+import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 
 import javax.swing.JButton;
 
@@ -48,16 +52,17 @@ public class TelaEdicaoPet extends JFrame {
 	private Animais animalSelecionado;
 	private int petID;
 	private Pets mainWindow;
+	private Adocao mainWindowAdocao;
 	private JRadioButton RadioButtonSemRacaPet;
 	private JRadioButton RadioButtonRacaDefinidaPet;
 	private FileInputStream fis;
 	private int tamanho;
+	private Map<Integer, String> fotoMap = new HashMap<>();
+
 	
-	
-	
-	
-	public TelaEdicaoPet(Pets mainWindow) {
+	public TelaEdicaoPet(Pets mainWindow, Adocao mainWindowAdocao) {
 		this.mainWindow = mainWindow;
+		this.mainWindowAdocao = mainWindowAdocao;
 		setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 580, 455);
@@ -132,7 +137,7 @@ public class TelaEdicaoPet extends JFrame {
         
         JLabel labelRaçaPet = new JLabel("Raça");
         labelRaçaPet.setFont(new Font("Tahoma", Font.BOLD, 14));
-        labelRaçaPet.setBounds(58, 238, 46, 31);
+        labelRaçaPet.setBounds(62, 250, 46, 31);
         edicaoPetCorpoPainel.add(labelRaçaPet);
         
         
@@ -156,10 +161,10 @@ public class TelaEdicaoPet extends JFrame {
         });
         
         
-        RadioButtonSemRacaPet.setBounds(55, 265, 153, 23);
+        RadioButtonSemRacaPet.setBounds(62, 280, 153, 23);
         edicaoPetCorpoPainel.add(RadioButtonSemRacaPet);
         
-        RadioButtonRacaDefinidaPet.setBounds(55, 285, 95, 23);
+        RadioButtonRacaDefinidaPet.setBounds(62, 300, 95, 23);
         edicaoPetCorpoPainel.add(RadioButtonRacaDefinidaPet);
         
         
@@ -169,7 +174,7 @@ public class TelaEdicaoPet extends JFrame {
         
         textFieldRacaPet = new JFormattedTextField();
         textFieldRacaPet.setEditable(false);
-        textFieldRacaPet.setBounds(151, 292, 86, 15);
+        textFieldRacaPet.setBounds(158, 303, 80, 20);
         edicaoPetCorpoPainel.add(textFieldRacaPet);
         textFieldRacaPet.setColumns(10);
         textFieldRacaPet.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
@@ -191,7 +196,7 @@ public class TelaEdicaoPet extends JFrame {
         edicaoPetCorpoPainel.add(labelStatusPet);
         
         comboBoxStatusPet = new JComboBox();
-        comboBoxStatusPet.setModel(new DefaultComboBoxModel(new String[] {"Adotado", "Apto", "Não apto"}));
+        comboBoxStatusPet.setModel(new DefaultComboBoxModel(new String[] {"Apto", "Não apto"}));
         comboBoxStatusPet.setBounds(305, 128, 177, 22);
         edicaoPetCorpoPainel.add(comboBoxStatusPet);
         
@@ -204,19 +209,22 @@ public class TelaEdicaoPet extends JFrame {
         btnFotoPet.setIcon(new ImageIcon(TelaEdicaoPet.class.getResource("/Imagens/camera.png")));
         btnFotoPet.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		JFileChooser foto = new JFileChooser();
-        		foto.setDialogTitle("Procurar foto");
-        		foto.setFileFilter(new FileNameExtensionFilter("Arquivo de Imagens (*.PNG, *JPG, *JPEG)", "png", "jpg", "jpeg"));
-        		int resultado = foto.showOpenDialog(null);
-        		if (resultado == JFileChooser.APPROVE_OPTION) {
-        			try {
-						fis = new FileInputStream(foto.getSelectedFile());
-						tamanho = (int) foto.getSelectedFile().length();
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					}
-
-        		}
+        		JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivo de imagens (*.PNG, *.JPG, *.JPEG)", "png", "jpg", "jpeg"));
+                int result = fileChooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    fis = null;
+                    try {
+                        fis = new FileInputStream(file);
+                        tamanho = (int) file.length();
+                        labelFotoPet.setText(file.getName());
+                        fotoMap.put(petID, file.getAbsolutePath());
+                    } catch (FileNotFoundException ex) {
+                    	JOptionPane.showMessageDialog(null, "Arquivo não encontrado: ", "Erro ao Abrir Arquivo", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
         	}
         });
         btnFotoPet.setBounds(305, 192, 67, 42);
@@ -226,39 +234,56 @@ public class TelaEdicaoPet extends JFrame {
         btnEdicaoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
         btnEdicaoPet.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
-                if (animalSelecionado != null) {
-                    try {
+                try {
+                    String nome = textFieldNomePet.getText();
+                    int idade = Integer.parseInt(textFieldIdadePet.getText()); 
+                    String tipo = comboBoxTipoPet.getSelectedItem().toString();
+                    String raca = textFieldRacaPet.getText();
+                    int racao = Integer.parseInt(textFieldRacao.getText()); 
+                    String status = comboBoxStatusPet.getSelectedItem().toString();
 
-                        AnimaisService servico = new AnimaisService();
-                        
-                        String nome = textFieldNomePet.getText();
-                        int idade = Integer.parseInt(textFieldIdadePet.getText()); 
-                        String tipo = comboBoxTipoPet.getSelectedItem().toString();
-                        String raca = textFieldRacaPet.getText();
-                        int racao = Integer.parseInt(textFieldRacao.getText()); 
-                        String status = comboBoxStatusPet.getSelectedItem().toString();
-                        String foto = ""; 
+                    if (fotoMap.containsKey(petID)) {
+                        String appDataPath = System.getenv("APPDATA");
+                        File appDataDir = new File(appDataPath, "Petlife/Imagens");
+                        if (!appDataDir.exists()) {
+                            appDataDir.mkdirs();
+                        }
 
-                        servico.atualizarAnimal(nome, idade, tipo, raca, racao, status, foto, petID);
+                        String originalPath = fotoMap.get(petID);
 
-                        JOptionPane.showMessageDialog(null, "Animal atualizado com sucesso!");
-                        mainWindow.recarregarTabela();
-                        Window window = SwingUtilities.getWindowAncestor(TelaEdicaoPet.this);
-                        dispose();    
+                        String fileName = "foto" + petID; 
 
-                    } catch (IllegalArgumentException ex) {
-     		            JOptionPane.showMessageDialog(null, "Todos os campos de texto são obrigatórios.");
-     		        } catch (SQLException ex) {
-     		            ex.printStackTrace();
-     		        }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Nenhum animal selecionado.");
-                }
+                        File destFile = new File(appDataDir, fileName);
+
+                        try {
+							Files.copy(Paths.get(originalPath), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+						} catch (IOException e1) {
+							 JOptionPane.showMessageDialog(null, "Erro ao copiar o arquivo de imagem: " + 
+								        JOptionPane.ERROR_MESSAGE);
+						}
+
+                        animalSelecionado.setFoto(destFile.getAbsolutePath());
+                    }
+
+                    AnimaisService servico = new AnimaisService();
+                    servico.atualizarAnimal(nome, idade, tipo, raca, racao, status, petID);
+
+                    dispose();
+
+                    mainWindow.recarregarTabela();
+                    mainWindow.recarregarTabelaAptos();   
+                    
+                    JOptionPane.showMessageDialog(null, "Pet editado com sucesso");
+
+                } catch (BusinessException | SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);
+				}
             }
         });
+
         btnEdicaoPet.setBounds(459, 292, 75, 31);
         edicaoPetCorpoPainel.add(btnEdicaoPet);
+
 	}
 	
 	
@@ -283,6 +308,10 @@ public class TelaEdicaoPet extends JFrame {
 	        RadioButtonRacaDefinidaPet.setSelected(true);
 	        textFieldRacaPet.setEditable(true);
 	    }
+		
+		
+		
 
 	}
+
 }

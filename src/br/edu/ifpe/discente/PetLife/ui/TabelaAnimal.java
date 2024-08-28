@@ -18,7 +18,7 @@ public class TabelaAnimal extends JPanel {
 
         
         
-        String[] colunas = {"ID", "Nome", "Tipo"};
+        String[] colunas = {"ID", "Nome", "Espécie"};
         modelo = new DefaultTableModel(colunas, 0);
         tabela = new JTable(modelo);
 

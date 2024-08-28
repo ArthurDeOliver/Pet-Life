@@ -12,14 +12,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.business.RecursosService;
+import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 import br.edu.ifpe.discente.PetLife.ui.entities.Medicamentos;
 import br.edu.ifpe.discente.PetLife.ui.entities.Racoes;
 import br.edu.ifpe.discente.PetLife.ui.entities.Vacinas;
+import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -33,6 +37,8 @@ import javax.swing.JScrollPane;
 import javax.swing.Box;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class TelaRegistroRecursos extends JFrame{
 
@@ -57,6 +63,7 @@ public class TelaRegistroRecursos extends JFrame{
 	private JTextField textFieldValorRacaoNova;
 	private JTextField textFieldValorVacinaNova;
     private CardLayout cl_panelMudar;
+    private Recursos recursosWindow;
     private JLabel lblVacina;
     private JLabel lblQuantidadeVacina;
     private JLabel lblValorVacina;
@@ -67,34 +74,9 @@ public class TelaRegistroRecursos extends JFrame{
     private JTextField textFieldNomeMedicamento;
     private JTextField textFieldNomeMarcaRacao;
     private JTextField textFieldNomeVacina;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaRegistroRecursos window = new TelaRegistroRecursos();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public TelaRegistroRecursos() {
-		initialize();
-	}
-
-	
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+    
+	public TelaRegistroRecursos(Recursos recursosWindow) {
+		this.recursosWindow = recursosWindow;
 		setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 580, 455);
@@ -177,12 +159,14 @@ public class TelaRegistroRecursos extends JFrame{
         
         textFieldNomeMedicamentoNovo = new JTextField();
         textFieldNomeMedicamentoNovo.addKeyListener(new KeyAdapter() {
-   
+        	
+   //Limita o tamanho do texto digitado
+        	
         	public void keyTyped(KeyEvent e) {
                 if (textFieldNomeMedicamentoNovo.getText().length() > 20) {
                     e.consume(); 
                 }
-
+                                                                                  
                 if (Character.isDigit(e.getKeyChar())) {
                     e.consume(); 
                 }
@@ -192,6 +176,7 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldNomeMedicamentoNovo.setBounds(169, 50, 173, 20);
         panelNovoMedicamento.add(textFieldNomeMedicamentoNovo);
         textFieldNomeMedicamentoNovo.setColumns(10);
+ //Impede o uso do CTRL + V      
         textFieldNomeMedicamentoNovo.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         
         
@@ -202,9 +187,13 @@ public class TelaRegistroRecursos extends JFrame{
 
         
         textFieldQuantidadeMedicamentoNovo = new JTextField();
+ //Impede o uso do CTRL + V      
+        
         textFieldQuantidadeMedicamentoNovo.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldQuantidadeMedicamentoNovo.addKeyListener(new KeyAdapter() {
-        
+        	
+  //Permite apenas a digitação de números e limita a quantidade de caracteres digitados
+        	
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789";
         		if (!caracteres.contains(e.getKeyChar()+"")) {
@@ -222,14 +211,18 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovoMedicamento.add(textFieldQuantidadeMedicamentoNovo);
         textFieldQuantidadeMedicamentoNovo.setColumns(10);
         
-        JLabel lblValorMedicamentoNovo = new JLabel("Valor");
+        JLabel lblValorMedicamentoNovo = new JLabel("Valor (Unitário)");
         lblValorMedicamentoNovo.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblValorMedicamentoNovo.setBounds(232, 139, 42, 14);
+        lblValorMedicamentoNovo.setBounds(203, 139, 110, 14);
         panelNovoMedicamento.add(lblValorMedicamentoNovo);
         
         textFieldValorMedicamentoNovo = new JTextField();
+        
+    //Impede o uso do CTRL + V    
         textFieldValorMedicamentoNovo.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldValorMedicamentoNovo.addKeyListener(new KeyAdapter() {
+        	
+    //Permite apenas a digitação de números e limita a quantidade de caracteres digitados    
         	
         	public void keyTyped(KeyEvent e) {
         		String caracteres = "0123456789.";
@@ -246,26 +239,10 @@ public class TelaRegistroRecursos extends JFrame{
         textFieldValorMedicamentoNovo.setBounds(169, 164, 173, 20);
         panelNovoMedicamento.add(textFieldValorMedicamentoNovo);
         textFieldValorMedicamentoNovo.setColumns(10);
+               
         
         btnRegistrarMedicamentoNovo = new JButton("Registrar");
-        btnRegistrarMedicamentoNovo.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		String nome = textFieldNomeMedicamentoNovo.getText();
-        		int quantidade = Integer.parseInt(textFieldQuantidadeMedicamentoNovo.getText());
-        		float valor = Float.parseFloat(textFieldValorMedicamentoNovo.getText());
-        		Medicamentos medicamento = new Medicamentos(nome, quantidade, valor);
-        		RecursosService registrar = new RecursosService();
-        		try {
-					registrar.criarMedicamento(medicamento);
-					JOptionPane.showMessageDialog(null, "Medicamento registrado com sucesso!!");
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-									
-										
-				}
-        		
-        	}
-        });
+       
         
         btnRegistrarMedicamentoNovo.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnRegistrarMedicamentoNovo.setBounds(417, 179, 105, 30);
@@ -282,6 +259,9 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaRacao.add(lblMarcaRacaoNova);
         
         JTextField textFieldMarcaRacaoNova = new JTextField();
+        
+     //Limita a quantidade de caracteres digitados  
+        
         textFieldMarcaRacaoNova.addKeyListener(new KeyAdapter() {
         	public void keyTyped(KeyEvent e) {
                 if (textFieldMarcaRacaoNova.getText().length() > 20) {
@@ -345,26 +325,9 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaRacao.add(textFieldValorRacaoNova);
         textFieldValorRacaoNova.setColumns(10);
         
+        
         JButton btnRegistrarRacaoNova = new JButton("Registrar");
-        btnRegistrarRacaoNova.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		String nome = textFieldMarcaRacaoNova.getText();
-        		float quantidade = Float.parseFloat(textFieldQuantidadeRacaoNova.getText());
-        		float valor = Float.parseFloat(textFieldValorRacaoNova.getText());
-        		Racoes racao = new Racoes(nome, quantidade, valor);
-        		RecursosService registrar = new RecursosService();
-        		try {
-					registrar.criarRacao(racao);
-					JOptionPane.showMessageDialog(null, "Ração registrada com sucesso!!");
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-									
-										
-				}
-        		
-        	}
-        	}
-        );
+      
         btnRegistrarRacaoNova.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnRegistrarRacaoNova.setBounds(417, 179, 105, 30);
         panelNovaRacao.add(btnRegistrarRacaoNova);
@@ -421,9 +384,9 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaVacina.add(textFieldQuantidadeVacinaNova);
         textFieldQuantidadeVacinaNova.setColumns(10);
         
-        JLabel lblValorVacinaNova = new JLabel("Valor");
+        JLabel lblValorVacinaNova = new JLabel("Valor (Unitário)");
         lblValorVacinaNova.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblValorVacinaNova.setBounds(232, 139, 42, 14);
+        lblValorVacinaNova.setBounds(202, 139, 110, 14);
         panelNovaVacina.add(lblValorVacinaNova);
         
         JTextField textFieldValorVacinaNova = new JTextField();
@@ -444,25 +407,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelNovaVacina.add(textFieldValorVacinaNova);
         textFieldValorVacinaNova.setColumns(10);
         
-        JButton btnRegistrarVacinaNova = new JButton("Registrar");
-        btnRegistrarVacinaNova.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		String nome = textFieldVacinaNova.getText();
-        		int quantidade = Integer.parseInt(textFieldQuantidadeVacinaNova.getText());
-        		float valor = Float.parseFloat(textFieldValorVacinaNova.getText());
-        		Vacinas vacina = new Vacinas(nome, quantidade, valor);
-        		RecursosService registrar = new RecursosService();
-        		try {
-					registrar.criarVacina(vacina);
-					JOptionPane.showMessageDialog(null, "Vacina registrada com sucesso!!");
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-									
-										
-				}
-        	}
-        	}
-        );
+        JButton btnRegistrarVacinaNova = new JButton("Registrar");     
         btnRegistrarVacinaNova.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnRegistrarVacinaNova.setBounds(417, 179, 105, 30);
         panelNovaVacina.add(btnRegistrarVacinaNova);
@@ -471,7 +416,7 @@ public class TelaRegistroRecursos extends JFrame{
         panelMudar.add(panelMedicamento, "Medicamentos");
        
         JScrollPane scrollPaneMedicamento = new JScrollPane();
-        scrollPaneMedicamento.setBounds(169, 11, 173, 24);
+        scrollPaneMedicamento.setBounds(150, 11, 210, 24);
         panelMedicamento.add(scrollPaneMedicamento);
         
         JComboBox comboBoxMedicamento = new JComboBox();
@@ -479,7 +424,7 @@ public class TelaRegistroRecursos extends JFrame{
         
         JLabel lblQuantidadeMedicamento = new JLabel("Quantidade");
         lblQuantidadeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblQuantidadeMedicamento.setBounds(210, 100, 86, 17);
+        lblQuantidadeMedicamento.setBounds(211, 100, 86, 17);
         panelMedicamento.add(lblQuantidadeMedicamento);
         
         JTextField textFieldQuantidadeMedicamento = new JTextField();
@@ -497,13 +442,13 @@ public class TelaRegistroRecursos extends JFrame{
         	}
         	
         });
-        textFieldQuantidadeMedicamento.setBounds(169, 128, 173, 20);
+        textFieldQuantidadeMedicamento.setBounds(150, 128, 210, 20);
         panelMedicamento.add(textFieldQuantidadeMedicamento);
         textFieldQuantidadeMedicamento.setColumns(10);
         
-        JLabel lblValorMedicamento = new JLabel("Valor");
+        JLabel lblValorMedicamento = new JLabel("Valor (Unitário)");
         lblValorMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblValorMedicamento.setBounds(233, 159, 42, 14);
+        lblValorMedicamento.setBounds(202, 159, 106, 14);
         panelMedicamento.add(lblValorMedicamento);
         
         JTextField textFieldValorMedicamento = new JTextField();
@@ -520,7 +465,7 @@ public class TelaRegistroRecursos extends JFrame{
         		}
         	}
         });
-        textFieldValorMedicamento.setBounds(169, 184, 173, 20);
+        textFieldValorMedicamento.setBounds(150, 184, 210, 20);
         panelMedicamento.add(textFieldValorMedicamento);
         textFieldValorMedicamento.setColumns(10);
         
@@ -535,25 +480,59 @@ public class TelaRegistroRecursos extends JFrame{
         panelRacao.setLayout(null);
         
         JScrollPane scrollPaneRacao = new JScrollPane();
-        scrollPaneRacao.setBounds(169, 11, 173, 24);
+        scrollPaneRacao.setBounds(150, 11, 210, 24);
         panelRacao.add(scrollPaneRacao);
         
         JComboBox comboBoxRacao = new JComboBox();
         
-        JLabel lblNomeMedicamento = new JLabel("Nome");
+        JLabel lblNomeMedicamento = new JLabel(" Nome");
         lblNomeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNomeMedicamento.setBounds(233, 46, 42, 17);
+        lblNomeMedicamento.setBounds(224, 46, 51, 17);
         panelMedicamento.add(lblNomeMedicamento);
         
         textFieldNomeMedicamento = new JTextField();
-        textFieldNomeMedicamento.setBounds(169, 69, 173, 20);
+        textFieldNomeMedicamento.setBounds(150, 69, 210, 20);
         panelMedicamento.add(textFieldNomeMedicamento);
         textFieldNomeMedicamento.setColumns(10);
+        textFieldNomeMedicamento.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
+        textFieldNomeMedicamento.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+                if (textFieldNomeMedicamento.getText().length() > 20) {
+                    e.consume(); 
+                }
+
+                if (Character.isDigit(e.getKeyChar())) {
+                    e.consume(); 
+                }
+            }
+        });
         scrollPaneRacao.setViewportView(comboBoxRacao);
         
+        JLabel lblNomeMarcaRacao = new JLabel("Nome");
+        lblNomeMarcaRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblNomeMarcaRacao.setBounds(224, 46, 51, 17);
+        panelRacao.add(lblNomeMarcaRacao);
+        
+        textFieldNomeMarcaRacao = new JTextField();
+        textFieldNomeMarcaRacao.setBounds(150, 69, 210, 20);
+        panelRacao.add(textFieldNomeMarcaRacao);
+        textFieldNomeMarcaRacao.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
+        textFieldNomeMarcaRacao.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+                if (textFieldNomeMarcaRacao.getText().length() > 20) {
+                    e.consume(); 
+                }
+
+                if (Character.isDigit(e.getKeyChar())) {
+                    e.consume(); 
+                }
+            }
+        });
+        textFieldNomeMarcaRacao.setColumns(10);
+
         JLabel lblQuantidadeRacao = new JLabel("Quantidade");
         lblQuantidadeRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblQuantidadeRacao.setBounds(210, 100, 86, 17);
+        lblQuantidadeRacao.setBounds(211, 100, 86, 17);
         panelRacao.add(lblQuantidadeRacao);
         
         JTextField textFieldQuantidadeRacao = new JTextField();
@@ -570,7 +549,7 @@ public class TelaRegistroRecursos extends JFrame{
         		}
         	}
         });
-        textFieldQuantidadeRacao.setBounds(169, 128, 173, 20);
+        textFieldQuantidadeRacao.setBounds(150, 128, 210, 20);
         panelRacao.add(textFieldQuantidadeRacao);
         textFieldQuantidadeRacao.setColumns(10);
         
@@ -594,71 +573,32 @@ public class TelaRegistroRecursos extends JFrame{
         		
         	}
         });
-        textFieldValorRacao.setBounds(169, 184, 173, 20);
+        textFieldValorRacao.setBounds(150, 184, 210, 20);
         panelRacao.add(textFieldValorRacao);
         textFieldValorRacao.setColumns(10);
         
         JButton btnAdicionarRacao = new JButton("Adicionar");
+
         btnAdicionarRacao.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnAdicionarRacao.setBounds(417, 179, 105, 30);
         panelRacao.add(btnAdicionarRacao);
         panelRacao.setLayout(null);
         
-        JLabel lblNomeMarcaRacao = new JLabel("Nome");
-        lblNomeMarcaRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNomeMarcaRacao.setBounds(233, 47, 46, 14);
-        panelRacao.add(lblNomeMarcaRacao);
-        
-        textFieldNomeMarcaRacao = new JTextField();
-        textFieldNomeMarcaRacao.setBounds(169, 69, 173, 20);
-        panelRacao.add(textFieldNomeMarcaRacao);
-        textFieldNomeMarcaRacao.setColumns(10);
         
         JPanel panelVacina = new JPanel();
         panelMudar.add(panelVacina, "Vacinas");
         panelVacina.setLayout(null);
         
         JScrollPane scrollPaneVacina = new JScrollPane();
-        scrollPaneVacina.setBounds(169, 11, 173, 24);
+        scrollPaneVacina.setBounds(150, 11, 210, 24);
         panelVacina.add(scrollPaneVacina);
         
         JComboBox comboBoxVacina = new JComboBox();
         scrollPaneVacina.setViewportView(comboBoxVacina);
-        
-        
-        
-        comboBoxEstoque.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {    
-        		String selecionado = (String) comboBoxEstoque.getSelectedItem();
-        		cl_panelMudar.show(panelMudar, selecionado);  
-        		try {
-					switch (selecionado) {
-					case "Medicamentos":		
-						RecursosService serviceMedicamento = new RecursosService(); 
-						serviceMedicamento.carregarComboBoxMedicamentos(comboBoxMedicamento);
-						
-					  case "Rações":		
-		                    RecursosService serviceRacao = new RecursosService(); 
-		                    serviceRacao.carregarComboBoxRacoes(comboBoxRacao);
-		                    
-					  case "Vacinas":
-						  RecursosService serviceVacina = new RecursosService(); 
-		                    serviceVacina.carregarComboBoxVacinas(comboBoxVacina);
-		                    
-					}
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        	}
-        });
-        
-        
-        
-        
+           
         JLabel lblQuantidadeVacina = new JLabel("Quantidade");
         lblQuantidadeVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblQuantidadeVacina.setBounds(210, 100, 86, 17);
+        lblQuantidadeVacina.setBounds(211, 100, 86, 17);
         panelVacina.add(lblQuantidadeVacina);
         
         JTextField textFieldQuantidadeVacina = new JTextField();
@@ -675,13 +615,13 @@ public class TelaRegistroRecursos extends JFrame{
         		}
         	}
         });
-        textFieldQuantidadeVacina.setBounds(169, 128, 173, 20);
+        textFieldQuantidadeVacina.setBounds(150, 128, 210, 20);
         panelVacina.add(textFieldQuantidadeVacina);
         textFieldQuantidadeVacina.setColumns(10);
         
-        JLabel lblValorVacina = new JLabel("Valor");
+        JLabel lblValorVacina = new JLabel("Valor (Unitário)");
         lblValorVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblValorVacina.setBounds(233, 159, 42, 14);
+        lblValorVacina.setBounds(201, 159, 112, 14);
         panelVacina.add(lblValorVacina);
         
         JTextField textFieldValorVacina= new JTextField();
@@ -698,19 +638,31 @@ public class TelaRegistroRecursos extends JFrame{
             		}
         	}
         });
-        textFieldValorVacina.setBounds(169, 184, 173, 20);
+        textFieldValorVacina.setBounds(150, 184, 210, 20);
         panelVacina.add(textFieldValorVacina);
         textFieldValorVacina.setColumns(10);
                  
         JLabel lblNomeVacina = new JLabel("Nome");
         lblNomeVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNomeVacina.setBounds(233, 47, 46, 14);
+        lblNomeVacina.setBounds(224, 46, 51, 17);
         panelVacina.add(lblNomeVacina);
         
         textFieldNomeVacina = new JTextField();
-        textFieldNomeVacina.setBounds(169, 69, 173, 20);
+        textFieldNomeVacina.setBounds(150, 69, 210, 20);
         panelVacina.add(textFieldNomeVacina);
+        textFieldNomeVacina.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         textFieldNomeVacina.setColumns(10);
+        textFieldNomeVacina.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+                if (textFieldNomeVacina.getText().length() > 20) {
+                    e.consume(); 
+                }
+
+                if (Character.isDigit(e.getKeyChar())) {
+                    e.consume(); 
+                }
+            }
+        });
               
         JButton btnAdicionarVacina = new JButton("Adicionar");
         btnAdicionarVacina.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -725,54 +677,340 @@ public class TelaRegistroRecursos extends JFrame{
         telaMedicamentos.setLayout(null);
         
         JScrollPane scrollPaneSelecionarAnimal = new JScrollPane();
-        scrollPaneSelecionarAnimal.setBounds(170, 40, 174, 28);
+        scrollPaneSelecionarAnimal.setBounds(150, 40, 210, 24);
         telaMedicamentos.add(scrollPaneSelecionarAnimal);
                 
         JComboBox comboBoxSelecionarAnimal = new JComboBox();
         
         JScrollPane scrollPaneSelecionarVacina = new JScrollPane();
-        scrollPaneSelecionarVacina.setBounds(170, 96, 174, 28);
+        scrollPaneSelecionarVacina.setBounds(150, 96, 210, 24);
         telaMedicamentos.add(scrollPaneSelecionarVacina);
         
         JComboBox comboBoxSelecionarVacina = new JComboBox();
         scrollPaneSelecionarVacina.setViewportView(comboBoxSelecionarVacina);
         
         JScrollPane scrollPaneSelecionarMedicamento = new JScrollPane();
-        scrollPaneSelecionarMedicamento.setBounds(170, 151, 174, 28);
+        scrollPaneSelecionarMedicamento.setBounds(150, 151, 210, 24);
         telaMedicamentos.add(scrollPaneSelecionarMedicamento);
         
         JComboBox comboBoxSelecionarMedicamento = new JComboBox();
         scrollPaneSelecionarMedicamento.setViewportView(comboBoxSelecionarMedicamento);
         
         scrollPaneSelecionarAnimal.setViewportView(comboBoxSelecionarAnimal);
+    //Carrega os ComboBox da tela de adicionar Vacina/Medicamento no Animal
         btnMedicamentos.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		
-        		cl_telaRegistrar.show(telaRegistrar, "telaMedicamentos");
-        		try {	
-        			
-					RecursosService serviceAnimal = new RecursosService(); 
-					serviceAnimal.carregarAnimaisComboBox(comboBoxSelecionarAnimal);
-					
-					RecursosService serviceSelecionarVacina = new RecursosService(); 
-					serviceSelecionarVacina.carregarComboBoxVacinas(comboBoxSelecionarVacina);
-					
-					RecursosService serviceSelecionarMedicamento = new RecursosService(); 
-                    serviceSelecionarMedicamento.carregarComboBoxMedicamentos(comboBoxSelecionarMedicamento);
-				
+			public void actionPerformed(ActionEvent e) {
+				cl_telaRegistrar.show(telaRegistrar, "telaMedicamentos");
+				try {
+					RecursosService service = new RecursosService();
+					comboBoxSelecionarMedicamento.removeAllItems();
+					List<Medicamentos> listaMedicamentos = service.retornarTodosMedicamentos();
+					comboBoxSelecionarMedicamento.addItem("Nenhum");
+					for (Medicamentos medicamento : listaMedicamentos) {
+						comboBoxSelecionarMedicamento.addItem(medicamento);
+					}
+					comboBoxSelecionarVacina.removeAllItems();
+					List<Vacinas> listaVacinas = service.retornarTodasVacinas();
+					comboBoxSelecionarVacina.addItem("Nenhum");
+					for (Vacinas vacina : listaVacinas) {
+						comboBoxSelecionarVacina.addItem(vacina);
+					}
+					AnimaisService serviceAnimais = new AnimaisService();
+					comboBoxSelecionarAnimal.removeAllItems();
+					List<Animais> listaAnimais = serviceAnimais.retornarAnimal();
+					for(Animais animal: listaAnimais) {
+						comboBoxSelecionarAnimal.addItem(animal);
+					}
+				} catch (BusinessException | SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);
 				}
-			 catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+
 			}
-        	}
-        });                           
-        
+		});
         
         JButton btnRegistrarNoAnimal = new JButton("Registrar");
         btnRegistrarNoAnimal.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnRegistrarNoAnimal.setBounds(418, 231, 105, 30);
         telaMedicamentos.add(btnRegistrarNoAnimal);
+        
+   //Registra um novo medicamento no banco de dados
+        
+        btnRegistrarMedicamentoNovo.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String nome = textFieldNomeMedicamentoNovo.getText();
+        		int quantidade = Integer.parseInt(textFieldQuantidadeMedicamentoNovo.getText());
+        		float valor = Float.parseFloat(textFieldValorMedicamentoNovo.getText());
+        		Medicamentos medicamento = new Medicamentos(nome, quantidade, valor);
+        		RecursosService registrar = new RecursosService();
+        		try {
+					registrar.criarMedicamento(medicamento);
+					JOptionPane.showMessageDialog(null, "Medicamento registrado com sucesso!!");
+					dispose();
+				} catch (SQLException | BusinessException e1) {					
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);									
+				}
+        		
+        	}
+        });
+        
+      //Registra uma nova ração no banco de dados
+        
+        btnRegistrarRacaoNova.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String nome = textFieldMarcaRacaoNova.getText();
+        		float quantidade = Float.parseFloat(textFieldQuantidadeRacaoNova.getText());
+        		float valor = Float.parseFloat(textFieldValorRacaoNova.getText());
+        		Racoes racao = new Racoes(nome, quantidade, valor);
+        		RecursosService registrar = new RecursosService();
+        		try {
+					registrar.criarRacao(racao);
+					JOptionPane.showMessageDialog(null, "Ração registrada com sucesso!!");
+					dispose();
+				} catch (SQLException | BusinessException e1) {					
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);																					
+				}     		
+        	}
+        	}
+        );
+        
+        //Registra uma nova vacina no banco de dados
+        
+        btnRegistrarVacinaNova.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String nome = textFieldVacinaNova.getText();
+        		int quantidade = Integer.parseInt(textFieldQuantidadeVacinaNova.getText());
+        		float valor = Float.parseFloat(textFieldValorVacinaNova.getText());
+        		Vacinas vacina = new Vacinas(nome, quantidade, valor);
+        		RecursosService registrar = new RecursosService();
+        		try {
+					registrar.criarVacina(vacina);
+					JOptionPane.showMessageDialog(null, "Vacina registrada com sucesso!!");
+					dispose();
+				} catch (SQLException | BusinessException e1) {					
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);																	
+				}
+        	}
+        	}
+        );
+        // Carrega os ComboBox quando selecionar um item na tela Estoque
+        comboBoxEstoque.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {    
+                String selecionado = (String) comboBoxEstoque.getSelectedItem();
+                cl_panelMudar.show(panelMudar, selecionado);
+                RecursosService service = new RecursosService(); 
+                switch(selecionado) {
+                
+                case "Medicamentos":
+                    try {
+                    	comboBoxMedicamento.removeAllItems();
+                        List<Medicamentos> listaMedicamentos = service.retornarTodosMedicamentos();
+                        for(Medicamentos medicamento: listaMedicamentos) {
+                            comboBoxMedicamento.addItem(medicamento);
+                        }
+                    } catch (BusinessException | SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case "Rações":
+                	try {
+                    	comboBoxRacao.removeAllItems();
+                        List<Racoes> listaRacoes = service.retornarTodasRacoes();
+                        for(Racoes racao: listaRacoes) {
+                            comboBoxRacao.addItem(racao);
+                        }
+                    } catch (BusinessException | SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                	break;
+                case "Vacinas":	
+                	try {
+                    	comboBoxVacina.removeAllItems();
+                        List<Vacinas> listaVacinas = service.retornarTodasVacinas();
+                        for(Vacinas vacina: listaVacinas) {
+                            comboBoxVacina.addItem(vacina);
+                        }
+                    } catch (BusinessException | SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
+        // Seta os valores do medicamento nos TextFields
+        comboBoxMedicamento.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) {
+        		Medicamentos medicamento = (Medicamentos) comboBoxMedicamento.getSelectedItem();
+        		if (medicamento != null) {
+        		String nome = medicamento.getNomeMedicamento();
+        		int quantidade = medicamento.getQuantidadeMedicamento();
+        		double valor = medicamento.getValorMedicamento();
+        		textFieldNomeMedicamento.setText(nome);
+        		textFieldQuantidadeMedicamento.setText(String.valueOf(quantidade));
+        		textFieldValorMedicamento.setText(String.valueOf(valor));
+        		}
+        		
+        		}});
+        // Seta os valores da Ração nos TextFields
+        comboBoxRacao.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) {
+        		Racoes racao = (Racoes) comboBoxRacao.getSelectedItem();
+        		if (racao != null) {
+        		String nome = racao.getMarcaRacao();
+        		double quantidade = racao.getQuantidadeRacao();
+        		double valor = racao.getValorRacao();
+        		textFieldNomeMarcaRacao.setText(nome);
+        		textFieldQuantidadeRacao.setText(String.valueOf(quantidade));
+        		textFieldValorRacao.setText(String.valueOf(valor));
+        		}
+        		
+        		}});
+        // Seta os valores da Vacina nos TextFields
+        comboBoxVacina.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) {
+        		Vacinas vacina = (Vacinas) comboBoxVacina.getSelectedItem();
+        		if (vacina != null) {
+        		String nome = vacina.getNomeVacina();
+        		int quantidade = vacina.getQuantidadeVacina();
+        		double valor = vacina.getValorVacina();
+        		textFieldNomeVacina.setText(nome);
+        		textFieldQuantidadeVacina.setText(String.valueOf(quantidade));
+        		textFieldValorVacina.setText(String.valueOf(valor));
+        		}
+        		
+        		}});
+        //Atualiza os dados do medicamento no Banco de dados
+        btnAdicionarMedicamento.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		RecursosService service = new RecursosService();
+        		Medicamentos medicamento = (Medicamentos) comboBoxMedicamento.getSelectedItem();
+        		String novoNome = textFieldNomeMedicamento.getText();
+        		int novaQuantidade = Integer.parseInt(textFieldQuantidadeMedicamento.getText());
+        		float novoValor = Float.parseFloat(textFieldValorMedicamento.getText());
+        		try {
+					service.atualizarMedicamento(novoNome, novaQuantidade, novoValor, medicamento.getId());
+					JOptionPane.showMessageDialog(null, "Medicamento atualizado com sucesso!!");
+					dispose();
+				} catch (SQLException | BusinessException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+				}
+        	}
+        });
+        //Atualiza os dados da Ração no Banco de dados
+        btnAdicionarRacao.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		RecursosService service = new RecursosService();
+        		Racoes racao = (Racoes) comboBoxRacao.getSelectedItem();
+        		String novoNome = textFieldNomeMarcaRacao.getText();
+        		Float novaQuantidade = Float.parseFloat(textFieldQuantidadeRacao.getText());
+        		float novoValor = Float.parseFloat(textFieldValorRacao.getText());
+        		try {
+					service.atualizarRacao(novoNome, novaQuantidade, novoValor, racao.getId());
+					JOptionPane.showMessageDialog(null, "Ração atualizada com sucesso!!");
+					dispose();
+				} catch (SQLException | BusinessException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+				}
+        	}
+        });
+        //Atualiza os dados da Vacina no Banco de dados
+        btnAdicionarVacina.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		RecursosService service = new RecursosService();
+        		Vacinas vacina = (Vacinas) comboBoxVacina.getSelectedItem();
+        		String novoNome = textFieldNomeVacina.getText();
+        		int novaQuantidade = Integer.parseInt(textFieldQuantidadeVacina.getText());
+        		float novoValor = Float.parseFloat(textFieldValorVacina.getText());
+        		try {
+					service.atualizarVacina(novoNome, novaQuantidade, novoValor, vacina.getId());
+					JOptionPane.showMessageDialog(null, "Vacina atulizada com sucesso!!");
+					dispose();
+				} catch (SQLException | BusinessException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+				}
+        	}
+        });
+		btnRegistrarNoAnimal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Animais animal = (Animais) comboBoxSelecionarAnimal.getSelectedItem();
+				try {
+					//Bloco a ser executado caso ambos comboBox SelecionarVacina e Selecionar Medicamento sejam "Nenhum"
+					if (comboBoxSelecionarMedicamento.getSelectedItem() == "Nenhum"
+							&& comboBoxSelecionarVacina.getSelectedItem() == "Nenhum") {
+						throw new BusinessException("Selecione um Medicamento ou Vacina para registrar no animal!");
+					} 
+					//Bloco a ser executado caso apenas comboBox SelecionarVacina seja "Nenhum"
+					else if (comboBoxSelecionarVacina.getSelectedItem() == "Nenhum") {
+						Medicamentos medicamento = (Medicamentos) comboBoxSelecionarMedicamento.getSelectedItem();
+						RecursosService service = new RecursosService();
+						try {
+					//Verifica se o estoque possui medicamento selecionado
+							if (medicamento.getQuantidadeMedicamento() == 0) {
+								throw new BusinessException("Estoque de Medicamento está zerado!");
+							}
+					//Insere o medicamento no animal selecionado
+							service.inserirMedicamentoAnimal(animal, medicamento);
+							int novaQuantidade = medicamento.getQuantidadeMedicamento() - 1;
+							service.diminuirQuantidadeMedicamento(medicamento.getId(), novaQuantidade);
+							JOptionPane.showMessageDialog(null, "Medicamento atribuido com sucesso!!");
+							dispose();
+
+						} catch (SQLException | BusinessException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+						}
+					} 
+					// Bloco a ser executado caso apenas comboBox SelecionarMedicamento seja "Nenhum"
+					else if (comboBoxSelecionarMedicamento.getSelectedItem() == "Nenhum") {
+						Vacinas vacina = (Vacinas) comboBoxSelecionarVacina.getSelectedItem();
+					//Verifica se o estoque possui vacina selecionada
+						if (vacina.getQuantidadeVacina() == 0) {
+							throw new BusinessException("Estoque de Vacina está zerado!");
+						}
+						RecursosService service = new RecursosService();
+						try {
+					//Insere a vacina no animal selecionado
+							service.inserirVacinaAnimal(animal, vacina);
+							int novaQuantidade = vacina.getQuantidadeVacina() - 1;
+							service.diminuirQuantidadeVacina(vacina.getId(), novaQuantidade);
+							JOptionPane.showMessageDialog(null, "Vacina atribuida com sucesso!!");
+							dispose();
+
+						} catch (SQLException | BusinessException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+						}
+					} 
+					//Bloco a ser executado caso ambos comboBox SelecionarMedicamento e SelecionarVacina estejam selecionados
+					else {
+						Medicamentos medicamento = (Medicamentos) comboBoxSelecionarMedicamento.getSelectedItem();
+						Vacinas vacina = (Vacinas) comboBoxSelecionarVacina.getSelectedItem();
+					//Verifica se o estoque possui o medicamento selecionado
+						if (medicamento.getQuantidadeMedicamento() == 0) {
+							throw new BusinessException("Estoque de Medicamento está zerado!");
+						}
+					//Verifica se o estoque possui a vacina selecionada
+						if (vacina.getQuantidadeVacina() == 0) {
+							throw new BusinessException("Estoque de Vacina está zerado!");
+						}
+						RecursosService service = new RecursosService();
+						try {
+					//Insere ambos medicamento e vacinas selecionadas no animal
+							service.inserirMedicamentoAnimal(animal, medicamento);
+							int novaQuantidadeMedicamento = medicamento.getQuantidadeMedicamento() - 1;
+							service.diminuirQuantidadeMedicamento(medicamento.getId(), novaQuantidadeMedicamento);
+							service.inserirVacinaAnimal(animal, vacina);
+							int novaQuantidadeVacina = vacina.getQuantidadeVacina() - 1;
+							service.diminuirQuantidadeMedicamento(vacina.getId(), novaQuantidadeVacina);
+							JOptionPane.showMessageDialog(null, "Vacina e Medicamento atribuidos com sucesso!!");
+							dispose();
+						} catch (BusinessException | SQLException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+						}
+
+					}
+				}catch (BusinessException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+				}
+
+			}
+		});
         
         
         JLabel lblPetLifeNome = new JLabel("PetLife");
@@ -782,6 +1020,7 @@ public class TelaRegistroRecursos extends JFrame{
         lblPetLifeNome.setBounds(192, 66, 160, 78);
         homeTelaRegistrar.add(lblPetLifeNome);
         
+
         
         JLabel lblGerenciandoNome = new JLabel("Gerenciando a vida dos pets");
         lblGerenciandoNome.setEnabled(false);

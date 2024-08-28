@@ -4,23 +4,36 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
+import br.edu.ifpe.discente.PetLife.business.AnimaisService;
+import br.edu.ifpe.discente.PetLife.business.RecursosService;
+import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 import br.edu.ifpe.discente.PetLife.ui.entities.GraficoBarra;
+import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 
 import javax.swing.JScrollPane;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 
 public class Recursos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTable table;
+	TabelaGastos tabelaGastos;
+	List<Animais> listaAnimais;
 
 	/**
 	 * Create the panel.
@@ -42,7 +55,7 @@ public class Recursos extends JPanel {
 		JButton btnRegistrarRecurso = new JButton("");
 		btnRegistrarRecurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRegistroRecursos telaRecurso = new TelaRegistroRecursos();
+				TelaRegistroRecursos telaRecurso = new TelaRegistroRecursos(Recursos.this);
 				telaRecurso.setVisible(true);				
 			}
 		});
@@ -68,20 +81,12 @@ public class Recursos extends JPanel {
 		add(btnRegistrarRecurso);
 		
 		//Aqui vai ter as coisas da tabela
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(47, 111, 296, 291);
-		add(scrollPane);
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nome", "Custos"
-			}
-		));
+		try {
+			AnimaisService serviceAnimal = new AnimaisService();
+			listaAnimais = serviceAnimal.retornarAnimal();
+		} catch (BusinessException | SQLException e1) {
+			e1.printStackTrace();
+		}
 		
 		//Filtro de animais
 		
@@ -96,12 +101,37 @@ public class Recursos extends JPanel {
 		btnRelatorio.setBounds(231, 413, 112, 23);
 		add(btnRelatorio);
 		
-		double Valor1 = 10.8; //teste
-		double Valor2 = 24.24; //teste
-		double Valor3 = 150.10; //teste
-		double Valor4 = 200.10; //teste
-		GraficoBarra grafico = new GraficoBarra(Valor1, Valor2, Valor3, Valor4); //teste
-		grafico.setBounds(391, 95, 503, 307); 
-		add(grafico); 
+		//Instanciamento do grafico
+		
+		RecursosService service = new RecursosService();
+		try {
+			GraficoBarra grafico = service.criarGrafico();
+			add(grafico);
+			tabelaGastos = new TabelaGastos(listaAnimais);
+			add(tabelaGastos);
+			tabelaGastos.setBounds(new Rectangle(41, 111, 302, 291));
+			;
+		} catch (BusinessException | SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao adicionar gráfico", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	public void recarregarTabelaGastos() {
+		try {
+			AnimaisService servico = new AnimaisService();
+			List<Animais> listaPets = servico.retornarAnimal();
+
+
+			// Atualizar o modelo da tabela
+			DefaultTableModel modelo = tabelaGastos.getModelo();
+			modelo.setRowCount(0); // Limpar o modelo atual
+			RecursosService service = new RecursosService();
+			for (Animais animal : listaPets) {
+				modelo.addRow(new Object[] { animal.getNome(), service.totalGastosAnimal(animal)});
+			}
+
+		} catch (BusinessException | SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao recarregar a tabela de Gastos por Animal",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

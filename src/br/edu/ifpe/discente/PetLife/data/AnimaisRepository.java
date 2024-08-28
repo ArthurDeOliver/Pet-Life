@@ -28,6 +28,8 @@ public class AnimaisRepository {
 				Statement statement = connection.createStatement()) {
 			String sql = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
 			statement.executeUpdate(sql);
+		}catch(Exception e) {
+			throw new SQLException("Erro ao criar banco de dados" + DB_NAME);
 		}
 	}
 
@@ -36,8 +38,10 @@ public class AnimaisRepository {
 		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 			String sql = "CREATE TABLE IF NOT EXISTS animais (" + "id INT AUTO_INCREMENT PRIMARY KEY, "
 					+ "nome VARCHAR(255), " + "idade INT, " + "tipo VARCHAR(255), " + "raca VARCHAR(255) NOT NULL, "
-					+ "racao INT, " + "status VARCHAR(50) NOT NULL, " + "vacina VARCHAR(255), " + "foto VARCHAR(255))";
+					+ "racao INT, " + "status VARCHAR(50) NOT NULL, " + "vacina VARCHAR(255))";
 			statement.executeUpdate(sql);
+		}catch(Exception e) {
+			throw new SQLException("Erro ao criar tabela animais");
 		}
 	}
 
@@ -49,20 +53,22 @@ public class AnimaisRepository {
 
 	// criar animais
 	public void criarAnimal(Animais animal) throws SQLException {
-		String sql = "INSERT INTO animais (nome, idade, tipo, raca, racao, status, vacina, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; // editável
+		String sql = "INSERT INTO animais (nome, idade, tipo, raca, racao, status, vacina) VALUES (?, ?, ?, ?, ?, ?, ?)"; // editável
 		try (Connection connection = getConnection();
 				
 				PreparedStatement statement = connection.prepareStatement(sql)) {
-			String raca = animal.getRaca().length() > 0 ? animal.getRaca() : "SRD";
-			statement.setString(1, animal.getNome());
+			String raca = animal.getRaca().length() > 0 ? Character.toUpperCase(animal.getRaca().charAt(0)) + animal.getRaca().substring(1) : "SRD";
+			statement.setString(1, Character.toUpperCase(animal.getNome().charAt(0)) + animal.getNome().substring(1));
 			statement.setInt(2, animal.getIdade());
 			statement.setString(3, animal.getTipo());
 			statement.setString(4, raca);
 			statement.setInt(5, animal.getRacao());
 			statement.setString(6, "Não apto");
 			statement.setString(7, animal.getVacina());
-			statement.setString(8, animal.getFoto());
 			statement.execute();
+			
+		}catch(Exception e) {
+			throw new SQLException("Erro ao criar animal");
 		}
 
 	}
@@ -85,9 +91,11 @@ public class AnimaisRepository {
 				Animais anima1 = new Animais(
 
 						rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"), rs.getString("tipo"), rs.getString("raca"),
-						rs.getInt("racao"), rs.getString("status"), rs.getString("vacina"), rs.getString("foto"));
+						rs.getInt("racao"), rs.getString("status"), rs.getString("vacina"));
 				listaDeAnimais.add(anima1);
 			}
+		}catch(Exception e) {
+			throw new SQLException("Erro ao listar animais");
 		}
 		return listaDeAnimais;
 
@@ -111,38 +119,38 @@ public class AnimaisRepository {
 				Animais animal = new Animais(
 
 						rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"), rs.getString("tipo"), rs.getString("raca"),
-						rs.getInt("racao"), rs.getString("status"), rs.getString("vacina"), rs.getString("foto"));
+						rs.getInt("racao"), rs.getString("status"), rs.getString("vacina"));
 				listaDeAnimaisAptos.add(animal);
 			} 
 			
-		} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		} catch(Exception e) {
+			throw new SQLException("Erro ao listar animais aptos");
+		}
 		return listaDeAnimaisAptos;
 
 	}
 	
-	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, String foto, int id) throws SQLException {
-		String sql = "UPDATE animais SET nome = ?, idade = ?, tipo = ?, raca = ?, racao = ?, status = ?, foto = ? WHERE id = ?";
+	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, int id) throws SQLException {
+		String sql = "UPDATE animais SET nome = ?, idade = ?, tipo = ?, raca = ?, racao = ?, status = ? WHERE id = ?";
 
         try (Connection connection = getConnection(); 
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
+        	
+        	String racaAnimal = raca.length() > 0 ? Character.toUpperCase(raca.charAt(0)) + raca.substring(1) : "SRD";
             statement.setString(1, nome);
             statement.setInt(2, idade);
             statement.setString(3, tipo);
-            statement.setString(4, raca);
+            statement.setString(4, racaAnimal);
             statement.setInt(5, racao);
             statement.setString(6, status);
-            statement.setString(7, foto);
-            statement.setInt(8, id);  
+            statement.setInt(7, id);  
 
 
             statement.executeUpdate();
 
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(Exception e) {
+			throw new SQLException("Erro ao atualizar animal");
         }
     }
 	
@@ -158,14 +166,11 @@ public class AnimaisRepository {
 	        statement.setInt(1, id);
 	        statement.executeUpdate();
 	        
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	      //TODO
-	    }
+	    } catch(Exception e) {
+			throw new SQLException("Erro ao deletar animal");
+		}
 	}
 
 
 }
 	
-
-

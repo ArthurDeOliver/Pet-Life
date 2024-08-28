@@ -12,8 +12,8 @@ public class Animais {
 	private String vacina;
 	private String foto;
 
-	public Animais(String nome, int idade, String tipo, String raca, int racao, String status, String vacina,
-			String foto) {
+
+	public Animais(String nome, int idade, String tipo, String raca, int racao, String status, String vacina) {
 		this.nome = nome;
 		this.idade = idade;
 		this.tipo = tipo;
@@ -23,8 +23,7 @@ public class Animais {
 		this.racao = racao;
 	}
 
-	public Animais(int id, String nome, int idade, String tipo, String raca, int racao, String status, String vacina,
-			String foto) {
+	public Animais(int id, String nome, int idade, String tipo, String raca, int racao, String status, String vacina) {
 		this.id = id;
 		this.nome = nome;
 		this.idade = idade;
@@ -99,7 +98,7 @@ public class Animais {
 	public void setRacao(int racao) {
 		this.racao = racao;
 	}
-
+	
 	public String getFoto() {
 		return foto;
 	}
@@ -107,9 +106,9 @@ public class Animais {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
+
 	@Override
 	public String toString() { 
-    return this.getNome();
+    return this.id + " - " + this.getNome();
 }
 }

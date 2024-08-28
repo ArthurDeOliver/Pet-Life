@@ -5,13 +5,25 @@ public class Medicamentos {
 	private String nomeMedicamento;
 	private int quantidadeMedicamento;
 	private double valorMedicamento;
-
+    private int id;
+    
 	public Medicamentos(String nomeMedicamento, int quantidadeMedicamento, double valorMedicamento) {
 		this.nomeMedicamento = nomeMedicamento;
 		this.quantidadeMedicamento = quantidadeMedicamento;
 		this.valorMedicamento = valorMedicamento;
+	}    
+	public Medicamentos(int id, String nomeMedicamento, int quantidadeMedicamento, double valorMedicamento) {
+		this.id = id;
+		this.nomeMedicamento = nomeMedicamento;
+		this.quantidadeMedicamento = quantidadeMedicamento;
+		this.valorMedicamento = valorMedicamento;	
 	}
-
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getNomeMedicamento() {
 		return nomeMedicamento;
 	}
@@ -37,6 +49,6 @@ public class Medicamentos {
 	}
 	@Override
 	public String toString() {	
-	      return this.getNomeMedicamento();
+	      return this.id + " - " + this.nomeMedicamento;
 	}
 	}
