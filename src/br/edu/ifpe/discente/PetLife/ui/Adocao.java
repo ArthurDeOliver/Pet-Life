@@ -186,7 +186,7 @@ public class Adocao extends JPanel {
 			modelo.setRowCount(0); // Limpar o modelo atual
 
 			for (Animais animal : listaPetsAdotaveis) {
-				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(),
+				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getIdade(), animal.getTipo(),
 						animal.getRaca(), animal.getRacao(), animal.getStatus(), animal.getVacina(), });
 			}
 

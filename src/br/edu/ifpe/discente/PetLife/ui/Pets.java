@@ -149,9 +149,15 @@ public class Pets extends JPanel {
 							} else {
 								labelFotoPet.setIcon(null);
 							}
+							
+							if (animalSelecionado.getStatus().equals("Adotado")) {
+								btnEditarPets.setEnabled(false);
+								btnExcluirPets.setEnabled(true);
+							} else {
+								btnEditarPets.setEnabled(true);
+								btnExcluirPets.setEnabled(true);
+							}
 
-							btnEditarPets.setEnabled(true);
-							btnExcluirPets.setEnabled(true);
 
 						} else {
 
