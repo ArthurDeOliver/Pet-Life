@@ -827,6 +827,7 @@ public class TelaRegistroRecursos extends JFrame {
 				case "Medicamentos":
 					try {
 						comboBoxMedicamento.removeAllItems();
+						comboBoxMedicamento.addItem("Nenhum");
 						List<Medicamentos> listaMedicamentos = service.retornarTodosMedicamentos();
 						for (Medicamentos medicamento : listaMedicamentos) {
 							comboBoxMedicamento.addItem(medicamento);
@@ -838,6 +839,7 @@ public class TelaRegistroRecursos extends JFrame {
 				case "Rações":
 					try {
 						comboBoxRacao.removeAllItems();
+						comboBoxRacao.addItem("Nenhum");
 						List<Racoes> listaRacoes = service.retornarTodasRacoes();
 						for (Racoes racao : listaRacoes) {
 							comboBoxRacao.addItem(racao);
@@ -849,6 +851,7 @@ public class TelaRegistroRecursos extends JFrame {
 				case "Vacinas":
 					try {
 						comboBoxVacina.removeAllItems();
+						comboBoxVacina.addItem("Nenhum");
 						List<Vacinas> listaVacinas = service.retornarTodasVacinas();
 						for (Vacinas vacina : listaVacinas) {
 							comboBoxVacina.addItem(vacina);
@@ -857,19 +860,45 @@ public class TelaRegistroRecursos extends JFrame {
 						e1.printStackTrace();
 					}
 				}
+				textFieldNomeMedicamentoNovo.setText("");
+				textFieldQuantidadeMedicamentoNovo.setText("");
+				textFieldValorMedicamentoNovo.setText("");
+				textFieldNomeMedicamento.setText("");
+				textFieldQuantidadeMedicamento.setText("");
+				textFieldValorMedicamento.setText("");
+				textFieldMarcaRacaoNova.setText("");
+				textFieldQuantidadeRacaoNova.setText("");
+				textFieldValorRacaoNova.setText("");
+				textFieldNomeMarcaRacao.setText("");
+				textFieldQuantidadeRacao.setText("");
+				textFieldValorRacao.setText("");
+				textFieldVacinaNova.setText("");
+				textFieldQuantidadeVacinaNova.setText("");
+				textFieldValorVacinaNova.setText("");
+				textFieldNomeVacina.setText("");
+				textFieldQuantidadeVacina.setText("");
+				textFieldValorVacina.setText("");
 			}
 		});
 		// Seta os valores do medicamento nos TextFields
 		comboBoxMedicamento.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				Medicamentos medicamento = (Medicamentos) comboBoxMedicamento.getSelectedItem();
-				if (medicamento != null) {
-					String nome = medicamento.getNomeMedicamento();
-					int quantidade = medicamento.getQuantidadeMedicamento();
-					double valor = medicamento.getValorMedicamento();
-					textFieldNomeMedicamento.setText(nome);
-					textFieldQuantidadeMedicamento.setText(String.valueOf(quantidade));
-					textFieldValorMedicamento.setText(String.valueOf(valor));
+				if (String.valueOf(comboBoxMedicamento.getSelectedItem()).trim().equals("Nenhum")) {
+					textFieldNomeMedicamento.setText("");
+					textFieldQuantidadeMedicamento.setText("");
+					textFieldValorMedicamento.setText("");
+					btnAdicionarMedicamento.setEnabled(false);
+				} else {
+					btnAdicionarMedicamento.setEnabled(true);
+					Medicamentos medicamento = (Medicamentos) comboBoxMedicamento.getSelectedItem();
+					if (medicamento != null) {
+						String nome = medicamento.getNomeMedicamento();
+						int quantidade = medicamento.getQuantidadeMedicamento();
+						double valor = medicamento.getValorMedicamento();
+						textFieldNomeMedicamento.setText(nome);
+						textFieldQuantidadeMedicamento.setText(String.valueOf(quantidade));
+						textFieldValorMedicamento.setText(String.valueOf(valor));
+					}
 				}
 
 			}
@@ -877,29 +906,44 @@ public class TelaRegistroRecursos extends JFrame {
 		// Seta os valores da Ração nos TextFields
 		comboBoxRacao.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				Racoes racao = (Racoes) comboBoxRacao.getSelectedItem();
-				if (racao != null) {
-					String nome = racao.getMarcaRacao();
-					double quantidade = racao.getQuantidadeRacao();
-					double valor = racao.getValorRacao();
-					textFieldNomeMarcaRacao.setText(nome);
-					textFieldQuantidadeRacao.setText(String.valueOf(quantidade));
-					textFieldValorRacao.setText(String.valueOf(valor));
+				if (String.valueOf(comboBoxRacao.getSelectedItem()).trim().equals("Nenhum")) {
+					textFieldNomeMarcaRacao.setText("");
+					textFieldQuantidadeRacao.setText("");
+					textFieldValorRacao.setText("");
+					btnAdicionarRacao.setEnabled(false);
+				} else {
+					btnAdicionarRacao.setEnabled(true);
+					Racoes racao = (Racoes) comboBoxRacao.getSelectedItem();
+					if (racao != null) {
+						String nome = racao.getMarcaRacao();
+						double quantidade = racao.getQuantidadeRacao();
+						double valor = racao.getValorRacao();
+						textFieldNomeMarcaRacao.setText(nome);
+						textFieldQuantidadeRacao.setText(String.valueOf(quantidade));
+						textFieldValorRacao.setText(String.valueOf(valor));
+					}
 				}
-
 			}
 		});
 		// Seta os valores da Vacina nos TextFields
 		comboBoxVacina.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				Vacinas vacina = (Vacinas) comboBoxVacina.getSelectedItem();
-				if (vacina != null) {
-					String nome = vacina.getNomeVacina();
-					int quantidade = vacina.getQuantidadeVacina();
-					double valor = vacina.getValorVacina();
-					textFieldNomeVacina.setText(nome);
-					textFieldQuantidadeVacina.setText(String.valueOf(quantidade));
-					textFieldValorVacina.setText(String.valueOf(valor));
+				if (String.valueOf(comboBoxVacina.getSelectedItem()).trim().equals("Nenhum")) {
+					textFieldNomeVacina.setText("");
+					textFieldQuantidadeVacina.setText("");
+					textFieldValorVacina.setText("");
+					btnAdicionarVacina.setEnabled(false);
+				} else {
+					btnAdicionarVacina.setEnabled(true);
+					Vacinas vacina = (Vacinas) comboBoxVacina.getSelectedItem();
+					if (vacina != null) {
+						String nome = vacina.getNomeVacina();
+						int quantidade = vacina.getQuantidadeVacina();
+						double valor = vacina.getValorVacina();
+						textFieldNomeVacina.setText(nome);
+						textFieldQuantidadeVacina.setText(String.valueOf(quantidade));
+						textFieldValorVacina.setText(String.valueOf(valor));
+					}
 				}
 
 			}
