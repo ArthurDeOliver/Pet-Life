@@ -29,6 +29,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
 import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
@@ -209,6 +211,7 @@ public class TelaEdicaoPet extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivo de imagens (*.PNG, *.JPG, *.JPEG)", "png", "jpg", "jpeg"));
                 int result = fileChooser.showOpenDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
@@ -260,7 +263,6 @@ public class TelaEdicaoPet extends JFrame {
 						}
 
                         animalSelecionado.setFoto(destFile.getAbsolutePath());
-                        System.out.println("Caminho da imagem: " + animalSelecionado.getFoto());
                     }
 
                     AnimaisService servico = new AnimaisService();
