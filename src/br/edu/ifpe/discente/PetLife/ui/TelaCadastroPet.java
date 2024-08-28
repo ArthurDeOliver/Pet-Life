@@ -203,9 +203,9 @@ public class TelaCadastroPet extends JFrame {
      		            }			
      					
      				} catch (IllegalArgumentException ex) {
-     		            JOptionPane.showMessageDialog(null, ex.getMessage(),"Todos os campos de texto são obrigatórios.", JOptionPane.ERROR_MESSAGE);
+     		            JOptionPane.showMessageDialog(null,"Todos os campos de texto são obrigatórios.", "Erro",  JOptionPane.ERROR_MESSAGE);
      		        } catch (BusinessException | SQLException ex2) {
-     					JOptionPane.showMessageDialog(null, ex2.getMessage(), "Erro ao cadastrar animal", JOptionPane.ERROR_MESSAGE);
+     					JOptionPane.showMessageDialog(null, "Erro ao cadastrar animal" , "Erro", JOptionPane.ERROR_MESSAGE);
      				
      		        }
 

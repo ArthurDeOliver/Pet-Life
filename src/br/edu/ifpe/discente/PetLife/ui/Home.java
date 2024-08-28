@@ -114,7 +114,9 @@ public class Home extends JPanel {
             criarTabelasHome();
             
 
-        } catch (BusinessException | SQLException e) {
+        } catch (BusinessException | SQLException e1) {
+					JOptionPane.showMessageDialog(null,  "Erro ao recuperar dados", "Erro", JOptionPane.ERROR_MESSAGE);
+				
         }
     }
     
@@ -170,7 +172,7 @@ public class Home extends JPanel {
             listaAdotados = homeService.listarAdocoes();
 
         } catch (BusinessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao criar tabelas da home", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao criar tabelas da home", "Erro", JOptionPane.ERROR_MESSAGE);
         }
 
         int totalAnimais = listaAnimais.size();

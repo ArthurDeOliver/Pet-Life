@@ -111,6 +111,7 @@ public class Pets extends JPanel {
 
 					if (linhaSelecionada >= 0) {
 						int idAnimal = (int) tabela.getValueAt(linhaSelecionada, 0);
+						recarregarTabela();
 
 						animalSelecionado = null;
 						for (Animais animal : listaDeAnimais) {
@@ -200,23 +201,25 @@ public class Pets extends JPanel {
 			add(comboBoxFiltro);
 
 		} catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro iniciar tabela de pets",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro iniciar tabela de pets", "Erro", JOptionPane.ERROR_MESSAGE);
 			tabelaAnimal = new TabelaAnimal(List.of());
 		}
 
-		// botão editar
 		btnEditarPets = new JButton("Editar");
 		btnEditarPets.setEnabled(false);
 		btnEditarPets.setBounds(519, 393, 85, 21);
 		btnEditarPets.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (animalSelecionado != null) {
-					TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet(Pets.this, adocao);
-					telaEdicaoPet.informacoesEditaveis(animalSelecionado);
-					telaEdicaoPet.setVisible(true);
-				}
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        try {
+		            if (animalSelecionado != null) {
+		                TelaEdicaoPet telaEdicaoPet = new TelaEdicaoPet(Pets.this, adocao);
+		                telaEdicaoPet.informacoesEditaveis(animalSelecionado);
+		                telaEdicaoPet.setVisible(true);
+		            }
+		        } catch (Exception ex) {
+		            JOptionPane.showMessageDialog(null, "Erro ao abrir a tela de edição de pets ", "Erro", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
 		});
 		add(btnEditarPets);
 
@@ -248,8 +251,7 @@ public class Pets extends JPanel {
 						tabelaAnimal.getTabela().clearSelection(); // limpando linha da tabela
 
 					} catch (BusinessException | SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro ao excluir pet",
-								JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Erro ao excluir pet", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
@@ -343,8 +345,7 @@ public class Pets extends JPanel {
 			tabelaAnimal.getTabela().clearSelection();
 
 		} catch (BusinessException | SQLException ex) {
-			JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro ao atualizar a tabela",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,  "Erro ao atualizar a tabela", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -372,8 +373,7 @@ public class Pets extends JPanel {
 			TabelaAdotaveis.getTabela().clearSelection();
 
 		} catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao recarregar a tabela de animais aptos",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,  "Erro ao recarregar a tabela de animais aptos", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

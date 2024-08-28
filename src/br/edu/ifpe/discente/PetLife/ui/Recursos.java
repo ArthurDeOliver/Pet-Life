@@ -85,7 +85,7 @@ public class Recursos extends JPanel {
 			AnimaisService serviceAnimal = new AnimaisService();
 			listaAnimais = serviceAnimal.retornarAnimal();
 		} catch (BusinessException | SQLException e1) {
-			e1.printStackTrace();
+			 JOptionPane.showMessageDialog(null, "Erro ao inicializar tabela", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		//Filtro de animais
@@ -112,8 +112,8 @@ public class Recursos extends JPanel {
 			tabelaGastos.setBounds(new Rectangle(41, 111, 302, 291));
 			;
 		} catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao adicionar gráfico", JOptionPane.ERROR_MESSAGE);
-		}
+			 JOptionPane.showMessageDialog(null, "Erro ao inicializar gráficos", "Erro", JOptionPane.ERROR_MESSAGE);
+			}
 	}
 	public void recarregarTabelaGastos() {
 		try {
@@ -130,8 +130,7 @@ public class Recursos extends JPanel {
 			}
 
 		} catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao recarregar a tabela de Gastos por Animal",
-					JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Erro ao recarregar tabela de gastos", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

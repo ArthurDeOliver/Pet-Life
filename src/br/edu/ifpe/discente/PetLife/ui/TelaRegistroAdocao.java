@@ -244,7 +244,7 @@ public class TelaRegistroAdocao extends JFrame {
 						dispose();
 
 					} catch (BusinessException | SQLException e1) {
-						JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar adotar esse animal.");
+						JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar adotar esse animal.", "Erro", JOptionPane.ERROR_MESSAGE);
 
 					}
 				}

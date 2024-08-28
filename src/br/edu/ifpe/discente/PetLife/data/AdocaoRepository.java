@@ -78,7 +78,7 @@ public class AdocaoRepository {
 			}
 
 		}catch(Exception e) {
-			throw new SQLException("Erro ao adotar");
+			throw new SQLException("Erro ao adotar pet");
 		}
 	}
 
@@ -104,7 +104,7 @@ public class AdocaoRepository {
 				listaAdocoes.add(adocao);
 			}
 		}catch(Exception e) {
-			throw new SQLException("Erro ao listar adocoes");
+			throw new SQLException("Erro ao listar adoções");
 		}
 		return listaAdocoes;
 	}

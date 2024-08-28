@@ -258,8 +258,7 @@ public class TelaEdicaoPet extends JFrame {
                         try {
 							Files.copy(Paths.get(originalPath), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 						} catch (IOException e1) {
-							 JOptionPane.showMessageDialog(null, "Erro ao copiar o arquivo de imagem: " + 
-								        JOptionPane.ERROR_MESSAGE);
+							 JOptionPane.showMessageDialog(null, "Erro ao copiar o arquivo de imagem: ", "Erro", JOptionPane.ERROR_MESSAGE);
 						}
 
                         animalSelecionado.setFoto(destFile.getAbsolutePath());
@@ -274,10 +273,13 @@ public class TelaEdicaoPet extends JFrame {
                     mainWindow.recarregarTabelaAptos();   
                     
                     JOptionPane.showMessageDialog(null, "Pet editado com sucesso");
-
+                    
+                } catch (IllegalArgumentException ex) {
+ 		            JOptionPane.showMessageDialog(null,"Todos os campos de texto são obrigatórios.", "Erro",  JOptionPane.ERROR_MESSAGE);
+ 		            
                 } catch (BusinessException | SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);
-				}
+					JOptionPane.showMessageDialog(null,  "Não foi possível editar pet", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

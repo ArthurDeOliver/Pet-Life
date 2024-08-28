@@ -722,7 +722,7 @@ public class TelaRegistroRecursos extends JFrame{
 						comboBoxSelecionarAnimal.addItem(animal);
 					}
 				} catch (BusinessException | SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Não foi possível carregar opções", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
@@ -747,7 +747,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Medicamento registrado com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {					
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);									
+					JOptionPane.showMessageDialog(null,  "Não foi possível registrar medicamento", "Erro", JOptionPane.ERROR_MESSAGE);									
 				}
         		
         	}
@@ -767,7 +767,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Ração registrada com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {					
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);																					
+					JOptionPane.showMessageDialog(null, "Não foi possível registrar ração", "Erro", JOptionPane.ERROR_MESSAGE);																					
 				}     		
         	}
         	}
@@ -787,7 +787,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Vacina registrada com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {					
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);																	
+					JOptionPane.showMessageDialog(null, "Não foi possível registrar vacina", "Erro", JOptionPane.ERROR_MESSAGE);																	
 				}
         	}
         	}
@@ -890,7 +890,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Medicamento atualizado com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+					JOptionPane.showMessageDialog(null, "Não foi possível atualizar medicamento", "Erro", JOptionPane.ERROR_MESSAGE);		
 				}
         	}
         });
@@ -907,7 +907,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Ração atualizada com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+					JOptionPane.showMessageDialog(null,  "Não foi possível atualizar ração", "Erro", JOptionPane.ERROR_MESSAGE);		
 				}
         	}
         });
@@ -924,7 +924,7 @@ public class TelaRegistroRecursos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Vacina atulizada com sucesso!!");
 					dispose();
 				} catch (SQLException | BusinessException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+					JOptionPane.showMessageDialog(null,  "Não foi possível atualizar vacina", "Erro", JOptionPane.ERROR_MESSAGE);		
 				}
         	}
         });
@@ -954,7 +954,7 @@ public class TelaRegistroRecursos extends JFrame{
 							dispose();
 
 						} catch (SQLException | BusinessException e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+							JOptionPane.showMessageDialog(null, "Não foi possível inserir medicamento", "Erro", JOptionPane.ERROR_MESSAGE);		
 						}
 					} 
 					// Bloco a ser executado caso apenas comboBox SelecionarMedicamento seja "Nenhum"
@@ -974,7 +974,7 @@ public class TelaRegistroRecursos extends JFrame{
 							dispose();
 
 						} catch (SQLException | BusinessException e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+							JOptionPane.showMessageDialog(null, "Não foi possível inserir vacina", "Erro", JOptionPane.ERROR_MESSAGE);		
 						}
 					} 
 					//Bloco a ser executado caso ambos comboBox SelecionarMedicamento e SelecionarVacina estejam selecionados
@@ -1001,12 +1001,12 @@ public class TelaRegistroRecursos extends JFrame{
 							JOptionPane.showMessageDialog(null, "Vacina e Medicamento atribuidos com sucesso!!");
 							dispose();
 						} catch (BusinessException | SQLException e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+							JOptionPane.showMessageDialog(null, "Não foi possível inserir medicamentos e vacinas / atualizar no estoque", "Erro", JOptionPane.ERROR_MESSAGE);		
 						}
 
 					}
 				}catch (BusinessException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível", JOptionPane.ERROR_MESSAGE);		
+					JOptionPane.showMessageDialog(null, "Não foi possível realizar ação.", "Erro", JOptionPane.ERROR_MESSAGE);		
 				}
 
 			}

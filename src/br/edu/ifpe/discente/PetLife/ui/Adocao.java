@@ -114,6 +114,8 @@ public class Adocao extends JPanel {
 
 					if (linhaSelecionada >= 0) {
 						int idAnimal = (int) tabelaAdotaveis.getValueAt(linhaSelecionada, 0);
+						btnRegistrarAdocao.setEnabled(true);
+					
 
 						animalSelecionado = null;
 						for (Animais animal : listaPetsAdotaveis) {
@@ -128,7 +130,7 @@ public class Adocao extends JPanel {
 							nomePet = animalSelecionado.getNome();
 							tipoPet = animalSelecionado.getTipo();
 
-							btnRegistrarAdocao.setEnabled(true);
+							
 						} else {
 							btnRegistrarAdocao.setEnabled(false);
 						}
@@ -137,7 +139,7 @@ public class Adocao extends JPanel {
 
 			});
 		} catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao criar tabela de animais aptos", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null,  "Erro ao instanciar tabela de animais aptos", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 
 		JScrollPane scrollPanePetsAdotaveis = new JScrollPane(TabelaAdotaveis.getTabela());
@@ -164,7 +166,7 @@ public class Adocao extends JPanel {
 			add(scrollPanePetsAdotados);
 
 		} catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao criar a tabela de animais adotados", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Erro ao instanciar tabela de animais adotados", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		recarregarTabelaAptos();
 
@@ -191,7 +193,7 @@ public class Adocao extends JPanel {
 			TabelaAdotaveis.getTabela().clearSelection();
 
 		} catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao recarregar a tabela de aptos", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Erro ao recarregar tabela de pets aptos", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -216,7 +218,7 @@ public class Adocao extends JPanel {
 			TabelaAdocoes.getTabela().clearSelection();
 
 		}catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao recarregar a tabela de adoções", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Erro ao recarregar tabela de adoções", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}

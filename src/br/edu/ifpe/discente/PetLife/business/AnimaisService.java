@@ -47,7 +47,7 @@ public class AnimaisService {
 
 	public void atualizarAnimal(String nome, int idade, String tipo, String raca, int racao, String status, int id)
 			throws BusinessException, SQLException  {
-			if (nome == null || nome.isEmpty() || Integer.toString(idade).equals("")) {
+			if (nome == null || nome.isEmpty() || Integer.toString(idade).equals("") || Integer.toString(racao).equals("")) {
 				throw new IllegalArgumentException("Todos os campos de texto são obrigatórios.");
 			}
 
