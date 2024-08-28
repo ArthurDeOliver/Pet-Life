@@ -23,7 +23,7 @@ public class RecursosRepository {
 	private static final String URL = "jdbc:mysql://localhost:3306/";
 	private static final String DB_NAME = "petlife";
 	private static final String USER = "root"; // editável
-	private static final String PASSWORD = "1234"; // editável
+	private static final String PASSWORD = "1234567"; // editável
 
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
@@ -399,7 +399,7 @@ public class RecursosRepository {
 	}
 
 	public double totalValorRacoes() throws SQLException {
-		String sql = "SELECT SUM(Valor_Racao) AS soma FROM racoes";
+		String sql = "SELECT SUM(Valor_Racao * Quantidade_Racao) AS soma FROM racoes";
 
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);
@@ -424,7 +424,7 @@ public class RecursosRepository {
 	}
 
 	public double totalValorMedicamentos() throws SQLException {
-		String sql = "SELECT SUM(Valor_Medicamento) AS soma FROM medicamentos";
+		String sql = "SELECT SUM(Valor_Medicamento * Quantidade_Medicamento) AS soma FROM medicamentos";
 
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);
@@ -449,7 +449,7 @@ public class RecursosRepository {
 	}
 
 	public double totalValorVacinas() throws SQLException {
-		String sql = "SELECT SUM(Valor_Vacina) AS soma FROM Vacinas";
+		String sql = "SELECT SUM(Valor_Vacina * Quantidade_Vacina) AS soma FROM Vacinas";
 
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);

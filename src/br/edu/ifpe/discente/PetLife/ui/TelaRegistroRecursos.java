@@ -744,6 +744,7 @@ public class TelaRegistroRecursos extends JFrame {
 				try {
 					registrar.criarMedicamento(medicamento);
 					JOptionPane.showMessageDialog(null, "Medicamento registrado com sucesso!!");
+					recursosWindow.atualizarGrafico();
 					dispose();
 				} catch (SQLException e1) {					
 					JOptionPane.showMessageDialog(null,  "Não foi possível registrar medicamento", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -775,6 +776,7 @@ public class TelaRegistroRecursos extends JFrame {
 				try {
 					registrar.criarRacao(racao);
 					JOptionPane.showMessageDialog(null, "Ração registrada com sucesso!!");
+					recursosWindow.atualizarGrafico();
 					dispose();
 				} catch (SQLException e1) {					
 					JOptionPane.showMessageDialog(null, "Não foi possível registrar ração", "Erro", JOptionPane.ERROR_MESSAGE);																					
@@ -807,6 +809,7 @@ public class TelaRegistroRecursos extends JFrame {
 				try {
 					registrar.criarVacina(vacina);
 					JOptionPane.showMessageDialog(null, "Vacina registrada com sucesso!!");
+					recursosWindow.atualizarGrafico();
 					dispose();
 				} catch (SQLException | BusinessException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Não foi possível registrar a vacina", JOptionPane.ERROR_MESSAGE);
@@ -922,6 +925,7 @@ public class TelaRegistroRecursos extends JFrame {
 				try {
 					service.atualizarMedicamento(novoNome, novaQuantidade, novoValor, medicamento.getId());
 					JOptionPane.showMessageDialog(null, "Medicamento atualizado com sucesso!!");
+					recursosWindow.atualizarGrafico();
 					dispose();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "Não foi possível atualizar medicamento", "Erro",
@@ -952,6 +956,7 @@ public class TelaRegistroRecursos extends JFrame {
 				try {
 					service.atualizarRacao(novoNome, novaQuantidade, novoValor, racao.getId());
 					JOptionPane.showMessageDialog(null, "Ração atualizada com sucesso!!");
+					recursosWindow.atualizarGrafico();
 					dispose();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "Não foi possível atualizar ração", "Erro",

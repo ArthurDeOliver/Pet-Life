@@ -38,6 +38,7 @@ public class Recursos extends JPanel {
 	TabelaGastos tabelaGastos;
 	List<Animais> listaAnimais;
 	JComboBox<String> comboBoxFiltro;
+	GraficoBarra grafico;
 
 	/**
 	 * Create the panel.
@@ -120,7 +121,7 @@ public class Recursos extends JPanel {
 		
 		RecursosService service = new RecursosService();
 		try {
-			GraficoBarra grafico = service.criarGrafico();
+			this.grafico = service.criarGrafico();
 			add(grafico);
 		} catch (BusinessException | SQLException e) {
 			 JOptionPane.showMessageDialog(null, "Erro ao inicializar gráficos", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -173,6 +174,17 @@ public class Recursos extends JPanel {
 	}
 	public JComboBox retornarComboBoxFiltro() {
 		return this.comboBoxFiltro;
-		
+	}
+	public void atualizarGrafico() {
+		RecursosService service = new RecursosService();
+		try {
+			double totalRacoes = service.retornarTotalRacoes();
+			double totalMedicamentos = service.retornarTotalMedicamentos();
+			double totalVacinas = service.retornarTotalVacinas();
+			double totalRecursos = totalRacoes + totalMedicamentos + totalVacinas;
+			grafico.atualizarGrafico(totalRacoes, totalMedicamentos, totalVacinas, totalRecursos);
+		} catch (SQLException | BusinessException e) {
+			
+		}
 	}
 }
