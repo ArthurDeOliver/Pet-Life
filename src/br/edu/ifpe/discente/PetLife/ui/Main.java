@@ -8,13 +8,14 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-import java.sql.SQLException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import br.edu.ifpe.discente.PetLife.business.BDService;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import br.edu.ifpe.discente.PetLife.business.BDService;
 
 public class Main {
 
@@ -26,8 +27,6 @@ public class Main {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
-		
 		
         try {
 
@@ -62,7 +61,7 @@ public class Main {
 	private void initialize() {
 		
         frame = new JFrame();
-        frame.getContentPane().setBackground(new Color(24, 107, 220));
+        frame.getContentPane().setBackground(new Color(7, 69, 114));
         frame.setTitle("PetLife");       
         frame.setResizable(false);
         frame.setBounds(100, 100, 940, 600);
@@ -88,40 +87,45 @@ public class Main {
         
         //botão abrir tela de Pets
 		JButton btnAbrirTelaPets = new JButton("Pets");
+		btnAbrirTelaPets.setIcon(new ImageIcon(Main.class.getResource("/Imagens/cachorrop.png")));
+		btnAbrirTelaPets.setForeground(new Color(0, 0, 0));
+		
 		btnAbrirTelaPets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "pets");
 			}
 		});
-		btnAbrirTelaPets.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAbrirTelaPets.setBounds(382, 23, 113, 49);
+		btnAbrirTelaPets.setFont(new Font("DejaVu Sans", Font.PLAIN, 14));
+		btnAbrirTelaPets.setBounds(385, 23, 113, 49);
 		frame.getContentPane().add(btnAbrirTelaPets);
 		
 		//botão abrir tela de Adoção
 		JButton btnAbrirTelaAdocao = new JButton("Adoção");
+		btnAbrirTelaAdocao.setIcon(new ImageIcon(Main.class.getResource("/Imagens/clinica-de-cuidado-de-animais-domesticos.png")));
 		btnAbrirTelaAdocao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "adocao");
 				
 			}
 		});
-		btnAbrirTelaAdocao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAbrirTelaAdocao.setBounds(596, 23, 113, 49);
+		btnAbrirTelaAdocao.setFont(new Font("DejaVu Sans", Font.PLAIN, 14));
+		btnAbrirTelaAdocao.setBounds(553, 23, 129, 49);
 		frame.getContentPane().add(btnAbrirTelaAdocao);
 		
 		//botão abrir tela de Recursos
 		JButton btnAbrirTelaRecursos = new JButton("Recursos");
+		btnAbrirTelaRecursos.setIcon(new ImageIcon(Main.class.getResource("/Imagens/estatisticas.png")));
 		btnAbrirTelaRecursos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "recursos");
 			}
 		});
-		btnAbrirTelaRecursos.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAbrirTelaRecursos.setBounds(796, 23, 113, 49);
+		btnAbrirTelaRecursos.setFont(new Font("DejaVu Sans", Font.PLAIN, 14));
+		btnAbrirTelaRecursos.setBounds(748, 23, 134, 49);
 		frame.getContentPane().add(btnAbrirTelaRecursos);
 		
 		//botão abrir tela Home
-		JButton btnAbrirTelaHome = new JButton("      PetLife");
+		JButton btnAbrirTelaHome = new JButton("    PetLife");
 		btnAbrirTelaHome.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        home.atualizarTabela();
@@ -130,14 +134,13 @@ public class Main {
 		});
 
         //botao título petLife
-        btnAbrirTelaHome.setForeground(new Color(0, 0, 0));
-        btnAbrirTelaHome.setBackground(new Color(255, 255, 255));
+        btnAbrirTelaHome.setForeground(new Color(255, 255, 255));
         btnAbrirTelaHome.setBorderPainted(false);
         btnAbrirTelaHome.setMargin(new Insets(0, 0, 0, 0));
         btnAbrirTelaHome.setContentAreaFilled(false); 
         btnAbrirTelaHome.setFocusPainted(false);
-        btnAbrirTelaHome.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        btnAbrirTelaHome.setBounds(10, 23, 228, 58);
+        btnAbrirTelaHome.setFont(new Font("DejaVu Sans", Font.PLAIN, 30));
+        btnAbrirTelaHome.setBounds(10, 23, 241, 58);
         frame.getContentPane().add(btnAbrirTelaHome);
         //mandar pro repositorio
         //carregar a imagem
@@ -151,3 +154,4 @@ public class Main {
         
 	}
 }
+

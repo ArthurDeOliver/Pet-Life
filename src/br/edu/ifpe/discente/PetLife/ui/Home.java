@@ -43,39 +43,39 @@ public class Home extends JPanel {
         setLayout(null);
 
         JLabel lblNewLabel = new JLabel("Home");
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        lblNewLabel.setBounds(10, 11, 62, 27);
+        lblNewLabel.setFont(new Font("DejaVu Sans", Font.PLAIN, 24));
+        lblNewLabel.setBounds(10, 11, 77, 27);
         add(lblNewLabel);
 
         URL imgURL = getClass().getResource("/Imagens/casa.png");
         ImageIcon icon = new ImageIcon(imgURL);
         JLabel casaIcon = new JLabel(icon);
-        casaIcon.setBounds(70, 6, 46, 37);
+        casaIcon.setBounds(85, 6, 46, 37);
         add(casaIcon);
 
         JLabel petsHome = new JLabel("Últimos PETS cadastrados");
-        petsHome.setFont(new Font("Tahoma", Font.BOLD, 14));
-        petsHome.setBounds(65, 151, 192, 14);
+        petsHome.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+        petsHome.setBounds(29, 151, 196, 14);
         add(petsHome);
 
         JLabel adotadosHome = new JLabel("Últimos pets ADOTADOS");
-        adotadosHome.setFont(new Font("Tahoma", Font.BOLD, 14));
-        adotadosHome.setBounds(355, 145, 169, 27);
+        adotadosHome.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+        adotadosHome.setBounds(306, 151, 185, 14);
         add(adotadosHome);
 
         JLabel recursosHome = new JLabel("Últimos RECURSOS adicionados");
-        recursosHome.setFont(new Font("Tahoma", Font.BOLD, 14));
-        recursosHome.setBounds(617, 151, 231, 14);
+        recursosHome.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+        recursosHome.setBounds(599, 151, 249, 14);
         add(recursosHome);
 
         JLabel lblNewLabel_1 = new JLabel("");
         lblNewLabel_1.setIcon(new ImageIcon(Home.class.getResource("/Imagens/bicho-de-estimacao.png")));
-        lblNewLabel_1.setBounds(145, 103, 32, 37);
+        lblNewLabel_1.setBounds(111, 103, 32, 37);
         add(lblNewLabel_1);
 
         JLabel lblNewLabel_2 = new JLabel("");
-        lblNewLabel_2.setIcon(new ImageIcon(Home.class.getResource("/Imagens/clinica-de-cuidado-de-animais-domesticos.png")));
-        lblNewLabel_2.setBounds(423, 103, 32, 37);
+        lblNewLabel_2.setIcon(new ImageIcon(Home.class.getResource("/Imagens/coracaom.png")));
+        lblNewLabel_2.setBounds(382, 103, 32, 37);
         add(lblNewLabel_2);
 
         JLabel lblNewLabel_3 = new JLabel("");
@@ -115,8 +115,7 @@ public class Home extends JPanel {
             
 
         } catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao carregar tabela de pets na home", JOptionPane.ERROR_MESSAGE);
-		}
+        }
     }
     
     public void atualizarTabela() {
@@ -163,7 +162,7 @@ public class Home extends JPanel {
         tabelaAdocaoHome.addColumn("Nome");
         tabelaAdocaoHome.addColumn("Espécie");
         tabelaAdocaoHome.addColumn("Tutor");
-        tabelaAdocaoHome.addColumn("Telefone");
+//        tabelaAdocaoHome.addColumn("Telefone");
 
         try {
             HomeService homeService = new HomeService();
@@ -198,22 +197,22 @@ public class Home extends JPanel {
                 String nomePet = petAdotado.getNomePet();
                 String tipo = petAdotado.getTipoPet();
                 String nomeTutor = petAdotado.getNomeTutor();
-                String telTutor = petAdotado.getTelefone();
+//                String telTutor = petAdotado.getEndereco();
 
-                tabelaAdocaoHome.addRow(new Object[]{nomePet, tipo, nomeTutor, telTutor});
+                tabelaAdocaoHome.addRow(new Object[]{nomePet, tipo, nomeTutor});
             }
         }
 
         // Configura a tabela de pets
         tblPets.setModel(tabelaPetHome);
         JScrollPane scrollPanePets = new JScrollPane(tblPets);
-        scrollPanePets.setBounds(77, 198, 169, 186);
+        scrollPanePets.setBounds(28, 197, 198, 186);
         this.add(scrollPanePets);
 
         // Configura a tabela de adoções
         tblAdotados.setModel(tabelaAdocaoHome);
         JScrollPane scrollPaneAdotados = new JScrollPane(tblAdotados);
-        scrollPaneAdotados.setBounds(315, 198, 266, 186);
+        scrollPaneAdotados.setBounds(265, 197, 266, 186);
         this.add(scrollPaneAdotados);
     }
   
