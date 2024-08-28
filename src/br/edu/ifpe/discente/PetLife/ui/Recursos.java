@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -19,6 +21,15 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import br.edu.ifpe.discente.PetLife.business.AnimaisService;
 import br.edu.ifpe.discente.PetLife.business.RecursosService;
 import br.edu.ifpe.discente.PetLife.ui.entities.Animais;
@@ -26,9 +37,13 @@ import br.edu.ifpe.discente.PetLife.ui.entities.GraficoBarra;
 import br.edu.ifpe.discente.PetLife.ui.exception.BusinessException;
 
 import javax.swing.JScrollPane;
+
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.awt.event.ItemEvent;
 
 public class Recursos extends JPanel {
@@ -114,6 +129,12 @@ public class Recursos extends JPanel {
 		//Botão que vai extrair os relatórios
 		
 		JButton btnRelatorio = new JButton("Relatório");
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gerarPdf();
+			}
+		});
+		btnRelatorio.setToolTipText("ListaRelatório");
 		btnRelatorio.setBounds(231, 413, 112, 23);
 		add(btnRelatorio);
 		
@@ -172,6 +193,66 @@ public class Recursos extends JPanel {
 			}
 		}
 	}
+	
+	private void gerarPdf() {
+	    Document document = new Document();
+	    try {
+	        PdfWriter.getInstance(document, new FileOutputStream("RelatorioGastos.pdf"));
+	        document.open();
+	        
+	        // Adiciona a data ao PDF
+	        Date data = new Date();
+	        DateFormat formatador = DateFormat.getDateInstance(DateFormat.FULL);
+	        document.add(new Paragraph(formatador.format(data)));	       
+	        
+	        URL imgURL = getClass().getResource("/Imagens/estatisticas2.png");
+	        com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(imgURL);
+	        image.setAlignment(com.itextpdf.text.Image.ALIGN_RIGHT);
+	        image.scaleToFit(25, 25);
+	        document.add(image);
+	        
+	        
+	        com.itextpdf.text.Font fonteTitulo = FontFactory.getFont(FontFactory.HELVETICA, 22, Font.BOLD);
+	        document.add(new Paragraph("Relatório de gastos: ", fonteTitulo));     
+	        document.add(new Paragraph(" ")); // Adiciona uma linha em branco
+
+	        // Cria uma tabela PDF com duas colunas
+	        PdfPTable tabela = new PdfPTable(3);
+	        tabela.addCell("ID");
+	        tabela.addCell("Nome do Animal");
+	        tabela.addCell("Gasto");
+	        int id = 1;      //Setando o ID inicial
+	        // Itera sobre o modelo da tabela e adiciona dados ao PDF
+	        DefaultTableModel modelo = tabelaGastos.getModelo();
+	        for (int i = 0; i < modelo.getRowCount(); i++) {
+	            String nomeAnimal = (String) modelo.getValueAt(i, 1); // O 1 se refere a coluna 1(A de animal)
+	            String gasto = modelo.getValueAt(i, 2).toString();    // O 2 se refere a coluna 2(A de gastos)
+
+	           tabela.addCell(String.valueOf(id));
+	            tabela.addCell(nomeAnimal);
+	            tabela.addCell(gasto);
+	            id++;             //Incrementação no número do ID
+	        }
+
+	        // Adiciona a tabela ao documento PDF
+	        document.add(tabela);
+
+	    } catch (Exception e) {
+	        System.out.println(e);
+	    } finally {
+	        document.close();
+	    }
+
+	    // Abrir o PDF no leitor padrão do sistema
+	    try {
+	        Desktop.getDesktop().open(new File("RelatorioGastos.pdf"));
+	    } catch (Exception e2) {
+	        System.out.println(e2);
+	    }
+	}
+
+	
+	
 	public JComboBox retornarComboBoxFiltro() {
 		return this.comboBoxFiltro;
 	}
