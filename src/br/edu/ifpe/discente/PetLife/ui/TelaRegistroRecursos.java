@@ -63,6 +63,7 @@ public class TelaRegistroRecursos extends JFrame{
 	private JTextField textFieldValorRacaoNova;
 	private JTextField textFieldValorVacinaNova;
     private CardLayout cl_panelMudar;
+    private Recursos recursosWindow;
     private JLabel lblVacina;
     private JLabel lblQuantidadeVacina;
     private JLabel lblValorVacina;
@@ -73,34 +74,9 @@ public class TelaRegistroRecursos extends JFrame{
     private JTextField textFieldNomeMedicamento;
     private JTextField textFieldNomeMarcaRacao;
     private JTextField textFieldNomeVacina;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaRegistroRecursos window = new TelaRegistroRecursos();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public TelaRegistroRecursos() {
-		initialize();
-	}
-
-	
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+    
+	public TelaRegistroRecursos(Recursos recursosWindow) {
+		this.recursosWindow = recursosWindow;
 		setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 580, 455);

@@ -55,7 +55,7 @@ public class Recursos extends JPanel {
 		JButton btnRegistrarRecurso = new JButton("");
 		btnRegistrarRecurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRegistroRecursos telaRecurso = new TelaRegistroRecursos();
+				TelaRegistroRecursos telaRecurso = new TelaRegistroRecursos(Recursos.this);
 				telaRecurso.setVisible(true);				
 			}
 		});
@@ -113,6 +113,25 @@ public class Recursos extends JPanel {
 			;
 		} catch (BusinessException | SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao adicionar gráfico", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	public void recarregarTabelaGastos() {
+		try {
+			AnimaisService servico = new AnimaisService();
+			List<Animais> listaPets = servico.retornarAnimal();
+
+
+			// Atualizar o modelo da tabela
+			DefaultTableModel modelo = tabelaGastos.getModelo();
+			modelo.setRowCount(0); // Limpar o modelo atual
+			RecursosService service = new RecursosService();
+			for (Animais animal : listaPets) {
+				modelo.addRow(new Object[] { animal.getNome(), service.totalGastosAnimal(animal)});
+			}
+
+		} catch (BusinessException | SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao recarregar a tabela de Gastos por Animal",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

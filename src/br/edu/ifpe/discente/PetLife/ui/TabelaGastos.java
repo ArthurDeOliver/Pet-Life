@@ -20,12 +20,13 @@ public class TabelaGastos extends JPanel {
 	    	
 	      
 	        setLayout(new BorderLayout());   
-	        String[] colunas = {"Nome", "Custos"};
+	        String[] colunas = {"Nome", "Gastos"};
 	        modelo = new DefaultTableModel(colunas, 0);
 	        tabela = new JTable(modelo);
 	        
 	     // Configura a tabela para redimensionar as colunas automaticamente
 	        tabela.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+	        tabela.setEnabled(false);
 	        
 	        // Adicionar rolagem a tabela
 	        JScrollPane rolagem = new JScrollPane(tabela);

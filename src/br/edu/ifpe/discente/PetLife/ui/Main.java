@@ -22,6 +22,7 @@ public class Main {
 	private JFrame frame;
 	private CardLayout cardLayout;
 	private JPanel mainPanel;
+	private Recursos recursosWindow;
 	
 	/**
 	 * Launch the application.
@@ -78,10 +79,13 @@ public class Main {
         
         //adicionando paineis no frame mainpainel
         Home home = new Home();
+        Pets pets = new Pets();
+        Adocao adocao = new Adocao();
+        Recursos recursos = new Recursos();
         mainPanel.add(home, "home");
-        mainPanel.add(new Pets(), "pets");
-        mainPanel.add(new Adocao(), "adocao");
-        mainPanel.add(new Recursos(), "recursos");
+        mainPanel.add(pets, "pets");
+        mainPanel.add(adocao, "adocao");
+        mainPanel.add(recursos, "recursos");
         
 		//HEADER BOTÕES DE NAVEGAÇÃO
         
@@ -118,6 +122,7 @@ public class Main {
 		btnAbrirTelaRecursos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "recursos");
+				recursos.recarregarTabelaGastos();
 			}
 		});
 		btnAbrirTelaRecursos.setFont(new Font("DejaVu Sans", Font.PLAIN, 14));
