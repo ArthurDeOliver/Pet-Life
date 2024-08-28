@@ -61,9 +61,9 @@ public class AdocaoRepository {
 			statement.setInt(1, adocao.getIdPet());
 			statement.setString(2, adocao.getNomePet());
 			statement.setString(3, adocao.getTipoPet());
-			statement.setString(4, adocao.getNomeTutor());
+			statement.setString(4, Character.toUpperCase(adocao.getNomeTutor().charAt(0)) + adocao.getNomeTutor().substring(1));
 			statement.setString(5, adocao.getCpf());
-			statement.setString(6, adocao.getEndereco());
+			statement.setString(6, Character.toUpperCase(adocao.getEndereco().charAt(0)) + adocao.getEndereco().substring(1));
 			statement.setString(7, adocao.getTelefone());
 			statement.execute();
 
@@ -99,8 +99,8 @@ public class AdocaoRepository {
 				Adocoes adocao = new Adocoes(
 
 						rs.getInt("id_pet"), rs.getString("nome_pet"), rs.getString("tipo_pet"),
-						rs.getString("nome_tutor"), rs.getString("cpf_tutor"), rs.getString("endereco_tutor"),
-						rs.getString("telefone_tutor"));
+						rs.getString("nome_tutor"), rs.getString("cpf_tutor"),
+						rs.getString("telefone_tutor"), rs.getString("endereco_tutor"));
 				listaAdocoes.add(adocao);
 			}
 		}catch(Exception e) {

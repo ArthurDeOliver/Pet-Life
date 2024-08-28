@@ -248,7 +248,7 @@ public class TelaEdicaoPet extends JFrame {
 
                         String originalPath = fotoMap.get(petID);
 
-                        String fileName = petID + "_" + animalSelecionado.getNome(); 
+                        String fileName = "foto" + petID; 
 
                         File destFile = new File(appDataDir, fileName);
 

@@ -210,7 +210,7 @@ public class Adocao extends JPanel {
 
 			for (Adocoes adocao : listaPetsAdotados) {
 				modelo.addRow(new Object[] { adocao.getIdPet(), adocao.getNomePet(), adocao.getTipoPet(),
-						adocao.getNomeTutor(), adocao.getCpf(), adocao.getEndereco(), adocao.getTelefone() });
+						adocao.getNomeTutor(), adocao.getCpf(), adocao.getTelefone(), adocao.getEndereco() });
 			}
 
 			TabelaAdocoes.getTabela().clearSelection();

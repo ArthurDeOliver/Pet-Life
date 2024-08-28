@@ -125,10 +125,10 @@ public class Pets extends JPanel {
 							textFieldNomePet.setText(animalSelecionado.getNome());
 							textFieldTipoPet.setText(animalSelecionado.getTipo());
 							textFieldRacaPet.setText(animalSelecionado.getRaca());
-							textFieldIdadePet.setText(String.valueOf(animalSelecionado.getIdade()));
+							textFieldIdadePet.setText(String.valueOf(animalSelecionado.getIdade()) + " anos");
 							textFieldStatusPet.setText(animalSelecionado.getStatus());
 
-							String fileName = animalSelecionado.getID() + "_" + animalSelecionado.getNome();
+							String fileName = "foto" + animalSelecionado.getID();
 							String appDataPath = System.getenv("APPDATA");
 							File appDataDir = new File(appDataPath, "Petlife/Imagens");
 							File file = new File(appDataDir, fileName);
@@ -258,7 +258,7 @@ public class Pets extends JPanel {
 
 		JLabel labelImagemPet = new JLabel("Foto");
 		labelImagemPet.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelImagemPet.setBounds(638, 105, 46, 14);
+		labelImagemPet.setBounds(616, 105, 46, 14);
 		add(labelImagemPet);
 
 		JLabel labelIdadePet = new JLabel("Idade");
@@ -273,12 +273,12 @@ public class Pets extends JPanel {
 
 		JLabel labelTipoPet = new JLabel("Tipo");
 		labelTipoPet.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelTipoPet.setBounds(441, 316, 33, 27);
+		labelTipoPet.setBounds(444, 305, 33, 27);
 		add(labelTipoPet);
 
 		JLabel labelRacaPet = new JLabel("Raça");
 		labelRacaPet.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelRacaPet.setBounds(651, 305, 33, 27);
+		labelRacaPet.setBounds(651, 308, 33, 27);
 		add(labelRacaPet);
 
 		JLabel labelStatusPet = new JLabel("Status");
@@ -317,7 +317,7 @@ public class Pets extends JPanel {
 		add(textFieldStatusPet);
 
 		labelFotoPet = new JLabel("");
-		labelFotoPet.setBounds(579, 125, 140, 119);
+		labelFotoPet.setBounds(557, 125, 140, 119);
 		add(labelFotoPet);
 
 	}

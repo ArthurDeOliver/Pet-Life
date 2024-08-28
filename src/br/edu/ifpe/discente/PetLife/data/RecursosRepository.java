@@ -122,7 +122,7 @@ public class RecursosRepository {
 	public void criarVacina(Vacinas vacina) throws SQLException {
 		String sql = "INSERT INTO vacinas (Nome_Vacina, Quantidade_Vacina, Valor_Vacina) VALUES (?, ?, ?)";
 		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-			statement.setString(1, vacina.getNomeVacina());
+			statement.setString(1, Character.toUpperCase(vacina.getNomeVacina().charAt(0)) + vacina.getNomeVacina().substring(1));
 			statement.setInt(2, vacina.getQuantidadeVacina());
 			statement.setDouble(3, vacina.getValorVacina());
 			statement.execute();
@@ -136,7 +136,7 @@ public class RecursosRepository {
 	public void criarMedicamento(Medicamentos medicamento) throws SQLException {
 		String sql = "INSERT INTO medicamentos (Nome_Medicamento, Quantidade_Medicamento, Valor_Medicamento) VALUES (?, ?, ?)";
 		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-			statement.setString(1, medicamento.getNomeMedicamento());
+			statement.setString(1, Character.toUpperCase(medicamento.getNomeMedicamento().charAt(0)) + medicamento.getNomeMedicamento().substring(1));
 			statement.setInt(2, medicamento.getQuantidadeMedicamento());
 			statement.setDouble(3, medicamento.getValorMedicamento());
 			statement.execute();
@@ -151,7 +151,7 @@ public class RecursosRepository {
 	public void criarRacao(Racoes racao) throws SQLException {
 		String sql = "INSERT INTO racoes (Marca_Racao, Quantidade_Racao, Valor_Racao) VALUES (?, ?, ?)";
 		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-			statement.setString(1, racao.getMarcaRacao());
+			statement.setString(1, Character.toUpperCase(racao.getMarcaRacao().charAt(0)) + racao.getMarcaRacao().substring(1));
 			statement.setDouble(2, racao.getQuantidadeRacao());
 			statement.setDouble(3, racao.getValorRacao());
 			statement.execute();
