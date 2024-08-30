@@ -109,6 +109,7 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "adocao");
 				adocao.recarregarTabelaAptos();
+				adocao.btnDesabilitarRegistrarAdocao();
 			}
 		});
 		btnAbrirTelaAdocao.setFont(new Font("DejaVu Sans", Font.PLAIN, 14));

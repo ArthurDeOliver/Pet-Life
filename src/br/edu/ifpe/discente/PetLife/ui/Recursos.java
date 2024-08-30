@@ -64,11 +64,11 @@ public class Recursos extends JPanel {
 		URL imgURL = getClass().getResource("/Imagens/estatisticas2.png");
         ImageIcon icon = new ImageIcon(imgURL);
 		JLabel recursosIcon = new JLabel(icon);
-		recursosIcon.setBounds(121, 6, 46, 37);
+		recursosIcon.setBounds(116, 6, 46, 37);
 		add(recursosIcon);
 		
 		JLabel lblNewLabel = new JLabel("Recursos");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNewLabel.setFont(new Font("DejaVu Sans", Font.PLAIN, 24));
 		lblNewLabel.setBounds(10, 11, 112, 27);
 		add(lblNewLabel);
 		

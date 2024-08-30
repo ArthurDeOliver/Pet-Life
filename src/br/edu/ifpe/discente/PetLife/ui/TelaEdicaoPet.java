@@ -77,7 +77,7 @@ public class TelaEdicaoPet extends JFrame {
         contentPane.add(edicaoPetPainel);
         
         JLabel lblNewLabel = new JLabel("Edição de Pet");
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lblNewLabel.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
         lblNewLabel.setIcon(new ImageIcon(TelaCadastroPet.class.getResource("/Imagens/procurado.png")));
         edicaoPetPainel.add(lblNewLabel);
         
@@ -87,17 +87,17 @@ public class TelaEdicaoPet extends JFrame {
         edicaoPetCorpoPainel.setLayout(null);
         
         JLabel labelNomePet = new JLabel("Nome");
-        labelNomePet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelNomePet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         labelNomePet.setBounds(62, 25, 67, 31);
         edicaoPetCorpoPainel.add(labelNomePet);
         
         JLabel labelIdadePet = new JLabel("Idade");
-        labelIdadePet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelIdadePet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         labelIdadePet.setBounds(61, 103, 46, 23);
         edicaoPetCorpoPainel.add(labelIdadePet);
         
         JLabel labelTipoPet = new JLabel("Tipo");
-        labelTipoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelTipoPet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         labelTipoPet.setBounds(59, 170, 46, 31);
         edicaoPetCorpoPainel.add(labelTipoPet);
         
@@ -136,7 +136,7 @@ public class TelaEdicaoPet extends JFrame {
         
         
         JLabel labelRaçaPet = new JLabel("Raça");
-        labelRaçaPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelRaçaPet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         labelRaçaPet.setBounds(62, 250, 46, 31);
         edicaoPetCorpoPainel.add(labelRaçaPet);
         
@@ -180,7 +180,7 @@ public class TelaEdicaoPet extends JFrame {
         textFieldRacaPet.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         
         JLabel labelRacaoPet = new JLabel("Ração");
-        labelRacaoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelRacaoPet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         labelRacaoPet.setBounds(305, 32, 45, 23);
         edicaoPetCorpoPainel.add(labelRacaoPet);
         
@@ -191,8 +191,8 @@ public class TelaEdicaoPet extends JFrame {
         textFieldRacao.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         
         JLabel labelStatusPet = new JLabel("Status");
-        labelStatusPet.setFont(new Font("Tahoma", Font.BOLD, 14));
-        labelStatusPet.setBounds(305, 100, 46, 31);
+        labelStatusPet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+        labelStatusPet.setBounds(305, 100, 80, 31);
         edicaoPetCorpoPainel.add(labelStatusPet);
         
         comboBoxStatusPet = new JComboBox();
@@ -201,7 +201,7 @@ public class TelaEdicaoPet extends JFrame {
         edicaoPetCorpoPainel.add(comboBoxStatusPet);
         
         JLabel labelFotoPet = new JLabel("Foto");
-        labelFotoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelFotoPet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         labelFotoPet.setBounds(309, 170, 45, 13);
         edicaoPetCorpoPainel.add(labelFotoPet);
         
@@ -231,7 +231,7 @@ public class TelaEdicaoPet extends JFrame {
         edicaoPetCorpoPainel.add(btnFotoPet);
         
         JButton btnEdicaoPet = new JButton("OK");
-        btnEdicaoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        btnEdicaoPet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         btnEdicaoPet.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {

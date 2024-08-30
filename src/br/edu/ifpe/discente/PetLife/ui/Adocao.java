@@ -38,6 +38,7 @@ public class Adocao extends JPanel {
 	TabelaAdocoes tabelaPetsAdotados;
 	private Animais animalSelecionado;
 	private int idPet;
+	private JButton btnRegistrarAdocao;
 	private String nomePet;
 	private String tipoPet;
 	private Adocao mainWindow;
@@ -51,21 +52,21 @@ public class Adocao extends JPanel {
 		URL imgURL = getClass().getResource("/Imagens/coracaom.png");
 		ImageIcon icon = new ImageIcon(imgURL);
 		JLabel adocaoIcon = new JLabel(icon);
-		adocaoIcon.setBounds(90, 6, 46, 37);
+		adocaoIcon.setBounds(95, 7, 46, 37);
 		add(adocaoIcon);
 
 		JLabel lblNewLabel = new JLabel("Adoção");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblNewLabel.setBounds(10, 14, 84, 20);
+		lblNewLabel.setFont(new Font("DejaVu Sans", Font.PLAIN, 24));
+		lblNewLabel.setBounds(10, 11, 104, 29);
 		add(lblNewLabel);
 
 		// Label para tabela de Pets para adoção
 		JLabel lblPetsParaAdocao = new JLabel("Pets para adoção");
-		lblPetsParaAdocao.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPetsParaAdocao.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
 		lblPetsParaAdocao.setBounds(32, 53, 182, 70);
 		add(lblPetsParaAdocao);
 
-		JButton btnRegistrarAdocao = new JButton("");
+		btnRegistrarAdocao = new JButton("");
 		btnRegistrarAdocao.setEnabled(false);
 		btnRegistrarAdocao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -148,7 +149,7 @@ public class Adocao extends JPanel {
 
 		// Label para tabela de Pets adotados
 		JLabel lblPetsAdotados = new JLabel("Pets adotados");
-		lblPetsAdotados.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPetsAdotados.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
 		lblPetsAdotados.setBounds(414, 58, 234, 60);
 		add(lblPetsAdotados);
 
@@ -225,6 +226,10 @@ public class Adocao extends JPanel {
 
 	public Adocao getMainWindowAdocao() {
 		return mainWindow;
+	}
+	
+	public void btnDesabilitarRegistrarAdocao() {
+		this.btnRegistrarAdocao.setEnabled(false);
 	}
 
 }

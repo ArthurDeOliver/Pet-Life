@@ -91,7 +91,7 @@ public class TelaRegistroRecursos extends JFrame {
 		telaPrincipalRecursos.add(containerLabelRegistroRecursos);
 
 		JLabel labelRegistroRecursos = new JLabel("Registro de recursos");
-		labelRegistroRecursos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		labelRegistroRecursos.setFont(new Font("DejaVu Sans", Font.PLAIN, 16));
 		labelRegistroRecursos.setIcon(
 				new ImageIcon(TelaRegistroAdocao.class.getResource("/Imagens/racao-para-animais-de-estimacao.png")));
 		containerLabelRegistroRecursos.add(labelRegistroRecursos);
@@ -107,13 +107,13 @@ public class TelaRegistroRecursos extends JFrame {
 				cl_telaRegistrar.show(telaRegistrar, "telaEstoque");
 			}
 		});
-		btnEstoque.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnEstoque.setFont(new Font("DejaVu Sans", Font.PLAIN, 16));
 		telaPrincipalRecursos.add(btnEstoque);
 
 		JButton btnMedicamentos = new JButton("Medicamentos/Vacinas");
 		btnMedicamentos.setBounds(297, 64, 257, 42);
 		telaPrincipalRecursos.add(btnMedicamentos);
-		btnMedicamentos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnMedicamentos.setFont(new Font("DejaVu Sans", Font.PLAIN, 16));
 
 		telaRegistrar.setBounds(10, 117, 544, 288);
 		telaRegistrar.setBackground(new Color(6, 26, 53));
@@ -137,10 +137,10 @@ public class TelaRegistroRecursos extends JFrame {
 		panelMudar.setLayout(cl_panelMudar);
 
 		JComboBox comboBoxEstoque = new JComboBox();
-		comboBoxEstoque.setFont(new Font("Tahoma", Font.BOLD, 14));
+		comboBoxEstoque.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		comboBoxEstoque.setModel(new DefaultComboBoxModel(
 				new String[] { "Novo Medicamento", "Nova Ração", "Nova Vacina", "Medicamentos", "Rações", "Vacinas" }));
-		comboBoxEstoque.setBounds(188, 11, 128, 22);
+		comboBoxEstoque.setBounds(188, 11, 170, 22);
 		telaEstoque.add(comboBoxEstoque);
 
 		JPanel panelNovoMedicamento = new JPanel();
@@ -149,8 +149,8 @@ public class TelaRegistroRecursos extends JFrame {
 		panelNovoMedicamento.setLayout(null);
 
 		JLabel lblNomeMedicamentoNovo = new JLabel("Nome Medicamento");
-		lblNomeMedicamentoNovo.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNomeMedicamentoNovo.setBounds(188, 25, 138, 21);
+		lblNomeMedicamentoNovo.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+		lblNomeMedicamentoNovo.setBounds(188, 25, 148, 21);
 		panelNovoMedicamento.add(lblNomeMedicamentoNovo);
 
 		textFieldNomeMedicamentoNovo = new JTextField();
@@ -176,7 +176,7 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldNomeMedicamentoNovo.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
 
 		JLabel lblQuantidadeMedicamentoNovo = new JLabel("Quantidade");
-		lblQuantidadeMedicamentoNovo.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblQuantidadeMedicamentoNovo.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblQuantidadeMedicamentoNovo.setBounds(211, 80, 86, 17);
 		panelNovoMedicamento.add(lblQuantidadeMedicamentoNovo);
 
@@ -207,8 +207,8 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldQuantidadeMedicamentoNovo.setColumns(10);
 
 		JLabel lblValorMedicamentoNovo = new JLabel("Valor (Unitário)");
-		lblValorMedicamentoNovo.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblValorMedicamentoNovo.setBounds(203, 139, 110, 14);
+		lblValorMedicamentoNovo.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+		lblValorMedicamentoNovo.setBounds(203, 139, 180, 14);
 		panelNovoMedicamento.add(lblValorMedicamentoNovo);
 
 		textFieldValorMedicamentoNovo = new JTextField();
@@ -238,7 +238,7 @@ public class TelaRegistroRecursos extends JFrame {
 
 		btnRegistrarMedicamentoNovo = new JButton("Registrar");
 
-		btnRegistrarMedicamentoNovo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRegistrarMedicamentoNovo.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnRegistrarMedicamentoNovo.setBounds(417, 179, 105, 30);
 		panelNovoMedicamento.add(btnRegistrarMedicamentoNovo);
 
@@ -248,7 +248,7 @@ public class TelaRegistroRecursos extends JFrame {
 		panelNovaRacao.setLayout(null);
 
 		JLabel lblMarcaRacaoNova = new JLabel("Marca da Ração");
-		lblMarcaRacaoNova.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblMarcaRacaoNova.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblMarcaRacaoNova.setBounds(188, 25, 138, 21);
 		panelNovaRacao.add(lblMarcaRacaoNova);
 
@@ -273,7 +273,7 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldMarcaRacaoNova.setColumns(10);
 
 		JLabel lblQuantidadeRacaoNova = new JLabel("Quantidade (KG)");
-		lblQuantidadeRacaoNova.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblQuantidadeRacaoNova.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblQuantidadeRacaoNova.setBounds(188, 80, 131, 17);
 		panelNovaRacao.add(lblQuantidadeRacaoNova);
 
@@ -296,7 +296,7 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldQuantidadeRacaoNova.setColumns(10);
 
 		JLabel lblValorRacaoNova = new JLabel("Valor");
-		lblValorRacaoNova.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblValorRacaoNova.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblValorRacaoNova.setBounds(232, 139, 42, 14);
 		panelNovaRacao.add(lblValorRacaoNova);
 
@@ -321,7 +321,7 @@ public class TelaRegistroRecursos extends JFrame {
 
 		JButton btnRegistrarRacaoNova = new JButton("Registrar");
 
-		btnRegistrarRacaoNova.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRegistrarRacaoNova.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnRegistrarRacaoNova.setBounds(417, 179, 105, 30);
 		panelNovaRacao.add(btnRegistrarRacaoNova);
 
@@ -331,8 +331,8 @@ public class TelaRegistroRecursos extends JFrame {
 		panelNovaVacina.setLayout(null);
 
 		JLabel lblVacinaNova = new JLabel("Vacina");
-		lblVacinaNova.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVacinaNova.setBounds(227, 22, 45, 21);
+		lblVacinaNova.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+		lblVacinaNova.setBounds(227, 22, 65, 21);
 		panelNovaVacina.add(lblVacinaNova);
 
 		JTextField textFieldVacinaNova = new JTextField();
@@ -353,7 +353,7 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldVacinaNova.setColumns(10);
 
 		JLabel lblQuantidadeVacinaNova = new JLabel("Quantidade");
-		lblQuantidadeVacinaNova.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblQuantidadeVacinaNova.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblQuantidadeVacinaNova.setBounds(211, 80, 86, 17);
 		panelNovaVacina.add(lblQuantidadeVacinaNova);
 
@@ -376,8 +376,8 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldQuantidadeVacinaNova.setColumns(10);
 
 		JLabel lblValorVacinaNova = new JLabel("Valor (Unitário)");
-		lblValorVacinaNova.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblValorVacinaNova.setBounds(202, 139, 110, 14);
+		lblValorVacinaNova.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+		lblValorVacinaNova.setBounds(202, 139, 180, 14);
 		panelNovaVacina.add(lblValorVacinaNova);
 
 		JTextField textFieldValorVacinaNova = new JTextField();
@@ -399,7 +399,7 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldValorVacinaNova.setColumns(10);
 
 		JButton btnRegistrarVacinaNova = new JButton("Registrar");
-		btnRegistrarVacinaNova.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRegistrarVacinaNova.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnRegistrarVacinaNova.setBounds(417, 179, 105, 30);
 		panelNovaVacina.add(btnRegistrarVacinaNova);
 
@@ -414,7 +414,7 @@ public class TelaRegistroRecursos extends JFrame {
 		scrollPaneMedicamento.setViewportView(comboBoxMedicamento);
 
 		JLabel lblQuantidadeMedicamento = new JLabel("Quantidade");
-		lblQuantidadeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblQuantidadeMedicamento.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblQuantidadeMedicamento.setBounds(211, 100, 86, 17);
 		panelMedicamento.add(lblQuantidadeMedicamento);
 
@@ -438,8 +438,8 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldQuantidadeMedicamento.setColumns(10);
 
 		JLabel lblValorMedicamento = new JLabel("Valor (Unitário)");
-		lblValorMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblValorMedicamento.setBounds(202, 159, 106, 14);
+		lblValorMedicamento.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+		lblValorMedicamento.setBounds(202, 159, 156, 14);
 		panelMedicamento.add(lblValorMedicamento);
 
 		JTextField textFieldValorMedicamento = new JTextField();
@@ -461,7 +461,7 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldValorMedicamento.setColumns(10);
 
 		JButton btnAdicionarMedicamento = new JButton("Adicionar");
-		btnAdicionarMedicamento.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAdicionarMedicamento.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnAdicionarMedicamento.setBounds(417, 179, 105, 30);
 		panelMedicamento.add(btnAdicionarMedicamento);
 		panelMedicamento.setLayout(null);
@@ -477,7 +477,7 @@ public class TelaRegistroRecursos extends JFrame {
 		JComboBox comboBoxRacao = new JComboBox();
 
 		JLabel lblNomeMedicamento = new JLabel(" Nome");
-		lblNomeMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNomeMedicamento.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblNomeMedicamento.setBounds(224, 46, 51, 17);
 		panelMedicamento.add(lblNomeMedicamento);
 
@@ -500,7 +500,7 @@ public class TelaRegistroRecursos extends JFrame {
 		scrollPaneRacao.setViewportView(comboBoxRacao);
 
 		JLabel lblNomeMarcaRacao = new JLabel("Nome");
-		lblNomeMarcaRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNomeMarcaRacao.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblNomeMarcaRacao.setBounds(224, 46, 51, 17);
 		panelRacao.add(lblNomeMarcaRacao);
 
@@ -522,7 +522,7 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldNomeMarcaRacao.setColumns(10);
 
 		JLabel lblQuantidadeRacao = new JLabel("Quantidade");
-		lblQuantidadeRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblQuantidadeRacao.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblQuantidadeRacao.setBounds(211, 100, 86, 17);
 		panelRacao.add(lblQuantidadeRacao);
 
@@ -545,7 +545,7 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldQuantidadeRacao.setColumns(10);
 
 		JLabel lblValorRacao = new JLabel("Valor");
-		lblValorRacao.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblValorRacao.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblValorRacao.setBounds(233, 159, 42, 14);
 		panelRacao.add(lblValorRacao);
 
@@ -570,7 +570,7 @@ public class TelaRegistroRecursos extends JFrame {
 
 		JButton btnAdicionarRacao = new JButton("Adicionar");
 
-		btnAdicionarRacao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAdicionarRacao.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnAdicionarRacao.setBounds(417, 179, 105, 30);
 		panelRacao.add(btnAdicionarRacao);
 		panelRacao.setLayout(null);
@@ -587,7 +587,7 @@ public class TelaRegistroRecursos extends JFrame {
 		scrollPaneVacina.setViewportView(comboBoxVacina);
 
 		JLabel lblQuantidadeVacina = new JLabel("Quantidade");
-		lblQuantidadeVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblQuantidadeVacina.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblQuantidadeVacina.setBounds(211, 100, 86, 17);
 		panelVacina.add(lblQuantidadeVacina);
 
@@ -610,7 +610,7 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldQuantidadeVacina.setColumns(10);
 
 		JLabel lblValorVacina = new JLabel("Valor (Unitário)");
-		lblValorVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblValorVacina.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblValorVacina.setBounds(201, 159, 112, 14);
 		panelVacina.add(lblValorVacina);
 
@@ -633,7 +633,7 @@ public class TelaRegistroRecursos extends JFrame {
 		textFieldValorVacina.setColumns(10);
 
 		JLabel lblNomeVacina = new JLabel("Nome");
-		lblNomeVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNomeVacina.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		lblNomeVacina.setBounds(224, 46, 51, 17);
 		panelVacina.add(lblNomeVacina);
 
@@ -655,7 +655,7 @@ public class TelaRegistroRecursos extends JFrame {
 		});
 
 		JButton btnAdicionarVacina = new JButton("Adicionar");
-		btnAdicionarVacina.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAdicionarVacina.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnAdicionarVacina.setBounds(417, 179, 105, 30);
 		panelVacina.add(btnAdicionarVacina);
 		panelVacina.setLayout(null);
@@ -670,27 +670,29 @@ public class TelaRegistroRecursos extends JFrame {
 		telaMedicamentos.add(scrollPaneSelecionarAnimal);
 
 		JComboBox comboBoxSelecionarAnimal = new JComboBox();
+		comboBoxSelecionarAnimal.setLocation(150, 0);
 
 		JScrollPane scrollPaneSelecionarVacina = new JScrollPane();
 		scrollPaneSelecionarVacina.setBounds(150, 96, 210, 24);
 		telaMedicamentos.add(scrollPaneSelecionarVacina);
 
 		JComboBox comboBoxSelecionarVacina = new JComboBox();
+		comboBoxSelecionarVacina.setLocation(150, 0);
 		scrollPaneSelecionarVacina.setViewportView(comboBoxSelecionarVacina);
 		
 		JLabel lblSelecionarAnimal = new JLabel("Animal");
-		lblSelecionarAnimal.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSelecionarAnimal.setBounds(228, 15, 46, 14);
+		lblSelecionarAnimal.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+		lblSelecionarAnimal.setBounds(228, 15, 53, 14);
 		telaMedicamentos.add(lblSelecionarAnimal);
 		
 		JLabel lblSelecionarVacina = new JLabel("Vacina");
-		lblSelecionarVacina.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSelecionarVacina.setBounds(228, 75, 46, 14);
+		lblSelecionarVacina.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+		lblSelecionarVacina.setBounds(228, 75, 53, 14);
 		telaMedicamentos.add(lblSelecionarVacina);
 		
 		JLabel lblSelecionarMedicamento = new JLabel("Medicamento");
-		lblSelecionarMedicamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSelecionarMedicamento.setBounds(211, 126, 94, 14);
+		lblSelecionarMedicamento.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+		lblSelecionarMedicamento.setBounds(211, 126, 99, 14);
 		telaMedicamentos.add(lblSelecionarMedicamento);
 
 		JScrollPane scrollPaneSelecionarMedicamento = new JScrollPane();
@@ -698,12 +700,13 @@ public class TelaRegistroRecursos extends JFrame {
 		telaMedicamentos.add(scrollPaneSelecionarMedicamento);
 
 		JComboBox comboBoxSelecionarMedicamento = new JComboBox();
+		comboBoxSelecionarMedicamento.setLocation(156, 0);
 		scrollPaneSelecionarMedicamento.setViewportView(comboBoxSelecionarMedicamento);
 
 		scrollPaneSelecionarAnimal.setViewportView(comboBoxSelecionarAnimal);
 		
 		JButton btnRegistrarNoAnimal = new JButton("Registrar");
-		btnRegistrarNoAnimal.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRegistrarNoAnimal.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnRegistrarNoAnimal.setBounds(418, 231, 105, 30);
 		telaMedicamentos.add(btnRegistrarNoAnimal);
 		
@@ -1173,13 +1176,13 @@ public class TelaRegistroRecursos extends JFrame {
 		JLabel lblPetLifeNome = new JLabel("PetLife");
 		lblPetLifeNome.setEnabled(false);
 		lblPetLifeNome.setBackground(new Color(255, 255, 255));
-		lblPetLifeNome.setFont(new Font("Tahoma", Font.PLAIN, 54));
-		lblPetLifeNome.setBounds(192, 66, 160, 78);
+		lblPetLifeNome.setFont(new Font("DejaVu Sans", Font.PLAIN, 54));
+		lblPetLifeNome.setBounds(192, 66, 224, 78);
 		homeTelaRegistrar.add(lblPetLifeNome);
 
 		JLabel lblGerenciandoNome = new JLabel("Gerenciando a vida dos pets");
 		lblGerenciandoNome.setEnabled(false);
-		lblGerenciandoNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblGerenciandoNome.setFont(new Font("DejaVu Sans", Font.PLAIN, 14));
 		lblGerenciandoNome.setBounds(186, 130, 248, 14);
 		homeTelaRegistrar.add(lblGerenciandoNome);
 	}

@@ -60,7 +60,7 @@ public class TelaCadastroPet extends JFrame {
         contentPane.add(CadastroPetPainel);
         
         JLabel lblNewLabel = new JLabel("Cadastro de Pet");
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lblNewLabel.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
         lblNewLabel.setIcon(new ImageIcon(TelaCadastroPet.class.getResource("/Imagens/procurado.png")));
         CadastroPetPainel.add(lblNewLabel);
         
@@ -70,17 +70,17 @@ public class TelaCadastroPet extends JFrame {
         CadastroPetCorpoPainel.setLayout(null);
         
         JLabel labelNomePet = new JLabel("Nome");
-        labelNomePet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelNomePet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         labelNomePet.setBounds(170, 11, 67, 31);
         CadastroPetCorpoPainel.add(labelNomePet);
         
         JLabel labelIdadePet = new JLabel("Idade");
-        labelIdadePet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelIdadePet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         labelIdadePet.setBounds(170, 87, 46, 14);
         CadastroPetCorpoPainel.add(labelIdadePet);
         
         JLabel labelTipoPet = new JLabel("Tipo");
-        labelTipoPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelTipoPet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         labelTipoPet.setBounds(170, 143, 46, 31);
         CadastroPetCorpoPainel.add(labelTipoPet);
         
@@ -119,7 +119,7 @@ public class TelaCadastroPet extends JFrame {
         
         
         JLabel labelRaçaPet = new JLabel("Raça");
-        labelRaçaPet.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelRaçaPet.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         labelRaçaPet.setBounds(170, 214, 46, 31);
         CadastroPetCorpoPainel.add(labelRaçaPet);
         
@@ -151,13 +151,13 @@ public class TelaCadastroPet extends JFrame {
         RadioButtonSemRacaPet.setBounds(170, 247, 153, 23);
         CadastroPetCorpoPainel.add(RadioButtonSemRacaPet);
         
-        RadioButtonRacaDefinidaPet.setBounds(170, 273, 95, 23);
+        RadioButtonRacaDefinidaPet.setBounds(170, 273, 109, 23);
         CadastroPetCorpoPainel.add(RadioButtonRacaDefinidaPet);
         
         
         textFieldRacaPet = new JTextField();
         textFieldRacaPet.setEditable(false);
-        textFieldRacaPet.setBounds(271, 274, 107, 20);
+        textFieldRacaPet.setBounds(285, 274, 107, 20);
         CadastroPetCorpoPainel.add(textFieldRacaPet);
         textFieldRacaPet.setColumns(10);
         textFieldRacaPet.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");

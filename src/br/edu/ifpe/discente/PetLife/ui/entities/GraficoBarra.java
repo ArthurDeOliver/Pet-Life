@@ -27,7 +27,6 @@ public class GraficoBarra extends JPanel {
 		this.dataset = (DefaultCategoryDataset) createDataSet(totalRacoes, totalMedicamentos, totalVacinas, totalRecursos);
 		this.grafico = createGrafico(dataset);
 		this.graficoPanel = new ChartPanel(grafico);		
-		// graficoPanel.setPopupMenu(null);
 		graficoPanel.setRangeZoomable(false);  // Desativa o zoom no eixo Y
 		graficoPanel.setDomainZoomable(false); // Desativa o zoom no eixo X
 		

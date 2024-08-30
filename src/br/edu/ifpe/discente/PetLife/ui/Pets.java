@@ -91,7 +91,7 @@ public class Pets extends JPanel {
 
 		// Label escrito Pets
 		JLabel petsLabel = new JLabel("Pets");
-		petsLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
+		petsLabel.setFont(new Font("DejaVu Sans", Font.PLAIN, 24));
 		petsLabel.setBounds(10, 11, 56, 27);
 		add(petsLabel);
 
