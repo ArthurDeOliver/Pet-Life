@@ -22,7 +22,6 @@ public class Main {
 	private JFrame frame;
 	private CardLayout cardLayout;
 	private JPanel mainPanel;
-	private Recursos recursosWindow;
 	
 	/**
 	 * Launch the application.
@@ -91,7 +90,7 @@ public class Main {
         
         //botão abrir tela de Pets
 		JButton btnAbrirTelaPets = new JButton("Pets");
-		btnAbrirTelaPets.setIcon(new ImageIcon(Main.class.getResource("/Imagens/cachorrop.png")));
+		btnAbrirTelaPets.setIcon(new ImageIcon(Main.class.getResource("/Imagens/bicho-de-estimacao.png")));
 		btnAbrirTelaPets.setForeground(new Color(0, 0, 0));
 		
 		btnAbrirTelaPets.addActionListener(new ActionListener() {
@@ -105,11 +104,12 @@ public class Main {
 		
 		//botão abrir tela de Adoção
 		JButton btnAbrirTelaAdocao = new JButton("Adoção");
-		btnAbrirTelaAdocao.setIcon(new ImageIcon(Main.class.getResource("/Imagens/clinica-de-cuidado-de-animais-domesticos.png")));
+		btnAbrirTelaAdocao.setIcon(new ImageIcon(Main.class.getResource("/Imagens/coracaom.png")));
 		btnAbrirTelaAdocao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "adocao");
-				
+				adocao.recarregarTabelaAptos();
+				adocao.btnDesabilitarRegistrarAdocao();
 			}
 		});
 		btnAbrirTelaAdocao.setFont(new Font("DejaVu Sans", Font.PLAIN, 14));
@@ -118,11 +118,15 @@ public class Main {
 		
 		//botão abrir tela de Recursos
 		JButton btnAbrirTelaRecursos = new JButton("Recursos");
-		btnAbrirTelaRecursos.setIcon(new ImageIcon(Main.class.getResource("/Imagens/estatisticas.png")));
+		btnAbrirTelaRecursos.setIcon(new ImageIcon(Main.class.getResource("/Imagens/estatisticas2.png")));
 		btnAbrirTelaRecursos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(mainPanel, "recursos");
-				recursos.recarregarTabelaGastos();
+				if (recursos.retornarComboBoxFiltro().getSelectedItem() == "Todos") {
+					recursos.recarregarTabelaGastos();
+				} else {
+					recursos.recarregarTabelaGastosPorTipo();
+				}
 			}
 		});
 		btnAbrirTelaRecursos.setFont(new Font("DejaVu Sans", Font.PLAIN, 14));
@@ -147,8 +151,7 @@ public class Main {
         btnAbrirTelaHome.setFont(new Font("DejaVu Sans", Font.PLAIN, 30));
         btnAbrirTelaHome.setBounds(10, 23, 241, 58);
         frame.getContentPane().add(btnAbrirTelaHome);
-        //mandar pro repositorio
-        //carregar a imagem
+
         URL imgURL = getClass().getResource("/Imagens/veterinario.png");
         ImageIcon icon = new ImageIcon(imgURL);
         JLabel imagemLabel = new JLabel(icon);

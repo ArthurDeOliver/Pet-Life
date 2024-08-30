@@ -399,7 +399,7 @@ public class RecursosRepository {
 	}
 
 	public double totalValorRacoes() throws SQLException {
-		String sql = "SELECT SUM(Valor_Racao) AS soma FROM racoes";
+		String sql = "SELECT SUM(Valor_Racao * Quantidade_Racao) AS soma FROM racoes";
 
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);
@@ -424,7 +424,7 @@ public class RecursosRepository {
 	}
 
 	public double totalValorMedicamentos() throws SQLException {
-		String sql = "SELECT SUM(Valor_Medicamento) AS soma FROM medicamentos";
+		String sql = "SELECT SUM(Valor_Medicamento * Quantidade_Medicamento) AS soma FROM medicamentos";
 
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);
@@ -449,7 +449,7 @@ public class RecursosRepository {
 	}
 
 	public double totalValorVacinas() throws SQLException {
-		String sql = "SELECT SUM(Valor_Vacina) AS soma FROM Vacinas";
+		String sql = "SELECT SUM(Valor_Vacina * Quantidade_Vacina) AS soma FROM Vacinas";
 
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);
@@ -460,7 +460,7 @@ public class RecursosRepository {
 				// Se o valor de soma é nulo, retorna 0.0
 				double totalValorVacinas = rs.getDouble("soma");
 				if (rs.wasNull()) {
-					return 0.0;
+					return 0;
 				}
 				return totalValorVacinas;
 			} else {

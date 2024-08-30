@@ -171,6 +171,30 @@ public class AnimaisRepository {
 		}
 	}
 
+	public List<Animais> listarAnimaisPeloTipo(String tipo) throws SQLException {
 
+		String sql = "SELECT * FROM animais WHERE tipo = ?";
+
+		List<Animais> listaDeAnimaisTipo = new ArrayList<>();
+
+		try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+			// Define o valor do parâmetro "tipo"
+			statement.setString(1, tipo);
+
+			try (ResultSet rs = statement.executeQuery()) { // Executa a consulta
+				while (rs.next()) {
+					Animais animal = new Animais(rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"),
+							rs.getString("tipo"), rs.getString("raca"), rs.getInt("racao"), rs.getString("status"),
+							rs.getString("vacina"));
+					listaDeAnimaisTipo.add(animal);
+				}
+			}
+		} catch (Exception e) {
+			throw new SQLException("Erro ao listar animais pelo tipo");
+		}
+		return listaDeAnimaisTipo;
+
+	}
 }
 	

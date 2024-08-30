@@ -20,7 +20,7 @@ public class TabelaGastos extends JPanel {
 	    	
 	      
 	        setLayout(new BorderLayout());   
-	        String[] colunas = {"Nome", "Gastos"};
+	        String[] colunas = {"ID", "Nome", "Gastos (R$)"};
 	        modelo = new DefaultTableModel(colunas, 0);
 	        tabela = new JTable(modelo);
 	        
@@ -37,6 +37,7 @@ public class TabelaGastos extends JPanel {
 	        try {
 				for (Animais animal : listaDeAnimais) {
 				    Object[] linha = {
+				    	animal.getID(),
 				    	animal.getNome(),
 				    	service.totalGastosAnimal(animal)
 				        

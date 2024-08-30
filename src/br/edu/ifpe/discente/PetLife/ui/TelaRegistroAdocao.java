@@ -107,7 +107,7 @@ public class TelaRegistroAdocao extends JFrame {
 
 		// Label de Registro de adoção
 		JLabel lblRegistroAdocao = new JLabel("Registro de adoção");
-		lblRegistroAdocao.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblRegistroAdocao.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
 		lblRegistroAdocao.setIcon(new ImageIcon(
 				TelaRegistroAdocao.class.getResource("/Imagens/clinica-de-cuidado-de-animais-domesticos.png")));
 		panel.add(lblRegistroAdocao);
@@ -118,23 +118,23 @@ public class TelaRegistroAdocao extends JFrame {
 		RegistroAdocaoPainel.setLayout(null);
 
 		JLabel labelNomeTutor = new JLabel("Nome do tutor");
-		labelNomeTutor.setFont(new Font("Tahoma", Font.BOLD, 14));
+		labelNomeTutor.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		labelNomeTutor.setBounds(170, 11, 118, 31);
 		RegistroAdocaoPainel.add(labelNomeTutor);
 
 		JLabel labelCpfTutor = new JLabel("CPF do tutor");
-		labelCpfTutor.setFont(new Font("Tahoma", Font.BOLD, 14));
+		labelCpfTutor.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		labelCpfTutor.setBounds(170, 75, 95, 31);
 		RegistroAdocaoPainel.add(labelCpfTutor);
 
 		JLabel labelEnderecoTutor = new JLabel("Endereço do tutor");
-		labelEnderecoTutor.setFont(new Font("Tahoma", Font.BOLD, 14));
+		labelEnderecoTutor.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
 		labelEnderecoTutor.setBounds(170, 139, 148, 31);
 		RegistroAdocaoPainel.add(labelEnderecoTutor);
 
 		JLabel labelTelefoneTutor = new JLabel("Telefone do tutor");
-		labelTelefoneTutor.setFont(new Font("Tahoma", Font.BOLD, 14));
-		labelTelefoneTutor.setBounds(170, 200, 125, 31);
+		labelTelefoneTutor.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+		labelTelefoneTutor.setBounds(170, 200, 148, 31);
 		RegistroAdocaoPainel.add(labelTelefoneTutor);
 
 		// Adicionando textField com nome do tutor com no máximo 60 caracteres
@@ -215,6 +215,7 @@ public class TelaRegistroAdocao extends JFrame {
 		JButton btnAdotar = new JButton("Adotar");
 		btnAdotar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				mainWindow.btnDesabilitarRegistrarAdocao();
 				int idPet = getIdPet();
 				String nomePet = getNomePet();
 				String tipoPet = getTipoPet();
@@ -244,7 +245,7 @@ public class TelaRegistroAdocao extends JFrame {
 						dispose();
 
 					} catch (BusinessException | SQLException e1) {
-						JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar adotar esse animal.");
+						JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar adotar esse animal.", "Erro", JOptionPane.ERROR_MESSAGE);
 
 					}
 				}

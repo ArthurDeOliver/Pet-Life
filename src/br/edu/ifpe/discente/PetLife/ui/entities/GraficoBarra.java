@@ -24,10 +24,9 @@ public class GraficoBarra extends JPanel {
     private ChartPanel graficoPanel;
     
 	public GraficoBarra(double totalRacoes, double totalMedicamentos, double totalVacinas, double totalRecursos) {
-		CategoryDataset dataset = createDataSet(totalRacoes, totalMedicamentos, totalVacinas, totalRecursos);
-		JFreeChart grafico = createGrafico(dataset);
-		ChartPanel graficoPanel = new ChartPanel(grafico);		
-		// graficoPanel.setPopupMenu(null);
+		this.dataset = (DefaultCategoryDataset) createDataSet(totalRacoes, totalMedicamentos, totalVacinas, totalRecursos);
+		this.grafico = createGrafico(dataset);
+		this.graficoPanel = new ChartPanel(grafico);		
 		graficoPanel.setRangeZoomable(false);  // Desativa o zoom no eixo Y
 		graficoPanel.setDomainZoomable(false); // Desativa o zoom no eixo X
 		
@@ -64,5 +63,16 @@ public class GraficoBarra extends JPanel {
 	         plot.setBackgroundPaint(Color.getHSBColor(hue2,saturation2,brightness2));
 
 	        return graficoBarra;	
+	}
+	public void atualizarGrafico(double totalRacoes, double totalMedicamentos, double totalVacinas, double totalRecursos) {
+		if (this.dataset == null) {
+            this.dataset = new DefaultCategoryDataset();
+        }
+	    this.dataset.setValue(totalRacoes, "Recursos", "Rações");
+	    this.dataset.setValue(totalMedicamentos, "Recursos", "Medicamentos");
+	    this.dataset.setValue(totalVacinas, "Recursos", "Vacinas");
+	    this.dataset.setValue(totalRecursos, "Recursos", "Total");
+	    // Opcional: Atualiza o gráfico (dependendo do seu código, isso pode ser feito automaticamente)
+	    this.grafico.fireChartChanged();
 	}
 }

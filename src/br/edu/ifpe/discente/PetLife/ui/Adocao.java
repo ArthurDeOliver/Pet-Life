@@ -38,6 +38,7 @@ public class Adocao extends JPanel {
 	TabelaAdocoes tabelaPetsAdotados;
 	private Animais animalSelecionado;
 	private int idPet;
+	private JButton btnRegistrarAdocao;
 	private String nomePet;
 	private String tipoPet;
 	private Adocao mainWindow;
@@ -51,21 +52,21 @@ public class Adocao extends JPanel {
 		URL imgURL = getClass().getResource("/Imagens/coracaom.png");
 		ImageIcon icon = new ImageIcon(imgURL);
 		JLabel adocaoIcon = new JLabel(icon);
-		adocaoIcon.setBounds(90, 6, 46, 37);
+		adocaoIcon.setBounds(95, 7, 46, 37);
 		add(adocaoIcon);
 
 		JLabel lblNewLabel = new JLabel("Adoção");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblNewLabel.setBounds(10, 14, 84, 20);
+		lblNewLabel.setFont(new Font("DejaVu Sans", Font.PLAIN, 24));
+		lblNewLabel.setBounds(10, 11, 104, 29);
 		add(lblNewLabel);
 
 		// Label para tabela de Pets para adoção
 		JLabel lblPetsParaAdocao = new JLabel("Pets para adoção");
-		lblPetsParaAdocao.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPetsParaAdocao.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
 		lblPetsParaAdocao.setBounds(32, 53, 182, 70);
 		add(lblPetsParaAdocao);
 
-		JButton btnRegistrarAdocao = new JButton("");
+		btnRegistrarAdocao = new JButton("");
 		btnRegistrarAdocao.setEnabled(false);
 		btnRegistrarAdocao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,6 +115,8 @@ public class Adocao extends JPanel {
 
 					if (linhaSelecionada >= 0) {
 						int idAnimal = (int) tabelaAdotaveis.getValueAt(linhaSelecionada, 0);
+						btnRegistrarAdocao.setEnabled(true);
+					
 
 						animalSelecionado = null;
 						for (Animais animal : listaPetsAdotaveis) {
@@ -128,7 +131,7 @@ public class Adocao extends JPanel {
 							nomePet = animalSelecionado.getNome();
 							tipoPet = animalSelecionado.getTipo();
 
-							btnRegistrarAdocao.setEnabled(true);
+							
 						} else {
 							btnRegistrarAdocao.setEnabled(false);
 						}
@@ -137,7 +140,7 @@ public class Adocao extends JPanel {
 
 			});
 		} catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao criar tabela de animais aptos", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null,  "Erro ao instanciar tabela de animais aptos", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 
 		JScrollPane scrollPanePetsAdotaveis = new JScrollPane(TabelaAdotaveis.getTabela());
@@ -146,7 +149,7 @@ public class Adocao extends JPanel {
 
 		// Label para tabela de Pets adotados
 		JLabel lblPetsAdotados = new JLabel("Pets adotados");
-		lblPetsAdotados.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPetsAdotados.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
 		lblPetsAdotados.setBounds(414, 58, 234, 60);
 		add(lblPetsAdotados);
 
@@ -164,7 +167,7 @@ public class Adocao extends JPanel {
 			add(scrollPanePetsAdotados);
 
 		} catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao criar a tabela de animais adotados", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Erro ao instanciar tabela de animais adotados", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		recarregarTabelaAptos();
 
@@ -184,14 +187,14 @@ public class Adocao extends JPanel {
 			modelo.setRowCount(0); // Limpar o modelo atual
 
 			for (Animais animal : listaPetsAdotaveis) {
-				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getTipo(), animal.getIdade(),
+				modelo.addRow(new Object[] { animal.getID(), animal.getNome(), animal.getIdade(), animal.getTipo(),
 						animal.getRaca(), animal.getRacao(), animal.getStatus(), animal.getVacina(), });
 			}
 
 			TabelaAdotaveis.getTabela().clearSelection();
 
 		} catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao recarregar a tabela de aptos", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Erro ao recarregar tabela de pets aptos", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -216,13 +219,17 @@ public class Adocao extends JPanel {
 			TabelaAdocoes.getTabela().clearSelection();
 
 		}catch (BusinessException | SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao recarregar a tabela de adoções", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Erro ao recarregar tabela de adoções", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
 
 	public Adocao getMainWindowAdocao() {
 		return mainWindow;
+	}
+	
+	public void btnDesabilitarRegistrarAdocao() {
+		this.btnRegistrarAdocao.setEnabled(false);
 	}
 
 }
